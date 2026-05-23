@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "fix",
   "description": "Fix GitHub Actions deploy.yml error and create the static species data architecture with build-time fetch scripts",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Fix .github/workflows/deploy.yml line 41: change 'url: ${{ pages.deployment.url }}' to 'url: ${{ steps.deployment.outputs.page_url }}'",
     "Create public/data/ directory for static JSON species data files",
@@ -26,5 +26,5 @@
     "Verify the deploy.yml fix is correct by checking the file content"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All 10 species JSON files created with rich content. Fetch script works with fallback data (no API key needed for pre-populated content). GBIF API calls succeed when run with network access. Build succeeds without errors. Species data files are correctly copied to dist/data/ during build."
 }
