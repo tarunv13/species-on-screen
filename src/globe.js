@@ -18,6 +18,8 @@ const HOTSPOTS = [
 let renderer, scene, camera, controls, globe, atmosphere, markers;
 let animationId = null;
 let container = null;
+let visibilityObserver = null;
+let isVisible = false;
 
 /**
  * Convert latitude/longitude to 3D position on sphere surface
@@ -237,8 +239,27 @@ export function initGlobe() {
   // Resize handler
   window.addEventListener('resize', onResize);
 
-  // Start rendering
-  animate();
+  // Observe visibility - only render when the globe is on screen
+  visibilityObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          if (!isVisible) {
+            isVisible = true;
+            animate();
+          }
+        } else {
+          isVisible = false;
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+          }
+        }
+      }
+    },
+    { threshold: 0 }
+  );
+  visibilityObserver.observe(container);
 }
 
 function onResize() {
@@ -253,6 +274,7 @@ function onResize() {
 }
 
 function animate() {
+  if (!isVisible) return;
   animationId = requestAnimationFrame(animate);
 
   // Pulse markers
@@ -275,6 +297,11 @@ export function destroyGlobe() {
     cancelAnimationFrame(animationId);
     animationId = null;
   }
+  if (visibilityObserver) {
+    visibilityObserver.disconnect();
+    visibilityObserver = null;
+  }
+  isVisible = false;
   if (renderer) {
     renderer.dispose();
     if (container && renderer.domElement.parentNode === container) {

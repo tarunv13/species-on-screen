@@ -49,6 +49,7 @@ class Particle {
 }
 
 let animationId = null;
+let resizeHandler = null;
 
 export function initHero() {
   const heroSection = document.getElementById('hero');
@@ -95,10 +96,12 @@ export function initHero() {
   resize();
   createParticles();
 
-  window.addEventListener('resize', () => {
+  resizeHandler = () => {
     resize();
     createParticles();
-  });
+  };
+
+  window.addEventListener('resize', resizeHandler);
 
   // Start particle animation (skip if reduced motion)
   if (!prefersReducedMotion) {
@@ -158,5 +161,9 @@ export function destroyHero() {
   if (animationId) {
     cancelAnimationFrame(animationId);
     animationId = null;
+  }
+  if (resizeHandler) {
+    window.removeEventListener('resize', resizeHandler);
+    resizeHandler = null;
   }
 }
