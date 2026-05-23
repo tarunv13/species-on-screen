@@ -53,8 +53,12 @@ function init() {
     });
   }
 
-  // Start globe update loop
-  startGlobeUpdate();
+  // Register globe update in the engine's render loop
+  engine.onUpdate((delta) => {
+    if (globe) {
+      globe.update(delta);
+    }
+  });
 }
 
 /**
@@ -88,25 +92,6 @@ function setupScrollTrigger() {
       }
     },
   });
-}
-
-/**
- * Globe update loop (separate from scroll for smooth rotation/interaction)
- */
-function startGlobeUpdate() {
-  let lastTime = performance.now();
-
-  function tick() {
-    requestAnimationFrame(tick);
-    const now = performance.now();
-    const delta = (now - lastTime) / 1000;
-    lastTime = now;
-
-    if (globe) {
-      globe.update(delta);
-    }
-  }
-  tick();
 }
 
 /**

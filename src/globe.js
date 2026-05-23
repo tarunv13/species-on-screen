@@ -234,26 +234,31 @@ export class Globe {
   _setupInteraction() {
     const domElement = this.renderer.domElement;
 
-    domElement.addEventListener('mousemove', (e) => {
+    this._onMouseMove = (e) => {
       this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    });
+    };
 
-    domElement.addEventListener('click', () => {
+    this._onClick = () => {
       if (this.hoveredIndex >= 0) {
         const hotspot = HOTSPOTS[this.hoveredIndex];
         window.location.href = `species/${hotspot.species}.html`;
       }
-    });
+    };
 
-    domElement.addEventListener('mouseenter', () => {
+    this._onMouseEnter = () => {
       this.isHovered = true;
-    });
+    };
 
-    domElement.addEventListener('mouseleave', () => {
+    this._onMouseLeave = () => {
       this.isHovered = false;
       this.mouse.set(-999, -999);
-    });
+    };
+
+    domElement.addEventListener('mousemove', this._onMouseMove);
+    domElement.addEventListener('click', this._onClick);
+    domElement.addEventListener('mouseenter', this._onMouseEnter);
+    domElement.addEventListener('mouseleave', this._onMouseLeave);
   }
 
   async _loadMediaCounts() {
@@ -346,5 +351,41 @@ export class Globe {
       }
       this.renderer.domElement.style.cursor = '';
     }
+  }
+
+  /**
+   * Dispose - remove event listeners, dispose geometries and materials, remove tooltip
+   */
+  dispose() {
+    const domElement = this.renderer.domElement;
+    domElement.removeEventListener('mousemove', this._onMouseMove);
+    domElement.removeEventListener('click', this._onClick);
+    domElement.removeEventListener('mouseenter', this._onMouseEnter);
+    domElement.removeEventListener('mouseleave', this._onMouseLeave);
+
+    // Dispose column meshes
+    this.columnMeshes.forEach((column) => {
+      column.geometry.dispose();
+      column.material.dispose();
+    });
+
+    // Dispose globe sphere and atmosphere
+    if (this.sphere) {
+      this.sphere.geometry.dispose();
+      this.sphere.material.dispose();
+    }
+    if (this.atmosphere) {
+      this.atmosphere.geometry.dispose();
+      this.atmosphere.material.dispose();
+    }
+
+    // Remove tooltip element
+    const tooltip = document.getElementById('globe-tooltip');
+    if (tooltip && tooltip.parentNode) {
+      tooltip.parentNode.removeChild(tooltip);
+    }
+
+    // Remove group from scene
+    this.scene.remove(this.group);
   }
 }

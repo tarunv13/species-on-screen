@@ -1,0 +1,29 @@
+{
+  "id": "FEAT-004",
+  "type": "fix",
+  "description": "Address code review issues: fix divergent Research Questions text, consolidate dual animation loops, add accessibility improvements, add globe event listener cleanup, and add noscript fallback.",
+  "status": "in_progress",
+  "steps": [
+    "1. Fix Research Questions text in index.html to match the canonical wording from fetch-tmdb-data.js",
+    "2. Consolidate dual rAF loops - remove standalone globe loop from main.js, integrate into cinematic engine's loop via a registered update callback, and add document.visibilitychange listener to pause when backgrounded",
+    "3. Add accessibility: noscript block, role/aria-label on scroll progress bar, sr-only class and screen-reader text, aria-labels on species cards",
+    "4. Add dispose() method to Globe class that removes event listeners and disposes Three.js resources",
+    "5. Run npm run build to verify"
+  ],
+  "acceptance_criteria": [
+    "The 4 RQs in index.html match exactly the wording in fetch-tmdb-data.js",
+    "Only one requestAnimationFrame loop runs (in cinematic-engine.js), with globe update integrated",
+    "The render loop pauses when the tab is backgrounded (document.visibilitychange)",
+    "index.html has a <noscript> block with links to all 10 species pages",
+    "Scroll progress bar has role=navigation and aria-label",
+    "Species card links have aria-labels",
+    "A .sr-only CSS class exists and is used for screen-reader descriptions",
+    "Globe class has a dispose() method that removes event listeners and disposes geometries/materials",
+    "npm run build succeeds"
+  ],
+  "verification": [
+    "Run npm run build and confirm success"
+  ],
+  "blocked_reason": null,
+  "findings": null
+}
