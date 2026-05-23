@@ -1,0 +1,73 @@
+{
+  "taxonomy": {
+    "scientific_name": "Eretmochelys imbricata",
+    "common_name": "Hawksbill Turtle",
+    "family": "Cheloniidae",
+    "order": "Testudines",
+    "class": "Reptilia"
+  },
+  "habitat": {
+    "type": "Coral Reef",
+    "description": "The hawksbill turtle glides through the warm, crystalline waters of tropical coral reefs, its narrow, pointed beak perfectly adapted for extracting sponges from crevices in the reef structure. These ancient mariners inhabit a world of extraordinary colour and complexity, navigating between coral heads, sea fans, and underwater caves.\n\nCoral reefs represent the hawksbill's primary feeding grounds, where they play a crucial ecological role by consuming sponges that would otherwise overgrow and smother coral colonies. A single hawksbill may consume over 500 kilograms of sponges per year, maintaining the delicate balance of reef ecosystems.\n\nBeyond the reef, hawksbills traverse vast oceanic distances between feeding and nesting grounds, returning to the same beaches where they hatched decades earlier. Their nesting beaches, typically small, secluded strips of sand backed by coastal vegetation, are as critical to their survival as the reefs themselves.",
+    "range_countries": [
+      "Australia",
+      "Indonesia",
+      "Philippines",
+      "Maldives",
+      "Seychelles",
+      "Mexico",
+      "Cuba",
+      "Solomon Islands",
+      "Papua New Guinea",
+      "Brazil"
+    ],
+    "key_locations": [
+      "Great Barrier Reef",
+      "Coral Triangle",
+      "Caribbean Sea",
+      "Red Sea",
+      "Maldives atolls"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Shell Trade",
+      "description": "Despite international bans, hawksbill shells (\"tortoiseshell\") are still trafficked for jewelry and decorative items, particularly in East Asia."
+    },
+    {
+      "name": "Coral Reef Degradation",
+      "description": "Ocean acidification, warming, and pollution destroy the reef ecosystems hawksbills depend upon for food."
+    },
+    {
+      "name": "Egg Harvesting",
+      "description": "Coastal communities in many regions still collect turtle eggs from nesting beaches for consumption."
+    },
+    {
+      "name": "Bycatch",
+      "description": "Hawksbills are accidentally caught in fishing nets, longlines, and trawls, often resulting in drowning."
+    },
+    {
+      "name": "Coastal Development",
+      "description": "Beach construction, artificial lighting, and erosion destroy or degrade critical nesting habitat."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Critically Endangered",
+    "population_estimate": "20,000-23,000 nesting females",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "CITES Appendix I",
+      "Sea Turtle Conservancy",
+      "WWF Marine Turtle Programme",
+      "Coral Triangle Initiative"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Blue Planet and other ocean documentaries showcase hawksbills as jewels of the reef, their beauty contrasting with their precarious status.",
+    "literature": "Sea turtles appear throughout Pacific Island literature as navigators and spiritual beings connecting the human and ocean worlds.",
+    "mythology": "In many coastal cultures, sea turtles carry the world on their backs or serve as messengers between the land and sea spirits.",
+    "media_presence": "Underwater cinematography has made hawksbills icons of marine conservation, their graceful swimming instantly recognizable.",
+    "cultural_paradox": "The very beauty of their shells that inspired centuries of craftsmanship has driven them toward extinction."
+  },
+  "tmdb_media": []
+}

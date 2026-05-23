@@ -6,13 +6,47 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
  * Procedural coloring with atmosphere glow and biodiversity hotspot markers.
  */
 
-// Biodiversity hotspot locations [lat, lng, name]
+// Biodiversity hotspot locations [lat, lng, name, color] - 31 locations across 10 species
 const HOTSPOTS = [
-  { lat: 21.9, lng: 89.2, name: 'Sundarbans' },
-  { lat: -3.4, lng: -60.0, name: 'Amazon Basin' },
-  { lat: 0.5, lng: 22.0, name: 'Congo Basin' },
-  { lat: -18.3, lng: 147.7, name: 'Great Barrier Reef' },
-  { lat: 1.0, lng: 114.0, name: 'Borneo' },
+  // Tiger - Tropical Forest
+  { lat: 21.9, lng: 89.2, name: 'Sundarbans (Tiger)', color: '#a8c5a0' },
+  { lat: 26.0, lng: 76.5, name: 'Ranthambore (Tiger)', color: '#a8c5a0' },
+  { lat: -0.5, lng: 101.5, name: 'Sumatra (Tiger)', color: '#a8c5a0' },
+  // Snow Leopard - Mountain
+  { lat: 28.0, lng: 84.0, name: 'Himalayas (Snow Leopard)', color: '#e8e4f0' },
+  { lat: 49.0, lng: 88.0, name: 'Altai Mountains (Snow Leopard)', color: '#e8e4f0' },
+  { lat: 42.0, lng: 75.0, name: 'Tian Shan (Snow Leopard)', color: '#e8e4f0' },
+  // Orangutan - Tropical Forest
+  { lat: 1.0, lng: 114.0, name: 'Borneo (Orangutan)', color: '#a8c5a0' },
+  { lat: 2.5, lng: 98.5, name: 'Sumatra (Orangutan)', color: '#a8c5a0' },
+  // Hawksbill Turtle - Coral Reef
+  { lat: 18.0, lng: -64.0, name: 'Caribbean (Hawksbill Turtle)', color: '#8ecae6' },
+  { lat: -18.3, lng: 147.7, name: 'Great Barrier Reef (Hawksbill Turtle)', color: '#8ecae6' },
+  { lat: 22.0, lng: 38.0, name: 'Red Sea (Hawksbill Turtle)', color: '#8ecae6' },
+  // Blue Whale - Ocean
+  { lat: -65.0, lng: -60.0, name: 'Antarctic (Blue Whale)', color: '#8ecae6' },
+  { lat: 34.0, lng: -120.0, name: 'California Coast (Blue Whale)', color: '#8ecae6' },
+  { lat: 7.0, lng: 80.0, name: 'Sri Lanka (Blue Whale)', color: '#8ecae6' },
+  // African Elephant - Savanna
+  { lat: -2.5, lng: 34.8, name: 'Serengeti (African Elephant)', color: '#d4a574' },
+  { lat: -24.0, lng: 31.5, name: 'Kruger (African Elephant)', color: '#d4a574' },
+  { lat: 0.5, lng: 22.0, name: 'Congo Basin (African Elephant)', color: '#d4a574' },
+  { lat: -2.6, lng: 37.2, name: 'Amboseli (African Elephant)', color: '#d4a574' },
+  // Polar Bear - Arctic
+  { lat: 78.0, lng: 16.0, name: 'Svalbard (Polar Bear)', color: '#e8e4f0' },
+  { lat: 58.7, lng: -94.2, name: 'Churchill (Polar Bear)', color: '#e8e4f0' },
+  { lat: 71.0, lng: -179.5, name: 'Wrangel Island (Polar Bear)', color: '#e8e4f0' },
+  // Giant Panda - Temperate Forest
+  { lat: 31.0, lng: 103.5, name: 'Sichuan (Giant Panda)', color: '#a8c5a0' },
+  { lat: 33.5, lng: 107.5, name: 'Qinling (Giant Panda)', color: '#a8c5a0' },
+  // Staghorn Coral - Coral Reef
+  { lat: 24.5, lng: -81.5, name: 'Florida Keys (Staghorn Coral)', color: '#8ecae6' },
+  { lat: 16.8, lng: -88.0, name: 'Belize (Staghorn Coral)', color: '#8ecae6' },
+  { lat: 24.0, lng: -76.0, name: 'Bahamas (Staghorn Coral)', color: '#8ecae6' },
+  // Amazon River Dolphin - Freshwater
+  { lat: -3.4, lng: -60.0, name: 'Amazon (River Dolphin)', color: '#8ecae6' },
+  { lat: 6.0, lng: -67.0, name: 'Orinoco (River Dolphin)', color: '#8ecae6' },
+  { lat: -3.0, lng: -49.5, name: 'Tocantins (River Dolphin)', color: '#8ecae6' },
 ];
 
 let renderer, scene, camera, controls, globe, atmosphere, markers;
@@ -150,7 +184,7 @@ function createMarkers() {
 
     const geometry = new THREE.SphereGeometry(0.02, 16, 16);
     const material = new THREE.MeshBasicMaterial({
-      color: new THREE.Color('#d4a574'),
+      color: new THREE.Color(hotspot.color),
       transparent: true,
       opacity: 0.9,
     });
@@ -163,7 +197,7 @@ function createMarkers() {
     // Add a slightly larger glow sphere around the marker
     const glowGeometry = new THREE.SphereGeometry(0.04, 16, 16);
     const glowMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color('#d4a574'),
+      color: new THREE.Color(hotspot.color),
       transparent: true,
       opacity: 0.25,
     });

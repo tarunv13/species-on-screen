@@ -1,0 +1,545 @@
+/* ==========================================================================
+   Species Page Styles
+   Extends the core design system for individual species profiles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Skip Link
+   -------------------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-forest);
+  color: white;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  transition: top 0.3s;
+  border-radius: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Breadcrumb
+   -------------------------------------------------------------------------- */
+.breadcrumb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+  background: rgba(250, 250, 248, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.breadcrumb ol {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: '>';
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+
+.breadcrumb a {
+  color: var(--color-forest);
+  text-decoration: none;
+  transition: color var(--transition-gentle);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-text);
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Species Page Sections
+   -------------------------------------------------------------------------- */
+.sp-section {
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.sp-section__heading {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  letter-spacing: var(--letter-spacing-heading);
+  line-height: var(--line-height-heading);
+}
+
+.sp-section__subtitle {
+  color: var(--color-text-light);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.sp-panel {
+  margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.sp-hero {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  text-align: center;
+  background: linear-gradient(
+    170deg,
+    var(--color-bg) 0%,
+    var(--color-bg-warm) 40%,
+    rgba(168, 197, 160, 0.1) 100%
+  );
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-hero__content {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.sp-hero__title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.sp-hero__scientific {
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--color-text-light);
+  margin-bottom: 1.5rem;
+}
+
+.sp-hero__meta {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.sp-hero__stat {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--color-text-light);
+}
+
+.sp-hero__stat strong {
+  color: var(--color-savanna);
+  font-size: 1.2em;
+}
+
+/* --------------------------------------------------------------------------
+   Badges
+   -------------------------------------------------------------------------- */
+.sp-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sp-badge--ecosystem {
+  background: rgba(168, 197, 160, 0.2);
+  color: #5a7d52;
+}
+
+.sp-badge--endangered {
+  background: rgba(212, 87, 74, 0.12);
+  color: #d4574a;
+}
+
+.sp-badge--critically-endangered {
+  background: rgba(168, 50, 50, 0.12);
+  color: #a83232;
+}
+
+.sp-badge--vulnerable {
+  background: rgba(196, 127, 44, 0.12);
+  color: #c47f2c;
+}
+
+.sp-badge--least-concern {
+  background: rgba(168, 197, 160, 0.2);
+  color: #5a7d52;
+}
+
+/* --------------------------------------------------------------------------
+   Habitat Section
+   -------------------------------------------------------------------------- */
+.sp-habitat__description p {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  max-width: 65ch;
+}
+
+.sp-habitat__description p:last-child {
+  margin-bottom: 0;
+}
+
+.sp-habitat__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.sp-habitat__details h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-light);
+  margin-bottom: 0.5rem;
+}
+
+.sp-habitat__details p,
+.sp-habitat__details li {
+  color: var(--color-text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.sp-habitat__details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sp-habitat__details li {
+  padding: 0.25rem 0;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.sp-habitat__details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--color-forest);
+}
+
+/* --------------------------------------------------------------------------
+   Media Section (TMDB)
+   -------------------------------------------------------------------------- */
+.sp-media__empty {
+  color: var(--color-text-light);
+  font-style: italic;
+  padding: 2rem;
+  text-align: center;
+  background: var(--glass-bg);
+  border-radius: 1rem;
+  border: 1px solid var(--glass-border);
+}
+
+.sp-media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.sp-media-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.sp-media-card__poster {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.sp-media-card__no-poster {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-bg-warm), var(--color-bg-section-alt));
+  border-radius: 1rem 1rem 0 0;
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+}
+
+.sp-media-card__info {
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-grow: 1;
+}
+
+.sp-media-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sp-media-card__meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.sp-media-card__rating {
+  color: var(--color-savanna);
+  font-weight: 500;
+}
+
+.sp-media-card__overview {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Threats Section
+   -------------------------------------------------------------------------- */
+.sp-threats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.sp-threat {
+  border-left: 3px solid var(--color-savanna);
+}
+
+.sp-threat__name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.sp-threat__description {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Conservation Section
+   -------------------------------------------------------------------------- */
+.sp-conservation__panel {
+  margin-top: 1rem;
+}
+
+.sp-conservation__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sp-conservation__item {
+  text-align: center;
+}
+
+.sp-conservation__label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-light);
+  margin-bottom: 0.5rem;
+}
+
+.sp-conservation__value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.sp-conservation__programs h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-light);
+  margin-bottom: 0.75rem;
+}
+
+.sp-conservation__programs ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sp-conservation__programs li {
+  background: rgba(168, 197, 160, 0.15);
+  padding: 0.35rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   Cultural Significance Section
+   -------------------------------------------------------------------------- */
+.sp-cultural__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.sp-cultural__item {
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.sp-cultural__icon {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sp-cultural__item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.sp-cultural__item p {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.sp-footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--glass-border);
+  margin-top: 2rem;
+}
+
+.sp-footer p {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  max-width: none;
+}
+
+.sp-footer a {
+  color: var(--color-forest);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-gentle);
+}
+
+.sp-footer a:hover {
+  color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   JS-loaded Safety Net
+   Elements are only hidden when JS has successfully loaded and added the class.
+   If JS fails, removing .sp-loaded makes everything visible.
+   -------------------------------------------------------------------------- */
+.sp-loaded .sp-section:not(.sp-hero) .sp-section__heading,
+.sp-loaded .sp-section:not(.sp-hero) .glass-panel,
+.sp-loaded .sp-section:not(.sp-hero) .glass-card,
+.sp-loaded .sp-section:not(.sp-hero) .sp-media-card {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* --------------------------------------------------------------------------
+   Loading State
+   -------------------------------------------------------------------------- */
+.species-page-loading {
+  text-align: center;
+  padding: 6rem 2rem;
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .sp-hero {
+    padding-top: 5rem;
+    min-height: 40vh;
+  }
+
+  .sp-habitat__details {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sp-media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .breadcrumb {
+    padding: 0.75rem 1rem;
+  }
+
+  .sp-conservation__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-section,
+  .glass-panel,
+  .glass-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

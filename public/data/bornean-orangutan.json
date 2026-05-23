@@ -1,0 +1,65 @@
+{
+  "taxonomy": {
+    "scientific_name": "Pongo pygmaeus",
+    "common_name": "Bornean Orangutan",
+    "family": "Hominidae",
+    "order": "Primates",
+    "class": "Mammalia"
+  },
+  "habitat": {
+    "type": "Tropical Forest",
+    "description": "The Bornean orangutan dwells in the ancient dipterocarp rainforests of Borneo, spending nearly all its life in the canopy, moving through a three-dimensional world of branches, lianas, and fruiting trees. These forests, among the oldest on Earth, provide an aerial highway system that orangutans navigate with extraordinary spatial memory.\n\nIn the peat swamp forests of the lowlands, orangutans build nightly nests high in the trees, bending and weaving branches into platforms with the skill of practiced architects. The swamp forests, waterlogged and rich in fruit trees, support some of the densest orangutan populations remaining.\n\nHigher on the volcanic slopes of Borneo, montane forests offer a different menu of fruits, bark, and leaves. Here orangutans range more widely, their movements dictated by the irregular fruiting patterns of tropical trees, carrying a mental map of hundreds of food sources across their home ranges.",
+    "range_countries": [
+      "Malaysia",
+      "Indonesia"
+    ],
+    "key_locations": [
+      "Danum Valley",
+      "Kinabatangan River",
+      "Tanjung Puting",
+      "Gunung Palung",
+      "Kutai National Park"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Palm Oil Deforestation",
+      "description": "Industrial palm oil plantations have destroyed millions of hectares of orangutan habitat, fragmenting populations into isolated patches."
+    },
+    {
+      "name": "Illegal Pet Trade",
+      "description": "Infant orangutans are captured for the pet trade, with mothers typically killed in the process."
+    },
+    {
+      "name": "Forest Fires",
+      "description": "Peat fires, often set to clear land for agriculture, devastate orangutan habitat and can burn for months underground."
+    },
+    {
+      "name": "Logging",
+      "description": "Both legal and illegal timber extraction removes the large fruiting trees that orangutans depend upon for food and nesting."
+    },
+    {
+      "name": "Hunting",
+      "description": "In some areas orangutans are hunted for bushmeat or killed as crop pests when they venture into plantations."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Critically Endangered",
+    "population_estimate": "104,700",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "Borneo Orangutan Survival Foundation",
+      "Orangutan Foundation International",
+      "HUTAN-KOCP",
+      "Roundtable on Sustainable Palm Oil"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Orangutans feature prominently in documentaries about deforestation, becoming the poster species for the palm oil crisis.",
+    "literature": "From Edgar Allan Poe's \"Murders in the Rue Morgue\" to Terry Pratchett's Librarian, orangutans occupy a unique space in fiction.",
+    "mythology": "The name \"orangutan\" derives from Malay \"orang hutan\" meaning \"person of the forest,\" reflecting indigenous recognition of their near-human qualities.",
+    "media_presence": "David Attenborough's emotional encounters with orangutans have become some of the most shared wildlife television moments.",
+    "cultural_paradox": "Our closest relatives in Asia face extinction primarily so that processed foods can contain cheap vegetable oil."
+  },
+  "tmdb_media": []
+}

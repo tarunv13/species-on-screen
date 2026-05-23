@@ -1,0 +1,14 @@
+{
+  "task_id": "task-multi-species-expansion",
+  "task_description": "Expand the Eco-Cinema Observatory from a single-species tiger prototype to a fully functional multi-species platform with 10 flagship species, TMDB API integration for film/documentary data, individual species pages, filterable gallery homepage, expanded globe with 31+ markers, and fixed GitHub Actions deployment.",
+  "status": "completed",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null,
+  "verification": {
+    "build": "pass",
+    "tests": "pass",
+    "test_quality": "pass",
+    "docker_build": "skipped",
+    "summary": "npm run build succeeds (234ms). Produces dist/index.html (13KB) + 10 dist/species/*.html pages + properly code-split JS/CSS bundles. Species page bundle: 7.26KB JS + 7.14KB CSS. Globe chunk: 537KB (Three.js, lazy-loaded). Main chunk: 8.7KB. ScrollTrigger shared chunk: 113KB. All 10 public/data/*.json files contain real TMDB results. Deploy.yml fix verified."
+  }
+}
