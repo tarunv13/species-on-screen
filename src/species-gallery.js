@@ -19,6 +19,9 @@ export function initSpeciesGallery() {
         const ecosystem = card.dataset.ecosystem;
         const shouldShow = filter === 'all' || ecosystem === filter;
         
+        // Kill any in-progress animation to prevent race conditions
+        gsap.killTweensOf(card);
+        
         if (shouldShow) {
           card.style.display = '';
           gsap.fromTo(card, 
