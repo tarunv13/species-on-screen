@@ -1,0 +1,34 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Implement the Concept section, Tiger species profile section, and Vision section completing the full scrollytelling narrative. The concept section explains what the observatory does. The tiger section is a rich prototype demonstrating future species content structure. The vision section closes with forward-looking messaging.",
+  "status": "pending",
+  "steps": [
+    "Create src/concept-section.js - The Observatory Concept: (1) Scroll-triggered reveal of a headline 'What We Observe' or similar, (2) Three frosted-glass cards that appear sequentially as user scrolls, each explaining a pillar: 'Species on Screen' (how species appear in human media/culture), 'Ecological Reality' (what is actually happening to these species), 'The Connection' (how cultural representation shapes conservation outcomes), (3) Each card has an icon/illustration (can be CSS-drawn or emoji initially), brief text, and subtle hover effects with backdrop-filter. Use the liquid glass card style from the design system.",
+    "Create src/tiger-section.js - Tiger (Panthera tigris) Species Profile: (1) Section header with common and scientific name, styled with the warm ochre/savanna palette accent, (2) A hero stat area: 'Fewer than 4,500 remain in the wild' as a large typographic statement that animates in, (3) Tabbed or scroll-segmented content areas (using scroll-driven reveals, not JS tabs) covering: HABITAT (tropical forests, mangroves, grasslands across Asia - mention Sundarbans, Siberia, Sumatra with brief descriptions), CULTURAL PRESENCE (tigers in film, literature, mythology - mention Life of Pi, The Jungle Book, Year of the Tiger symbolism, Bollywood), THREATS (habitat fragmentation, poaching, human-wildlife conflict, climate change), CONSERVATION STATUS (IUCN Endangered, population trends showing recovery from ~3,200 in 2010 to ~4,500 today), (4) A timeline or visual showing the population trajectory, (5) All content should be factual and sourced from real conservation data (WWF, IUCN). Present in beautiful typographic layout with generous whitespace and the frosted glass containers.",
+    "Create src/vision-section.js - The Vision / Where This Goes: (1) A contemplative closing section with darker/deeper version of the pastel palette (slightly more saturated), (2) Headline like 'Every Species Has a Story. Every Story Shapes Our Response.' (3) Brief text about the observatory's future: connecting cultural data (films, news, social media) with ecological data (population, habitat, threat levels) to understand how human attention relates to species fate, (4) A subtle call-to-action or 'Coming Soon' indication, (5) Footer with project attribution",
+    "Update src/scroll-animations.js to add ScrollTrigger animations for all three new sections: concept cards stagger in, tiger stats animate with counter effect, vision section has a cinematic fade-in",
+    "Update src/main.js to import and initialize all new section modules",
+    "Ensure all text content is high-quality, factual (for tiger section), and maintains the contemplative tone throughout. No lorem ipsum.",
+    "Final build verification - run npm run build and confirm the complete site builds cleanly"
+  ],
+  "acceptance_criteria": [
+    "npm run build succeeds without errors",
+    "The concept section contains three explanatory cards with the observatory's pillars",
+    "The tiger section contains factual content about Panthera tigris covering habitat, cultural presence, threats, and conservation status",
+    "The tiger section includes the population statistic (~4,500 remaining)",
+    "The vision section contains forward-looking messaging about the observatory's goals",
+    "All sections integrate with the scroll-animation system (ScrollTrigger triggers defined)",
+    "No lorem ipsum or placeholder text - all content is real and meaningful",
+    "The complete page flows as a coherent narrative from hero through to vision"
+  ],
+  "verification": [
+    "Run 'npm run build' in /projects/sandbox/species-on-screen and confirm exit code 0",
+    "Confirm src/tiger-section.js exists and contains factual tiger content (population numbers, habitat info, cultural references)",
+    "Confirm src/concept-section.js exists and defines the three observatory pillars",
+    "Confirm src/vision-section.js exists with closing narrative content",
+    "Confirm the final dist/index.html contains all sections and bundled assets"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
