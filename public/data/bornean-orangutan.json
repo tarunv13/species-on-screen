@@ -61,5 +61,46 @@
     "media_presence": "David Attenborough's emotional encounters with orangutans have become some of the most shared wildlife television moments.",
     "cultural_paradox": "Our closest relatives in Asia face extinction primarily so that processed foods can contain cheap vegetable oil."
   },
+  "hero_stat": "100 orangutans lost every week due to habitat destruction",
+  "hero_image": {
+    "url": null,
+    "credit": null,
+    "source": null
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Consumers unable to identify palm oil in products",
+      "Smallholder farmers lack alternative livelihood training",
+      "Rescue centres overwhelmed with displaced orphan orangutans"
+    ],
+    "opportunity": [
+      "Global palm oil demand creates irresistible economic pressure on forests",
+      "Weak enforcement of forestry laws in remote Borneo",
+      "Fire as cheap land-clearing method remains accessible"
+    ],
+    "motivation": [
+      "Palm oil highly profitable compared to sustainable alternatives",
+      "Consumer disconnect between products and deforestation",
+      "Short election cycles discourage long-term forest protection policies"
+    ]
+  },
+  "evidence_summary": "Documentaries linking orangutan decline to palm oil consumption have measurably shifted consumer purchasing behaviour and supported growth of RSPO-certified products, though industry-wide change remains slow (Silk et al., 2018).",
+  "methodology_notes": "Bornean orangutan connects to RQ1 through consumer behaviour change tracking post-documentary; RQ2 through emotional narrative techniques using infant rescue stories; RQ3 through supply-chain simulation game potential; RQ4 through RSPO certification uptake as measurable outcome.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Wich, S.A. et al. (2012). Understanding the impacts of land-use policies on a threatened species. PLoS ONE, 7(11), e49525.",
+    "Meijaard, E. et al. (2011). Quantifying killing of orangutans and human-orangutan conflict in Kalimantan. PLoS ONE, 6(11), e27491."
+  ],
   "tmdb_media": []
 }

@@ -1,0 +1,34 @@
+{
+  "id": "FEAT-001",
+  "type": "fix",
+  "description": "Rebuild the TMDB data pipeline with semantic filtering to eliminate contaminated results. The current scripts/fetch-tmdb-data.js returns irrelevant films (war movies with 'Tiger' in name, mafia films called 'Paper Tiger', martial arts films). Must implement genre filtering, keyword-based semantic validation, narrative technique classification, and confidence scoring. Also restructure output JSON to include the new academic content architecture (RQ framework, COM-B model, methodology, evidence sections, academic references).",
+  "status": "in_progress",
+  "steps": [
+    "Completely rewrite scripts/fetch-tmdb-data.js with the following improvements:",
+    "1. Keep the existing SPECIES array with all 10 species data (taxonomy, habitat, threats, conservation, cultural_significance) but enhance each species entry with new fields: hero_stat (one devastating statistic), root_causes_comb (COM-B structured: capability barriers, opportunity barriers, motivation barriers), evidence_summary (what research shows about media-conservation correlation), methodology_notes (how species connects to RQ1-RQ4), and academic_references array.",
+    "2. Implement semantic filtering for TMDB queries: a) Search with species-specific queries plus wildlife/nature/conservation terms. b) Filter results by genre - keep documentary (genre_id=99) always; for fiction, only keep if overview/title contains species-related keywords (the actual animal, wildlife, nature, conservation, jungle, forest, ocean, reef, etc). c) Reject 'semantic traps' - films where the species name is used metaphorically (war films, martial arts, crime/mafia, sports films that just use animal names as titles).",
+    "3. Add a relevance scoring function: score each result 0-100 based on genre match (documentary=+50), overview keyword density (wildlife/nature/conservation/species terms), title exactness, and whether overview mentions the actual animal. Only keep results scoring >= 40.",
+    "4. Classify each kept result by narrative technique for RQ2: 'observational' (pure wildlife footage), 'presenter-led' (hosted documentary), 'dramatic-reconstruction' (dramatized events), 'anthropomorphic' (animals given human traits/voices), 'adventure-narrative' (journey/quest structure), 'educational' (instructional), 'fiction-featuring' (fiction with real species as plot element). Use genre_ids and overview keywords to determine classification.",
+    "5. Add full metadata to each media result: title, year, director (fetch from TMDB movie details endpoint /movie/{id}), tmdb_url (https://www.themoviedb.org/movie/{id}), poster_path, backdrop_path, overview, classification (documentary/fiction/educational), narrative_technique, relevance_score, query_source (what query found it), genre_ids.",
+    "6. Add a getMovieDetails(movieId) function that fetches /movie/{id} to get director name and backdrop_path for each relevant film.",
+    "7. Fetch hero images for each species from Unsplash API (access key: use a placeholder 'UNSPLASH_ACCESS_KEY' env variable with fallback). If Unsplash is not available, use TMDB backdrop images from the most relevant documentary. Store hero_image object with url, credit, and source.",
+    "8. Structure the final output JSON per species to include all new fields: taxonomy, habitat, threats, conservation, cultural_significance, hero_stat, hero_image, root_causes_comb, evidence_summary, methodology_notes, academic_references, research_questions (the 4 RQs with per-species relevance notes), tmdb_media (filtered and enriched).",
+    "9. Add the 6 academic references as a shared constant that gets included in every species file: Rose 2016, Balmford et al 2002, Silk et al 2018, Jones et al 2019, Macdonald et al 2016, Michie et al 2011.",
+    "10. Run the script to regenerate all 10 public/data/*.json files with clean, filtered data."
+  ],
+  "acceptance_criteria": [
+    "Running `node scripts/fetch-tmdb-data.js` completes successfully and generates 10 JSON files in public/data/",
+    "The tiger.json file no longer contains 'The Tank' (war film), 'Paper Tiger' (mafia film), 'Tiger Cage' (martial arts), 'Crouching Tiger Hidden Dragon' (martial arts), 'Blue Tiger' (crime), or similar irrelevant results",
+    "Each media entry in the JSON includes: title, year, tmdb_url, classification, narrative_technique, relevance_score",
+    "Each species JSON includes root_causes_comb, evidence_summary, methodology_notes, academic_references, research_questions fields",
+    "The 'Tiger' (2024) documentary with genre_id 99 is retained as a relevant result",
+    "npm run build succeeds after data regeneration"
+  ],
+  "verification": [
+    "Run `node scripts/fetch-tmdb-data.js` and confirm it completes without errors",
+    "Inspect public/data/tiger.json to verify contaminated results are removed and new fields are present",
+    "Run `npm run build` to confirm the site still builds"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

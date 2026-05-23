@@ -60,50 +60,115 @@
     "media_presence": "As the WWF logo species since 1961, the panda is arguably the world's most recognizable conservation symbol.",
     "cultural_paradox": "Massive conservation investment in a single charismatic species raises questions about resource allocation while also funding broader ecosystem protection."
   },
+  "hero_stat": "Only 1,864 giant pandas remain in the wild across 30 fragmented populations",
+  "hero_image": {
+    "url": "https://image.tmdb.org/t/p/original/c0iW1TcdxqnADKv8HaKLG6Q53Wv.jpg",
+    "credit": "TMDB",
+    "source": "tmdb"
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Bamboo corridor restoration requires decades of growth",
+      "Captive breeding struggles with low reproductive rates",
+      "Genetic management across fragmented populations technically challenging"
+    ],
+    "opportunity": [
+      "Infrastructure development continues to fragment remaining habitat",
+      "Climate change altering bamboo distribution faster than corridors can be restored",
+      "Tourism pressure on reserves increasing with prosperity"
+    ],
+    "motivation": [
+      "Panda conservation heavily funded but benefits concentrated on one species",
+      "Political symbolism sometimes prioritized over ecological effectiveness",
+      "Public preference for charismatic megafauna skews funding allocation"
+    ]
+  },
+  "evidence_summary": "The giant panda demonstrates the \"flagship species\" effect where media attention on one charismatic species generates conservation funding that protects entire ecosystems, though critics note allocation inequity (Macdonald et al., 2016).",
+  "methodology_notes": "Giant panda connects to RQ1 through WWF brand recognition and fundraising data; RQ2 through anthropomorphic narrative technique analysis in Kung Fu Panda vs observational documentaries; RQ3 through bamboo forest ecosystem management simulation; RQ4 through population recovery metrics as long-term outcome measure.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Swaisgood, R.R. et al. (2011). Can science save the giant panda? Unifying science and policy in an adaptive management framework. Integrative Zoology, 6(3), pp.290-296.",
+    "Wei, F. et al. (2015). Progress in the ecology and conservation of giant pandas. Conservation Biology, 29(6), pp.1497-1507."
+  ],
   "tmdb_media": [
     {
       "title": "The Giant Panda",
-      "year": 2010,
-      "overview": "The Giant Panda is a mammal native to cntral-western and south western China and is a true member of the Ursidae (bear) family. The Panda's closes ursine rlative is the spectalcled bear of South America. The Giant Panda is amoung the worlds most adored and protected rare animal and is one of the few in the world whose natural inhabitant status was able to gain UNESCO Worlld Heritage Site designation. The Sichuan Giant Panda Sancturarites located in the southwest Sichuan province and covering seven natural reserves, were inscribed onto the World Heritage List in 2009. Discover the beauty and wonder of these great panda's and their fight for life.",
-      "poster_path": "/29xJBYOyrWtrASyviJNPuTSJ035.jpg",
-      "vote_average": 0,
+      "year": 2020,
+      "director": "Jacky Poon",
+      "tmdb_url": "https://www.themoviedb.org/movie/724373",
+      "poster_path": "/pItfZJJn3RMY2xAXP1A3ycZCs7y.jpg",
+      "backdrop_path": "/c0iW1TcdxqnADKv8HaKLG6Q53Wv.jpg",
+      "overview": "Since 2003, nine giant pandas from China's Wolong Nature Reserve have been reintroduced into the bamboo forest of the Qinling Mountains. Born in the breeding and research station of the reserve, they did not have close contact with humans before their relocation to the natural environment. For three years, a team of scientists followed one of them, from its birth to the discovery of its new environment.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 95,
+      "query_source": "Giant Panda",
       "genre_ids": [
         99
       ],
-      "id": 603631
+      "vote_average": 8
     },
     {
       "title": "The Giant Panda",
-      "year": 2020,
-      "overview": "Since 2003, nine giant pandas from China's Wolong Nature Reserve have been reintroduced into the bamboo forest of the Qinling Mountains. Born in the breeding and research station of the reserve, they did not have close contact with humans before their relocation to the natural environment. For three years, a team of scientists followed one of them, from its birth to the discovery of its new environment.",
-      "poster_path": "/pItfZJJn3RMY2xAXP1A3ycZCs7y.jpg",
-      "vote_average": 8,
+      "year": 2010,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/603631",
+      "poster_path": "/29xJBYOyrWtrASyviJNPuTSJ035.jpg",
+      "backdrop_path": null,
+      "overview": "The Giant Panda is a mammal native to cntral-western and south western China and is a true member of the Ursidae (bear) family. The Panda's closes ursine rlative is the spectalcled bear of South America. The Giant Panda is amoung the worlds most adored and protected rare animal and is one of the few in the world whose natural inhabitant status was able to gain UNESCO Worlld Heritage Site designation. The Sichuan Giant Panda Sancturarites located in the southwest Sichuan province and covering seven natural reserves, were inscribed onto the World Heritage List in 2009. Discover the beauty and wonder of these great panda's and their fight for life.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 90,
+      "query_source": "Giant Panda",
       "genre_ids": [
         99
       ],
-      "id": 724373
+      "vote_average": 0
     },
     {
       "title": "Four Seasons in the giant Panda’s kingdom",
       "year": 2022,
-      "overview": "A journey over the seasons to discover the impassive and mysterious giant panda, in the heart of its natural environment. This series, filmed over 4 years, invites us to share the daily life of two panda families, from birth to adulthood. Up close, the black and white ursid is revealed as never before, in its most complete intimacy.",
+      "director": "Philippe Molins",
+      "tmdb_url": "https://www.themoviedb.org/movie/1391107",
       "poster_path": "/ovyiBOAKwIFH5fALXXRg9YvJWQA.jpg",
-      "vote_average": 10,
+      "backdrop_path": null,
+      "overview": "A journey over the seasons to discover the impassive and mysterious giant panda, in the heart of its natural environment. This series, filmed over 4 years, invites us to share the daily life of two panda families, from birth to adulthood. Up close, the black and white ursid is revealed as never before, in its most complete intimacy.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 90,
+      "query_source": "Giant Panda",
       "genre_ids": [
         99
       ],
-      "id": 1391107
+      "vote_average": 10
     },
     {
       "title": "Giant Pandas: The Last Refuge",
       "year": 1994,
-      "overview": "Take a fascinating trip to the world of these enchanting creatures to observe them in their natural environment.  Their work is critical now, because these well-known creatures are in dire jeopardy. The offspring of captive pandas are rare and sickly compared to those naturally raised, and scientists race to discover why before their habitats and population disappear.",
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/395022",
       "poster_path": "/5znxHBJ3DYxOxRrbQKCkfDxKbxg.jpg",
-      "vote_average": 0,
+      "backdrop_path": null,
+      "overview": "Take a fascinating trip to the world of these enchanting creatures to observe them in their natural environment.  Their work is critical now, because these well-known creatures are in dire jeopardy. The offspring of captive pandas are rare and sickly compared to those naturally raised, and scientists race to discover why before their habitats and population disappear.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 75,
+      "query_source": "Giant Panda",
       "genre_ids": [
         99
       ],
-      "id": 395022
+      "vote_average": 0
     }
   ]
 }
