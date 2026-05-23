@@ -1,0 +1,32 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Build the fully styled individual species page template with all content sections rendered from the JSON data files, maintaining the liquid-glass aesthetic and including TMDB media display, accessibility features, and proper SEO markup.",
+  "status": "completed",
+  "steps": [
+    "Flesh out src/species-page.js to be a complete, working species page renderer that: (a) reads the slug from the page's data attribute or URL path, (b) fetches public/data/{slug}.json, (c) renders all sections into the page: hero with species name/scientific name/conservation status badge and a key stat, habitat section with glass-panel, TMDB media section showing film/documentary cards with poster images (use TMDB image base URL https://image.tmdb.org/t/p/w300), threats section, conservation status section, cultural significance section, (d) adds breadcrumb navigation at the top (Observatory > Species Name), (e) initializes GSAP scroll animations for the species page sections",
+    "Create src/species-page.css with styles specific to species pages: media card grid (poster + title + year + rating), hero section with large species name, section layouts. Reuse glass-panel/glass-card patterns from style.css. Import this CSS in species-page.js",
+    "Ensure each species HTML template (species/*.html) has: skip-to-content link, proper lang attribute, viewport meta, canonical URL, Open Graph tags (og:title, og:description, og:image using a placeholder or TMDB backdrop), JSON-LD with @type: 'WebPage' and about: @type 'Animal' with species info, link to the shared species-page.js and species-page.css",
+    "Add a back-to-observatory link/button in the breadcrumb that navigates to the index page",
+    "Handle the case where TMDB media array is empty gracefully (show a message like 'No films or documentaries found yet')",
+    "Ensure poster images have alt text (film title), and the media section has proper heading hierarchy",
+    "Add a simple footer to species pages consistent with the vision section footer style",
+    "Verify all 10 species pages render correctly by confirming build succeeds and the dist output contains properly bundled species pages"
+  ],
+  "acceptance_criteria": [
+    "Each species page renders hero, habitat, media, threats, conservation, and cultural significance sections from JSON data",
+    "TMDB media cards display poster images, titles, release years, and ratings where available",
+    "Breadcrumb navigation appears on all species pages with link back to main observatory",
+    "JSON-LD structured data is present in each species page HTML",
+    "npm run build succeeds and dist/species/*.html files are complete with bundled JS/CSS",
+    "Species pages maintain the liquid-glass pastel aesthetic consistent with the main page",
+    "Accessibility: skip links, proper heading hierarchy (h1 > h2 > h3), alt text on images, ARIA labels on interactive elements"
+  ],
+  "verification": [
+    "Run 'npm run build' and confirm it succeeds",
+    "Check that dist/species/tiger.html includes bundled CSS and JS references",
+    "Verify the build output size is reasonable (species pages should share chunks)"
+  ],
+  "blocked_reason": null,
+  "findings": "Build succeeds. Species pages share ScrollTrigger chunk (113KB). species-page.js bundle is 7.26KB, species-page.css is 7.14KB. All 10 HTML templates already had correct structure from FEAT-001 (skip link, breadcrumb, data-species attr, main#main-content). HTML escaping added via escapeHtml() helper for TMDB overview text safety. Used HTML entities for emoji icons to avoid encoding issues."
+}

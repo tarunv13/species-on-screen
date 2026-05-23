@@ -564,6 +564,118 @@ p {
 }
 
 /* --------------------------------------------------------------------------
+   Species Gallery
+   -------------------------------------------------------------------------- */
+.species-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-gentle);
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  background: rgba(168, 197, 160, 0.2);
+  border-color: var(--color-forest);
+  color: var(--color-text);
+}
+
+.filter-btn--active {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: white;
+}
+
+.filter-btn:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 2px;
+}
+
+.species-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.species-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  text-decoration: none;
+  position: relative;
+}
+
+.species-card:hover {
+  transform: translateY(-4px);
+}
+
+.species-card__ecosystem {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+  display: inline-block;
+  width: fit-content;
+  font-weight: 500;
+}
+
+.ecosystem--tropical-forest { background: rgba(168, 197, 160, 0.2); color: #5a7d52; }
+.ecosystem--mountain { background: rgba(232, 228, 240, 0.4); color: #6b5b7b; }
+.ecosystem--coral-reef { background: rgba(142, 202, 230, 0.2); color: #3a7ca5; }
+.ecosystem--ocean { background: rgba(142, 202, 230, 0.3); color: #2a6a8a; }
+.ecosystem--savanna { background: rgba(212, 165, 116, 0.2); color: #8b5e3c; }
+.ecosystem--arctic { background: rgba(232, 228, 240, 0.5); color: #4a4a6a; }
+.ecosystem--temperate-forest { background: rgba(168, 197, 160, 0.3); color: #4a6b42; }
+.ecosystem--freshwater { background: rgba(142, 202, 230, 0.25); color: #357a9b; }
+
+.species-card__name {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.species-card__scientific {
+  font-style: italic;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.species-card__hook {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.species-card__status {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.status--endangered { color: #d4574a; }
+.status--critically-endangered { color: #a83232; }
+.status--vulnerable { color: #c47f2c; }
+
+/* --------------------------------------------------------------------------
    Responsive
    -------------------------------------------------------------------------- */
 @media (min-width: 768px) {
@@ -606,10 +718,8 @@ p {
 .js-loaded .section--concept .section__heading,
 .js-loaded .section--concept .section__text,
 .js-loaded .glass-card,
-.js-loaded .species__header,
-.js-loaded .species__hero-stat,
-.js-loaded .species__panel,
-.js-loaded .species__connecting-story,
+.js-loaded .species-filters,
+.js-loaded .species-card,
 .js-loaded .section--vision .section__heading,
 .js-loaded .section--vision .section__text,
 .js-loaded .vision__roadmap,

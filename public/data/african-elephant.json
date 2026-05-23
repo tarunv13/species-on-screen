@@ -1,0 +1,86 @@
+{
+  "taxonomy": {
+    "scientific_name": "Loxodonta africana",
+    "common_name": "African Elephant",
+    "family": "Elephantidae",
+    "order": "Proboscidea",
+    "class": "Mammalia"
+  },
+  "habitat": {
+    "type": "Savanna",
+    "description": "The African elephant moves across the sweeping grasslands and scattered woodlands of sub-Saharan Africa, a keystone species whose presence shapes the very landscape it inhabits. Family groups led by experienced matriarchs follow ancient migration routes between water sources, their collective memory spanning generations.\n\nOn the open savanna, elephants create and maintain the mosaic of grassland and woodland that supports extraordinary biodiversity. By pushing over trees, stripping bark, and dispersing seeds across vast distances, they act as ecosystem engineers, creating habitat for countless other species.\n\nIn the seasonal wetlands and river corridors that thread through the African bush, elephants gather in spectacular concentrations during the dry season. The sight of hundreds of elephants converging on a shrinking water source remains one of Africa's most powerful natural spectacles.",
+    "range_countries": [
+      "Botswana",
+      "Zimbabwe",
+      "Tanzania",
+      "Kenya",
+      "South Africa",
+      "Namibia",
+      "Zambia",
+      "Mozambique",
+      "Uganda",
+      "Democratic Republic of Congo"
+    ],
+    "key_locations": [
+      "Amboseli",
+      "Chobe National Park",
+      "Serengeti",
+      "Kruger National Park",
+      "Okavango Delta"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Ivory Poaching",
+      "description": "Despite international trade bans, demand for ivory continues to fuel industrial-scale poaching, with tens of thousands killed annually."
+    },
+    {
+      "name": "Habitat Fragmentation",
+      "description": "Expanding agriculture and infrastructure sever ancient migration corridors, isolating populations and increasing human-elephant conflict."
+    },
+    {
+      "name": "Human-Elephant Conflict",
+      "description": "Crop raiding by elephants leads to retaliatory killings and poisoning as human settlements expand into elephant range."
+    },
+    {
+      "name": "Drought and Climate Change",
+      "description": "Increasing drought frequency reduces water availability and food resources, concentrating elephants and increasing mortality."
+    },
+    {
+      "name": "Political Instability",
+      "description": "Armed conflict and weak governance in parts of Africa undermine conservation efforts and enable poaching networks."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Endangered",
+    "population_estimate": "415,000",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "CITES ivory trade ban",
+      "MIKE monitoring programme",
+      "African Elephant Fund",
+      "Great Elephant Census",
+      "Elephant Protection Initiative"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "From Disney's Dumbo to David Sheldrick Wildlife Trust documentaries, elephants are cinema's most emotionally resonant large mammals.",
+    "literature": "Elephants feature in literature from Kipling to contemporary conservation writing as symbols of wisdom, memory, and gentle strength.",
+    "mythology": "Sacred across African and Asian cultures, from Ganesh in Hinduism to the wisdom keepers of West African folklore.",
+    "media_presence": "Elephant family dynamics, grief behaviors, and intelligence make them perennial subjects for documentary filmmakers.",
+    "cultural_paradox": "Universally beloved and recognized as highly intelligent, yet killed in enormous numbers for decorative trinkets."
+  },
+  "tmdb_media": [
+    {
+      "title": "The African Elephant",
+      "year": 1971,
+      "overview": "African Elephant originally played in theatres as King Elephant.. The film is a straightforward, well-photographed documentary concentrating on....well, look at the title. Avoiding the obvious, filmmaker Simon Trevor focuses on the more curious aspects of elephant life. In addition to the mighty pachyderm, we are given intriguing glimpses of other forms of African wildlife. African Elephant has no overt ecological ax to grind, but the preservationist message is there by implication.",
+      "poster_path": "/ro4K2g1L9vbzUR1AaAoYtQ9OFXR.jpg",
+      "vote_average": 9,
+      "genre_ids": [
+        99
+      ],
+      "id": 277360
+    }
+  ]
+}

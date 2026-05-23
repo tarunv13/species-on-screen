@@ -177,59 +177,45 @@ function initConceptScroll() {
 }
 
 /**
- * Species section: header, hero stat, and connecting story animate in.
- * Panel reveals are handled by tiger-section.js for more control.
+ * Species section: filters and staggered card reveals for the gallery.
  */
 function initSpeciesScroll() {
   const speciesSection = document.getElementById('species-section');
   if (!speciesSection) return;
 
-  const header = speciesSection.querySelector('.species__header');
-  const heroStat = speciesSection.querySelector('.species__hero-stat');
-  const connectingStory = speciesSection.querySelector('.species__connecting-story');
+  const filters = speciesSection.querySelector('.species-filters');
+  const cards = speciesSection.querySelectorAll('.species-card');
 
-  if (header) {
-    gsap.set(header, { opacity: 0, y: 30 });
-    gsap.to(header, {
+  if (filters) {
+    gsap.set(filters, { opacity: 0, y: 20 });
+    gsap.to(filters, {
       opacity: 1,
       y: 0,
       ease: 'none',
       scrollTrigger: {
-        trigger: header,
-        start: 'top 80%',
-        end: 'top 60%',
-        scrub: 1,
-      },
-    });
-  }
-
-  if (heroStat) {
-    gsap.set(heroStat, { opacity: 0, scale: 0.8 });
-    gsap.to(heroStat, {
-      opacity: 1,
-      scale: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: heroStat,
-        start: 'top 82%',
-        end: 'top 55%',
-        scrub: 1,
-      },
-    });
-  }
-
-  if (connectingStory) {
-    gsap.set(connectingStory, { opacity: 0, y: 25 });
-    gsap.to(connectingStory, {
-      opacity: 1,
-      y: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: connectingStory,
+        trigger: filters,
         start: 'top 85%',
         end: 'top 60%',
         scrub: 1,
       },
+    });
+  }
+
+  if (cards.length > 0) {
+    cards.forEach((card) => {
+      gsap.set(card, { opacity: 0, y: 40, scale: 0.95 });
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          end: 'top 60%',
+          scrub: 1,
+        },
+      });
     });
   }
 }
