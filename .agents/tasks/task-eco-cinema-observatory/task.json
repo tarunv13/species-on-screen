@@ -1,7 +1,7 @@
 {
   "task_id": "task-eco-cinema-observatory",
   "task_description": "Build the first visual prototype website for the Eco-Cinema Observatory - a static, scroll-driven single-page experience with immersive hero, 3D globe, tiger species profile, and scrollytelling narrative. Deployable on GitHub Pages. Light/pastel/liquid-glass aesthetic with contemplative pacing.",
-  "status": "in_progress",
+  "status": "completed",
   "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
   "blocked_reason": null,
   "verification": {
