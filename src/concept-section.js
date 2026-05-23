@@ -1,6 +1,6 @@
 /**
  * Concept section interactivity.
- * Adds subtle hover effects to concept cards via CSS class toggling.
+ * Adds subtle hover/focus effects to concept cards via CSS class toggling.
  */
 
 export function initConceptSection() {
@@ -12,6 +12,14 @@ export function initConceptSection() {
     });
 
     card.addEventListener('mouseleave', () => {
+      card.classList.remove('concept-card--active');
+    });
+
+    card.addEventListener('focusin', () => {
+      card.classList.add('concept-card--active');
+    });
+
+    card.addEventListener('focusout', () => {
       card.classList.remove('concept-card--active');
     });
   });
