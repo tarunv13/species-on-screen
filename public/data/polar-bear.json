@@ -1,0 +1,139 @@
+{
+  "id": "polar-bear",
+  "commonName": "Polar Bear",
+  "scientificName": "Ursus maritimus",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Carnivora",
+    "family": "Felidae",
+    "genus": "Panthera",
+    "species": "Panthera pardus"
+  },
+  "media": [
+    {
+      "title": "Arctic Tale",
+      "year": "2007",
+      "type": "documentary",
+      "plot": "Follows a polar bear mother and her cubs as melting sea ice transforms their Arctic world, threatening their survival.",
+      "imdbRating": "6.3",
+      "poster": ""
+    },
+    {
+      "title": "Frozen Planet",
+      "year": "2011",
+      "type": "documentary",
+      "plot": "David Attenborough's landmark series capturing polar bears hunting seals on sea ice and facing an uncertain future.",
+      "imdbRating": "9.0",
+      "poster": ""
+    },
+    {
+      "title": "To the Arctic",
+      "year": "2012",
+      "type": "documentary",
+      "plot": "IMAX film following a polar bear family navigating the rapidly changing Arctic landscape.",
+      "imdbRating": "7.0",
+      "poster": ""
+    },
+    {
+      "title": "The Last Ice",
+      "year": "2020",
+      "type": "documentary",
+      "plot": "Explores the future of the Arctic's last remaining multi-year sea ice and the polar bears and Inuit communities that depend on it.",
+      "imdbRating": "7.2",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Polar bears are marine mammals uniquely adapted to the Arctic sea ice environment. They depend on sea ice as a platform for hunting ringed and bearded seals, their primary prey. During summer months, bears may be forced ashore as ice melts, fasting for months until freeze-up returns. Their range circles the Arctic Ocean across five nations.",
+    "range": [
+      "Canada",
+      "Russia",
+      "Norway (Svalbard)",
+      "Greenland (Denmark)",
+      "United States (Alaska)"
+    ],
+    "biome": "Arctic",
+    "keyLocations": [
+      "Hudson Bay",
+      "Svalbard Archipelago",
+      "Beaufort Sea",
+      "Wrangel Island",
+      "Franz Josef Land"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Sea Ice Loss",
+      "severity": "critical",
+      "description": "Arctic sea ice is declining at approximately 13% per decade. Without ice platforms, polar bears cannot hunt seals effectively, leading to starvation."
+    },
+    {
+      "name": "Climate Change",
+      "severity": "critical",
+      "description": "The Arctic is warming four times faster than the global average, fundamentally altering the ecosystem polar bears evolved to exploit."
+    },
+    {
+      "name": "Pollution",
+      "severity": "moderate",
+      "description": "Persistent organic pollutants and heavy metals bioaccumulate in the Arctic food chain, concentrating in apex predators like polar bears."
+    },
+    {
+      "name": "Oil and Gas Development",
+      "severity": "moderate",
+      "description": "Expanding Arctic resource extraction increases the risk of oil spills and habitat disturbance in critical denning areas."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "VU",
+    "population": "Approximately 22,000-31,000 individuals across 19 subpopulations",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "International Agreement on the Conservation of Polar Bears (1973)",
+      "Polar Bear Specialist Group (IUCN)",
+      "Climate change mitigation (Paris Agreement)",
+      "Arctic Marine Shipping Assessment"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "The polar bear has become the defining symbol of climate change, its image on shrinking ice floes representing the tangible consequences of global warming. For Arctic Indigenous peoples, the polar bear or 'Nanuq' holds deep spiritual significance as a powerful and intelligent being deserving of respect.",
+    "cinema": [
+      "Frozen Planet (2011)",
+      "Arctic Tale (2007)",
+      "To the Arctic (2012)",
+      "The Last Ice (2020)"
+    ],
+    "literature": [
+      "The Great White Bear by Kieran Mulvaney",
+      "Arctic Dreams by Barry Lopez",
+      "Polar Bear by Jenni Desmond"
+    ],
+    "mythology": [
+      "Inuit Nanuq spirit and hunting traditions",
+      "Sami bear ceremonies",
+      "Norse berserker bear warriors",
+      "Greenlandic Tupilaq guardians"
+    ],
+    "symbolism": "The polar bear embodies climate change, resilience in extreme conditions, and the fragility of specialized ecosystems. It represents what is at stake if warming continues unchecked."
+  },
+  "coordinates": [
+    {
+      "lat": 78,
+      "lng": 16,
+      "label": "Svalbard, Norway"
+    },
+    {
+      "lat": 58.7,
+      "lng": -94,
+      "label": "Churchill, Canada"
+    },
+    {
+      "lat": 71,
+      "lng": -156,
+      "label": "Beaufort Sea, Alaska"
+    }
+  ],
+  "accentColor": "#e8e4f0",
+  "ecosystem": "Arctic"
+}

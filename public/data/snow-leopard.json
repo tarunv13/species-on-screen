@@ -1,0 +1,144 @@
+{
+  "id": "snow-leopard",
+  "commonName": "Snow Leopard",
+  "scientificName": "Panthera uncia",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Carnivora",
+    "family": "Felidae",
+    "genus": "Puma",
+    "species": "Puma concolor"
+  },
+  "media": [
+    {
+      "title": "The Velvet Queen",
+      "year": "2021",
+      "type": "documentary",
+      "plot": "Wildlife photographer Vincent Munier takes writer Sylvain Tesson to the Tibetan plateau to photograph the elusive snow leopard.",
+      "imdbRating": "7.4",
+      "poster": ""
+    },
+    {
+      "title": "Planet Earth II - Mountains",
+      "year": "2016",
+      "type": "documentary",
+      "plot": "Landmark footage captures a snow leopard hunting on impossible Himalayan cliffs, revealing behaviors never before filmed.",
+      "imdbRating": "9.5",
+      "poster": ""
+    },
+    {
+      "title": "Snow Leopard: Beyond the Myth",
+      "year": "2008",
+      "type": "documentary",
+      "plot": "A team of researchers tracks snow leopards through the mountains of Pakistan using camera traps and radio collars.",
+      "imdbRating": "7.1",
+      "poster": ""
+    },
+    {
+      "title": "Frozen Planet II",
+      "year": "2022",
+      "type": "documentary",
+      "plot": "Features the snow leopard navigating increasingly unpredictable mountain weather as climate change reshapes its alpine habitat.",
+      "imdbRating": "8.7",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "The snow leopard inhabits the rugged mountain ranges of Central Asia, from 3,000 to 5,500 meters in altitude. These solitary cats traverse steep, rocky terrain with extraordinary agility, using their long tails for balance. They prefer broken terrain, cliffs, and ravines that provide cover for ambush hunting.",
+    "range": [
+      "Afghanistan",
+      "Bhutan",
+      "China",
+      "India",
+      "Kazakhstan",
+      "Kyrgyzstan",
+      "Mongolia",
+      "Nepal",
+      "Pakistan",
+      "Russia",
+      "Tajikistan",
+      "Uzbekistan"
+    ],
+    "biome": "Mountain",
+    "keyLocations": [
+      "Hindu Kush",
+      "Karakoram Range",
+      "Altai Mountains",
+      "Tien Shan",
+      "Tibetan Plateau"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Climate Change",
+      "severity": "critical",
+      "description": "Rising temperatures push the treeline higher, shrinking the alpine zone snow leopards depend upon and fragmenting remaining habitat."
+    },
+    {
+      "name": "Retaliatory Killing",
+      "severity": "high",
+      "description": "Herders kill snow leopards in retaliation for livestock predation, particularly in areas where wild prey has been depleted."
+    },
+    {
+      "name": "Poaching",
+      "severity": "high",
+      "description": "Pelts and bones are trafficked illegally, and prey species like blue sheep and ibex are overhunted."
+    },
+    {
+      "name": "Mining and Infrastructure",
+      "severity": "moderate",
+      "description": "Mining operations and road construction in mountain passes fragment habitat and increase human disturbance."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "VU",
+    "population": "Estimated 4,000-6,500 individuals in the wild",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "Snow Leopard Trust",
+      "Global Snow Leopard & Ecosystem Protection Program",
+      "Panthera's Snow Leopard Program",
+      "Community-based livestock insurance schemes"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "Known as the 'Ghost of the Mountains,' the snow leopard embodies the mystique of Central Asia's highest peaks. Rarely seen by humans, it has inspired reverence among the pastoral communities who share its mountain home for millennia.",
+    "cinema": [
+      "The Velvet Queen (2021)",
+      "Planet Earth II (2016)",
+      "Snow Leopard: Beyond the Myth (2008)"
+    ],
+    "literature": [
+      "The Snow Leopard by Peter Matthiessen",
+      "The Velvet Queen by Sylvain Tesson",
+      "Ghost Cat by Sy Montgomery"
+    ],
+    "mythology": [
+      "Turkic mountain spirit guardian",
+      "Tibetan Buddhist symbol of awareness",
+      "Central Asian shamanic totem"
+    ],
+    "symbolism": "Represents elusiveness, spiritual solitude, and the untouched wilderness of high mountains. A metaphor for nature's most hidden treasures."
+  },
+  "coordinates": [
+    {
+      "lat": 35,
+      "lng": 75,
+      "label": "Himalayas, Pakistan"
+    },
+    {
+      "lat": 42.5,
+      "lng": 78,
+      "label": "Tien Shan, Kyrgyzstan"
+    },
+    {
+      "lat": 47,
+      "lng": 90,
+      "label": "Altai Mountains, Mongolia"
+    }
+  ],
+  "accentColor": "#e8e4f0",
+  "ecosystem": "Mountain"
+}

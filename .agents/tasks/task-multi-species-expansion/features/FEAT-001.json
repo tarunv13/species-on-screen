@@ -1,0 +1,30 @@
+{
+  "id": "FEAT-001",
+  "type": "fix",
+  "description": "Fix GitHub Actions deploy.yml error and create the static species data architecture with build-time fetch scripts",
+  "status": "in_progress",
+  "steps": [
+    "Fix .github/workflows/deploy.yml line 41: change 'url: ${{ pages.deployment.url }}' to 'url: ${{ steps.deployment.outputs.page_url }}'",
+    "Create public/data/ directory for static JSON species data files",
+    "Create src/data/species-registry.js - a central registry that lists all species with their slugs, common names, scientific names, conservation status, ecosystem type, lat/lng coordinates for the globe, and accent color. Include these flagship species: tiger, snow-leopard, orangutan, hawksbill-turtle, blue-whale, african-elephant, polar-bear, giant-panda, coral-reef (as a meta-species for coral ecosystems), amazon-river-dolphin. Each entry should have: id/slug, commonName, scientificName, iucnStatus, ecosystem, coordinates (array of {lat, lng, label}), accentColor (from the pastel palette), gbifTaxonKey (integer for GBIF API), omdbSearchTerms (array of movie search keywords)",
+    "Create scripts/fetch-species-data.js - a Node.js script that: (a) reads the species registry, (b) for each species calls the GBIF API (https://api.gbif.org/v1/species/{taxonKey}) to get taxonomy data, (c) calls OMDb API (using OMDB_API_KEY env var) to search for related films/documentaries, (d) writes individual JSON files to public/data/{slug}.json with structure: { taxonomy: {...}, media: [...], habitat: {...}, threats: [...], conservationStatus: {...}, culturalSignificance: {...} }. Include fallback/sample data inline so the script works without an API key by writing pre-populated data.",
+    "Create public/data/ files with pre-populated sample data for all 10 species so the site works immediately without running fetch scripts. Each file (e.g., public/data/tiger.json, public/data/snow-leopard.json, etc.) should contain rich, accurate, well-researched content in the JSON structure defined above.",
+    "Add a 'fetch-data' npm script to package.json: \"fetch-data\": \"node scripts/fetch-species-data.js\"",
+    "Update .gitignore to NOT ignore public/data/ (these static JSON files should be committed)"
+  ],
+  "acceptance_criteria": [
+    "deploy.yml uses correct syntax: url: ${{ steps.deployment.outputs.page_url }}",
+    "public/data/ contains 10 species JSON files with rich content",
+    "scripts/fetch-species-data.js exists and is executable with node",
+    "src/data/species-registry.js exports a SPECIES array with 10 entries",
+    "npm run build succeeds without errors",
+    "Each species JSON file contains taxonomy, media, habitat, threats, conservationStatus, and culturalSignificance fields"
+  ],
+  "verification": [
+    "Run npm run build and confirm it succeeds",
+    "Verify public/data/ contains JSON files for all 10 species",
+    "Verify the deploy.yml fix is correct by checking the file content"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

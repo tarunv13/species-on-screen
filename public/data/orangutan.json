@@ -1,0 +1,133 @@
+{
+  "id": "orangutan",
+  "commonName": "Bornean Orangutan",
+  "scientificName": "Pongo pygmaeus",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Primates",
+    "family": "Cercopithecidae",
+    "genus": "Cercopithecus",
+    "species": "Cercopithecus roloway"
+  },
+  "media": [
+    {
+      "title": "Orangutan Jungle School",
+      "year": "2018",
+      "type": "documentary",
+      "plot": "Orphaned orangutans learn essential survival skills at a rehabilitation center in Borneo before being released back into the wild.",
+      "imdbRating": "8.2",
+      "poster": ""
+    },
+    {
+      "title": "Born to Be Wild",
+      "year": "2011",
+      "type": "documentary",
+      "plot": "IMAX documentary following Dr. Birute Galdikas as she rescues and rehabilitates orphaned orangutans in Borneo.",
+      "imdbRating": "7.1",
+      "poster": ""
+    },
+    {
+      "title": "Green",
+      "year": "2009",
+      "type": "documentary",
+      "plot": "A wordless film following a dying female orangutan displaced by deforestation for palm oil plantations.",
+      "imdbRating": "7.8",
+      "poster": ""
+    },
+    {
+      "title": "The Last Orangutan Eden",
+      "year": "2015",
+      "type": "documentary",
+      "plot": "Explores the last strongholds of wild orangutans and the people fighting to save their disappearing rainforest home.",
+      "imdbRating": "7.3",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Orangutans are the world's largest arboreal mammals, spending most of their lives in the canopy of tropical and subtropical moist broadleaf forests. They require large, connected tracts of lowland and hill dipterocarp forest with abundant fruit trees. Each night they construct a fresh sleeping nest from branches and leaves high above the forest floor.",
+    "range": [
+      "Malaysia (Sabah, Sarawak)",
+      "Indonesia (Kalimantan)"
+    ],
+    "biome": "Tropical Forest",
+    "keyLocations": [
+      "Danum Valley",
+      "Kinabatangan River",
+      "Tanjung Puting National Park",
+      "Gunung Palung National Park"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Palm Oil Deforestation",
+      "severity": "critical",
+      "description": "Industrial palm oil plantations have destroyed over 80% of orangutan habitat in the last 40 years, continuing at alarming rates."
+    },
+    {
+      "name": "Illegal Pet Trade",
+      "severity": "high",
+      "description": "Infant orangutans are captured for the pet trade after their mothers are killed, with most dying before reaching buyers."
+    },
+    {
+      "name": "Forest Fires",
+      "severity": "high",
+      "description": "Peatland fires set to clear land burn out of control, destroying vast areas of orangutan habitat and causing direct mortality."
+    },
+    {
+      "name": "Fragmentation",
+      "severity": "high",
+      "description": "Roads, rivers, and plantations isolate populations, preventing gene flow and limiting access to food resources."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "CR",
+    "population": "Approximately 104,700 Bornean orangutans (declining rapidly)",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "Borneo Orangutan Survival Foundation",
+      "Orangutan Foundation International",
+      "RSPO sustainable palm oil certification",
+      "Sabah Wildlife Department rescue programs"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "The name 'orangutan' derives from the Malay words 'orang hutan,' meaning 'person of the forest.' Indigenous Dayak peoples have long regarded orangutans as forest people deserving respect. Their human-like intelligence and gentle demeanor have made them powerful ambassadors for rainforest conservation worldwide.",
+    "cinema": [
+      "Born to Be Wild (2011)",
+      "Green (2009)",
+      "Orangutan Jungle School (2018)",
+      "Borneo's Secret Kingdom (2015)"
+    ],
+    "literature": [
+      "Reflections of Eden by Birute Galdikas",
+      "The Malay Archipelago by Alfred Russel Wallace",
+      "Among the Great Apes by Paul Raffaele"
+    ],
+    "mythology": [
+      "Dayak forest spirit legends",
+      "Malay 'orang hutan' folklore of forest people"
+    ],
+    "symbolism": "Represents the intelligence of nature, the interconnectedness of all primates, and the devastating cost of consumerism on wild places."
+  },
+  "coordinates": [
+    {
+      "lat": 1.5,
+      "lng": 110,
+      "label": "Borneo, Malaysia"
+    },
+    {
+      "lat": 0.5,
+      "lng": 117,
+      "label": "East Kalimantan, Indonesia"
+    },
+    {
+      "lat": 2,
+      "lng": 113,
+      "label": "Sarawak, Malaysia"
+    }
+  ],
+  "accentColor": "#d4a574",
+  "ecosystem": "Tropical Forest"
+}
