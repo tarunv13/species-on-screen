@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco-Cinema Observatory</title>
+  <meta name="description" content="Exploring the species that share our screens and our world." />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <!-- Fixed scroll progress indicator -->
+  <nav class="scroll-nav" aria-label="Section navigation">
+    <ul class="scroll-nav__dots">
+      <li><a href="#hero" class="scroll-nav__dot active" aria-label="Hero section"></a></li>
+      <li><a href="#globe-section" class="scroll-nav__dot" aria-label="Living world"></a></li>
+      <li><a href="#concept-section" class="scroll-nav__dot" aria-label="The observatory"></a></li>
+      <li><a href="#species-section" class="scroll-nav__dot" aria-label="Species profile"></a></li>
+      <li><a href="#vision-section" class="scroll-nav__dot" aria-label="Vision"></a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero: Immersive landing -->
+    <section id="hero" class="section section--hero">
+      <div class="section__content">
+        <h1 class="hero__title">Eco-Cinema Observatory</h1>
+        <p class="hero__subtitle">Where the species on our screens meet the living world beyond them.</p>
+        <div class="hero__scroll-hint" aria-hidden="true">
+          <span class="hero__scroll-arrow"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Globe: The living world -->
+    <section id="globe-section" class="section section--globe">
+      <div class="section__content">
+        <h2 class="section__heading">The Living World</h2>
+        <p class="section__text">An interactive globe of species encounters - every dot a story, every story a connection between cinema and the wild.</p>
+        <div id="globe-container" class="globe-container" role="img" aria-label="Interactive 3D globe showing five biodiversity hotspot locations"></div>
+        <div class="globe-companions">
+          <p class="globe-companion">Five biodiversity hotspots glow on the surface - places where life concentrates and cinema gazes most often.</p>
+          <p class="globe-companion">From the Sundarbans to the Amazon, each marker represents an ecosystem woven into our stories.</p>
+          <p class="globe-companion">Rotate the globe gently. The living world turns whether or not cameras are watching.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Concept: What the observatory does -->
+    <section id="concept-section" class="section section--concept">
+      <div class="section__content">
+        <h2 class="section__heading">What We Observe</h2>
+        <p class="section__text">We trace the invisible threads between the animals that appear on our screens and the ecosystems they call home. Three lenses guide this observation.</p>
+        <div class="concept-cards">
+          <article class="glass-card concept-card" tabindex="0">
+            <span class="concept-card__icon" aria-hidden="true">&#127909;</span>
+            <h3>Species on Screen</h3>
+            <p>How species appear in human media and culture - films, documentaries, news coverage, social media, literature, and advertising. Every representation is a data point in the cultural record of how we see the living world.</p>
+          </article>
+          <article class="glass-card concept-card" tabindex="0">
+            <span class="concept-card__icon" aria-hidden="true">&#127793;</span>
+            <h3>Ecological Reality</h3>
+            <p>What is actually happening to these species in the wild. Population trends, habitat loss, threat assessments, and conservation status paint a picture that often diverges sharply from the stories we tell on screen.</p>
+          </article>
+          <article class="glass-card concept-card" tabindex="0">
+            <span class="concept-card__icon" aria-hidden="true">&#128279;</span>
+            <h3>The Connection</h3>
+            <p>How cultural representation may shape conservation outcomes. Does screen attention translate to conservation action? Does media portrayal match ecological truth? These are the questions the observatory exists to explore.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Species: Tiger prototype profile -->
+    <section id="species-section" class="section section--species">
+      <div class="section__content">
+        <header class="species__header">
+          <h2 class="section__heading">Panthera tigris</h2>
+          <p class="species__common-name">Tiger</p>
+        </header>
+
+        <div class="species__hero-stat">
+          <p>Fewer than <span class="species__counter" data-target="4500">4,500</span> remain in the wild</p>
+        </div>
+
+        <div class="species__panels">
+          <div class="species__panel glass-panel">
+            <h3 class="species__panel-title">Habitat</h3>
+            <div class="species__panel-content">
+              <p>Tropical and subtropical forests across Asia. Their range spans 13 countries: India, Russia, Indonesia, Malaysia, Thailand, Bangladesh, Nepal, Bhutan, Myanmar, Laos, China, Cambodia, and Vietnam.</p>
+              <p>Key habitats include the Sundarbans mangroves of Bangladesh and India, Siberian boreal forests in Russia, Sumatran rainforests in Indonesia, and tropical dry forests of central India.</p>
+              <p>Their historical range covered most of Asia. Today, tigers occupy less than 7% of their original territory - fragmented islands of wilderness in an ocean of human development.</p>
+            </div>
+          </div>
+
+          <div class="species__panel glass-panel">
+            <h3 class="species__panel-title">Cultural Presence</h3>
+            <div class="species__panel-content">
+              <p><strong>Cinema:</strong> Life of Pi (2012), The Jungle Book (1967, 2016), Two Brothers (2004), Tiger Zinda Hai (Bollywood), Roar (1981)</p>
+              <p><strong>Literature:</strong> Shere Khan in Kipling's The Jungle Book, Hobbes in Calvin and Hobbes, The Tiger by John Vaillant, Life of Pi by Yann Martel</p>
+              <p><strong>Mythology &amp; symbolism:</strong> Chinese zodiac (Year of the Tiger), Hindu deity Durga's mount, Korean folk symbol, William Blake's "The Tyger"</p>
+              <p><strong>Media presence:</strong> Tigers appear in advertising more than any other wild cat - cereal boxes, sports teams, national symbols of India, Malaysia, South Korea, and Bangladesh.</p>
+              <p><strong>Cultural paradox:</strong> The tiger is simultaneously one of the most culturally visible and ecologically threatened large mammals on Earth.</p>
+            </div>
+          </div>
+
+          <div class="species__panel glass-panel">
+            <h3 class="species__panel-title">Threats</h3>
+            <div class="species__panel-content">
+              <p><strong>Habitat fragmentation:</strong> Agricultural expansion, logging, and infrastructure development continue to carve tiger habitat into ever-smaller pieces.</p>
+              <p><strong>Poaching:</strong> Driven by illegal wildlife trade, demand in traditional medicine, and trafficking of bone and skin products across international borders.</p>
+              <p><strong>Human-wildlife conflict:</strong> As habitat shrinks, tigers and humans increasingly compete for space, leading to retaliatory killings and community fear.</p>
+              <p><strong>Climate change:</strong> Sea level rise threatens the Sundarbans (home to approximately 100 tigers), while changing monsoon patterns affect prey availability.</p>
+              <p><strong>Prey depletion:</strong> Overhunting of deer and wild boar by local communities removes the tiger's food sources, forcing them into closer contact with people.</p>
+            </div>
+          </div>
+
+          <div class="species__panel glass-panel">
+            <h3 class="species__panel-title">Conservation Status</h3>
+            <div class="species__panel-content">
+              <p><strong>IUCN Red List:</strong> Endangered (since 1986, downlisted from Critically Endangered for some subspecies following recovery efforts)</p>
+              <p><strong>Population trend:</strong> Increasing globally - estimated approximately 3,200 in 2010, approximately 3,900 in 2016, and approximately 4,500 in 2022.</p>
+              <p><strong>Major recovery programs:</strong> India's Project Tiger (since 1973), the TX2 global goal to double wild tigers by 2022, and numerous national action plans.</p>
+              <p><strong>Three subspecies extinct in the 20th century:</strong> Bali tiger (1950s), Javan tiger (1970s), Caspian tiger (1970s).</p>
+              <p><strong>Six subspecies remain:</strong> Bengal, Indochinese, Malayan, Siberian, South China (functionally extinct in the wild), and Sumatran.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="species__connecting-story">
+          <p>When Richard Parker gazed from the screen in Life of Pi, 63 million viewers saw a tiger. In that same year, fewer than 3,500 remained in the wild. The question this observatory asks: does seeing translate to saving?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision: Where this is going -->
+    <section id="vision-section" class="section section--vision">
+      <div class="section__content">
+        <h2 class="section__heading">Every Species Has a Story</h2>
+        <p class="section__text vision__subheading">Every Story Shapes Our Response</p>
+        <p class="section__text">The Eco-Cinema Observatory will connect two worlds of data: the cultural record of how species appear on our screens, and the ecological record of how they fare in the wild. By mapping these connections across thousands of species and millions of media appearances, we can begin to understand how human attention relates to species fate.</p>
+        <div class="vision__roadmap">
+          <p class="vision__roadmap-label"><span class="vision__pulse"></span> Coming Soon</p>
+          <ul class="vision__roadmap-list">
+            <li class="vision__roadmap-item">Expanded species database covering 500+ species</li>
+            <li class="vision__roadmap-item">Media appearance timeline - tracking species representation over decades</li>
+            <li class="vision__roadmap-item">Cultural sentiment mapping - how portrayal changes over time</li>
+            <li class="vision__roadmap-item">Conservation correlation dashboard - screen attention vs. funding patterns</li>
+          </ul>
+        </div>
+        <footer class="vision__footer">
+          <p>Eco-Cinema Observatory - An open research project</p>
+        </footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
