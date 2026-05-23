@@ -30,5 +30,5 @@
     "Confirm the final dist/index.html contains all sections and bundled assets"
   ],
   "blocked_reason": null,
-  "findings": "Build succeeds cleanly (vite build exit 0). All three section modules created and initialized from main.js. Scroll animations updated for new DOM structure. The 500kB chunk size warning from Vite is pre-existing (GSAP + Three.js bundled together) and not related to this feature."
+  "findings": "Build succeeds cleanly (vite build exit 0). All three section modules created and initialized from main.js. Scroll animations updated for new DOM structure. The 500kB chunk size warning from Vite is pre-existing (GSAP + Three.js bundled together) and not related to this feature. Review v2 fixes applied: (1) CSS .js-loaded rule changed from no-op visibility:visible to opacity:0 with scoped selectors, plus window error handler to remove class on failure; (2) tabindex=0 added to all three concept card articles for keyboard reachability."
 }
