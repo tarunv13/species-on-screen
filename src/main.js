@@ -1,6 +1,9 @@
 import './style.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initHero } from './hero.js';
+import { initGlobe } from './globe.js';
+import { initScrollAnimations } from './scroll-animations.js';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -30,8 +33,7 @@ function initScrollNav() {
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
   initScrollNav();
-
-  // Future module initialization:
-  // - Globe (FEAT-002): import and init Three.js globe in #globe-container
-  // - Scroll animations (FEAT-003): GSAP section entrance animations
+  initHero();
+  initGlobe();
+  initScrollAnimations();
 });
