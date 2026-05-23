@@ -26,6 +26,9 @@
   <script type="module" src="/src/main.js"></script>
 </head>
 <body>
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
   <!-- Fixed scroll progress indicator -->
   <nav class="scroll-nav" aria-label="Section navigation">
     <ul class="scroll-nav__dots">
@@ -37,7 +40,7 @@
     </ul>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- Hero: Immersive landing -->
     <section id="hero" class="section section--hero">
       <div class="section__content">
@@ -89,7 +92,7 @@
     </section>
 
     <!-- Species Gallery -->
-    <section id="species-section" class="section section--species">
+    <section id="species-section" class="section section--species" aria-label="Species gallery profiles">
       <div class="section__content">
         <h2 class="section__heading">Species Profiles</h2>
         <p class="section__text">Ten flagship species observed through the lens of cinema and ecology. Each profile explores the gap between cultural visibility and conservation reality.</p>
@@ -101,11 +104,11 @@
       <div class="section__content">
         <h2 class="section__heading">Every Species Has a Story</h2>
         <p class="section__text vision__subheading">Every Story Shapes Our Response</p>
-        <p class="section__text">The Eco-Cinema Observatory will connect two worlds of data: the cultural record of how species appear on our screens, and the ecological record of how they fare in the wild. By mapping these connections across thousands of species and millions of media appearances, we can begin to understand how human attention relates to species fate.</p>
+        <p class="section__text">The Eco-Cinema Observatory now profiles 10 flagship species across tropical forests, oceans, mountains, arctic tundra, savanna, and coral reef ecosystems. By mapping the connections between cultural representation and ecological reality, we are building a foundation to understand how human attention relates to species fate.</p>
         <div class="vision__roadmap">
-          <p class="vision__roadmap-label"><span class="vision__pulse"></span> Coming Soon</p>
+          <p class="vision__roadmap-label"><span class="vision__pulse"></span> Next Steps</p>
           <ul class="vision__roadmap-list">
-            <li class="vision__roadmap-item">Expanded species database covering 500+ species</li>
+            <li class="vision__roadmap-item">Growing from 10 flagship species to 500+ across every ecosystem</li>
             <li class="vision__roadmap-item">Media appearance timeline - tracking species representation over decades</li>
             <li class="vision__roadmap-item">Cultural sentiment mapping - how portrayal changes over time</li>
             <li class="vision__roadmap-item">Conservation correlation dashboard - screen attention vs. funding patterns</li>

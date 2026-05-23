@@ -2,6 +2,7 @@ import './style.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SPECIES } from './data/species-registry.js';
+import { initNav } from './nav.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -272,5 +273,6 @@ async function initSpeciesPage() {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('js-loaded');
+  initNav();
   initSpeciesPage();
 });
