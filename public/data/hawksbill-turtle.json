@@ -6,10 +6,10 @@
     "kingdom": "Animalia",
     "phylum": "Chordata",
     "class": "Reptilia",
-    "order": "Crocodylia",
-    "family": "Alligatoridae",
-    "genus": "Caiman",
-    "species": "Caiman crocodilus"
+    "order": "Testudines",
+    "family": "Cheloniidae",
+    "genus": "Eretmochelys",
+    "species": "Eretmochelys imbricata"
   },
   "media": [
     {
