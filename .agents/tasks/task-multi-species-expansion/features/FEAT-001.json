@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "fix",
   "description": "Fix the GitHub Actions deploy.yml bug, set up TMDB data fetch script, create species data JSON files, and configure Vite for multi-page builds.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Fix .github/workflows/deploy.yml line 41: change 'url: ${{ pages.deployment.url }}' to 'url: ${{ steps.deployment.outputs.page_url }}'",
     "Add 'node-fetch' (or use native fetch since Node 22) to package.json scripts. Add a new npm script 'fetch-data': 'node scripts/fetch-tmdb-data.js'",
@@ -27,5 +27,5 @@
     "Check that dist/species/tiger.html exists and contains structured data"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All 10 species data files generated with real TMDB data. Some species (bornean-orangutan, hawksbill-turtle, staghorn-coral, amazon-river-dolphin) returned 0 TMDB results due to their specificity. Build succeeds with Vite 8 producing dist/index.html and dist/species/*.html. The vite.config.js uses __dirname which works with Vite 8's native ESM support."
 }
