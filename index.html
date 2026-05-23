@@ -8,6 +8,26 @@
   <script type="module" src="/src/main.js"></script>
 </head>
 <body>
+  <noscript>
+    <div style="background:#0a0a0f;color:#e8e4e0;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
+      <h1>Eco-Cinema Observatory</h1>
+      <p style="margin:1rem 0;">The Eco-Cinema Observatory explores the relationship between species representation in film and real-world conservation outcomes. The full interactive experience requires JavaScript to render the 3D globe and scroll-driven interface.</p>
+      <h2 style="margin-top:1.5rem;">Species Pages</h2>
+      <ul style="margin:1rem 0;line-height:2;">
+        <li><a href="species/tiger.html" style="color:#4a7c59;">Tiger</a></li>
+        <li><a href="species/snow-leopard.html" style="color:#4a7c59;">Snow Leopard</a></li>
+        <li><a href="species/bornean-orangutan.html" style="color:#4a7c59;">Bornean Orangutan</a></li>
+        <li><a href="species/hawksbill-turtle.html" style="color:#4a7c59;">Hawksbill Turtle</a></li>
+        <li><a href="species/blue-whale.html" style="color:#4a7c59;">Blue Whale</a></li>
+        <li><a href="species/african-elephant.html" style="color:#4a7c59;">African Elephant</a></li>
+        <li><a href="species/polar-bear.html" style="color:#4a7c59;">Polar Bear</a></li>
+        <li><a href="species/giant-panda.html" style="color:#4a7c59;">Giant Panda</a></li>
+        <li><a href="species/staghorn-coral.html" style="color:#4a7c59;">Staghorn Coral</a></li>
+        <li><a href="species/amazon-river-dolphin.html" style="color:#4a7c59;">Amazon River Dolphin</a></li>
+      </ul>
+      <p style="font-size:0.9rem;color:#999;">Please enable JavaScript for the full 3D cinematic experience.</p>
+    </div>
+  </noscript>
   <div id="app-container">
     <!-- Three.js renders here -->
     <canvas id="cinematic-canvas"></canvas>
@@ -44,19 +64,19 @@
           <div class="research-questions">
             <div class="rq">
               <span class="rq__number">RQ1</span>
-              <p class="rq__text">How are endangered species visually represented in contemporary documentary and fiction film?</p>
+              <p class="rq__text">What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?</p>
             </div>
             <div class="rq">
               <span class="rq__number">RQ2</span>
-              <p class="rq__text">What narrative techniques do filmmakers employ to generate emotional engagement with non-human species?</p>
+              <p class="rq__text">What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?</p>
             </div>
             <div class="rq">
               <span class="rq__number">RQ3</span>
-              <p class="rq__text">How does the volume and nature of screen representation correlate with public conservation awareness?</p>
+              <p class="rq__text">How can non-commercial video games be used to engage more with biodiversity and conservation?</p>
             </div>
             <div class="rq">
               <span class="rq__number">RQ4</span>
-              <p class="rq__text">Can a COM-B behavioural framework explain the gap between media exposure and conservation action?</p>
+              <p class="rq__text">What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?</p>
             </div>
           </div>
         </div>
@@ -68,61 +88,61 @@
           <h2 class="overlay__heading">Species Observatory</h2>
           <p class="overlay__text">Ten flagship species. Each a window into the relationship between cinema and conservation.</p>
           <div class="species-grid">
-            <a href="species/tiger.html" class="species-card" data-ecosystem="tropical-forest">
+            <a href="species/tiger.html" class="species-card" data-ecosystem="tropical-forest" aria-label="Tiger (Panthera tigris) - Endangered, Tropical Forest habitat">
               <span class="species-card__ecosystem">Tropical Forest</span>
               <h3 class="species-card__name">Tiger</h3>
               <p class="species-card__scientific">Panthera tigris</p>
               <span class="species-card__status species-card__status--endangered">Endangered</span>
             </a>
-            <a href="species/snow-leopard.html" class="species-card" data-ecosystem="mountain">
+            <a href="species/snow-leopard.html" class="species-card" data-ecosystem="mountain" aria-label="Snow Leopard (Panthera uncia) - Vulnerable, Mountain habitat">
               <span class="species-card__ecosystem">Mountain</span>
               <h3 class="species-card__name">Snow Leopard</h3>
               <p class="species-card__scientific">Panthera uncia</p>
               <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
             </a>
-            <a href="species/bornean-orangutan.html" class="species-card" data-ecosystem="tropical-forest">
+            <a href="species/bornean-orangutan.html" class="species-card" data-ecosystem="tropical-forest" aria-label="Bornean Orangutan (Pongo pygmaeus) - Critically Endangered, Tropical Forest habitat">
               <span class="species-card__ecosystem">Tropical Forest</span>
               <h3 class="species-card__name">Bornean Orangutan</h3>
               <p class="species-card__scientific">Pongo pygmaeus</p>
               <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
             </a>
-            <a href="species/hawksbill-turtle.html" class="species-card" data-ecosystem="coral-reef">
+            <a href="species/hawksbill-turtle.html" class="species-card" data-ecosystem="coral-reef" aria-label="Hawksbill Turtle (Eretmochelys imbricata) - Critically Endangered, Coral Reef habitat">
               <span class="species-card__ecosystem">Coral Reef</span>
               <h3 class="species-card__name">Hawksbill Turtle</h3>
               <p class="species-card__scientific">Eretmochelys imbricata</p>
               <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
             </a>
-            <a href="species/blue-whale.html" class="species-card" data-ecosystem="ocean">
+            <a href="species/blue-whale.html" class="species-card" data-ecosystem="ocean" aria-label="Blue Whale (Balaenoptera musculus) - Endangered, Ocean habitat">
               <span class="species-card__ecosystem">Ocean</span>
               <h3 class="species-card__name">Blue Whale</h3>
               <p class="species-card__scientific">Balaenoptera musculus</p>
               <span class="species-card__status species-card__status--endangered">Endangered</span>
             </a>
-            <a href="species/african-elephant.html" class="species-card" data-ecosystem="savanna">
+            <a href="species/african-elephant.html" class="species-card" data-ecosystem="savanna" aria-label="African Elephant (Loxodonta africana) - Endangered, Savanna habitat">
               <span class="species-card__ecosystem">Savanna</span>
               <h3 class="species-card__name">African Elephant</h3>
               <p class="species-card__scientific">Loxodonta africana</p>
               <span class="species-card__status species-card__status--endangered">Endangered</span>
             </a>
-            <a href="species/polar-bear.html" class="species-card" data-ecosystem="arctic">
+            <a href="species/polar-bear.html" class="species-card" data-ecosystem="arctic" aria-label="Polar Bear (Ursus maritimus) - Vulnerable, Arctic habitat">
               <span class="species-card__ecosystem">Arctic</span>
               <h3 class="species-card__name">Polar Bear</h3>
               <p class="species-card__scientific">Ursus maritimus</p>
               <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
             </a>
-            <a href="species/giant-panda.html" class="species-card" data-ecosystem="temperate-forest">
+            <a href="species/giant-panda.html" class="species-card" data-ecosystem="temperate-forest" aria-label="Giant Panda (Ailuropoda melanoleuca) - Vulnerable, Temperate Forest habitat">
               <span class="species-card__ecosystem">Temperate Forest</span>
               <h3 class="species-card__name">Giant Panda</h3>
               <p class="species-card__scientific">Ailuropoda melanoleuca</p>
               <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
             </a>
-            <a href="species/staghorn-coral.html" class="species-card" data-ecosystem="coral-reef">
+            <a href="species/staghorn-coral.html" class="species-card" data-ecosystem="coral-reef" aria-label="Staghorn Coral (Acropora cervicornis) - Critically Endangered, Coral Reef habitat">
               <span class="species-card__ecosystem">Coral Reef</span>
               <h3 class="species-card__name">Staghorn Coral</h3>
               <p class="species-card__scientific">Acropora cervicornis</p>
               <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
             </a>
-            <a href="species/amazon-river-dolphin.html" class="species-card" data-ecosystem="freshwater">
+            <a href="species/amazon-river-dolphin.html" class="species-card" data-ecosystem="freshwater" aria-label="Amazon River Dolphin (Inia geoffrensis) - Endangered, Freshwater habitat">
               <span class="species-card__ecosystem">Freshwater</span>
               <h3 class="species-card__name">Amazon River Dolphin</h3>
               <p class="species-card__scientific">Inia geoffrensis</p>
@@ -181,7 +201,12 @@
     </div>
 
     <!-- Scroll progress bar -->
-    <div class="scroll-progress-bar"></div>
+    <div class="scroll-progress-bar" role="navigation" aria-label="Scroll progress indicator"></div>
+
+    <!-- Screen reader description -->
+    <div class="sr-only">
+      This page presents an interactive 3D cinematic experience exploring the relationship between species in film and conservation. The experience includes a rotating globe with data visualization columns, research questions, a species gallery, and methodology sections. Use the scroll to navigate through sections, or access individual species pages via the links below.
+    </div>
 
     <!-- Globe tooltip (for raycasting hover) -->
     <div id="globe-tooltip" class="globe-tooltip"></div>

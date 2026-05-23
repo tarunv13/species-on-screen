@@ -155,12 +155,16 @@ export class CinematicEngine {
     this.canvas = canvas;
     this.clock = new THREE.Clock();
     this.scrollProgress = 0;
+    this._updateCallbacks = [];
+    this._paused = false;
+    this._lastTime = performance.now();
 
     this._initScene();
     this._initRenderer();
     this._initPostProcessing();
     this._initParticles();
     this._initLighting();
+    this._initVisibilityHandler();
     this._startLoop();
   }
 
@@ -222,11 +226,30 @@ export class CinematicEngine {
     this.scene.add(directional);
   }
 
+  _initVisibilityHandler() {
+    this._visibilityHandler = () => {
+      if (document.hidden) {
+        this._paused = true;
+        this.clock.stop();
+      } else {
+        this._paused = false;
+        this.clock.start();
+        this._lastTime = performance.now();
+      }
+    };
+    document.addEventListener('visibilitychange', this._visibilityHandler);
+  }
+
   _startLoop() {
     const animate = () => {
       this._animationId = requestAnimationFrame(animate);
 
+      if (this._paused) return;
+
       const elapsed = this.clock.getElapsedTime();
+      const now = performance.now();
+      const delta = (now - this._lastTime) / 1000;
+      this._lastTime = now;
 
       // Update film grain time
       this.grainPass.uniforms.time.value = elapsed;
@@ -234,10 +257,22 @@ export class CinematicEngine {
       // Update particle drift
       this.particles.material.uniforms.time.value = elapsed;
 
+      // Run registered update callbacks (e.g., globe.update)
+      for (const cb of this._updateCallbacks) {
+        cb(delta);
+      }
+
       // Render via composer
       this.composer.render();
     };
     animate();
+  }
+
+  /**
+   * Register a callback to be called every frame with delta time
+   */
+  onUpdate(callback) {
+    this._updateCallbacks.push(callback);
   }
 
   /**
@@ -297,6 +332,7 @@ export class CinematicEngine {
     if (this._animationId) {
       cancelAnimationFrame(this._animationId);
     }
+    document.removeEventListener('visibilitychange', this._visibilityHandler);
     this.renderer.dispose();
     this.composer.dispose();
   }
