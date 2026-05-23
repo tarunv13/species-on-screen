@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "fix",
   "description": "Rebuild the TMDB data pipeline with semantic filtering to eliminate contaminated results. The current scripts/fetch-tmdb-data.js returns irrelevant films (war movies with 'Tiger' in name, mafia films called 'Paper Tiger', martial arts films). Must implement genre filtering, keyword-based semantic validation, narrative technique classification, and confidence scoring. Also restructure output JSON to include the new academic content architecture (RQ framework, COM-B model, methodology, evidence sections, academic references).",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Completely rewrite scripts/fetch-tmdb-data.js with the following improvements:",
     "1. Keep the existing SPECIES array with all 10 species data (taxonomy, habitat, threats, conservation, cultural_significance) but enhance each species entry with new fields: hero_stat (one devastating statistic), root_causes_comb (COM-B structured: capability barriers, opportunity barriers, motivation barriers), evidence_summary (what research shows about media-conservation correlation), methodology_notes (how species connects to RQ1-RQ4), and academic_references array.",
@@ -30,5 +30,5 @@
     "Run `npm run build` to confirm the site still builds"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Script successfully generates 10 JSON files. Tiger has 5 clean results (no contamination), Snow Leopard has 13, Blue Whale 4, Polar Bear 11, Giant Panda 4, African Elephant 1. Some species (Bornean Orangutan, Hawksbill Turtle, Staghorn Coral, Amazon River Dolphin) return 0 results from TMDB as expected since they are less represented in film. The species-page.js handles empty media arrays gracefully with a fallback message. Build passes successfully."
 }
