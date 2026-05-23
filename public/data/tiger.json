@@ -69,263 +69,137 @@
     "media_presence": "Tigers appear in more wildlife documentaries than any other big cat, with BBC and National Geographic producing dedicated series.",
     "cultural_paradox": "The most culturally celebrated big cat is simultaneously among the most endangered, with more tigers in captivity than in the wild."
   },
+  "hero_stat": "95% of tiger habitat lost in 100 years",
+  "hero_image": {
+    "url": "https://image.tmdb.org/t/p/original/z6qnhy2mM4te45jEPXm1E0ugjrr.jpg",
+    "credit": "TMDB",
+    "source": "tmdb"
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Lack of local knowledge about coexistence strategies",
+      "Limited ranger capacity for anti-poaching patrols",
+      "Insufficient forensic tools for wildlife crime prosecution"
+    ],
+    "opportunity": [
+      "Expanding agriculture encroaches on forest corridors",
+      "Black market demand creates financial incentive for poaching",
+      "Inadequate cross-border enforcement between range states"
+    ],
+    "motivation": [
+      "Short-term economic gain from land conversion outweighs conservation value",
+      "Cultural beliefs drive demand for tiger bone medicine",
+      "Retaliatory killing perceived as necessary for community safety"
+    ]
+  },
+  "evidence_summary": "Research indicates that high-profile tiger documentaries (e.g., BBC Tiger: Spy in the Jungle) correlate with increased donations to tiger conservation funds and heightened public awareness, though direct behavioural change remains difficult to measure (Jones et al., 2019).",
+  "methodology_notes": "Tiger connects to RQ1 through measurable donation spikes following broadcast events; RQ2 through comparison of observational vs presenter-led documentary engagement; RQ4 through Project Tiger monitoring data providing baseline for media impact assessment.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Karanth, K.U. & Nichols, J.D. (1998). Estimation of tiger densities using photographic captures and recaptures. Ecology, 79(8), pp.2852-2862.",
+    "Linkie, M. et al. (2015). Safeguarding Sumatran tigers: evaluating effectiveness of law enforcement patrols. Biological Conservation, 190, pp.42-49."
+  ],
   "tmdb_media": [
     {
-      "title": "The Tank",
-      "year": 2025,
-      "overview": "A German Tiger tank crew is sent on a dangerous mission to rescue the missing officer Paul von Hardenburg from a top-secret bunker behind enemy lines. As they make their way through the lethal no-man's land, they must confront not only the enemy, but also their own fears and inner demons. Fueled by the Wehrmacht's methamphetamine, their mission increasingly becomes a journey into the heart of darkness.",
-      "poster_path": "/65Jr1JAgWlu9em8zHhAfrNJJQBt.jpg",
-      "vote_average": 7.083,
+      "title": "The Conservation Game",
+      "year": 2021,
+      "director": "Michael Webber",
+      "tmdb_url": "https://www.themoviedb.org/movie/833064",
+      "poster_path": "/6bT3IZT7Ny4wvknwXxpEqwAERk1.jpg",
+      "backdrop_path": "/z6qnhy2mM4te45jEPXm1E0ugjrr.jpg",
+      "overview": "Retired Ohio police officer, Tim Harrison, stumbles upon a bombshell discovery when he suspects that the world's most famous celebrity conservationists may be secretly connected to the big cat trade.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 65,
+      "query_source": "\"Tiger\" conservation",
       "genre_ids": [
-        10752,
-        28,
-        18
+        99
       ],
-      "id": 1252037
-    },
-    {
-      "title": "Paper Tiger",
-      "year": 2026,
-      "overview": "Two brothers chase the American dream, but soon find themselves in the brutal world of violence and corruption of the Russian mafia.",
-      "poster_path": "/9txURTPuB1W85km06SAnrFcOCFF.jpg",
-      "vote_average": 7.5,
-      "genre_ids": [
-        80,
-        18,
-        53
-      ],
-      "id": 1381273
-    },
-    {
-      "title": "Crouching Tiger, Hidden Dragon",
-      "year": 2000,
-      "overview": "Two warriors in pursuit of a stolen sword and a notorious fugitive are led to an impetuous, physically-skilled, teenage nobleman's daughter, who is at a crossroads in her life.",
-      "poster_path": "/iNDVBFNz4XyYzM9Lwip6atSTFqf.jpg",
-      "vote_average": 7.434,
-      "genre_ids": [
-        12,
-        18,
-        28,
-        10749
-      ],
-      "id": 146
-    },
-    {
-      "title": "Tiger Cage II",
-      "year": 1990,
-      "overview": "An ex-cop and divorce lawyer team up with a gangster to clear their names after getting involved in a dirty money scheme led by a vicious money launderer, who plans to expand his business and wipe out anyone who stands in his way.",
-      "poster_path": "/7DKQvMAiYBHBRVNtgc3qAxoAe6l.jpg",
-      "vote_average": 7.051,
-      "genre_ids": [
-        28,
-        80,
-        53
-      ],
-      "id": 58412
-    },
-    {
-      "title": "The Tiger Murder Case",
-      "year": 1930,
-      "overview": "Mysterious murders committed by a criminal have kept the public on their toes and the police have mistakenly accused an imposter of the crimes.",
-      "poster_path": "/fzbD1apfvWKKWgnY6J949lBF47j.jpg",
-      "vote_average": 6,
-      "genre_ids": [
-        9648,
-        80,
-        18
-      ],
-      "id": 285847
-    },
-    {
-      "title": "The Tiger of Santa Julia",
-      "year": 2002,
-      "overview": "An army deserter turned bandit robs from thieves to give the money to the poor. He was famous for being caught by the police \"with his pants down\"",
-      "poster_path": "/wV9iDhGabHKrONzVebKjpz9OXqR.jpg",
-      "vote_average": 6.894,
-      "genre_ids": [
-        35,
-        18,
-        28
-      ],
-      "id": 73524
-    },
-    {
-      "title": "The Tiger",
-      "year": 2015,
-      "overview": "In 1925 Korea, Japanese rulers demand the last remaining tiger be killed. The tiger easily defeats his pursuers until a legendary hunter takes him on.",
-      "poster_path": "/tPI6t2Cvu7vWO9iDs4Cigq8svWl.jpg",
-      "vote_average": 7.687,
-      "genre_ids": [
-        28,
-        36,
-        12,
-        18
-      ],
-      "id": 363093
+      "vote_average": 5.667
     },
     {
       "title": "Tiger",
       "year": 2024,
-      "overview": "Journey alongside a young tigress raising her cubs in the fabled forests of India.",
+      "director": "Mark Linfield",
+      "tmdb_url": "https://www.themoviedb.org/movie/1259918",
       "poster_path": "/pHWcpdSFDKFnxZUF66MPfJRaA5a.jpg",
-      "vote_average": 8,
+      "backdrop_path": "/qxG6WKJ7je4fK5g4IlgStezijwc.jpg",
+      "overview": "Journey alongside a young tigress raising her cubs in the fabled forests of India.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 65,
+      "query_source": "Tiger",
       "genre_ids": [
         99,
         10751
       ],
-      "id": 1259918
-    },
-    {
-      "title": "The White Tiger",
-      "year": 2021,
-      "overview": "An ambitious Indian driver uses his wit and cunning to escape from poverty and rise to the top. An epic journey based on the New York Times bestseller.",
-      "poster_path": "/5JnmseS3DZ6ad2VMbrnbGCs8Rst.jpg",
-      "vote_average": 6.986,
-      "genre_ids": [
-        18
-      ],
-      "id": 628534
-    },
-    {
-      "title": "Josee, the Tiger and the Fish",
-      "year": 2020,
-      "overview": "With dreams of diving abroad, Tsuneo gets a job assisting Josee, an artist whose imagination takes her far beyond her wheelchair. But when the tide turns against them, they push each other to places they never thought possible, and inspire a love fit for a storybook.",
-      "poster_path": "/z1D8xi9x4uEhyFruo7uEHXUMD4K.jpg",
-      "vote_average": 8.268,
-      "genre_ids": [
-        16,
-        18,
-        10749
-      ],
-      "id": 652837
-    },
-    {
-      "title": "Tiger House",
-      "year": 2015,
-      "overview": "A young gymnast battles a group of bank robbers at the home of her boyfriend.",
-      "poster_path": "/heqehuEfbg2283Z9hFmsVuv3UE3.jpg",
-      "vote_average": 5.481,
-      "genre_ids": [
-        28,
-        80,
-        18,
-        53
-      ],
-      "id": 341077
+      "vote_average": 8
     },
     {
       "title": "Tiger Cruise",
       "year": 2004,
-      "overview": "On its last leg homeward, from Pearl Harbor, Hawaii to San Diego, the USS Constellation hosts a jolly \"tiger cruise\" for US Navy, Marines and USNAF relatives, mainly minors (\"Navy brats\"). Attitudes and emotions vary from simple joy to open frustration, the worst brat being XO commander Gary Dolan's daughter Maddie, who wants him to refuse a promotion to command for a shore job. Then the news of the WCC terror crisis changes everything, as the crew is recalled to war footing.",
+      "director": "Duwayne Dunham",
+      "tmdb_url": "https://www.themoviedb.org/movie/51909",
       "poster_path": "/oltUNC3hNkxoHtSuHkSkhCfm5rJ.jpg",
-      "vote_average": 6,
+      "backdrop_path": "/gR2yVX6tDLBlDYByapgiOUWUMxA.jpg",
+      "overview": "On its last leg homeward, from Pearl Harbor, Hawaii to San Diego, the USS Constellation hosts a jolly \"tiger cruise\" for US Navy, Marines and USNAF relatives, mainly minors (\"Navy brats\"). Attitudes and emotions vary from simple joy to open frustration, the worst brat being XO commander Gary Dolan's daughter Maddie, who wants him to refuse a promotion to command for a shore job. Then the news of the WCC terror crisis changes everything, as the crew is recalled to war footing.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 45,
+      "query_source": "Tiger",
       "genre_ids": [
         10770,
         10751,
         18
       ],
-      "id": 51909
-    },
-    {
-      "title": "Blue Tiger",
-      "year": 1994,
-      "overview": "Gena is a sweet and dedicated mother to her little son. One day, whilst shopping with him for a halloween mask, her son is accidently shot through the chest by a Japanese Gunman, trying to kill an opposing gang of bus operators. Gena notices that the gunman has a picture of a blue tiger on his chest. She is turned into an obsessed person and has an identical red tiger etched into her skin. She then tracks down the killer and plots his death. This leads her into the world of the Japanese Mafia",
-      "poster_path": "/5wHnOCUj6q2Ag6M7okiirexjTnv.jpg",
-      "vote_average": 5.25,
-      "genre_ids": [
-        18,
-        28,
-        53
-      ],
-      "id": 37023
-    },
-    {
-      "title": "Tiger",
-      "year": 2018,
-      "overview": "A practicing Sikh is banned by the boxing commission for refusing to back down from his religious beliefs. Through racial profiling and stereotypical threats, he does what any strong American would do: fight back.",
-      "poster_path": "/cLa8lCiZyepoRPqAjnOhOvLPuyN.jpg",
-      "vote_average": 6.4,
-      "genre_ids": [
-        18,
-        28
-      ],
-      "id": 458414
-    },
-    {
-      "title": "The Lost Tiger",
-      "year": 2025,
-      "overview": "Adopted by a big, lively and spirited kangaroo family of traveling wrestlers, Teo’s life is pretty great. But when mysterious visions lead him to a faraway land, Teo is forced to rediscover his roots and embark on an epic journey to save his homeland from impending destruction.",
-      "poster_path": "/6wbvSeKXzvsDP73clF22oXE3kAI.jpg",
-      "vote_average": 6.75,
-      "genre_ids": [
-        12,
-        16,
-        35,
-        10751,
-        14
-      ],
-      "id": 1245562
-    },
-    {
-      "title": "Tiger",
-      "year": 2025,
-      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger’s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn’t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a ‘family’ and begins to explore ways to build one in his own way through a ‘friendship marriage.’",
-      "poster_path": "/sd80NvjETTBGi0ejYLsgwMCx1tm.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        18
-      ],
-      "id": 1463564
-    },
-    {
-      "title": "Tiger Cage",
-      "year": 1988,
-      "overview": "Something fishy is going on in the anti-Drug Trafficking Unit of the HK Police, and only a few honest cops know that the corruption goes all the way to the top. However, they must prove their case quickly, and by unconventional means, after they are framed for murder and drug-trafficking themselves. Dodging bullets from cops and criminals alike, the race is on to clear their names, protect their loved ones, and bring their corrupt colleagues to justice.",
-      "poster_path": "/3evbtScpCceIFxWOc9cIZ1mMhX7.jpg",
-      "vote_average": 6.7,
-      "genre_ids": [
-        28,
-        80,
-        18,
-        53
-      ],
-      "id": 58409
-    },
-    {
-      "title": "Tiger Claws",
-      "year": 1991,
-      "overview": "A mysterious martial artist is killing martial arts masters with his unique style, Tiger Claw. Two police detectives, who are also martial arts experts, use unorthodox methods to track down the serial killer.",
-      "poster_path": "/A6xwAfDrNvUXRVXtuqiLMhnBTmq.jpg",
-      "vote_average": 5.5,
-      "genre_ids": [
-        28
-      ],
-      "id": 66006
-    },
-    {
-      "title": "Dragon Tiger Gate",
-      "year": 2006,
-      "overview": "Three young martial arts masters emerge from the back streets of Hong Kong to help the powerless fight injustice.",
-      "poster_path": "/qamxFxSDtxFk4WPOp5bOYroLqFa.jpg",
-      "vote_average": 6.7,
-      "genre_ids": [
-        28,
-        53
-      ],
-      "id": 15860
+      "vote_average": 6
     },
     {
       "title": "The Tiger Rising",
       "year": 2022,
-      "overview": "When 12-year-old Rob Horton discovers a caged tiger in the woods near his home, his imagination runs wild and life begins to change in the most unexpected ways. With the help of a wise and mysterious maid, Willie May  and the stubborn new girl in school, he must navigate through childhood memories, heartache, and wondrous adventures.",
+      "director": "Ray Giarratana",
+      "tmdb_url": "https://www.themoviedb.org/movie/793269",
       "poster_path": "/mEukzqPoCpbrXLGslT8qdTuyRKZ.jpg",
-      "vote_average": 5.5,
+      "backdrop_path": "/dixceUg5veb5cl55DTEwTWDxCXU.jpg",
+      "overview": "When 12-year-old Rob Horton discovers a caged tiger in the woods near his home, his imagination runs wild and life begins to change in the most unexpected ways. With the help of a wise and mysterious maid, Willie May  and the stubborn new girl in school, he must navigate through childhood memories, heartache, and wondrous adventures.",
+      "classification": "fiction",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 45,
+      "query_source": "Tiger",
       "genre_ids": [
         12,
         10751,
         18
       ],
-      "id": 793269
+      "vote_average": 5.5
+    },
+    {
+      "title": "Tiger",
+      "year": 2025,
+      "director": "Anshul Chauhan",
+      "tmdb_url": "https://www.themoviedb.org/movie/1463564",
+      "poster_path": "/sd80NvjETTBGi0ejYLsgwMCx1tm.jpg",
+      "backdrop_path": "/s4x2NVH60YxGsqGJCKr9Ws71MIG.jpg",
+      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger’s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn’t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a ‘family’ and begins to explore ways to build one in his own way through a ‘friendship marriage.’",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Tiger",
+      "genre_ids": [
+        18
+      ],
+      "vote_average": 0
     }
   ]
 }

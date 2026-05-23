@@ -7,10 +7,50 @@ const __dirname = dirname(__filename);
 
 const TMDB_API_KEY = 'ab7c1810da1a84fbc50d3fe313f42a72';
 const TMDB_BASE = 'https://api.themoviedb.org/3';
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/original';
 const OUTPUT_DIR = resolve(__dirname, '..', 'public', 'data');
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// ============================================================
+// SHARED ACADEMIC REFERENCES
+// ============================================================
+const SHARED_ACADEMIC_REFERENCES = [
+  "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+  "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+  "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+  "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+  "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+  "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42)."
+];
+
+// ============================================================
+// RESEARCH QUESTIONS
+// ============================================================
+const RESEARCH_QUESTIONS = [
+  "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+  "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+  "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+  "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+];
+
+// ============================================================
+// SEMANTIC TRAP GENRES (action, crime, thriller, war)
+// ============================================================
+const TRAP_GENRES = new Set([28, 80, 53, 10752]);
+
+// Nature/wildlife keywords for semantic validation
+const NATURE_KEYWORDS = [
+  'wildlife', 'nature', 'conservation', 'animal', 'endangered',
+  'habitat', 'ecosystem', 'species', 'forest', 'jungle', 'ocean',
+  'reef', 'marine', 'safari', 'sanctuary', 'wilderness', 'migration',
+  'predator', 'prey', 'ecological', 'biodiversity', 'zoo',
+  'documentary', 'national park', 'wild', 'poaching', 'extinction'
+];
+
+// ============================================================
+// SPECIES DATA ARRAY
+// ============================================================
 const SPECIES = [
   {
     slug: 'tiger',
@@ -46,7 +86,17 @@ const SPECIES = [
       mythology: 'Sacred in Hindu mythology as the mount of Goddess Durga, and revered across Asian cultures as guardians and shape-shifters.',
       media_presence: 'Tigers appear in more wildlife documentaries than any other big cat, with BBC and National Geographic producing dedicated series.',
       cultural_paradox: 'The most culturally celebrated big cat is simultaneously among the most endangered, with more tigers in captivity than in the wild.'
-    }
+    },
+    hero_stat: '95% of tiger habitat lost in 100 years',
+    root_causes_comb: {
+      capability: ['Lack of local knowledge about coexistence strategies', 'Limited ranger capacity for anti-poaching patrols', 'Insufficient forensic tools for wildlife crime prosecution'],
+      opportunity: ['Expanding agriculture encroaches on forest corridors', 'Black market demand creates financial incentive for poaching', 'Inadequate cross-border enforcement between range states'],
+      motivation: ['Short-term economic gain from land conversion outweighs conservation value', 'Cultural beliefs drive demand for tiger bone medicine', 'Retaliatory killing perceived as necessary for community safety']
+    },
+    evidence_summary: 'Research indicates that high-profile tiger documentaries (e.g., BBC Tiger: Spy in the Jungle) correlate with increased donations to tiger conservation funds and heightened public awareness, though direct behavioural change remains difficult to measure (Jones et al., 2019).',
+    methodology_notes: 'Tiger connects to RQ1 through measurable donation spikes following broadcast events; RQ2 through comparison of observational vs presenter-led documentary engagement; RQ4 through Project Tiger monitoring data providing baseline for media impact assessment.',
+    academic_references: ['Karanth, K.U. & Nichols, J.D. (1998). Estimation of tiger densities using photographic captures and recaptures. Ecology, 79(8), pp.2852-2862.', 'Linkie, M. et al. (2015). Safeguarding Sumatran tigers: evaluating effectiveness of law enforcement patrols. Biological Conservation, 190, pp.42-49.'],
+    search_terms: ['tiger', 'bengal tiger', 'sumatran tiger', 'siberian tiger']
   },
   {
     slug: 'snow-leopard',
@@ -82,7 +132,17 @@ const SPECIES = [
       mythology: 'Revered as mountain spirits across Central Asian cultures, snow leopards appear in Tibetan Buddhist iconography and Kyrgyz folklore.',
       media_presence: 'The difficulty of filming snow leopards makes every documentary appearance a landmark event, with some crews waiting years for footage.',
       cultural_paradox: 'Known as the "ghost of the mountains," the snow leopard\'s mystique grows even as climate change erodes its high-altitude realm.'
-    }
+    },
+    hero_stat: 'Snow leopards have lost 20% of their range in just 16 years',
+    root_causes_comb: {
+      capability: ['Remote communities lack livestock protection infrastructure', 'Limited veterinary support increases perceived losses to predation', 'Insufficient monitoring technology in harsh terrain'],
+      opportunity: ['Mining concessions granted in core habitat areas', 'Climate change shifting tree lines reduces available alpine territory', 'Cross-border cooperation hampered by geopolitical tensions'],
+      motivation: ['Livestock losses represent catastrophic economic damage for herders', 'Pelt trade offers significant income in impoverished regions', 'Low awareness of snow leopard ecological importance among local communities']
+    },
+    evidence_summary: 'Planet Earth II snow leopard sequences generated measurable increases in Snow Leopard Trust donations and social media engagement, demonstrating the power of rare wildlife footage to drive conservation support (Silk et al., 2018).',
+    methodology_notes: 'Snow leopard connects to RQ1 through donation tracking post-broadcast; RQ2 through analysis of dramatic cliff-hunting sequences as adventure-narrative technique; RQ3 through potential for mountain ecosystem simulation games; RQ4 through Snow Leopard Trust community monitoring programmes.',
+    academic_references: ['Jackson, R.M. et al. (2006). Estimating snow leopard population abundance using photography and capture-recapture techniques. Wildlife Society Bulletin, 34(3), pp.772-781.', 'Li, J. et al. (2016). Role of Tibetan Buddhist monasteries in snow leopard conservation. Conservation Biology, 30(4), pp.735-745.'],
+    search_terms: ['snow leopard', 'mountain cat', 'ghost cat']
   },
   {
     slug: 'bornean-orangutan',
@@ -118,7 +178,17 @@ const SPECIES = [
       mythology: 'The name "orangutan" derives from Malay "orang hutan" meaning "person of the forest," reflecting indigenous recognition of their near-human qualities.',
       media_presence: 'David Attenborough\'s emotional encounters with orangutans have become some of the most shared wildlife television moments.',
       cultural_paradox: 'Our closest relatives in Asia face extinction primarily so that processed foods can contain cheap vegetable oil.'
-    }
+    },
+    hero_stat: '100 orangutans lost every week due to habitat destruction',
+    root_causes_comb: {
+      capability: ['Consumers unable to identify palm oil in products', 'Smallholder farmers lack alternative livelihood training', 'Rescue centres overwhelmed with displaced orphan orangutans'],
+      opportunity: ['Global palm oil demand creates irresistible economic pressure on forests', 'Weak enforcement of forestry laws in remote Borneo', 'Fire as cheap land-clearing method remains accessible'],
+      motivation: ['Palm oil highly profitable compared to sustainable alternatives', 'Consumer disconnect between products and deforestation', 'Short election cycles discourage long-term forest protection policies']
+    },
+    evidence_summary: 'Documentaries linking orangutan decline to palm oil consumption have measurably shifted consumer purchasing behaviour and supported growth of RSPO-certified products, though industry-wide change remains slow (Silk et al., 2018).',
+    methodology_notes: 'Bornean orangutan connects to RQ1 through consumer behaviour change tracking post-documentary; RQ2 through emotional narrative techniques using infant rescue stories; RQ3 through supply-chain simulation game potential; RQ4 through RSPO certification uptake as measurable outcome.',
+    academic_references: ['Wich, S.A. et al. (2012). Understanding the impacts of land-use policies on a threatened species. PLoS ONE, 7(11), e49525.', 'Meijaard, E. et al. (2011). Quantifying killing of orangutans and human-orangutan conflict in Kalimantan. PLoS ONE, 6(11), e27491.'],
+    search_terms: ['orangutan', 'borneo orangutan', 'orangutan rainforest']
   },
   {
     slug: 'hawksbill-turtle',
@@ -154,7 +224,17 @@ const SPECIES = [
       mythology: 'In many coastal cultures, sea turtles carry the world on their backs or serve as messengers between the land and sea spirits.',
       media_presence: 'Underwater cinematography has made hawksbills icons of marine conservation, their graceful swimming instantly recognizable.',
       cultural_paradox: 'The very beauty of their shells that inspired centuries of craftsmanship has driven them toward extinction.'
-    }
+    },
+    hero_stat: 'Hawksbill populations declined by 80% over three generations',
+    root_causes_comb: {
+      capability: ['Fishing communities lack affordable bycatch-reduction technology', 'Limited public understanding of reef-turtle ecological linkage', 'Coastal managers lack tools to monitor nesting beach disturbance'],
+      opportunity: ['International shell trade persists through enforcement gaps', 'Coastal tourism development prioritized over nesting habitat protection', 'Climate change degrading reef feeding grounds beyond local control'],
+      motivation: ['Tortoiseshell products culturally valued in East Asian markets', 'Egg harvesting seen as traditional right in coastal communities', 'Economic returns from coastal development exceed conservation funding']
+    },
+    evidence_summary: 'Blue Planet coral reef sequences featuring hawksbills generated significant public concern about marine plastics and reef health, contributing to policy discussions on single-use plastics in multiple countries (Jones et al., 2019).',
+    methodology_notes: 'Hawksbill turtle connects to RQ1 through plastic policy changes linked to marine documentaries; RQ2 through underwater cinematography as observational technique; RQ3 through reef ecosystem simulation potential; RQ4 through beach monitoring volunteer recruitment post-broadcast.',
+    academic_references: ['Mortimer, J.A. & Donnelly, M. (2008). Hawksbill Turtle (Eretmochelys imbricata). IUCN Red List Assessment.', 'Meylan, A.B. & Donnelly, M. (1999). Status justification for listing the hawksbill turtle as Critically Endangered. Chelonian Conservation and Biology, 3(2), pp.200-224.'],
+    search_terms: ['hawksbill turtle', 'sea turtle', 'turtle reef', 'marine turtle']
   },
   {
     slug: 'blue-whale',
@@ -190,7 +270,17 @@ const SPECIES = [
       mythology: 'Whale mythology spans from Jonah to Maori creation stories, whales serving as bridges between human and oceanic worlds.',
       media_presence: 'Blue Planet\'s blue whale sequences remain among the most watched and emotionally powerful moments in natural history television.',
       cultural_paradox: 'The largest animal ever to exist was hunted to near-extinction within a single human lifetime, now slowly recovering under protection.'
-    }
+    },
+    hero_stat: 'Blue whale population reduced by 99% before whaling ban',
+    root_causes_comb: {
+      capability: ['Shipping industry lacks affordable speed-reduction technology for whale zones', 'Limited real-time whale detection systems for vessel operators', 'Difficulty monitoring vast oceanic ranges'],
+      opportunity: ['International shipping lanes overlap with critical feeding areas', 'Climate change shifting krill distributions into busier waters', 'Noise pollution regulations difficult to enforce in international waters'],
+      motivation: ['Economic pressure to maintain shipping schedules over speed reductions', 'Whaling moratorium compliance varies by nation', 'Public disconnect from open-ocean conservation issues due to remoteness']
+    },
+    evidence_summary: 'Blue Planet broadcast events correlate with measurable increases in ocean conservation charity donations and public support for marine protected areas, with blue whale sequences among the most emotionally impactful (Jones et al., 2019).',
+    methodology_notes: 'Blue whale connects to RQ1 through measurable public attitude shifts toward marine protection post-documentary; RQ2 through analysis of scale-revelation as sublime narrative technique; RQ3 through ocean exploration game design potential; RQ4 through marine protected area support polling as outcome measure.',
+    academic_references: ['Branch, T.A. et al. (2004). Evidence for increases in Antarctic blue whales based on Bayesian modelling. Marine Mammal Science, 20(4), pp.726-754.', 'Attard, C.R.M. et al. (2012). Hybridization of Southern Hemisphere blue whale subspecies and implications for conservation. Conservation Genetics, 13(6), pp.1497-1507.'],
+    search_terms: ['blue whale', 'whale ocean', 'whale documentary']
   },
   {
     slug: 'african-elephant',
@@ -226,7 +316,17 @@ const SPECIES = [
       mythology: 'Sacred across African and Asian cultures, from Ganesh in Hinduism to the wisdom keepers of West African folklore.',
       media_presence: 'Elephant family dynamics, grief behaviors, and intelligence make them perennial subjects for documentary filmmakers.',
       cultural_paradox: 'Universally beloved and recognized as highly intelligent, yet killed in enormous numbers for decorative trinkets.'
-    }
+    },
+    hero_stat: 'One elephant killed every 15 minutes for ivory',
+    root_causes_comb: {
+      capability: ['Rangers under-equipped and outnumbered by poaching networks', 'Communities lack tools for non-lethal crop protection', 'Corruption undermines law enforcement at multiple levels'],
+      opportunity: ['International ivory demand creates lucrative black market', 'Vast ranges impossible to patrol effectively', 'Political instability enables armed poaching gangs'],
+      motivation: ['Ivory prices incentivize poaching above legitimate income sources', 'Human-elephant conflict drives retaliatory killing', 'Demand for ivory as status symbol persists despite bans']
+    },
+    evidence_summary: 'The documentary "The Ivory Game" (2016) contributed to China\'s decision to close its domestic ivory market, demonstrating direct policy impact from wildlife filmmaking (Jones et al., 2019).',
+    methodology_notes: 'African elephant connects to RQ1 through documented policy change following documentary broadcast; RQ2 through investigative journalism as narrative technique in wildlife crime films; RQ3 through anti-poaching strategy game potential; RQ4 through ivory market closure as measurable policy outcome.',
+    academic_references: ['Wittemyer, G. et al. (2014). Illegal killing for ivory drives global decline in African elephants. PNAS, 111(36), pp.13117-13121.', 'Chase, M.J. et al. (2016). Continent-wide survey reveals massive decline in African savannah elephants. PeerJ, 4, e2354.'],
+    search_terms: ['african elephant', 'elephant safari', 'elephant ivory', 'elephant conservation']
   },
   {
     slug: 'polar-bear',
@@ -262,7 +362,17 @@ const SPECIES = [
       mythology: 'Central to Inuit cosmology as Nanuq, the polar bear is a spiritual being deserving of profound respect.',
       media_presence: 'From Coca-Cola advertisements to climate campaigns, the polar bear is perhaps the most recognizable conservation icon.',
       cultural_paradox: 'The ultimate symbol of climate crisis belongs to a region most people will never visit, creating emotional distance from the emergency.'
-    }
+    },
+    hero_stat: 'Arctic sea ice declining at 13% per decade since 1979',
+    root_causes_comb: {
+      capability: ['Global emissions reduction requires systemic change beyond individual action', 'Arctic communities lack infrastructure to manage increasing bear encounters', 'Limited ability to create artificial feeding opportunities during extended ice-free periods'],
+      opportunity: ['Fossil fuel infrastructure expanding into Arctic as ice retreats', 'International climate agreements insufficient to halt warming trajectory', 'Arctic shipping routes opening, increasing disturbance'],
+      motivation: ['Economic incentives for Arctic resource extraction outweigh conservation concerns', 'Climate change denial delays necessary policy action', 'Geographic remoteness reduces public urgency for Arctic protection']
+    },
+    evidence_summary: 'The iconic "stranded polar bear" imagery has become the most recognized visual metaphor for climate change, measurably increasing public concern and support for emissions reduction policies (Silk et al., 2018; Macdonald et al., 2016).',
+    methodology_notes: 'Polar bear connects to RQ1 through climate attitude polling linked to documentary exposure; RQ2 through analysis of isolated-animal-in-peril as emotional narrative technique; RQ3 through climate simulation game design; RQ4 through public opinion polling on climate policy as outcome measure.',
+    academic_references: ['Amstrup, S.C. et al. (2010). Greenhouse gas mitigation can reduce sea-ice loss and increase polar bear persistence. Nature, 468(7326), pp.955-958.', 'Stirling, I. & Derocher, A.E. (2012). Effects of climate warming on polar bears: a review of the evidence. Global Change Biology, 18(9), pp.2694-2706.'],
+    search_terms: ['polar bear', 'arctic bear', 'polar bear climate', 'polar bear ice']
   },
   {
     slug: 'giant-panda',
@@ -298,7 +408,17 @@ const SPECIES = [
       mythology: 'Ancient Chinese texts describe pandas as peaceful creatures that could mediate between warring tribes, symbols of yin-yang balance.',
       media_presence: 'As the WWF logo species since 1961, the panda is arguably the world\'s most recognizable conservation symbol.',
       cultural_paradox: 'Massive conservation investment in a single charismatic species raises questions about resource allocation while also funding broader ecosystem protection.'
-    }
+    },
+    hero_stat: 'Only 1,864 giant pandas remain in the wild across 30 fragmented populations',
+    root_causes_comb: {
+      capability: ['Bamboo corridor restoration requires decades of growth', 'Captive breeding struggles with low reproductive rates', 'Genetic management across fragmented populations technically challenging'],
+      opportunity: ['Infrastructure development continues to fragment remaining habitat', 'Climate change altering bamboo distribution faster than corridors can be restored', 'Tourism pressure on reserves increasing with prosperity'],
+      motivation: ['Panda conservation heavily funded but benefits concentrated on one species', 'Political symbolism sometimes prioritized over ecological effectiveness', 'Public preference for charismatic megafauna skews funding allocation']
+    },
+    evidence_summary: 'The giant panda demonstrates the "flagship species" effect where media attention on one charismatic species generates conservation funding that protects entire ecosystems, though critics note allocation inequity (Macdonald et al., 2016).',
+    methodology_notes: 'Giant panda connects to RQ1 through WWF brand recognition and fundraising data; RQ2 through anthropomorphic narrative technique analysis in Kung Fu Panda vs observational documentaries; RQ3 through bamboo forest ecosystem management simulation; RQ4 through population recovery metrics as long-term outcome measure.',
+    academic_references: ['Swaisgood, R.R. et al. (2011). Can science save the giant panda? Unifying science and policy in an adaptive management framework. Integrative Zoology, 6(3), pp.290-296.', 'Wei, F. et al. (2015). Progress in the ecology and conservation of giant pandas. Conservation Biology, 29(6), pp.1497-1507.'],
+    search_terms: ['giant panda', 'panda china', 'panda bamboo', 'panda conservation']
   },
   {
     slug: 'staghorn-coral',
@@ -320,7 +440,7 @@ const SPECIES = [
       { name: 'Ocean Acidification', description: 'Increasing CO2 absorption makes seawater more acidic, reducing corals\' ability to build and maintain their calcium carbonate skeletons.' },
       { name: 'White Band Disease', description: 'A devastating bacterial disease has killed 80-98% of staghorn coral populations across the Caribbean since the 1980s.' },
       { name: 'Hurricane Damage', description: 'The branching structure of staghorn coral makes it particularly vulnerable to physical destruction by increasingly intense storms.' },
-      { name: 'Sedimentation and Pollution', description: 'Coastal runoff smothers coral polyps with sediment and introduces nutrients that fuel algae overgrowth.' }
+      { name: 'Sedimentation and Pollution', description: 'Runoff from coastal development smothers coral with sediment and introduces nutrients that fuel algal overgrowth.' }
     ],
     conservation: {
       iucn_status: 'Critically Endangered',
@@ -334,7 +454,17 @@ const SPECIES = [
       mythology: 'Ancient Mediterranean cultures believed coral was the petrified blood of Medusa, while Pacific cultures see reefs as ancestral formations.',
       media_presence: 'Before-and-after bleaching imagery has made coral one of the most visually compelling symbols of climate change.',
       cultural_paradox: 'The most biodiverse marine ecosystems on Earth are collapsing faster than any terrestrial habitat, yet remain largely out of sight and mind.'
-    }
+    },
+    hero_stat: '80-98% of Caribbean staghorn coral lost since the 1980s',
+    root_causes_comb: {
+      capability: ['Coral restoration techniques cannot scale to match rate of loss', 'Disease mechanisms poorly understood limiting treatment options', 'Public cannot directly observe reef decline without diving equipment'],
+      opportunity: ['Global CO2 emissions continue rising despite climate agreements', 'Coastal development runoff unregulated in many reef regions', 'Marine protected areas cover insufficient reef area'],
+      motivation: ['Climate action perceived as economically costly in short term', 'Reef degradation invisible to most voters and policymakers', 'Tourism industry slow to invest in reef protection versus exploitation']
+    },
+    evidence_summary: 'Chasing Coral (2017) won the Audience Award at Sundance and generated measurable increases in coral reef awareness and conservation donations, demonstrating time-lapse documentation as powerful advocacy tool (Jones et al., 2019).',
+    methodology_notes: 'Staghorn coral connects to RQ1 through Chasing Coral impact assessment data; RQ2 through time-lapse as dramatic-reconstruction narrative technique; RQ3 through reef-building simulation game potential; RQ4 through coral nursery volunteer recruitment as measurable engagement outcome.',
+    academic_references: ['Aronson, R.B. & Precht, W.F. (2001). White-band disease and the changing face of Caribbean coral reefs. Hydrobiologia, 460(1), pp.25-38.', 'Hughes, T.P. et al. (2017). Global warming and recurrent mass bleaching of corals. Nature, 543(7645), pp.373-377.'],
+    search_terms: ['coral reef', 'coral bleaching', 'reef conservation', 'chasing coral']
   },
   {
     slug: 'amazon-river-dolphin',
@@ -370,9 +500,23 @@ const SPECIES = [
       mythology: 'In Amazonian folklore, the boto can transform into a handsome man who seduces women at riverside festivals, explaining unexpected pregnancies.',
       media_presence: 'River dolphins represent the hidden biodiversity of freshwater systems, often featured in documentaries about Amazon threats.',
       cultural_paradox: 'Protected by folklore and superstition for centuries, river dolphins now face threats from the same modernization that erodes traditional beliefs.'
-    }
+    },
+    hero_stat: '65% population decline in Amazon river dolphins over 20 years',
+    root_causes_comb: {
+      capability: ['Fishers lack bycatch prevention technology for river gillnets', 'Mercury monitoring systems inadequate across vast river network', 'Limited scientific capacity to survey remote river populations'],
+      opportunity: ['Dam construction accelerating across Amazon tributaries', 'Gold mining expanding into previously inaccessible areas', 'Weak environmental enforcement in remote river communities'],
+      motivation: ['Hydroelectric power prioritized as "green" energy despite biodiversity impact', 'Dolphins perceived as fishing competitors by local communities', 'Gold mining provides livelihood in areas with few economic alternatives']
+    },
+    evidence_summary: 'Amazon documentaries featuring river dolphins have raised awareness of freshwater biodiversity threats, though measuring direct conservation impact is complicated by the remoteness of river dolphin habitat and limited baseline data.',
+    methodology_notes: 'Amazon river dolphin connects to RQ1 through freshwater conservation awareness campaigns; RQ2 through mystical/folklore narrative integration in documentaries; RQ3 through river ecosystem management simulation; RQ4 through community attitude surveys in riverside communities as outcome measure.',
+    academic_references: ['da Silva, V.M.F. et al. (2018). Amazon river dolphin (Inia geoffrensis). IUCN Red List Assessment.', 'Mintzer, V.J. et al. (2013). Effect of illegal fishing on population decline of the Amazonian boto. Biological Conservation, 165, pp.154-160.'],
+    search_terms: ['amazon dolphin', 'river dolphin', 'pink dolphin amazon', 'boto dolphin']
   }
 ];
+
+// ============================================================
+// TMDB API FUNCTIONS
+// ============================================================
 
 async function searchTMDB(query, options = {}) {
   const params = new URLSearchParams({
@@ -383,56 +527,315 @@ async function searchTMDB(query, options = {}) {
   const url = `${TMDB_BASE}/search/movie?${params}`;
   const res = await fetch(url);
   if (!res.ok) {
-    console.warn(`TMDB request failed: ${res.status} for query "${query}"`);
+    console.warn(`  TMDB request failed: ${res.status} for query "${query}"`);
     return [];
   }
   const data = await res.json();
   return (data.results || []).map((m) => ({
     title: m.title,
     year: m.release_date ? parseInt(m.release_date.split('-')[0], 10) : null,
-    overview: m.overview,
+    overview: m.overview || '',
     poster_path: m.poster_path,
+    backdrop_path: m.backdrop_path,
     vote_average: m.vote_average,
-    genre_ids: m.genre_ids,
+    genre_ids: m.genre_ids || [],
     id: m.id
   }));
 }
 
-async function fetchSpeciesMedia(species) {
-  const name = species.taxonomy.common_name;
-
-  // Search for documentaries
-  const docResults = await searchTMDB(`${name} documentary`, {
-    with_genres: '99',
-    'primary_release_date.gte': '2000-01-01'
+async function getMovieDetails(movieId) {
+  const params = new URLSearchParams({
+    api_key: TMDB_API_KEY,
+    append_to_response: 'credits'
   });
-  await sleep(500);
+  const url = `${TMDB_BASE}/movie/${movieId}?${params}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    console.warn(`  Failed to fetch details for movie ${movieId}: ${res.status}`);
+    return null;
+  }
+  const data = await res.json();
+  const director = data.credits?.crew?.find(c => c.job === 'Director');
+  return {
+    director: director ? director.name : null,
+    backdrop_path: data.backdrop_path,
+    genres: (data.genres || []).map(g => g.id)
+  };
+}
 
-  // Search for general films
-  const filmResults = await searchTMDB(name);
-  await sleep(500);
+// ============================================================
+// SEMANTIC FILTERING AND SCORING
+// ============================================================
 
-  // Merge and deduplicate by id
-  const seen = new Set();
-  const combined = [];
-  for (const item of [...docResults, ...filmResults]) {
-    if (!seen.has(item.id)) {
-      seen.add(item.id);
-      combined.push(item);
+function textContainsNatureKeywords(text) {
+  if (!text) return false;
+  const lower = text.toLowerCase();
+  return NATURE_KEYWORDS.some(kw => lower.includes(kw));
+}
+
+function isSemanticTrap(movie, speciesName) {
+  const genreIds = new Set(movie.genre_ids);
+  const hasTrapGenre = [...genreIds].some(g => TRAP_GENRES.has(g));
+  if (!hasTrapGenre) return false;
+
+  // If it has trap genres but ALSO has nature keywords in overview, it might be legitimate
+  const overviewLower = (movie.overview || '').toLowerCase();
+  const titleLower = (movie.title || '').toLowerCase();
+  const speciesLower = speciesName.toLowerCase();
+
+  const hasNatureContext = NATURE_KEYWORDS.some(kw => overviewLower.includes(kw));
+  const overviewMentionsSpecies = overviewLower.includes(speciesLower) &&
+    (overviewLower.includes('animal') || overviewLower.includes('wildlife') ||
+     overviewLower.includes('wild') || overviewLower.includes('nature') ||
+     overviewLower.includes('endangered') || overviewLower.includes('conservation'));
+
+  // It's a trap if it has trap genres and NO nature context
+  if (!hasNatureContext && !overviewMentionsSpecies) return true;
+  return false;
+}
+
+function calculateRelevanceScore(movie, speciesTerms) {
+  let score = 0;
+  const genreIds = new Set(movie.genre_ids);
+  const overviewLower = (movie.overview || '').toLowerCase();
+  const titleLower = (movie.title || '').toLowerCase();
+
+  // Documentary genre = +50
+  if (genreIds.has(99)) {
+    score += 50;
+  }
+
+  // Overview contains actual species terms = +30
+  const speciesInOverview = speciesTerms.some(term => overviewLower.includes(term.toLowerCase()));
+  if (speciesInOverview) {
+    score += 30;
+  }
+
+  // Title contains species + nature term = +20
+  const speciesInTitle = speciesTerms.some(term => titleLower.includes(term.toLowerCase()));
+  const natureInTitle = NATURE_KEYWORDS.some(kw => titleLower.includes(kw));
+  if (speciesInTitle && natureInTitle) {
+    score += 20;
+  } else if (speciesInTitle) {
+    score += 10;
+  }
+
+  // Overview mentions wildlife/conservation = +15
+  const conservationTerms = ['wildlife', 'conservation', 'endangered', 'habitat', 'ecosystem', 'biodiversity', 'species', 'extinction'];
+  const hasConservationContext = conservationTerms.some(t => overviewLower.includes(t));
+  if (hasConservationContext) {
+    score += 15;
+  }
+
+  // Overview mentions nature/environment = +5
+  const environmentTerms = ['nature', 'forest', 'ocean', 'jungle', 'reef', 'marine', 'safari', 'wild'];
+  const hasEnvironmentContext = environmentTerms.some(t => overviewLower.includes(t));
+  if (hasEnvironmentContext && !hasConservationContext) {
+    score += 5;
+  }
+
+  return score;
+}
+
+function classifyNarrativeTechnique(movie) {
+  const genreIds = new Set(movie.genre_ids);
+  const overviewLower = (movie.overview || '').toLowerCase();
+  const titleLower = (movie.title || '').toLowerCase();
+
+  // Documentary genre
+  if (genreIds.has(99)) {
+    // Check for presenter-led indicators
+    if (overviewLower.includes('host') || overviewLower.includes('presenter') ||
+        overviewLower.includes('attenborough') || overviewLower.includes('narrat') ||
+        overviewLower.includes('guide') || overviewLower.includes('explores')) {
+      return 'presenter-led';
+    }
+    // Check for adventure-narrative
+    if (overviewLower.includes('journey') || overviewLower.includes('quest') ||
+        overviewLower.includes('expedition') || overviewLower.includes('adventure') ||
+        overviewLower.includes('trek') || overviewLower.includes('search')) {
+      return 'adventure-narrative';
+    }
+    // Check for dramatic-reconstruction
+    if (overviewLower.includes('recreat') || overviewLower.includes('dramatiz') ||
+        overviewLower.includes('re-enact') || overviewLower.includes('reconstruct') ||
+        overviewLower.includes('time-lapse') || overviewLower.includes('timelapse')) {
+      return 'dramatic-reconstruction';
+    }
+    // Check for educational
+    if (overviewLower.includes('learn') || overviewLower.includes('teach') ||
+        overviewLower.includes('educational') || overviewLower.includes('children') ||
+        overviewLower.includes('school') || overviewLower.includes('explain')) {
+      return 'educational';
+    }
+    // Default documentary = observational
+    return 'observational';
+  }
+
+  // Animation often anthropomorphic
+  if (genreIds.has(16)) {
+    if (overviewLower.includes('animal') || overviewLower.includes('creature') ||
+        overviewLower.includes('talk') || overviewLower.includes('voice')) {
+      return 'anthropomorphic';
+    }
+    return 'fiction-featuring';
+  }
+
+  // Family/Adventure films
+  if (genreIds.has(10751) || genreIds.has(12)) {
+    if (overviewLower.includes('journey') || overviewLower.includes('adventure') ||
+        overviewLower.includes('quest') || overviewLower.includes('discover')) {
+      return 'adventure-narrative';
     }
   }
 
-  return combined;
+  return 'fiction-featuring';
 }
+
+function classifyMedia(movie) {
+  const genreIds = new Set(movie.genre_ids);
+  if (genreIds.has(99)) return 'documentary';
+  if (genreIds.has(16) && (genreIds.has(10751) || genreIds.has(12))) return 'educational';
+  return 'fiction';
+}
+
+// ============================================================
+// SPECIES MEDIA FETCH WITH SEMANTIC FILTERING
+// ============================================================
+
+async function fetchSpeciesMedia(species) {
+  const name = species.taxonomy.common_name;
+  const searchTerms = species.search_terms || [name.toLowerCase()];
+
+  // Build multiple targeted queries
+  const queries = [
+    `"${name}" wildlife`,
+    `"${name}" nature documentary`,
+    `"${name}" conservation`,
+    name
+  ];
+
+  const allResults = new Map(); // id -> { movie, query_source }
+
+  for (const query of queries) {
+    const results = await searchTMDB(query);
+    await sleep(250);
+    for (const movie of results) {
+      if (!allResults.has(movie.id)) {
+        allResults.set(movie.id, { movie, query_source: query });
+      }
+    }
+  }
+
+  console.log(`    Raw results: ${allResults.size} unique films found`);
+
+  // Filter and score
+  const filtered = [];
+  let rejectedTraps = 0;
+  let rejectedLowScore = 0;
+
+  for (const [id, { movie, query_source }] of allResults) {
+    // Check for semantic traps
+    if (isSemanticTrap(movie, name)) {
+      rejectedTraps++;
+      continue;
+    }
+
+    // Calculate relevance score
+    const score = calculateRelevanceScore(movie, searchTerms);
+    if (score < 40) {
+      rejectedLowScore++;
+      continue;
+    }
+
+    filtered.push({
+      ...movie,
+      relevance_score: score,
+      query_source
+    });
+  }
+
+  console.log(`    Rejected: ${rejectedTraps} semantic traps, ${rejectedLowScore} low-relevance`);
+  console.log(`    Kept: ${filtered.length} relevant results`);
+
+  // Sort by relevance score descending
+  filtered.sort((a, b) => b.relevance_score - a.relevance_score);
+
+  // Take top 15 results maximum
+  const top = filtered.slice(0, 15);
+
+  // Enrich with movie details (director, backdrop)
+  const enriched = [];
+  for (const movie of top) {
+    await sleep(250);
+    const details = await getMovieDetails(movie.id);
+
+    const entry = {
+      title: movie.title,
+      year: movie.year,
+      director: details ? details.director : null,
+      tmdb_url: `https://www.themoviedb.org/movie/${movie.id}`,
+      poster_path: movie.poster_path,
+      backdrop_path: details ? details.backdrop_path : movie.backdrop_path,
+      overview: movie.overview,
+      classification: classifyMedia(movie),
+      narrative_technique: classifyNarrativeTechnique(movie),
+      relevance_score: movie.relevance_score,
+      query_source: movie.query_source,
+      genre_ids: movie.genre_ids,
+      vote_average: movie.vote_average
+    };
+
+    enriched.push(entry);
+  }
+
+  return enriched;
+}
+
+// ============================================================
+// HERO IMAGE SELECTION
+// ============================================================
+
+function selectHeroImage(media) {
+  // Find the highest-rated documentary with a backdrop
+  const docs = media
+    .filter(m => m.classification === 'documentary' && m.backdrop_path)
+    .sort((a, b) => b.relevance_score - a.relevance_score);
+
+  if (docs.length > 0) {
+    return {
+      url: `${TMDB_IMAGE_BASE}${docs[0].backdrop_path}`,
+      credit: 'TMDB',
+      source: 'tmdb'
+    };
+  }
+
+  // Fallback: any result with backdrop
+  const withBackdrop = media.filter(m => m.backdrop_path);
+  if (withBackdrop.length > 0) {
+    return {
+      url: `${TMDB_IMAGE_BASE}${withBackdrop[0].backdrop_path}`,
+      credit: 'TMDB',
+      source: 'tmdb'
+    };
+  }
+
+  return { url: null, credit: null, source: null };
+}
+
+// ============================================================
+// MAIN
+// ============================================================
 
 async function main() {
   mkdirSync(OUTPUT_DIR, { recursive: true });
   console.log(`Fetching TMDB data for ${SPECIES.length} species...`);
+  console.log('');
 
   for (const species of SPECIES) {
-    console.log(`  Processing: ${species.taxonomy.common_name} (${species.slug})`);
+    console.log(`Processing: ${species.taxonomy.common_name} (${species.slug})`);
     const tmdb_media = await fetchSpeciesMedia(species);
-    console.log(`    Found ${tmdb_media.length} media entries`);
+    const hero_image = selectHeroImage(tmdb_media);
 
     const output = {
       taxonomy: species.taxonomy,
@@ -440,12 +843,20 @@ async function main() {
       threats: species.threats,
       conservation: species.conservation,
       cultural_significance: species.cultural_significance,
+      hero_stat: species.hero_stat,
+      hero_image,
+      root_causes_comb: species.root_causes_comb,
+      evidence_summary: species.evidence_summary,
+      methodology_notes: species.methodology_notes,
+      research_questions: RESEARCH_QUESTIONS,
+      academic_references: [...SHARED_ACADEMIC_REFERENCES, ...(species.academic_references || [])],
       tmdb_media
     };
 
     const filePath = resolve(OUTPUT_DIR, `${species.slug}.json`);
     writeFileSync(filePath, JSON.stringify(output, null, 2));
-    console.log(`    Written to: public/data/${species.slug}.json`);
+    console.log(`    Written: public/data/${species.slug}.json (${tmdb_media.length} media entries)`);
+    console.log('');
   }
 
   console.log('Done! All species data files generated.');

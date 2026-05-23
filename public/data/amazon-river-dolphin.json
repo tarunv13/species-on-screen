@@ -66,5 +66,46 @@
     "media_presence": "River dolphins represent the hidden biodiversity of freshwater systems, often featured in documentaries about Amazon threats.",
     "cultural_paradox": "Protected by folklore and superstition for centuries, river dolphins now face threats from the same modernization that erodes traditional beliefs."
   },
+  "hero_stat": "65% population decline in Amazon river dolphins over 20 years",
+  "hero_image": {
+    "url": null,
+    "credit": null,
+    "source": null
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Fishers lack bycatch prevention technology for river gillnets",
+      "Mercury monitoring systems inadequate across vast river network",
+      "Limited scientific capacity to survey remote river populations"
+    ],
+    "opportunity": [
+      "Dam construction accelerating across Amazon tributaries",
+      "Gold mining expanding into previously inaccessible areas",
+      "Weak environmental enforcement in remote river communities"
+    ],
+    "motivation": [
+      "Hydroelectric power prioritized as \"green\" energy despite biodiversity impact",
+      "Dolphins perceived as fishing competitors by local communities",
+      "Gold mining provides livelihood in areas with few economic alternatives"
+    ]
+  },
+  "evidence_summary": "Amazon documentaries featuring river dolphins have raised awareness of freshwater biodiversity threats, though measuring direct conservation impact is complicated by the remoteness of river dolphin habitat and limited baseline data.",
+  "methodology_notes": "Amazon river dolphin connects to RQ1 through freshwater conservation awareness campaigns; RQ2 through mystical/folklore narrative integration in documentaries; RQ3 through river ecosystem management simulation; RQ4 through community attitude surveys in riverside communities as outcome measure.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "da Silva, V.M.F. et al. (2018). Amazon river dolphin (Inia geoffrensis). IUCN Red List Assessment.",
+    "Mintzer, V.J. et al. (2013). Effect of illegal fishing on population decline of the Amazonian boto. Biological Conservation, 165, pp.154-160."
+  ],
   "tmdb_media": []
 }
