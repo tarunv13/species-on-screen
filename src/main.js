@@ -4,6 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initHero } from './hero.js';
 import { initGlobe } from './globe.js';
 import { initScrollAnimations } from './scroll-animations.js';
+import { initConceptSection } from './concept-section.js';
+import { initTigerSection } from './tiger-section.js';
+import { initVisionSection } from './vision-section.js';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -36,4 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHero();
   initGlobe();
   initScrollAnimations();
+  initConceptSection();
+  initTigerSection();
+  initVisionSection();
 });
