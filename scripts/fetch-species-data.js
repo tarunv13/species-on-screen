@@ -5,7 +5,7 @@
  * then writes JSON files to public/data/.
  * Includes comprehensive fallback data so it works without API keys.
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
@@ -51,17 +51,72 @@ async function fetchOMDb(searchTerms) {
   }
 }
 
-// Load pre-populated fallback data from existing JSON files if available
-function loadFallback(id) {
-  const filePath = resolve(DATA_DIR, `${id}.json`);
-  if (existsSync(filePath)) {
-    try {
-      return JSON.parse(readFileSync(filePath, 'utf-8'));
-    } catch {
-      return null;
-    }
+// Verified inline fallback taxonomy data for each species.
+// This ensures the script never writes incorrect taxonomy when the GBIF API is unavailable.
+const FALLBACK_TAXONOMY = {
+  'tiger': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Carnivora', family: 'Felidae', genus: 'Panthera', species: 'Panthera tigris'
+  },
+  'snow-leopard': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Carnivora', family: 'Felidae', genus: 'Panthera', species: 'Panthera uncia'
+  },
+  'orangutan': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Primates', family: 'Hominidae', genus: 'Pongo', species: 'Pongo pygmaeus'
+  },
+  'hawksbill-turtle': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Reptilia',
+    order: 'Testudines', family: 'Cheloniidae', genus: 'Eretmochelys', species: 'Eretmochelys imbricata'
+  },
+  'blue-whale': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Artiodactyla (Cetacea)', family: 'Balaenopteridae', genus: 'Balaenoptera', species: 'Balaenoptera musculus'
+  },
+  'african-elephant': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Proboscidea', family: 'Elephantidae', genus: 'Loxodonta', species: 'Loxodonta africana'
+  },
+  'polar-bear': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Carnivora', family: 'Ursidae', genus: 'Ursus', species: 'Ursus maritimus'
+  },
+  'giant-panda': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Carnivora', family: 'Ursidae', genus: 'Ailuropoda', species: 'Ailuropoda melanoleuca'
+  },
+  'coral-reef': {
+    kingdom: 'Animalia', phylum: 'Cnidaria', class: 'Anthozoa',
+    order: 'Scleractinia', family: 'Acroporidae', genus: 'Acropora', species: 'Acropora cervicornis'
+  },
+  'amazon-river-dolphin': {
+    kingdom: 'Animalia', phylum: 'Chordata', class: 'Mammalia',
+    order: 'Artiodactyla (Cetacea)', family: 'Iniidae', genus: 'Inia', species: 'Inia geoffrensis'
   }
-  return null;
+};
+
+// Returns a minimal verified fallback object with correct taxonomy.
+// Does NOT read from the output file to avoid circular data propagation.
+function loadFallback(id) {
+  const taxonomy = FALLBACK_TAXONOMY[id] || {
+    kingdom: 'Animalia',
+    phylum: '',
+    class: '',
+    order: '',
+    family: '',
+    genus: '',
+    species: ''
+  };
+
+  return {
+    taxonomy,
+    media: [],
+    habitat: { description: '', range: [], biome: '', keyLocations: [] },
+    threats: [],
+    conservationStatus: { iucnStatus: '', population: '', trend: '', keyPrograms: [] },
+    culturalSignificance: { overview: '', cinema: [], literature: [], mythology: [], symbolism: '' }
+  };
 }
 
 async function processSpecies(species) {

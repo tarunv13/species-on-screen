@@ -4,11 +4,11 @@
   "scientificName": "Acropora cervicornis",
   "taxonomy": {
     "kingdom": "Animalia",
-    "phylum": "Mollusca",
-    "class": "Cephalopoda",
-    "order": "Oegopsida",
-    "family": "Chiroteuthidae",
-    "genus": "Chiroteuthis",
+    "phylum": "Cnidaria",
+    "class": "Anthozoa",
+    "order": "Scleractinia",
+    "family": "Acroporidae",
+    "genus": "Acropora",
     "species": "Acropora cervicornis"
   },
   "media": [

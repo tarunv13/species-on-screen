@@ -11,6 +11,16 @@ gsap.registerPlugin(ScrollTrigger);
  * Detects which species from the URL path, fetches JSON, populates sections.
  */
 
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 const BASE_PATH = '/species-on-screen/';
 
 function getSlugFromPath() {
@@ -55,12 +65,12 @@ function renderTaxonomy(data) {
 
   let html = '<table class="taxonomy-table">';
   fields.forEach(([label, value]) => {
-    html += `<tr><th>${label}</th><td>${value}</td></tr>`;
+    html += `<tr><th>${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`;
   });
   html += '</table>';
 
   if (taxonomy.description) {
-    html += `<p class="taxonomy-description">${taxonomy.description}</p>`;
+    html += `<p class="taxonomy-description">${escapeHtml(taxonomy.description)}</p>`;
   }
 
   container.innerHTML = html;
@@ -74,16 +84,16 @@ function renderHabitat(data) {
   let html = '';
 
   if (habitat.description) {
-    html += `<p>${habitat.description}</p>`;
+    html += `<p>${escapeHtml(habitat.description)}</p>`;
   }
   if (habitat.range) {
-    html += `<p><strong>Range:</strong> ${habitat.range}</p>`;
+    html += `<p><strong>Range:</strong> ${escapeHtml(Array.isArray(habitat.range) ? habitat.range.join(', ') : habitat.range)}</p>`;
   }
   if (habitat.biome) {
-    html += `<p><strong>Biome:</strong> ${habitat.biome}</p>`;
+    html += `<p><strong>Biome:</strong> ${escapeHtml(habitat.biome)}</p>`;
   }
   if (habitat.countries && habitat.countries.length > 0) {
-    html += `<p><strong>Countries:</strong> ${habitat.countries.join(', ')}</p>`;
+    html += `<p><strong>Countries:</strong> ${escapeHtml(habitat.countries.join(', '))}</p>`;
   }
 
   container.innerHTML = html;
@@ -102,10 +112,10 @@ function renderMedia(data) {
   data.media.forEach(item => {
     html += `
       <div class="glass-card media-card">
-        <h4 class="media-card__title">${item.title || 'Unknown'}</h4>
-        <p class="media-card__year">${item.year || ''}</p>
-        <p class="media-card__type">${item.type || 'Film'}</p>
-        ${item.description ? `<p class="media-card__desc">${item.description}</p>` : ''}
+        <h4 class="media-card__title">${escapeHtml(item.title || 'Unknown')}</h4>
+        <p class="media-card__year">${escapeHtml(item.year || '')}</p>
+        <p class="media-card__type">${escapeHtml(item.type || 'Film')}</p>
+        ${item.description ? `<p class="media-card__desc">${escapeHtml(item.description)}</p>` : ''}
       </div>
     `;
   });
@@ -126,9 +136,9 @@ function renderThreats(data) {
   let html = '<ul class="threats-list">';
   data.threats.forEach(threat => {
     if (typeof threat === 'string') {
-      html += `<li class="threats-list__item">${threat}</li>`;
+      html += `<li class="threats-list__item">${escapeHtml(threat)}</li>`;
     } else {
-      html += `<li class="threats-list__item"><strong>${threat.name || ''}</strong>${threat.description ? ': ' + threat.description : ''}</li>`;
+      html += `<li class="threats-list__item"><strong>${escapeHtml(threat.name || '')}</strong>${threat.description ? ': ' + escapeHtml(threat.description) : ''}</li>`;
     }
   });
   html += '</ul>';
@@ -144,21 +154,21 @@ function renderConservation(data) {
   let html = '';
 
   if (status.iucnStatus) {
-    html += `<p><strong>IUCN Red List:</strong> ${status.iucnStatus}</p>`;
+    html += `<p><strong>IUCN Red List:</strong> ${escapeHtml(status.iucnStatus)}</p>`;
   }
   if (status.populationTrend) {
-    html += `<p><strong>Population Trend:</strong> ${status.populationTrend}</p>`;
+    html += `<p><strong>Population Trend:</strong> ${escapeHtml(status.populationTrend)}</p>`;
   }
   if (status.populationEstimate) {
-    html += `<p><strong>Estimated Population:</strong> ${status.populationEstimate}</p>`;
+    html += `<p><strong>Estimated Population:</strong> ${escapeHtml(status.populationEstimate)}</p>`;
   }
   if (status.description) {
-    html += `<p>${status.description}</p>`;
+    html += `<p>${escapeHtml(status.description)}</p>`;
   }
   if (status.efforts && status.efforts.length > 0) {
     html += '<h4>Conservation Efforts</h4><ul class="conservation-efforts">';
     status.efforts.forEach(effort => {
-      html += `<li>${effort}</li>`;
+      html += `<li>${escapeHtml(effort)}</li>`;
     });
     html += '</ul>';
   }
@@ -174,19 +184,19 @@ function renderCulturalSignificance(data) {
   let html = '';
 
   if (typeof cultural === 'string') {
-    html = `<p>${cultural}</p>`;
+    html = `<p>${escapeHtml(cultural)}</p>`;
   } else {
     if (cultural.description) {
-      html += `<p>${cultural.description}</p>`;
+      html += `<p>${escapeHtml(cultural.description)}</p>`;
     }
     if (cultural.mythology) {
-      html += `<p><strong>Mythology:</strong> ${cultural.mythology}</p>`;
+      html += `<p><strong>Mythology:</strong> ${escapeHtml(Array.isArray(cultural.mythology) ? cultural.mythology.join(', ') : cultural.mythology)}</p>`;
     }
     if (cultural.symbolism) {
-      html += `<p><strong>Symbolism:</strong> ${cultural.symbolism}</p>`;
+      html += `<p><strong>Symbolism:</strong> ${escapeHtml(cultural.symbolism)}</p>`;
     }
     if (cultural.modernCulture) {
-      html += `<p><strong>Modern Culture:</strong> ${cultural.modernCulture}</p>`;
+      html += `<p><strong>Modern Culture:</strong> ${escapeHtml(cultural.modernCulture)}</p>`;
     }
   }
 
@@ -206,10 +216,10 @@ function renderNavigation(slug) {
   navContainer.innerHTML = `
     <a href="${prevSpecies.id}.html" class="species-nav__link species-nav__link--prev glass-card">
       <span class="species-nav__arrow">&larr;</span>
-      <span class="species-nav__label">${prevSpecies.commonName}</span>
+      <span class="species-nav__label">${escapeHtml(prevSpecies.commonName)}</span>
     </a>
     <a href="${nextSpecies.id}.html" class="species-nav__link species-nav__link--next glass-card">
-      <span class="species-nav__label">${nextSpecies.commonName}</span>
+      <span class="species-nav__label">${escapeHtml(nextSpecies.commonName)}</span>
       <span class="species-nav__arrow">&rarr;</span>
     </a>
   `;
