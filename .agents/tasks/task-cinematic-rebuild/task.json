@@ -2,6 +2,6 @@
   "task_id": "task-cinematic-rebuild",
   "task_description": "Complete rebuild of the Eco-Cinema Observatory website into a cinematic, immersive, research-grade experience with Three.js WebGL camera transitions, a meaningful data-visualization globe, semantically-filtered TMDB data pipeline, and academic content architecture structured around 4 Research Questions with Rose's visual methodology and COM-B framework.",
   "status": "in_progress",
-  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003", "FEAT-004"],
   "blocked_reason": null
 }
