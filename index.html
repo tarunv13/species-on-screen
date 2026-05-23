@@ -36,10 +36,10 @@
       <div class="section__content">
         <h2 class="section__heading">The Living World</h2>
         <p class="section__text">An interactive globe of species encounters - every dot a story, every story a connection between cinema and the wild.</p>
-        <div id="globe-container" class="globe-container" role="img" aria-label="Interactive 3D globe showing five biodiversity hotspot locations"></div>
+        <div id="globe-container" class="globe-container" role="img" aria-label="Interactive 3D globe showing species habitats across 31 locations worldwide"></div>
         <div class="globe-companions">
-          <p class="globe-companion">Five biodiversity hotspots glow on the surface - places where life concentrates and cinema gazes most often.</p>
-          <p class="globe-companion">From the Sundarbans to the Amazon, each marker represents an ecosystem woven into our stories.</p>
+          <p class="globe-companion">Thirty-one habitat locations glow across the surface - each one home to a species whose story intertwines with cinema.</p>
+          <p class="globe-companion">From Arctic ice to coral reef, from mountain peak to river basin, each marker represents an ecosystem observed through the lens of film.</p>
           <p class="globe-companion">Rotate the globe gently. The living world turns whether or not cameras are watching.</p>
         </div>
       </div>
@@ -70,64 +70,95 @@
       </div>
     </section>
 
-    <!-- Species: Tiger prototype profile -->
+    <!-- Species: Multi-species gallery -->
     <section id="species-section" class="section section--species">
       <div class="section__content">
-        <header class="species__header">
-          <h2 class="section__heading">Panthera tigris</h2>
-          <p class="species__common-name">Tiger</p>
-        </header>
-
-        <div class="species__hero-stat">
-          <p>Fewer than <span class="species__counter" data-target="4500">4,500</span> remain in the wild</p>
+        <h2 class="section__heading">Species Observatory</h2>
+        <p class="section__text">Ten flagship species. Each a window into the relationship between cinema and conservation.</p>
+        
+        <div class="species-filters" role="toolbar" aria-label="Filter species by ecosystem">
+          <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="tropical-forest">Tropical Forest</button>
+          <button class="filter-btn" data-filter="mountain">Mountain</button>
+          <button class="filter-btn" data-filter="coral-reef">Coral Reef</button>
+          <button class="filter-btn" data-filter="ocean">Ocean</button>
+          <button class="filter-btn" data-filter="savanna">Savanna</button>
+          <button class="filter-btn" data-filter="arctic">Arctic</button>
+          <button class="filter-btn" data-filter="temperate-forest">Temperate Forest</button>
+          <button class="filter-btn" data-filter="freshwater">Freshwater</button>
         </div>
-
-        <div class="species__panels">
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Habitat</h3>
-            <div class="species__panel-content">
-              <p>Tropical and subtropical forests across Asia. Their range spans 13 countries: India, Russia, Indonesia, Malaysia, Thailand, Bangladesh, Nepal, Bhutan, Myanmar, Laos, China, Cambodia, and Vietnam.</p>
-              <p>Key habitats include the Sundarbans mangroves of Bangladesh and India, Siberian boreal forests in Russia, Sumatran rainforests in Indonesia, and tropical dry forests of central India.</p>
-              <p>Their historical range covered most of Asia. Today, tigers occupy less than 7% of their original territory - fragmented islands of wilderness in an ocean of human development.</p>
-            </div>
-          </div>
-
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Cultural Presence</h3>
-            <div class="species__panel-content">
-              <p><strong>Cinema:</strong> Life of Pi (2012), The Jungle Book (1967, 2016), Two Brothers (2004), Tiger Zinda Hai (Bollywood), Roar (1981)</p>
-              <p><strong>Literature:</strong> Shere Khan in Kipling's The Jungle Book, Hobbes in Calvin and Hobbes, The Tiger by John Vaillant, Life of Pi by Yann Martel</p>
-              <p><strong>Mythology &amp; symbolism:</strong> Chinese zodiac (Year of the Tiger), Hindu deity Durga's mount, Korean folk symbol, William Blake's "The Tyger"</p>
-              <p><strong>Media presence:</strong> Tigers appear in advertising more than any other wild cat - cereal boxes, sports teams, national symbols of India, Malaysia, South Korea, and Bangladesh.</p>
-              <p><strong>Cultural paradox:</strong> The tiger is simultaneously one of the most culturally visible and ecologically threatened large mammals on Earth.</p>
-            </div>
-          </div>
-
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Threats</h3>
-            <div class="species__panel-content">
-              <p><strong>Habitat fragmentation:</strong> Agricultural expansion, logging, and infrastructure development continue to carve tiger habitat into ever-smaller pieces.</p>
-              <p><strong>Poaching:</strong> Driven by illegal wildlife trade, demand in traditional medicine, and trafficking of bone and skin products across international borders.</p>
-              <p><strong>Human-wildlife conflict:</strong> As habitat shrinks, tigers and humans increasingly compete for space, leading to retaliatory killings and community fear.</p>
-              <p><strong>Climate change:</strong> Sea level rise threatens the Sundarbans (home to approximately 100 tigers), while changing monsoon patterns affect prey availability.</p>
-              <p><strong>Prey depletion:</strong> Overhunting of deer and wild boar by local communities removes the tiger's food sources, forcing them into closer contact with people.</p>
-            </div>
-          </div>
-
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Conservation Status</h3>
-            <div class="species__panel-content">
-              <p><strong>IUCN Red List:</strong> Endangered (since 1986, downlisted from Critically Endangered for some subspecies following recovery efforts)</p>
-              <p><strong>Population trend:</strong> Increasing globally - estimated approximately 3,200 in 2010, approximately 3,900 in 2016, and approximately 4,500 in 2022.</p>
-              <p><strong>Major recovery programs:</strong> India's Project Tiger (since 1973), the TX2 global goal to double wild tigers by 2022, and numerous national action plans.</p>
-              <p><strong>Three subspecies extinct in the 20th century:</strong> Bali tiger (1950s), Javan tiger (1970s), Caspian tiger (1970s).</p>
-              <p><strong>Six subspecies remain:</strong> Bengal, Indochinese, Malayan, Siberian, South China (functionally extinct in the wild), and Sumatran.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="species__connecting-story">
-          <p>When Richard Parker gazed from the screen in Life of Pi, 63 million viewers saw a tiger. In that same year, fewer than 3,500 remained in the wild. The question this observatory asks: does seeing translate to saving?</p>
+        
+        <div class="species-gallery" role="list">
+          <a href="species/tiger.html" class="glass-card species-card" data-ecosystem="tropical-forest" role="listitem">
+            <span class="species-card__ecosystem ecosystem--tropical-forest">Tropical Forest</span>
+            <h3 class="species-card__name">Tiger</h3>
+            <p class="species-card__scientific">Panthera tigris</p>
+            <p class="species-card__hook">The most culturally visible yet ecologically threatened great cat on Earth.</p>
+            <span class="species-card__status status--endangered">Endangered</span>
+          </a>
+          <a href="species/snow-leopard.html" class="glass-card species-card" data-ecosystem="mountain" role="listitem">
+            <span class="species-card__ecosystem ecosystem--mountain">Mountain</span>
+            <h3 class="species-card__name">Snow Leopard</h3>
+            <p class="species-card__scientific">Panthera uncia</p>
+            <p class="species-card__hook">The ghost of the mountains, rarely filmed, deeply mythologised.</p>
+            <span class="species-card__status status--vulnerable">Vulnerable</span>
+          </a>
+          <a href="species/bornean-orangutan.html" class="glass-card species-card" data-ecosystem="tropical-forest" role="listitem">
+            <span class="species-card__ecosystem ecosystem--tropical-forest">Tropical Forest</span>
+            <h3 class="species-card__name">Bornean Orangutan</h3>
+            <p class="species-card__scientific">Pongo pygmaeus</p>
+            <p class="species-card__hook">Our closest forest-dwelling relative, losing its home to palm oil.</p>
+            <span class="species-card__status status--critically-endangered">Critically Endangered</span>
+          </a>
+          <a href="species/hawksbill-turtle.html" class="glass-card species-card" data-ecosystem="coral-reef" role="listitem">
+            <span class="species-card__ecosystem ecosystem--coral-reef">Coral Reef</span>
+            <h3 class="species-card__name">Hawksbill Turtle</h3>
+            <p class="species-card__scientific">Eretmochelys imbricata</p>
+            <p class="species-card__hook">Ancient mariners navigating warming seas, hunted for their shells.</p>
+            <span class="species-card__status status--critically-endangered">Critically Endangered</span>
+          </a>
+          <a href="species/blue-whale.html" class="glass-card species-card" data-ecosystem="ocean" role="listitem">
+            <span class="species-card__ecosystem ecosystem--ocean">Ocean</span>
+            <h3 class="species-card__name">Blue Whale</h3>
+            <p class="species-card__scientific">Balaenoptera musculus</p>
+            <p class="species-card__hook">The largest animal ever to live, still recovering from industrial whaling.</p>
+            <span class="species-card__status status--endangered">Endangered</span>
+          </a>
+          <a href="species/african-elephant.html" class="glass-card species-card" data-ecosystem="savanna" role="listitem">
+            <span class="species-card__ecosystem ecosystem--savanna">Savanna</span>
+            <h3 class="species-card__name">African Elephant</h3>
+            <p class="species-card__scientific">Loxodonta africana</p>
+            <p class="species-card__hook">Architects of the savanna whose memory spans generations.</p>
+            <span class="species-card__status status--endangered">Endangered</span>
+          </a>
+          <a href="species/polar-bear.html" class="glass-card species-card" data-ecosystem="arctic" role="listitem">
+            <span class="species-card__ecosystem ecosystem--arctic">Arctic</span>
+            <h3 class="species-card__name">Polar Bear</h3>
+            <p class="species-card__scientific">Ursus maritimus</p>
+            <p class="species-card__hook">The icon of climate change, watching its frozen world dissolve.</p>
+            <span class="species-card__status status--vulnerable">Vulnerable</span>
+          </a>
+          <a href="species/giant-panda.html" class="glass-card species-card" data-ecosystem="temperate-forest" role="listitem">
+            <span class="species-card__ecosystem ecosystem--temperate-forest">Temperate Forest</span>
+            <h3 class="species-card__name">Giant Panda</h3>
+            <p class="species-card__scientific">Ailuropoda melanoleuca</p>
+            <p class="species-card__hook">Conservation's greatest success story and most recognisable symbol.</p>
+            <span class="species-card__status status--vulnerable">Vulnerable</span>
+          </a>
+          <a href="species/staghorn-coral.html" class="glass-card species-card" data-ecosystem="coral-reef" role="listitem">
+            <span class="species-card__ecosystem ecosystem--coral-reef">Coral Reef</span>
+            <h3 class="species-card__name">Staghorn Coral</h3>
+            <p class="species-card__scientific">Acropora cervicornis</p>
+            <p class="species-card__hook">The silent architects of entire marine ecosystems, bleaching in warming waters.</p>
+            <span class="species-card__status status--critically-endangered">Critically Endangered</span>
+          </a>
+          <a href="species/amazon-river-dolphin.html" class="glass-card species-card" data-ecosystem="freshwater" role="listitem">
+            <span class="species-card__ecosystem ecosystem--freshwater">Freshwater</span>
+            <h3 class="species-card__name">Amazon River Dolphin</h3>
+            <p class="species-card__scientific">Inia geoffrensis</p>
+            <p class="species-card__hook">Pink ghosts of the flooded forest, woven into indigenous mythology.</p>
+            <span class="species-card__status status--endangered">Endangered</span>
+          </a>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Transform the index.html from single-species tiger prototype into a multi-species gallery homepage with filterable species cards, and expand the globe to show all 10 species across 31+ locations color-coded by ecosystem.",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "Rewrite the species section (#species-section) in index.html to become a species gallery: replace the tiger-only content with a filterable grid of 10 species cards. Each card should be a glass-card linking to species/{slug}.html with: species common name, scientific name, ecosystem badge, conservation status badge, and a brief one-line hook",
     "Add ecosystem filter buttons above the gallery (All, Tropical Forest, Mountain, Coral Reef, Ocean, Savanna, Arctic, Temperate Forest, Freshwater) that filter cards by data attribute",
