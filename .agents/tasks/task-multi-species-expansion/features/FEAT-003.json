@@ -1,0 +1,30 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Polish, performance optimization, and design system expansion for multi-species pages",
+  "status": "completed",
+  "steps": [
+    "Expand src/style.css with new styles for: (a) species gallery grid layout with responsive columns, (b) species card styles with ecosystem-specific accent colors, (c) IUCN status badge styles (color-coded: CR=red, EN=orange, VU=yellow, NT=green, LC=blue), (d) species profile page layout styles (hero, taxonomy grid, media cards, threats list), (e) navigation header/breadcrumb styles, (f) species page section transitions. Maintain the existing glass/pastel design language throughout.",
+    "Add a lightweight navigation header component that appears on all pages: shows site title (links to index), and on species pages shows a breadcrumb (Home > Species > {name}). Style it as a subtle glass bar at the top. Create src/nav.js for the navigation logic.",
+    "Implement lazy loading for species pages: species page JS should only load when visiting a species page (dynamic import). The species gallery images (if any) should use loading='lazy'. Ensure Three.js globe is still lazy-loaded only on the index page.",
+    "Add CSS transitions and micro-interactions to species cards: hover state reveals more info, focus states for accessibility, smooth transitions between states. Add a subtle parallax scroll effect to species page hero sections.",
+    "Ensure full accessibility: all interactive elements have focus states, proper ARIA labels, keyboard navigation between species cards, skip-to-content link, proper heading hierarchy on all pages.",
+    "Update the vision section on index.html to reflect the now-expanded state of the project (it currently says 'coming soon: 500+ species' - update to acknowledge the current 10 species as a foundation, keep future vision aspirational)."
+  ],
+  "acceptance_criteria": [
+    "npm run build succeeds",
+    "All species cards have hover/focus states that are keyboard accessible",
+    "IUCN status badges are visually distinct by status level",
+    "Navigation breadcrumb appears on species pages",
+    "Species page JS is code-split (separate chunk in build output)",
+    "All pages pass basic accessibility checks (proper headings, ARIA labels, focus management)",
+    "Vision section text is updated to reflect current state"
+  ],
+  "verification": [
+    "Run npm run build and confirm success",
+    "Check dist/ assets to verify code splitting (multiple JS chunks)",
+    "Verify the built site structure is complete and all pages reference valid assets"
+  ],
+  "blocked_reason": null,
+  "findings": "Build succeeds. Navigation component renders on all pages. Skip-to-content links added to index and all 10 species pages. IUCN badge colors adjusted for WCAG contrast compliance. Species card focus-visible styles match scroll-nav pattern. Vision section updated with current state language. Globe lazy-loading still works via IntersectionObserver. Code splitting confirmed (species-page chunk separate from main). The 535KB globe chunk warning is pre-existing and expected (Three.js)."
+}
