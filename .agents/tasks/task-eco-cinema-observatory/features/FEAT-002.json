@@ -1,0 +1,31 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Implement the immersive hero landing experience and 3D globe section with scroll-driven animations. The hero section uses ambient particle/mist effects with the observatory title appearing through a contemplative fade. The globe section renders an interactive Three.js Earth that the user can gently explore, representing the world as a living system. Scrollytelling transitions connect the sections with liquid fluidity.",
+  "status": "pending",
+  "steps": [
+    "Create src/hero.js - the immersive landing experience: (1) Large centered title 'Eco-Cinema Observatory' with subtitle 'Observing the relationship between human culture and species fate' that fades in with contemplative timing, (2) Ambient background effect using canvas or CSS - floating soft particles/light motes that drift slowly like dust in morning sunlight or mist in a forest clearing, (3) A gentle scroll-indicator prompt at the bottom. Use GSAP for entrance animations with easing that feels organic (power2.out or similar). The title typography should be elegant, large, and breathable.",
+    "Create src/globe.js - Three.js interactive globe: (1) Create a sphere geometry with a procedurally-generated or simple Earth texture (use gradient colors - greens for land masses, blues for ocean - rather than a photographic texture to maintain the dreamy aesthetic), (2) Add a subtle atmosphere glow effect (soft turquoise/white halo), (3) Implement gentle auto-rotation that slows when user interacts, (4) Add mouse/touch interaction for manual rotation with damping, (5) Add small glowing points on the globe representing biodiversity hotspots (a few key locations: Sundarbans/India for tigers, Amazon, Congo Basin, Great Barrier Reef, Borneo), (6) Wrap in a frosted glass panel container. The globe should feel peaceful and alive, not data-heavy. Use OrbitControls with restricted zoom range.",
+    "Create src/scroll-animations.js - GSAP ScrollTrigger orchestration: (1) Hero section pins during scroll with parallax depth on title and particles, (2) Transition from hero to globe uses a crossfade/reveal effect (hero elements fade out while globe scales up from center), (3) Globe section pins while explanatory text panels scroll alongside it describing 'The Living World' concept, (4) Each subsequent section has scroll-triggered entrance animations (fade-up, scale from 0.95 to 1, blur-to-clear transitions), (5) A progress indicator on the page side that updates with scroll position. All animations should use GSAP ScrollTrigger with scrub for scroll-linked feel.",
+    "Update src/main.js to import and initialize hero.js, globe.js, and scroll-animations.js in the correct order, with proper cleanup and resize handling",
+    "Add responsive handling: globe renders at appropriate resolution for mobile vs desktop, animations are reduced on prefers-reduced-motion, touch interactions work on mobile",
+    "Verify the build still succeeds and the globe renders without WebGL errors by running npm run build"
+  ],
+  "acceptance_criteria": [
+    "npm run build succeeds without errors",
+    "The hero section contains a title, subtitle, ambient background effect, and scroll indicator",
+    "src/globe.js creates a Three.js scene with a sphere, atmosphere glow, auto-rotation, and interactive controls",
+    "Scroll animations are defined using GSAP ScrollTrigger with scrub-based timeline progression",
+    "Globe has at least 5 biodiversity hotspot markers",
+    "The globe section includes companion text describing 'The Living World' concept",
+    "Responsive considerations are included (resize handlers, reduced-motion media query)"
+  ],
+  "verification": [
+    "Run 'npm run build' in /projects/sandbox/species-on-screen and confirm exit code 0",
+    "Confirm src/globe.js imports from 'three' and creates a Scene, Camera, Renderer, and sphere geometry",
+    "Confirm src/scroll-animations.js imports gsap and ScrollTrigger and registers the plugin",
+    "Confirm src/hero.js exists and implements entrance animations"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

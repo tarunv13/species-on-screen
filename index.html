@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco-Cinema Observatory</title>
+  <meta name="description" content="Exploring the species that share our screens and our world." />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <!-- Fixed scroll progress indicator -->
+  <nav class="scroll-nav" aria-label="Section navigation">
+    <ul class="scroll-nav__dots">
+      <li><a href="#hero" class="scroll-nav__dot active" aria-label="Hero section"></a></li>
+      <li><a href="#globe-section" class="scroll-nav__dot" aria-label="Living world"></a></li>
+      <li><a href="#concept-section" class="scroll-nav__dot" aria-label="The observatory"></a></li>
+      <li><a href="#species-section" class="scroll-nav__dot" aria-label="Species profile"></a></li>
+      <li><a href="#vision-section" class="scroll-nav__dot" aria-label="Vision"></a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero: Immersive landing -->
+    <section id="hero" class="section section--hero">
+      <div class="section__content">
+        <h1 class="hero__title">Eco-Cinema Observatory</h1>
+        <p class="hero__subtitle">Where the species on our screens meet the living world beyond them.</p>
+        <div class="hero__scroll-hint" aria-hidden="true">
+          <span class="hero__scroll-arrow"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Globe: The living world -->
+    <section id="globe-section" class="section section--globe">
+      <div class="section__content">
+        <h2 class="section__heading">The Living World</h2>
+        <p class="section__text">An interactive globe of species encounters - every dot a story, every story a connection between cinema and the wild.</p>
+        <div id="globe-container" class="globe-container"></div>
+      </div>
+    </section>
+
+    <!-- Concept: What the observatory does -->
+    <section id="concept-section" class="section section--concept">
+      <div class="section__content">
+        <h2 class="section__heading">The Observatory</h2>
+        <p class="section__text">We trace the invisible threads between the animals that appear in films and the ecosystems they call home. Each screen appearance is a chance to see the living world more clearly.</p>
+        <div class="concept-cards">
+          <article class="glass-card">
+            <h3>Watch</h3>
+            <p>Identifying species as they appear across cinema, documentary, and media.</p>
+          </article>
+          <article class="glass-card">
+            <h3>Connect</h3>
+            <p>Linking screen appearances to real habitats, populations, and conservation status.</p>
+          </article>
+          <article class="glass-card">
+            <h3>Understand</h3>
+            <p>Revealing patterns in how we portray the natural world - and what we leave unseen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Species: Tiger prototype profile -->
+    <section id="species-section" class="section section--species">
+      <div class="section__content">
+        <header class="species__header">
+          <h2 class="section__heading">Panthera tigris</h2>
+          <p class="species__common-name">Bengal Tiger</p>
+        </header>
+        <div class="species__profile glass-panel">
+          <div class="species__stats">
+            <dl class="species__data">
+              <div class="species__datum">
+                <dt>Conservation Status</dt>
+                <dd class="species__status species__status--endangered">Endangered</dd>
+              </div>
+              <div class="species__datum">
+                <dt>Screen Appearances</dt>
+                <dd>142 documented</dd>
+              </div>
+              <div class="species__datum">
+                <dt>Primary Habitat</dt>
+                <dd>South & Southeast Asian forests</dd>
+              </div>
+              <div class="species__datum">
+                <dt>Wild Population</dt>
+                <dd>~4,500 individuals</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="species__narrative">
+            <p>The tiger is one of cinema's most iconic animals - a symbol of power, mystery, and wilderness. From Life of Pi to The Jungle Book, tigers have captivated audiences for over a century. Yet their screen ubiquity masks a precarious reality: fewer than 4,500 remain in the wild.</p>
+            <p>Each film appearance is an opportunity - a moment when millions of viewers connect with an animal whose habitat shrinks by the day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision: Where this is going -->
+    <section id="vision-section" class="section section--vision">
+      <div class="section__content">
+        <h2 class="section__heading">Where This Is Going</h2>
+        <p class="section__text">The Eco-Cinema Observatory is growing. More species, more connections, more ways to see the living world through the lens of storytelling.</p>
+        <p class="section__text section__text--secondary">Every film is a window. Every species is a world.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
