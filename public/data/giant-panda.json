@@ -1,0 +1,109 @@
+{
+  "taxonomy": {
+    "scientific_name": "Ailuropoda melanoleuca",
+    "common_name": "Giant Panda",
+    "family": "Ursidae",
+    "order": "Carnivora",
+    "class": "Mammalia"
+  },
+  "habitat": {
+    "type": "Temperate Forest",
+    "description": "The giant panda inhabits the misty bamboo forests of central China, living at elevations between 1,500 and 3,000 metres in a world of perpetual dampness, steep slopes, and dense bamboo understory. These temperate forests, draped in moss and threaded with streams, represent one of the most restricted habitats of any large mammal.\n\nBamboo dominates every aspect of panda life. These bears spend up to 14 hours each day consuming bamboo, eating 12 to 38 kilograms daily to extract sufficient nutrition from this low-calorie food source. Different bamboo species grow at different elevations, and pandas must move seasonally between altitude bands as various species produce new shoots.\n\nThe cloud forests of Sichuan, Shaanxi, and Gansu provinces harbour the last wild pandas in fragmented mountain sanctuaries. Ancient conifers tower above the bamboo, creating a layered forest ecosystem where golden monkeys, red pandas, and takins share the panda's mountain realm.",
+    "range_countries": [
+      "China"
+    ],
+    "key_locations": [
+      "Wolong Nature Reserve",
+      "Foping Nature Reserve",
+      "Minshan Mountains",
+      "Qinling Mountains",
+      "Sichuan Basin margins"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Habitat Fragmentation",
+      "description": "Roads, railways, and agricultural expansion divide panda populations into isolated groups, reducing genetic diversity."
+    },
+    {
+      "name": "Bamboo Die-Off",
+      "description": "Bamboo species periodically flower and die en masse; fragmented habitats prevent pandas from moving to alternative bamboo sources."
+    },
+    {
+      "name": "Small Population Size",
+      "description": "Isolated populations are vulnerable to inbreeding depression and local extinction from stochastic events."
+    },
+    {
+      "name": "Climate Change",
+      "description": "Changing temperatures and precipitation patterns may shift bamboo distribution beyond what pandas can track."
+    },
+    {
+      "name": "Tourism Pressure",
+      "description": "While eco-tourism funds conservation, excessive visitor numbers in reserves can disturb pandas and degrade habitat."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Vulnerable",
+    "population_estimate": "1,864",
+    "population_trend": "Increasing",
+    "key_programs": [
+      "National Giant Panda Conservation Programme",
+      "Giant Panda National Park",
+      "Chengdu Research Base of Giant Panda Breeding",
+      "WWF (panda as logo species)"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Kung Fu Panda brought the species to global pop culture, while IMAX documentaries reveal the reality of panda conservation in China.",
+    "literature": "Pandas appear throughout Chinese literature and art as symbols of peace, gentleness, and harmony with nature.",
+    "mythology": "Ancient Chinese texts describe pandas as peaceful creatures that could mediate between warring tribes, symbols of yin-yang balance.",
+    "media_presence": "As the WWF logo species since 1961, the panda is arguably the world's most recognizable conservation symbol.",
+    "cultural_paradox": "Massive conservation investment in a single charismatic species raises questions about resource allocation while also funding broader ecosystem protection."
+  },
+  "tmdb_media": [
+    {
+      "title": "The Giant Panda",
+      "year": 2010,
+      "overview": "The Giant Panda is a mammal native to cntral-western and south western China and is a true member of the Ursidae (bear) family. The Panda's closes ursine rlative is the spectalcled bear of South America. The Giant Panda is amoung the worlds most adored and protected rare animal and is one of the few in the world whose natural inhabitant status was able to gain UNESCO Worlld Heritage Site designation. The Sichuan Giant Panda Sancturarites located in the southwest Sichuan province and covering seven natural reserves, were inscribed onto the World Heritage List in 2009. Discover the beauty and wonder of these great panda's and their fight for life.",
+      "poster_path": "/29xJBYOyrWtrASyviJNPuTSJ035.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        99
+      ],
+      "id": 603631
+    },
+    {
+      "title": "The Giant Panda",
+      "year": 2020,
+      "overview": "Since 2003, nine giant pandas from China's Wolong Nature Reserve have been reintroduced into the bamboo forest of the Qinling Mountains. Born in the breeding and research station of the reserve, they did not have close contact with humans before their relocation to the natural environment. For three years, a team of scientists followed one of them, from its birth to the discovery of its new environment.",
+      "poster_path": "/pItfZJJn3RMY2xAXP1A3ycZCs7y.jpg",
+      "vote_average": 8,
+      "genre_ids": [
+        99
+      ],
+      "id": 724373
+    },
+    {
+      "title": "Four Seasons in the giant Panda’s kingdom",
+      "year": 2022,
+      "overview": "A journey over the seasons to discover the impassive and mysterious giant panda, in the heart of its natural environment. This series, filmed over 4 years, invites us to share the daily life of two panda families, from birth to adulthood. Up close, the black and white ursid is revealed as never before, in its most complete intimacy.",
+      "poster_path": "/ovyiBOAKwIFH5fALXXRg9YvJWQA.jpg",
+      "vote_average": 10,
+      "genre_ids": [
+        99
+      ],
+      "id": 1391107
+    },
+    {
+      "title": "Giant Pandas: The Last Refuge",
+      "year": 1994,
+      "overview": "Take a fascinating trip to the world of these enchanting creatures to observe them in their natural environment.  Their work is critical now, because these well-known creatures are in dire jeopardy. The offspring of captive pandas are rare and sickly compared to those naturally raised, and scientists race to discover why before their habitats and population disappear.",
+      "poster_path": "/5znxHBJ3DYxOxRrbQKCkfDxKbxg.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        99
+      ],
+      "id": 395022
+    }
+  ]
+}

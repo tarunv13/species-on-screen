@@ -1,0 +1,33 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Transform the index.html from single-species tiger prototype into a multi-species gallery homepage with filterable species cards, and expand the globe to show all 10 species across 31+ locations color-coded by ecosystem.",
+  "status": "pending",
+  "steps": [
+    "Rewrite the species section (#species-section) in index.html to become a species gallery: replace the tiger-only content with a filterable grid of 10 species cards. Each card should be a glass-card linking to species/{slug}.html with: species common name, scientific name, ecosystem badge, conservation status badge, and a brief one-line hook",
+    "Add ecosystem filter buttons above the gallery (All, Tropical Forest, Mountain, Coral Reef, Ocean, Savanna, Arctic, Temperate Forest, Freshwater) that filter cards by data attribute",
+    "Create src/species-gallery.js to handle: (a) filter button click/keyboard interactions, (b) smooth GSAP transitions when filtering (cards fade out/in), (c) replace initTigerSection import in main.js with initSpeciesGallery",
+    "Update src/globe.js HOTSPOTS array from 5 locations to 31+ markers covering all 10 species' habitats. Color-code markers by ecosystem type: --color-forest for forests, --color-water for ocean/reef/freshwater, --color-savanna for savanna, --color-ice for arctic/mountain. Use the species locations: Tiger (Sundarbans 21.9/89.2, Ranthambore 26.0/76.5, Sumatra -0.5/101.5), Snow Leopard (Himalayas 28.0/84.0, Altai 49.0/88.0, Tian Shan 42.0/75.0), Orangutan (Borneo 1.0/114.0, Sumatra 2.5/98.5), Hawksbill Turtle (Caribbean 18.0/-64.0, Great Barrier Reef -18.3/147.7, Red Sea 22.0/38.0), Blue Whale (Antarctic -65.0/-60.0, California 34.0/-120.0, Sri Lanka 7.0/80.0), African Elephant (Serengeti -2.5/34.8, Kruger -24.0/31.5, Congo 0.5/22.0, Amboseli -2.6/37.2), Polar Bear (Svalbard 78.0/16.0, Churchill 58.7/-94.2, Wrangel Island 71.0/-179.5), Giant Panda (Sichuan 31.0/103.5, Qinling 33.5/107.5), Staghorn Coral (Florida Keys 24.5/-81.5, Belize 16.8/-88.0, Bahamas 24.0/-76.0), Amazon River Dolphin (Amazon -3.4/-60.0, Orinoco 6.0/-67.0, Tocantins -3.0/-49.5)",
+    "Update the globe's aria-label from 'five biodiversity hotspot locations' to reflect the expanded marker count",
+    "Update the .globe-companions text in index.html to reflect '10 flagship species across 31 locations' instead of 'five biodiversity hotspots'",
+    "Update src/scroll-animations.js initSpeciesScroll function to work with the new gallery layout instead of the old tiger panels",
+    "Remove src/tiger-section.js (its functionality is replaced by species-gallery.js and the individual species pages)",
+    "Update src/main.js imports: remove initTigerSection, add initSpeciesGallery",
+    "Add CSS for the species gallery cards, filter buttons, and ecosystem badges to src/style.css. Use the existing glass-card pattern. Ecosystem badges should use the palette colors (forest green for forests, water blue for ocean/reef/freshwater, savanna ochre for savanna, ice lavender for arctic/mountain)"
+  ],
+  "acceptance_criteria": [
+    "index.html shows a gallery of 10 species cards instead of the single tiger profile",
+    "Filter buttons work to show/hide species by ecosystem type",
+    "Globe renders 31+ markers color-coded by ecosystem instead of 5 uniform markers",
+    "npm run build succeeds with no errors",
+    "tiger-section.js is removed and its imports are replaced",
+    "All navigation dots in scroll-nav still function correctly"
+  ],
+  "verification": [
+    "Run 'npm run build' and confirm successful build",
+    "Verify dist/index.html contains the species gallery section with 10 cards",
+    "Verify src/tiger-section.js no longer exists"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

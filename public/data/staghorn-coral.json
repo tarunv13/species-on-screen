@@ -1,0 +1,73 @@
+{
+  "taxonomy": {
+    "scientific_name": "Acropora cervicornis",
+    "common_name": "Staghorn Coral",
+    "family": "Acroporidae",
+    "order": "Scleractinia",
+    "class": "Anthozoa"
+  },
+  "habitat": {
+    "type": "Coral Reef",
+    "description": "Staghorn coral builds the three-dimensional architecture of tropical reefs, its branching colonies creating a complex underwater forest that shelters thousands of marine species. Growing in warm, clear, shallow waters between 1 and 30 metres depth, these corals are among the most important reef-building organisms in the Caribbean.\n\nEach branch of staghorn coral is a living colony of thousands of tiny polyps, each no larger than a pinhead, working collectively to deposit calcium carbonate skeletons at rates of up to 20 centimetres per year. This rapid growth allows staghorn coral to dominate reef ecosystems, creating the structural complexity that supports extraordinary biodiversity.\n\nIn healthy reef systems, staghorn thickets can extend across hectares of shallow seafloor, their interlocking branches providing nursery habitat for juvenile fish, shelter for invertebrates, and substrate for algae and sponges. The loss of these coral forests cascades through entire marine ecosystems.",
+    "range_countries": [
+      "United States (Florida)",
+      "Bahamas",
+      "Cuba",
+      "Mexico",
+      "Belize",
+      "Honduras",
+      "Jamaica",
+      "US Virgin Islands",
+      "Puerto Rico",
+      "Curacao"
+    ],
+    "key_locations": [
+      "Florida Keys",
+      "Mesoamerican Barrier Reef",
+      "Turks and Caicos",
+      "Bahamas Banks",
+      "US Virgin Islands"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Ocean Warming",
+      "description": "Rising sea temperatures cause coral bleaching, expelling the symbiotic algae that provide corals with energy, often leading to death."
+    },
+    {
+      "name": "Ocean Acidification",
+      "description": "Increasing CO2 absorption makes seawater more acidic, reducing corals' ability to build and maintain their calcium carbonate skeletons."
+    },
+    {
+      "name": "White Band Disease",
+      "description": "A devastating bacterial disease has killed 80-98% of staghorn coral populations across the Caribbean since the 1980s."
+    },
+    {
+      "name": "Hurricane Damage",
+      "description": "The branching structure of staghorn coral makes it particularly vulnerable to physical destruction by increasingly intense storms."
+    },
+    {
+      "name": "Sedimentation and Pollution",
+      "description": "Coastal runoff smothers coral polyps with sediment and introduces nutrients that fuel algae overgrowth."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Critically Endangered",
+    "population_estimate": "Declined 80-98% since 1980",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "Coral Restoration Foundation",
+      "NOAA Coral Reef Conservation Program",
+      "Florida DEP coral nurseries",
+      "Caribbean Acropora Recovery Plan"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Chasing Coral (Netflix) documented coral bleaching in real-time, bringing reef collapse to mainstream audiences worldwide.",
+    "literature": "Coral reefs feature in ocean literature as underwater cities, their decline serving as a powerful metaphor for ecological collapse.",
+    "mythology": "Ancient Mediterranean cultures believed coral was the petrified blood of Medusa, while Pacific cultures see reefs as ancestral formations.",
+    "media_presence": "Before-and-after bleaching imagery has made coral one of the most visually compelling symbols of climate change.",
+    "cultural_paradox": "The most biodiverse marine ecosystems on Earth are collapsing faster than any terrestrial habitat, yet remain largely out of sight and mind."
+  },
+  "tmdb_media": []
+}
