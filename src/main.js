@@ -55,6 +55,11 @@ function initGlobeLazy() {
   observer.observe(globeSection);
 }
 
+// --- Fallback: remove js-loaded if an error occurs mid-init ---
+window.addEventListener('error', () => {
+  document.body.classList.remove('js-loaded');
+});
+
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('js-loaded');
