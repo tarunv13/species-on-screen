@@ -67,118 +67,112 @@
     "media_presence": "Blue Planet's blue whale sequences remain among the most watched and emotionally powerful moments in natural history television.",
     "cultural_paradox": "The largest animal ever to exist was hunted to near-extinction within a single human lifetime, now slowly recovering under protection."
   },
+  "hero_stat": "Blue whale population reduced by 99% before whaling ban",
+  "hero_image": {
+    "url": "https://image.tmdb.org/t/p/original/stXyO1gITPss9E3cMguPq3n4C1l.jpg",
+    "credit": "TMDB",
+    "source": "tmdb"
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Shipping industry lacks affordable speed-reduction technology for whale zones",
+      "Limited real-time whale detection systems for vessel operators",
+      "Difficulty monitoring vast oceanic ranges"
+    ],
+    "opportunity": [
+      "International shipping lanes overlap with critical feeding areas",
+      "Climate change shifting krill distributions into busier waters",
+      "Noise pollution regulations difficult to enforce in international waters"
+    ],
+    "motivation": [
+      "Economic pressure to maintain shipping schedules over speed reductions",
+      "Whaling moratorium compliance varies by nation",
+      "Public disconnect from open-ocean conservation issues due to remoteness"
+    ]
+  },
+  "evidence_summary": "Blue Planet broadcast events correlate with measurable increases in ocean conservation charity donations and public support for marine protected areas, with blue whale sequences among the most emotionally impactful (Jones et al., 2019).",
+  "methodology_notes": "Blue whale connects to RQ1 through measurable public attitude shifts toward marine protection post-documentary; RQ2 through analysis of scale-revelation as sublime narrative technique; RQ3 through ocean exploration game design potential; RQ4 through marine protected area support polling as outcome measure.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Branch, T.A. et al. (2004). Evidence for increases in Antarctic blue whales based on Bayesian modelling. Marine Mammal Science, 20(4), pp.726-754.",
+    "Attard, C.R.M. et al. (2012). Hybridization of Southern Hemisphere blue whale subspecies and implications for conservation. Conservation Genetics, 13(6), pp.1497-1507."
+  ],
   "tmdb_media": [
     {
-      "title": "Blue Whale",
-      "year": 2022,
-      "overview": "A teenage boy is playing an online \"suicide game\" where he must complete 50 challenges in 50 days.",
-      "poster_path": "/txNaUhFSejBhaJUwMmH0vZlkhxf.jpg",
-      "vote_average": 1,
+      "title": "Blue Whales: Return of the Giants",
+      "year": 2023,
+      "director": "Hugh Pearson",
+      "tmdb_url": "https://www.themoviedb.org/movie/1147747",
+      "poster_path": "/hM8yRTvPy7JUqOU1t9OHaaYJBY4.jpg",
+      "backdrop_path": "/stXyO1gITPss9E3cMguPq3n4C1l.jpg",
+      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions—one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico’s stunning Gulf of California—the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 105,
+      "query_source": "Blue Whale",
       "genre_ids": [
-        18
+        99
       ],
-      "id": 960594
-    },
-    {
-      "title": "The Blue Whale",
-      "year": 2019,
-      "overview": "A horror film about an online challenge game that drives teenagers to suicide.",
-      "poster_path": "/r6u2DZYBqu8ejQRVcWaJRq3Ajbb.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        27
-      ],
-      "id": 1150266
-    },
-    {
-      "title": "The Blue Whale",
-      "year": 2020,
-      "overview": "The film revolves around the \"Blue Whale Challenge\" game used by many young people and adolescents, after the spread of technology and the parents are too busy to look after their children which might lead to their exposure to great risks.",
-      "poster_path": "/pZEeURRtkuUTVe5mevPzLbugGRF.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        18,
-        53,
-        27
-      ],
-      "id": 1058435
+      "vote_average": 0
     },
     {
       "title": "Kingdom of the Blue Whale",
       "year": 2009,
-      "overview": "Supported by the National Geographic Society, the world's eminent blue whale scientists embark on a revolutionary mission: They'll find, identify, and tag California blue whales, use the DNA samples to confirm the sex of individual whales, then rejoin the massive creatures' stunning migration when they collect at a chimera known as the Costa Rica Dome.",
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/22109",
       "poster_path": "/q2CFhgyiTeHfd7b0pyvHRDDBEUw.jpg",
-      "vote_average": 6.6,
+      "backdrop_path": "/5h0sqB9CWR8NM9dtzt5xgXbjyww.jpg",
+      "overview": "Supported by the National Geographic Society, the world's eminent blue whale scientists embark on a revolutionary mission: They'll find, identify, and tag California blue whales, use the DNA samples to confirm the sex of individual whales, then rejoin the massive creatures' stunning migration when they collect at a chimera known as the Costa Rica Dome.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 90,
+      "query_source": "Blue Whale",
       "genre_ids": [
         99,
         10770
       ],
-      "id": 22109
-    },
-    {
-      "title": "The Blue Whale",
-      "year": 2020,
-      "overview": "The film revolves around the \"Blue Whale Challenge\" game used by many young people and adolescents, after the spread of technology and the parents' preoccupation with their children which might lead to their exposure to great risks.",
-      "poster_path": "/eVED8vgzHF2abjKBpQbWAKs6rZ.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        53,
-        9648
-      ],
-      "id": 848931
-    },
-    {
-      "title": "National Geographic Blue Whale Odyssey",
-      "year": 2009,
-      "overview": "National Geographic Blue Whale Odyssey",
-      "poster_path": "/qnOUGEcDWEFHWTt2P3RzBSSE6Vj.jpg",
-      "vote_average": 0,
-      "genre_ids": [],
-      "id": 978312
-    },
-    {
-      "title": "Blue Whales: Return of the Giants",
-      "year": 2023,
-      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions—one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico’s stunning Gulf of California—the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
-      "poster_path": "/hM8yRTvPy7JUqOU1t9OHaaYJBY4.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        99
-      ],
-      "id": 1147747
+      "vote_average": 6.6
     },
     {
       "title": "ASHA DE VOS ON STUDYING BLUE WHALES",
       "year": null,
-      "overview": "Sri Lankan marine biologist and ocean educator Asha de Vos talks about the blue whale skeleton at the Colombo National Museum that inspired her as a child, and the challenges of being a South Asian woman in science.",
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/787676",
       "poster_path": null,
-      "vote_average": 0,
+      "backdrop_path": null,
+      "overview": "Sri Lankan marine biologist and ocean educator Asha de Vos talks about the blue whale skeleton at the Colombo National Museum that inspired her as a child, and the challenges of being a South Asian woman in science.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 45,
+      "query_source": "Blue Whale",
       "genre_ids": [],
-      "id": 787676
+      "vote_average": 0
     },
     {
-      "title": "Baleia Azul - Os desafios",
-      "year": 2024,
-      "overview": "",
-      "poster_path": "/fo5cdo3b21d5HJKVCmsvBsFVmJS.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        18,
-        36
-      ],
-      "id": 1299160
-    },
-    {
-      "title": "#Blue_Whale",
-      "year": 2024,
-      "overview": "Rebellious schoolgirl Dana grieves for her younger sister, a once-happy kid who suddenly stepped in front of a train. Desperate to learn what happened, she explores her sister's online history, discovering a sinister social-media game.",
-      "poster_path": "/2TmZ2lgDEYJAFpeUMALRx5NwqK.jpg",
-      "vote_average": 6.275,
-      "genre_ids": [
-        27,
-        53
-      ],
-      "id": 714567
+      "title": "National Geographic Blue Whale Odyssey",
+      "year": 2009,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/978312",
+      "poster_path": "/qnOUGEcDWEFHWTt2P3RzBSSE6Vj.jpg",
+      "backdrop_path": null,
+      "overview": "National Geographic Blue Whale Odyssey",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Blue Whale",
+      "genre_ids": [],
+      "vote_average": 0
     }
   ]
 }

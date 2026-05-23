@@ -70,17 +70,64 @@
     "media_presence": "Elephant family dynamics, grief behaviors, and intelligence make them perennial subjects for documentary filmmakers.",
     "cultural_paradox": "Universally beloved and recognized as highly intelligent, yet killed in enormous numbers for decorative trinkets."
   },
+  "hero_stat": "One elephant killed every 15 minutes for ivory",
+  "hero_image": {
+    "url": null,
+    "credit": null,
+    "source": null
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Rangers under-equipped and outnumbered by poaching networks",
+      "Communities lack tools for non-lethal crop protection",
+      "Corruption undermines law enforcement at multiple levels"
+    ],
+    "opportunity": [
+      "International ivory demand creates lucrative black market",
+      "Vast ranges impossible to patrol effectively",
+      "Political instability enables armed poaching gangs"
+    ],
+    "motivation": [
+      "Ivory prices incentivize poaching above legitimate income sources",
+      "Human-elephant conflict drives retaliatory killing",
+      "Demand for ivory as status symbol persists despite bans"
+    ]
+  },
+  "evidence_summary": "The documentary \"The Ivory Game\" (2016) contributed to China's decision to close its domestic ivory market, demonstrating direct policy impact from wildlife filmmaking (Jones et al., 2019).",
+  "methodology_notes": "African elephant connects to RQ1 through documented policy change following documentary broadcast; RQ2 through investigative journalism as narrative technique in wildlife crime films; RQ3 through anti-poaching strategy game potential; RQ4 through ivory market closure as measurable policy outcome.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Wittemyer, G. et al. (2014). Illegal killing for ivory drives global decline in African elephants. PNAS, 111(36), pp.13117-13121.",
+    "Chase, M.J. et al. (2016). Continent-wide survey reveals massive decline in African savannah elephants. PeerJ, 4, e2354."
+  ],
   "tmdb_media": [
     {
       "title": "The African Elephant",
       "year": 1971,
-      "overview": "African Elephant originally played in theatres as King Elephant.. The film is a straightforward, well-photographed documentary concentrating on....well, look at the title. Avoiding the obvious, filmmaker Simon Trevor focuses on the more curious aspects of elephant life. In addition to the mighty pachyderm, we are given intriguing glimpses of other forms of African wildlife. African Elephant has no overt ecological ax to grind, but the preservationist message is there by implication.",
+      "director": "Simon Trevor",
+      "tmdb_url": "https://www.themoviedb.org/movie/277360",
       "poster_path": "/ro4K2g1L9vbzUR1AaAoYtQ9OFXR.jpg",
-      "vote_average": 9,
+      "backdrop_path": null,
+      "overview": "African Elephant originally played in theatres as King Elephant.. The film is a straightforward, well-photographed documentary concentrating on....well, look at the title. Avoiding the obvious, filmmaker Simon Trevor focuses on the more curious aspects of elephant life. In addition to the mighty pachyderm, we are given intriguing glimpses of other forms of African wildlife. African Elephant has no overt ecological ax to grind, but the preservationist message is there by implication.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 105,
+      "query_source": "African Elephant",
       "genre_ids": [
         99
       ],
-      "id": 277360
+      "vote_average": 9
     }
   ]
 }

@@ -1,347 +1,391 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 /**
- * Three.js interactive globe - a peaceful, contemplative Earth.
- * Procedural coloring with atmosphere glow and biodiversity hotspot markers.
+ * Species hotspot data - 31 locations with lat/lng, species name, ecosystem type
  */
-
-// Biodiversity hotspot locations [lat, lng, name, color] - 31 locations across 10 species
 const HOTSPOTS = [
   // Tiger - Tropical Forest
-  { lat: 21.9, lng: 89.2, name: 'Sundarbans (Tiger)', color: '#a8c5a0' },
-  { lat: 26.0, lng: 76.5, name: 'Ranthambore (Tiger)', color: '#a8c5a0' },
-  { lat: -0.5, lng: 101.5, name: 'Sumatra (Tiger)', color: '#a8c5a0' },
+  { lat: 21.9, lng: 89.2, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
+  { lat: 26.0, lng: 76.5, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
+  { lat: -0.5, lng: 101.5, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
   // Snow Leopard - Mountain
-  { lat: 28.0, lng: 84.0, name: 'Himalayas (Snow Leopard)', color: '#e8e4f0' },
-  { lat: 49.0, lng: 88.0, name: 'Altai Mountains (Snow Leopard)', color: '#e8e4f0' },
-  { lat: 42.0, lng: 75.0, name: 'Tian Shan (Snow Leopard)', color: '#e8e4f0' },
+  { lat: 28.0, lng: 84.0, name: 'Snow Leopard', species: 'snow-leopard', ecosystem: 'mountain', color: '#e8e4f0' },
+  { lat: 49.0, lng: 88.0, name: 'Snow Leopard', species: 'snow-leopard', ecosystem: 'mountain', color: '#e8e4f0' },
+  { lat: 42.0, lng: 75.0, name: 'Snow Leopard', species: 'snow-leopard', ecosystem: 'mountain', color: '#e8e4f0' },
   // Orangutan - Tropical Forest
-  { lat: 1.0, lng: 114.0, name: 'Borneo (Orangutan)', color: '#a8c5a0' },
-  { lat: 2.5, lng: 98.5, name: 'Sumatra (Orangutan)', color: '#a8c5a0' },
+  { lat: 1.0, lng: 114.0, name: 'Bornean Orangutan', species: 'bornean-orangutan', ecosystem: 'tropical-forest', color: '#4a7c59' },
+  { lat: 2.5, lng: 98.5, name: 'Bornean Orangutan', species: 'bornean-orangutan', ecosystem: 'tropical-forest', color: '#4a7c59' },
   // Hawksbill Turtle - Coral Reef
-  { lat: 18.0, lng: -64.0, name: 'Caribbean (Hawksbill Turtle)', color: '#8ecae6' },
-  { lat: -18.3, lng: 147.7, name: 'Great Barrier Reef (Hawksbill Turtle)', color: '#8ecae6' },
-  { lat: 22.0, lng: 38.0, name: 'Red Sea (Hawksbill Turtle)', color: '#8ecae6' },
+  { lat: 18.0, lng: -64.0, name: 'Hawksbill Turtle', species: 'hawksbill-turtle', ecosystem: 'coral-reef', color: '#1a4f6e' },
+  { lat: -18.3, lng: 147.7, name: 'Hawksbill Turtle', species: 'hawksbill-turtle', ecosystem: 'coral-reef', color: '#1a4f6e' },
+  { lat: 22.0, lng: 38.0, name: 'Hawksbill Turtle', species: 'hawksbill-turtle', ecosystem: 'coral-reef', color: '#1a4f6e' },
   // Blue Whale - Ocean
-  { lat: -65.0, lng: -60.0, name: 'Antarctic (Blue Whale)', color: '#8ecae6' },
-  { lat: 34.0, lng: -120.0, name: 'California Coast (Blue Whale)', color: '#8ecae6' },
-  { lat: 7.0, lng: 80.0, name: 'Sri Lanka (Blue Whale)', color: '#8ecae6' },
+  { lat: -65.0, lng: -60.0, name: 'Blue Whale', species: 'blue-whale', ecosystem: 'ocean', color: '#1a4f6e' },
+  { lat: 34.0, lng: -120.0, name: 'Blue Whale', species: 'blue-whale', ecosystem: 'ocean', color: '#1a4f6e' },
+  { lat: 7.0, lng: 80.0, name: 'Blue Whale', species: 'blue-whale', ecosystem: 'ocean', color: '#1a4f6e' },
   // African Elephant - Savanna
-  { lat: -2.5, lng: 34.8, name: 'Serengeti (African Elephant)', color: '#d4a574' },
-  { lat: -24.0, lng: 31.5, name: 'Kruger (African Elephant)', color: '#d4a574' },
-  { lat: 0.5, lng: 22.0, name: 'Congo Basin (African Elephant)', color: '#d4a574' },
-  { lat: -2.6, lng: 37.2, name: 'Amboseli (African Elephant)', color: '#d4a574' },
+  { lat: -2.5, lng: 34.8, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
+  { lat: -24.0, lng: 31.5, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
+  { lat: 0.5, lng: 22.0, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
+  { lat: -2.6, lng: 37.2, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
   // Polar Bear - Arctic
-  { lat: 78.0, lng: 16.0, name: 'Svalbard (Polar Bear)', color: '#e8e4f0' },
-  { lat: 58.7, lng: -94.2, name: 'Churchill (Polar Bear)', color: '#e8e4f0' },
-  { lat: 71.0, lng: -179.5, name: 'Wrangel Island (Polar Bear)', color: '#e8e4f0' },
+  { lat: 78.0, lng: 16.0, name: 'Polar Bear', species: 'polar-bear', ecosystem: 'arctic', color: '#e8e4f0' },
+  { lat: 58.7, lng: -94.2, name: 'Polar Bear', species: 'polar-bear', ecosystem: 'arctic', color: '#e8e4f0' },
+  { lat: 71.0, lng: -179.5, name: 'Polar Bear', species: 'polar-bear', ecosystem: 'arctic', color: '#e8e4f0' },
   // Giant Panda - Temperate Forest
-  { lat: 31.0, lng: 103.5, name: 'Sichuan (Giant Panda)', color: '#a8c5a0' },
-  { lat: 33.5, lng: 107.5, name: 'Qinling (Giant Panda)', color: '#a8c5a0' },
+  { lat: 31.0, lng: 103.5, name: 'Giant Panda', species: 'giant-panda', ecosystem: 'temperate-forest', color: '#4a7c59' },
+  { lat: 33.5, lng: 107.5, name: 'Giant Panda', species: 'giant-panda', ecosystem: 'temperate-forest', color: '#4a7c59' },
   // Staghorn Coral - Coral Reef
-  { lat: 24.5, lng: -81.5, name: 'Florida Keys (Staghorn Coral)', color: '#8ecae6' },
-  { lat: 16.8, lng: -88.0, name: 'Belize (Staghorn Coral)', color: '#8ecae6' },
-  { lat: 24.0, lng: -76.0, name: 'Bahamas (Staghorn Coral)', color: '#8ecae6' },
+  { lat: 24.5, lng: -81.5, name: 'Staghorn Coral', species: 'staghorn-coral', ecosystem: 'coral-reef', color: '#1a4f6e' },
+  { lat: 16.8, lng: -88.0, name: 'Staghorn Coral', species: 'staghorn-coral', ecosystem: 'coral-reef', color: '#1a4f6e' },
+  { lat: 24.0, lng: -76.0, name: 'Staghorn Coral', species: 'staghorn-coral', ecosystem: 'coral-reef', color: '#1a4f6e' },
   // Amazon River Dolphin - Freshwater
-  { lat: -3.4, lng: -60.0, name: 'Amazon (River Dolphin)', color: '#8ecae6' },
-  { lat: 6.0, lng: -67.0, name: 'Orinoco (River Dolphin)', color: '#8ecae6' },
-  { lat: -3.0, lng: -49.5, name: 'Tocantins (River Dolphin)', color: '#8ecae6' },
+  { lat: -3.4, lng: -60.0, name: 'Amazon River Dolphin', species: 'amazon-river-dolphin', ecosystem: 'freshwater', color: '#1a4f6e' },
+  { lat: 6.0, lng: -67.0, name: 'Amazon River Dolphin', species: 'amazon-river-dolphin', ecosystem: 'freshwater', color: '#1a4f6e' },
+  { lat: -3.0, lng: -49.5, name: 'Amazon River Dolphin', species: 'amazon-river-dolphin', ecosystem: 'freshwater', color: '#1a4f6e' },
 ];
 
-let renderer, scene, camera, controls, globe, atmosphere, markers;
-let animationId = null;
-let container = null;
-let visibilityObserver = null;
-let isVisible = false;
+// Species slug to data file map
+const SPECIES_FILES = [
+  'tiger', 'snow-leopard', 'bornean-orangutan', 'hawksbill-turtle',
+  'blue-whale', 'african-elephant', 'polar-bear', 'giant-panda',
+  'staghorn-coral', 'amazon-river-dolphin',
+];
 
 /**
- * Convert latitude/longitude to 3D position on sphere surface
+ * Convert lat/lng to 3D position on sphere
  */
 function latLngToVector3(lat, lng, radius) {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lng + 180) * (Math.PI / 180);
-
   const x = -(radius * Math.sin(phi) * Math.cos(theta));
   const y = radius * Math.cos(phi);
   const z = radius * Math.sin(phi) * Math.sin(theta);
-
   return new THREE.Vector3(x, y, z);
 }
 
 /**
- * Create a procedural Earth texture with soft gradients
+ * Globe vertex shader with Fresnel rim lighting
  */
-function createEarthTexture() {
-  const size = 512;
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d');
+const globeVertexShader = `
+  varying vec3 vNormal;
+  varying vec3 vPosition;
+  varying vec2 vUv;
 
-  // Ocean gradient - soft blues
-  const gradient = ctx.createLinearGradient(0, 0, 0, size);
-  gradient.addColorStop(0, '#b8d4e3'); // pale blue at poles
-  gradient.addColorStop(0.3, '#8ecae6'); // water blue
-  gradient.addColorStop(0.5, '#7ec4cf'); // turquoise equator
-  gradient.addColorStop(0.7, '#8ecae6');
-  gradient.addColorStop(1, '#b8d4e3');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, size, size);
+  void main() {
+    vNormal = normalize(normalMatrix * normal);
+    vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
 
-  // Add soft land-mass patches using simple ellipses
-  ctx.globalAlpha = 0.35;
-  const landColor = '#a8c5a0'; // forest green
+/**
+ * Globe fragment shader - dark base with Fresnel rim glow and subtle continent hints
+ */
+const globeFragmentShader = `
+  varying vec3 vNormal;
+  varying vec3 vPosition;
+  varying vec2 vUv;
 
-  // Approximate continental shapes with soft ellipses
-  const continents = [
-    // Africa
-    { x: 0.53, y: 0.45, w: 0.08, h: 0.18 },
-    { x: 0.55, y: 0.35, w: 0.06, h: 0.08 },
-    // Eurasia
-    { x: 0.55, y: 0.28, w: 0.25, h: 0.08 },
-    { x: 0.65, y: 0.32, w: 0.1, h: 0.1 },
-    { x: 0.75, y: 0.3, w: 0.08, h: 0.06 },
-    // Americas
-    { x: 0.25, y: 0.3, w: 0.08, h: 0.12 },
-    { x: 0.28, y: 0.2, w: 0.06, h: 0.1 },
-    { x: 0.27, y: 0.5, w: 0.05, h: 0.15 },
-    // Australia
-    { x: 0.82, y: 0.55, w: 0.06, h: 0.05 },
-    // Southeast Asia
-    { x: 0.78, y: 0.4, w: 0.04, h: 0.06 },
-  ];
-
-  ctx.fillStyle = landColor;
-  continents.forEach(({ x, y, w, h }) => {
-    ctx.beginPath();
-    ctx.ellipse(
-      x * size,
-      y * size,
-      w * size * 0.5,
-      h * size * 0.5,
-      0,
-      0,
-      Math.PI * 2
-    );
-    ctx.fill();
-  });
-
-  // Add some noise/texture variation
-  ctx.globalAlpha = 0.08;
-  for (let i = 0; i < 200; i++) {
-    const px = Math.random() * size;
-    const py = Math.random() * size;
-    const pr = 2 + Math.random() * 8;
-    ctx.beginPath();
-    ctx.arc(px, py, pr, 0, Math.PI * 2);
-    ctx.fillStyle = Math.random() > 0.5 ? '#a8c5a0' : '#8ecae6';
-    ctx.fill();
+  // Simple noise for continent hints
+  float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
   }
 
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.needsUpdate = true;
-  return texture;
-}
+  float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    float a = hash(i);
+    float b = hash(i + vec2(1.0, 0.0));
+    float c = hash(i + vec2(0.0, 1.0));
+    float d = hash(i + vec2(1.0, 1.0));
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+  }
+
+  void main() {
+    // Base dark color
+    vec3 baseColor = vec3(0.04, 0.04, 0.08);
+
+    // Continent hints via procedural noise
+    float n = noise(vUv * 8.0) * 0.5 + noise(vUv * 16.0) * 0.25;
+    float continentMask = smoothstep(0.45, 0.55, n);
+    vec3 landColor = vec3(0.08, 0.1, 0.12);
+    baseColor = mix(baseColor, landColor, continentMask * 0.6);
+
+    // Fresnel rim light
+    vec3 viewDir = normalize(-vPosition);
+    float fresnel = 1.0 - max(dot(viewDir, vNormal), 0.0);
+    fresnel = pow(fresnel, 3.0);
+    vec3 rimColor = vec3(0.2, 0.4, 0.6);
+
+    vec3 finalColor = baseColor + rimColor * fresnel * 0.8;
+    gl_FragColor = vec4(finalColor, 1.0);
+  }
+`;
 
 /**
- * Create the atmosphere glow - a rim-lit transparent sphere
+ * Globe class - data visualization with instanced columns
  */
-function createAtmosphere() {
-  const geometry = new THREE.SphereGeometry(1.08, 64, 64);
-  const material = new THREE.ShaderMaterial({
-    vertexShader: `
-      varying vec3 vNormal;
-      void main() {
-        vNormal = normalize(normalMatrix * normal);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: `
-      varying vec3 vNormal;
-      void main() {
-        float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.5);
-        gl_FragColor = vec4(0.56, 0.79, 0.9, intensity * 0.6);
-      }
-    `,
-    blending: THREE.AdditiveBlending,
-    side: THREE.BackSide,
-    transparent: true,
-    depthWrite: false,
-  });
+export class Globe {
+  constructor(scene, camera, renderer) {
+    this.scene = scene;
+    this.camera = camera;
+    this.renderer = renderer;
+    this.group = new THREE.Group();
+    this.scene.add(this.group);
 
-  return new THREE.Mesh(geometry, material);
-}
+    this.mediaCounts = {};
+    this.columnMeshes = [];
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2(-999, -999);
+    this.hoveredIndex = -1;
+    this.isHovered = false;
+    this.autoRotateSpeed = 0.1;
 
-/**
- * Create glowing hotspot markers
- */
-function createMarkers() {
-  const group = new THREE.Group();
+    this._createGlobe();
+    this._createColumns();
+    this._setupInteraction();
+    this._loadMediaCounts();
+  }
 
-  HOTSPOTS.forEach((hotspot) => {
-    const position = latLngToVector3(hotspot.lat, hotspot.lng, 1.02);
-
-    const geometry = new THREE.SphereGeometry(0.02, 16, 16);
-    const material = new THREE.MeshBasicMaterial({
-      color: new THREE.Color(hotspot.color),
-      transparent: true,
-      opacity: 0.9,
+  _createGlobe() {
+    // Main sphere
+    const geometry = new THREE.SphereGeometry(1.5, 128, 128);
+    const material = new THREE.ShaderMaterial({
+      vertexShader: globeVertexShader,
+      fragmentShader: globeFragmentShader,
+      transparent: false,
     });
+    this.sphere = new THREE.Mesh(geometry, material);
+    this.group.add(this.sphere);
 
-    const marker = new THREE.Mesh(geometry, material);
-    marker.position.copy(position);
-    marker.userData = { name: hotspot.name, baseOpacity: 0.9 };
-    group.add(marker);
-
-    // Add a slightly larger glow sphere around the marker
-    const glowGeometry = new THREE.SphereGeometry(0.04, 16, 16);
-    const glowMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color(hotspot.color),
-      transparent: true,
-      opacity: 0.25,
-    });
-    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-    glow.position.copy(position);
-    group.add(glow);
-  });
-
-  return group;
-}
-
-export function initGlobe() {
-  container = document.getElementById('globe-container');
-  if (!container) return;
-
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-
-  // Scene
-  scene = new THREE.Scene();
-
-  // Camera
-  camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-  camera.position.z = 3;
-
-  // Renderer
-  renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true,
-  });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor(0x000000, 0);
-  container.appendChild(renderer.domElement);
-
-  // Globe
-  const earthTexture = createEarthTexture();
-  const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
-  const globeMaterial = new THREE.MeshPhongMaterial({
-    map: earthTexture,
-    shininess: 15,
-    specular: new THREE.Color('#ffffff'),
-  });
-  globe = new THREE.Mesh(globeGeometry, globeMaterial);
-  scene.add(globe);
-
-  // Atmosphere
-  atmosphere = createAtmosphere();
-  scene.add(atmosphere);
-
-  // Markers
-  markers = createMarkers();
-  scene.add(markers);
-
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-  scene.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  directionalLight.position.set(5, 3, 5);
-  scene.add(directionalLight);
-
-  // Controls
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 0.5;
-  controls.minDistance = 2;
-  controls.maxDistance = 5;
-  controls.enablePan = false;
-
-  // Resize handler
-  window.addEventListener('resize', onResize);
-
-  // Observe visibility - only render when the globe is on screen
-  visibilityObserver = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          if (!isVisible) {
-            isVisible = true;
-            animate();
-          }
-        } else {
-          isVisible = false;
-          if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-          }
+    // Atmosphere glow (outer rim)
+    const atmosGeometry = new THREE.SphereGeometry(1.58, 64, 64);
+    const atmosMaterial = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec3 vNormal;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
-      }
-    },
-    { threshold: 0 }
-  );
-  visibilityObserver.observe(container);
-}
+      `,
+      fragmentShader: `
+        varying vec3 vNormal;
+        void main() {
+          float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
+          gl_FragColor = vec4(0.2, 0.4, 0.7, intensity * 0.4);
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+      transparent: true,
+      depthWrite: false,
+    });
+    this.atmosphere = new THREE.Mesh(atmosGeometry, atmosMaterial);
+    this.group.add(this.atmosphere);
+  }
 
-function onResize() {
-  if (!container || !camera || !renderer) return;
+  _createColumns() {
+    const columnGeometry = new THREE.CylinderGeometry(0.015, 0.015, 1, 8);
+    columnGeometry.translate(0, 0.5, 0); // pivot at base
 
-  const width = container.clientWidth;
-  const height = container.clientHeight;
+    const ringGeometry = new THREE.RingGeometry(0.02, 0.04, 16);
 
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(width, height);
-}
+    HOTSPOTS.forEach((hotspot, i) => {
+      const basePos = latLngToVector3(hotspot.lat, hotspot.lng, 1.5);
+      const normal = basePos.clone().normalize();
 
-function animate() {
-  if (!isVisible) return;
-  animationId = requestAnimationFrame(animate);
+      // Default height (will be updated when media counts load)
+      const height = 0.1;
 
-  // Pulse markers
-  const time = performance.now() * 0.001;
-  if (markers) {
-    markers.children.forEach((child, i) => {
-      if (child.userData && child.userData.name) {
-        const pulse = 0.7 + Math.sin(time * 2 + i) * 0.3;
-        child.material.opacity = child.userData.baseOpacity * pulse;
-      }
+      // Column
+      const columnMaterial = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(hotspot.color),
+        emissive: new THREE.Color(hotspot.color),
+        emissiveIntensity: 0.3,
+        metalness: 0.2,
+        roughness: 0.6,
+      });
+      const column = new THREE.Mesh(columnGeometry.clone(), columnMaterial);
+      column.position.copy(basePos);
+      column.scale.y = height;
+      column.lookAt(basePos.clone().add(normal));
+      column.rotateX(Math.PI / 2);
+      column.userData = { hotspotIndex: i, species: hotspot.species, name: hotspot.name };
+      this.group.add(column);
+      this.columnMeshes.push(column);
+
+      // Base ring
+      const ringMaterial = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(hotspot.color),
+        transparent: true,
+        opacity: 0.5,
+        side: THREE.DoubleSide,
+      });
+      const ring = new THREE.Mesh(ringGeometry.clone(), ringMaterial);
+      ring.position.copy(basePos);
+      ring.lookAt(basePos.clone().add(normal));
+      this.group.add(ring);
     });
   }
 
-  if (controls) controls.update();
-  if (renderer && scene && camera) renderer.render(scene, camera);
-}
+  _setupInteraction() {
+    const domElement = this.renderer.domElement;
 
-export function destroyGlobe() {
-  if (animationId) {
-    cancelAnimationFrame(animationId);
-    animationId = null;
+    this._onMouseMove = (e) => {
+      this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    this._onClick = () => {
+      if (this.hoveredIndex >= 0) {
+        const hotspot = HOTSPOTS[this.hoveredIndex];
+        window.location.href = `species/${hotspot.species}.html`;
+      }
+    };
+
+    this._onMouseEnter = () => {
+      this.isHovered = true;
+    };
+
+    this._onMouseLeave = () => {
+      this.isHovered = false;
+      this.mouse.set(-999, -999);
+    };
+
+    domElement.addEventListener('mousemove', this._onMouseMove);
+    domElement.addEventListener('click', this._onClick);
+    domElement.addEventListener('mouseenter', this._onMouseEnter);
+    domElement.addEventListener('mouseleave', this._onMouseLeave);
   }
-  if (visibilityObserver) {
-    visibilityObserver.disconnect();
-    visibilityObserver = null;
-  }
-  isVisible = false;
-  if (renderer) {
-    renderer.dispose();
-    if (container && renderer.domElement.parentNode === container) {
-      container.removeChild(renderer.domElement);
+
+  async _loadMediaCounts() {
+    const basePath = import.meta.env.BASE_URL || '/';
+
+    try {
+      const promises = SPECIES_FILES.map(async (slug) => {
+        try {
+          const res = await fetch(`${basePath}data/${slug}.json`);
+          if (!res.ok) return { slug, count: 0 };
+          const data = await res.json();
+          const count = data.tmdb_media ? data.tmdb_media.length : 0;
+          return { slug, count };
+        } catch {
+          return { slug, count: 0 };
+        }
+      });
+
+      const results = await Promise.all(promises);
+      results.forEach(({ slug, count }) => {
+        this.mediaCounts[slug] = count;
+      });
+
+      this._updateColumnHeights();
+    } catch {
+      // Fail silently - columns keep default height
     }
   }
-  if (controls) controls.dispose();
-  window.removeEventListener('resize', onResize);
+
+  _updateColumnHeights() {
+    const maxCount = Math.max(1, ...Object.values(this.mediaCounts));
+
+    this.columnMeshes.forEach((column, i) => {
+      const hotspot = HOTSPOTS[i];
+      const count = this.mediaCounts[hotspot.species] || 0;
+      // Scale height between 0.05 and 0.4
+      const height = 0.05 + (count / maxCount) * 0.35;
+      column.scale.y = height;
+    });
+  }
+
+  /**
+   * Update loop - call every frame
+   */
+  update(delta) {
+    // Auto-rotation (pauses on hover)
+    if (!this.isHovered) {
+      this.group.rotation.y += this.autoRotateSpeed * delta;
+    }
+
+    // Raycasting for hover
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+    const intersects = this.raycaster.intersectObjects(this.columnMeshes);
+
+    const tooltip = document.getElementById('globe-tooltip');
+    const prevHovered = this.hoveredIndex;
+
+    if (intersects.length > 0) {
+      const hit = intersects[0].object;
+      const idx = hit.userData.hotspotIndex;
+      this.hoveredIndex = idx;
+
+      if (tooltip) {
+        tooltip.textContent = hit.userData.name;
+        tooltip.style.opacity = '1';
+        // Position tooltip near mouse
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        const x = ((this.mouse.x + 1) / 2) * rect.width;
+        const y = ((1 - this.mouse.y) / 2) * rect.height;
+        tooltip.style.left = `${x + 15}px`;
+        tooltip.style.top = `${y - 10}px`;
+      }
+
+      // Highlight hovered column
+      if (prevHovered !== idx) {
+        // Reset previous
+        if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
+          this.columnMeshes[prevHovered].material.emissiveIntensity = 0.3;
+        }
+        hit.material.emissiveIntensity = 0.8;
+        this.renderer.domElement.style.cursor = 'pointer';
+      }
+    } else {
+      this.hoveredIndex = -1;
+      if (tooltip) {
+        tooltip.style.opacity = '0';
+      }
+      if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
+        this.columnMeshes[prevHovered].material.emissiveIntensity = 0.3;
+      }
+      this.renderer.domElement.style.cursor = '';
+    }
+  }
+
+  /**
+   * Dispose - remove event listeners, dispose geometries and materials, remove tooltip
+   */
+  dispose() {
+    const domElement = this.renderer.domElement;
+    domElement.removeEventListener('mousemove', this._onMouseMove);
+    domElement.removeEventListener('click', this._onClick);
+    domElement.removeEventListener('mouseenter', this._onMouseEnter);
+    domElement.removeEventListener('mouseleave', this._onMouseLeave);
+
+    // Dispose column meshes
+    this.columnMeshes.forEach((column) => {
+      column.geometry.dispose();
+      column.material.dispose();
+    });
+
+    // Dispose globe sphere and atmosphere
+    if (this.sphere) {
+      this.sphere.geometry.dispose();
+      this.sphere.material.dispose();
+    }
+    if (this.atmosphere) {
+      this.atmosphere.geometry.dispose();
+      this.atmosphere.material.dispose();
+    }
+
+    // Remove tooltip element
+    const tooltip = document.getElementById('globe-tooltip');
+    if (tooltip && tooltip.parentNode) {
+      tooltip.parentNode.removeChild(tooltip);
+    }
+
+    // Remove group from scene
+    this.scene.remove(this.group);
+  }
 }
