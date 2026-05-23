@@ -594,20 +594,28 @@ p {
 
 /* --------------------------------------------------------------------------
    JS-dependent visibility
-   Elements animated by GSAP are only hidden when JS has loaded successfully.
+   Elements animated by GSAP start hidden (opacity: 0) only when JS has loaded.
    Without .js-loaded on body, all content remains visible as a fallback.
+   If an error occurs after .js-loaded is added, the error handler removes
+   the class so elements revert to their default visible state.
    -------------------------------------------------------------------------- */
-.js-loaded .section__heading,
-.js-loaded .section__text,
+.js-loaded .section--globe .section__heading,
+.js-loaded .section--globe .section__text,
 .js-loaded .globe-container,
 .js-loaded .globe-companion,
+.js-loaded .section--concept .section__heading,
+.js-loaded .section--concept .section__text,
 .js-loaded .glass-card,
 .js-loaded .species__header,
 .js-loaded .species__hero-stat,
+.js-loaded .species__panel,
 .js-loaded .species__connecting-story,
+.js-loaded .section--vision .section__heading,
+.js-loaded .section--vision .section__text,
 .js-loaded .vision__roadmap,
-.js-loaded .vision__footer {
-  visibility: visible; /* GSAP controls opacity; this class signals JS is active */
+.js-loaded .vision__footer,
+.js-loaded .vision__roadmap-item {
+  opacity: 0;
 }
 
 /* --------------------------------------------------------------------------
