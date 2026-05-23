@@ -16,7 +16,7 @@ export function initScrollAnimations() {
   initHeroScroll();
   initGlobeScroll();
   initConceptScroll();
-  initSpeciesScroll();
+  initSpeciesGalleryScroll();
   initVisionScroll();
 }
 
@@ -177,25 +177,23 @@ function initConceptScroll() {
 }
 
 /**
- * Species section: header, hero stat, and connecting story animate in.
- * Panel reveals are handled by tiger-section.js for more control.
+ * Species gallery section: staggered card reveal matching concept cards pattern
  */
-function initSpeciesScroll() {
+function initSpeciesGalleryScroll() {
   const speciesSection = document.getElementById('species-section');
   if (!speciesSection) return;
 
-  const header = speciesSection.querySelector('.species__header');
-  const heroStat = speciesSection.querySelector('.species__hero-stat');
-  const connectingStory = speciesSection.querySelector('.species__connecting-story');
+  const heading = speciesSection.querySelector('.section__heading');
+  const text = speciesSection.querySelector('.section__text');
 
-  if (header) {
-    gsap.set(header, { opacity: 0, y: 30 });
-    gsap.to(header, {
+  if (heading) {
+    gsap.set(heading, { opacity: 0, y: 30 });
+    gsap.to(heading, {
       opacity: 1,
       y: 0,
       ease: 'none',
       scrollTrigger: {
-        trigger: header,
+        trigger: heading,
         start: 'top 80%',
         end: 'top 60%',
         scrub: 1,
@@ -203,33 +201,38 @@ function initSpeciesScroll() {
     });
   }
 
-  if (heroStat) {
-    gsap.set(heroStat, { opacity: 0, scale: 0.8 });
-    gsap.to(heroStat, {
+  if (text) {
+    gsap.set(text, { opacity: 0, y: 20 });
+    gsap.to(text, {
       opacity: 1,
-      scale: 1,
+      y: 0,
       ease: 'none',
       scrollTrigger: {
-        trigger: heroStat,
-        start: 'top 82%',
-        end: 'top 55%',
+        trigger: text,
+        start: 'top 80%',
+        end: 'top 60%',
         scrub: 1,
       },
     });
   }
 
-  if (connectingStory) {
-    gsap.set(connectingStory, { opacity: 0, y: 25 });
-    gsap.to(connectingStory, {
-      opacity: 1,
-      y: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: connectingStory,
-        start: 'top 85%',
-        end: 'top 60%',
-        scrub: 1,
-      },
+  // Stagger species gallery cards
+  const cards = speciesSection.querySelectorAll('.species-gallery__card');
+  if (cards.length > 0) {
+    cards.forEach((card) => {
+      gsap.set(card, { opacity: 0, y: 40, scale: 0.95 });
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+          end: 'top 65%',
+          scrub: 1,
+        },
+      });
     });
   }
 }
