@@ -1,0 +1,7 @@
+{
+  "task_id": "task-multi-species-expansion",
+  "task_description": "Expand the Eco-Cinema Observatory from a single-species tiger prototype to a fully functional multi-species platform with 10 flagship species, TMDB API integration for film/documentary data, individual species pages, filterable gallery homepage, expanded globe with 31+ markers, and fixed GitHub Actions deployment.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

@@ -1,0 +1,184 @@
+{
+  "taxonomy": {
+    "scientific_name": "Balaenoptera musculus",
+    "common_name": "Blue Whale",
+    "family": "Balaenopteridae",
+    "order": "Artiodactyla",
+    "class": "Mammalia"
+  },
+  "habitat": {
+    "type": "Ocean",
+    "description": "The blue whale, the largest animal ever to have lived on Earth, inhabits the vast open oceans of the world, undertaking migrations that span entire ocean basins. These leviathans cruise through the deep blue, their enormous bodies sustained by astronomical quantities of tiny krill.\n\nIn polar summer, blue whales congregate in the productive waters of the Southern Ocean and North Pacific, where upwellings bring nutrients to the surface and fuel explosive blooms of krill. A single blue whale may consume four tonnes of krill per day, its pleated throat expanding like a balloon to engulf entire schools.\n\nAs winter approaches, blue whales migrate toward tropical and subtropical waters to breed and calve, their low-frequency calls carrying across hundreds of kilometres of ocean. These calls, below the range of human hearing, form a communication network that spans the deep ocean.",
+    "range_countries": [
+      "Global - all major oceans",
+      "Antarctica",
+      "Chile",
+      "Sri Lanka",
+      "California",
+      "Iceland",
+      "Australia",
+      "New Zealand"
+    ],
+    "key_locations": [
+      "Southern Ocean",
+      "Gulf of California",
+      "Sri Lankan waters",
+      "Monterey Bay",
+      "South Georgia"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Ship Strikes",
+      "description": "Collisions with large vessels are a significant cause of mortality, particularly in busy shipping lanes that overlap with feeding areas."
+    },
+    {
+      "name": "Ocean Noise Pollution",
+      "description": "Military sonar, seismic surveys, and shipping noise interfere with blue whale communication and may cause displacement from critical habitat."
+    },
+    {
+      "name": "Climate Change",
+      "description": "Warming oceans alter krill distribution and abundance, potentially disrupting the feeding ecology blue whales depend upon."
+    },
+    {
+      "name": "Entanglement",
+      "description": "Blue whales can become entangled in fishing gear, leading to injury, impaired feeding, and death."
+    },
+    {
+      "name": "Chemical Pollution",
+      "description": "Persistent organic pollutants and microplastics accumulate in ocean food webs, concentrating in the tissues of filter-feeding whales."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Endangered",
+    "population_estimate": "10,000-25,000",
+    "population_trend": "Increasing",
+    "key_programs": [
+      "International Whaling Commission moratorium",
+      "IWC Southern Ocean Whale Sanctuary",
+      "NOAA Ship Speed Regulations",
+      "Antarctic Treaty System"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Blue whales represent the sublime in nature documentaries, their scale challenging the limits of what cameras can capture.",
+    "literature": "From Moby Dick to contemporary ocean writing, great whales embody the mystery and immensity of the deep ocean.",
+    "mythology": "Whale mythology spans from Jonah to Maori creation stories, whales serving as bridges between human and oceanic worlds.",
+    "media_presence": "Blue Planet's blue whale sequences remain among the most watched and emotionally powerful moments in natural history television.",
+    "cultural_paradox": "The largest animal ever to exist was hunted to near-extinction within a single human lifetime, now slowly recovering under protection."
+  },
+  "tmdb_media": [
+    {
+      "title": "Blue Whale",
+      "year": 2022,
+      "overview": "A teenage boy is playing an online \"suicide game\" where he must complete 50 challenges in 50 days.",
+      "poster_path": "/txNaUhFSejBhaJUwMmH0vZlkhxf.jpg",
+      "vote_average": 1,
+      "genre_ids": [
+        18
+      ],
+      "id": 960594
+    },
+    {
+      "title": "The Blue Whale",
+      "year": 2019,
+      "overview": "A horror film about an online challenge game that drives teenagers to suicide.",
+      "poster_path": "/r6u2DZYBqu8ejQRVcWaJRq3Ajbb.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        27
+      ],
+      "id": 1150266
+    },
+    {
+      "title": "The Blue Whale",
+      "year": 2020,
+      "overview": "The film revolves around the \"Blue Whale Challenge\" game used by many young people and adolescents, after the spread of technology and the parents are too busy to look after their children which might lead to their exposure to great risks.",
+      "poster_path": "/pZEeURRtkuUTVe5mevPzLbugGRF.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        18,
+        53,
+        27
+      ],
+      "id": 1058435
+    },
+    {
+      "title": "Kingdom of the Blue Whale",
+      "year": 2009,
+      "overview": "Supported by the National Geographic Society, the world's eminent blue whale scientists embark on a revolutionary mission: They'll find, identify, and tag California blue whales, use the DNA samples to confirm the sex of individual whales, then rejoin the massive creatures' stunning migration when they collect at a chimera known as the Costa Rica Dome.",
+      "poster_path": "/q2CFhgyiTeHfd7b0pyvHRDDBEUw.jpg",
+      "vote_average": 6.6,
+      "genre_ids": [
+        99,
+        10770
+      ],
+      "id": 22109
+    },
+    {
+      "title": "The Blue Whale",
+      "year": 2020,
+      "overview": "The film revolves around the \"Blue Whale Challenge\" game used by many young people and adolescents, after the spread of technology and the parents' preoccupation with their children which might lead to their exposure to great risks.",
+      "poster_path": "/eVED8vgzHF2abjKBpQbWAKs6rZ.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        53,
+        9648
+      ],
+      "id": 848931
+    },
+    {
+      "title": "National Geographic Blue Whale Odyssey",
+      "year": 2009,
+      "overview": "National Geographic Blue Whale Odyssey",
+      "poster_path": "/qnOUGEcDWEFHWTt2P3RzBSSE6Vj.jpg",
+      "vote_average": 0,
+      "genre_ids": [],
+      "id": 978312
+    },
+    {
+      "title": "Blue Whales: Return of the Giants",
+      "year": 2023,
+      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions—one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico’s stunning Gulf of California—the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
+      "poster_path": "/hM8yRTvPy7JUqOU1t9OHaaYJBY4.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        99
+      ],
+      "id": 1147747
+    },
+    {
+      "title": "ASHA DE VOS ON STUDYING BLUE WHALES",
+      "year": null,
+      "overview": "Sri Lankan marine biologist and ocean educator Asha de Vos talks about the blue whale skeleton at the Colombo National Museum that inspired her as a child, and the challenges of being a South Asian woman in science.",
+      "poster_path": null,
+      "vote_average": 0,
+      "genre_ids": [],
+      "id": 787676
+    },
+    {
+      "title": "Baleia Azul - Os desafios",
+      "year": 2024,
+      "overview": "",
+      "poster_path": "/fo5cdo3b21d5HJKVCmsvBsFVmJS.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        18,
+        36
+      ],
+      "id": 1299160
+    },
+    {
+      "title": "#Blue_Whale",
+      "year": 2024,
+      "overview": "Rebellious schoolgirl Dana grieves for her younger sister, a once-happy kid who suddenly stepped in front of a train. Desperate to learn what happened, she explores her sister's online history, discovering a sinister social-media game.",
+      "poster_path": "/2TmZ2lgDEYJAFpeUMALRx5NwqK.jpg",
+      "vote_average": 6.275,
+      "genre_ids": [
+        27,
+        53
+      ],
+      "id": 714567
+    }
+  ]
+}

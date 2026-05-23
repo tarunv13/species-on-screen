@@ -1,0 +1,31 @@
+{
+  "id": "FEAT-001",
+  "type": "fix",
+  "description": "Fix the GitHub Actions deploy.yml bug, set up TMDB data fetch script, create species data JSON files, and configure Vite for multi-page builds.",
+  "status": "in_progress",
+  "steps": [
+    "Fix .github/workflows/deploy.yml line 41: change 'url: ${{ pages.deployment.url }}' to 'url: ${{ steps.deployment.outputs.page_url }}'",
+    "Add 'node-fetch' (or use native fetch since Node 22) to package.json scripts. Add a new npm script 'fetch-data': 'node scripts/fetch-tmdb-data.js'",
+    "Create scripts/fetch-tmdb-data.js that: (a) defines the 10 species with slugs, scientific names, common names, habitat info, threats, conservation status, and cultural significance text; (b) for each species, calls the TMDB API (search/movie endpoint with keywords like '{species} documentary', '{species} wildlife', genre_id=99 for documentaries, primary_release_date.gte=2000) using API key ab7c1810da1a84fbc50d3fe313f42a72; (c) also searches without genre filter for fictional films; (d) writes combined results as public/data/{slug}.json with structure: { taxonomy, habitat, threats, conservation, cultural_significance, tmdb_media: [{title, year, overview, poster_path, vote_average, genre_ids}] }",
+    "Create the public/data/ directory",
+    "Run the fetch script: node scripts/fetch-tmdb-data.js - verify it produces 10 JSON files in public/data/",
+    "Update vite.config.js to configure multi-page input: index.html plus species/*.html pages (use glob pattern or explicit listing). Ensure base remains '/species-on-screen/'",
+    "Create species/ directory with 10 HTML files (tiger.html, snow-leopard.html, bornean-orangutan.html, hawksbill-turtle.html, blue-whale.html, african-elephant.html, polar-bear.html, giant-panda.html, staghorn-coral.html, amazon-river-dolphin.html). Each should be a basic HTML shell with: proper meta tags, Open Graph tags, JSON-LD structured data (schema.org/AnimalSpecies or similar), a script module import for the species page JS, and link back to the main page",
+    "Create src/species-page.js as the entry point for individual species pages - it should: (a) fetch the corresponding public/data/{slug}.json, (b) render the species profile sections (hero, habitat, media, threats, conservation, cultural significance) using the same glass-panel/glass-card design patterns, (c) include breadcrumb navigation"
+  ],
+  "acceptance_criteria": [
+    "deploy.yml contains 'url: ${{ steps.deployment.outputs.page_url }}' on the environment URL line",
+    "Running 'node scripts/fetch-tmdb-data.js' successfully creates 10 JSON files in public/data/ with real TMDB results",
+    "Each JSON file contains at least: taxonomy, habitat, threats, conservation, cultural_significance, and tmdb_media array",
+    "npm run build succeeds and produces dist/index.html plus dist/species/*.html",
+    "Each species HTML page includes JSON-LD structured data and Open Graph meta tags",
+    "vite.config.js properly configures multi-page build input"
+  ],
+  "verification": [
+    "Run 'node scripts/fetch-tmdb-data.js' and confirm 10 JSON files exist in public/data/",
+    "Run 'npm run build' and confirm it produces dist/index.html and dist/species/*.html (10 species pages)",
+    "Check that dist/species/tiger.html exists and contains structured data"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

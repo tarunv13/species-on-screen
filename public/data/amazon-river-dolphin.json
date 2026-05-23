@@ -1,0 +1,70 @@
+{
+  "taxonomy": {
+    "scientific_name": "Inia geoffrensis",
+    "common_name": "Amazon River Dolphin",
+    "family": "Iniidae",
+    "order": "Artiodactyla",
+    "class": "Mammalia"
+  },
+  "habitat": {
+    "type": "Freshwater",
+    "description": "The Amazon river dolphin, or boto, navigates the murky, tanin-stained waters of the Amazon and Orinoco river basins, threading between submerged tree trunks in flooded forests and hunting fish in channels where visibility drops to zero. These remarkable cetaceans have evolved to thrive in one of the most complex freshwater environments on Earth.\n\nDuring the wet season, river dolphins follow the rising waters into the varzea floodplain forests, swimming between trees in water several metres deep. Their flexible necks and small eyes are adaptations to this cluttered environment, where echolocation replaces sight as the primary sense for navigation and hunting.\n\nIn the dry season, dolphins concentrate in the main river channels and deeper lakes, where receding waters trap fish in ever-shrinking pools. The pink coloration of adult males intensifies with age and activity, flushing brighter during social encounters in these seasonal congregations.",
+    "range_countries": [
+      "Brazil",
+      "Bolivia",
+      "Colombia",
+      "Ecuador",
+      "Peru",
+      "Venezuela",
+      "Guyana"
+    ],
+    "key_locations": [
+      "Amazon River mainstem",
+      "Rio Negro",
+      "Orinoco Basin",
+      "Madeira River",
+      "Mamiraua Reserve"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Dam Construction",
+      "description": "Hydroelectric dams fragment river systems, isolating dolphin populations and altering water flow, sediment, and fish migration patterns."
+    },
+    {
+      "name": "Mercury Pollution",
+      "description": "Gold mining releases mercury into Amazonian waterways, bioaccumulating through the food chain to toxic levels in dolphin tissues."
+    },
+    {
+      "name": "Bycatch and Intentional Killing",
+      "description": "Dolphins are caught in fishing nets and sometimes deliberately killed for use as fish bait or out of perceived competition with fisheries."
+    },
+    {
+      "name": "Deforestation",
+      "description": "Loss of floodplain forests reduces the seasonal habitat that dolphins use for feeding during high water periods."
+    },
+    {
+      "name": "Water Pollution",
+      "description": "Agricultural runoff, sewage, and industrial waste degrade water quality throughout the Amazon basin."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Endangered",
+    "population_estimate": "Unknown - tens of thousands estimated",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "South American River Dolphin Initiative",
+      "WWF Amazon Programme",
+      "Mamiraua Sustainable Development Reserve",
+      "IWC Scientific Committee"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Pink river dolphins appear in Amazon documentaries as mystical inhabitants of flooded forests, their unusual appearance captivating audiences.",
+    "literature": "The boto features in magical realist literature of South America, blurring boundaries between the natural and supernatural.",
+    "mythology": "In Amazonian folklore, the boto can transform into a handsome man who seduces women at riverside festivals, explaining unexpected pregnancies.",
+    "media_presence": "River dolphins represent the hidden biodiversity of freshwater systems, often featured in documentaries about Amazon threats.",
+    "cultural_paradox": "Protected by folklore and superstition for centuries, river dolphins now face threats from the same modernization that erodes traditional beliefs."
+  },
+  "tmdb_media": []
+}

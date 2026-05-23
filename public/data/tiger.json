@@ -1,0 +1,331 @@
+{
+  "taxonomy": {
+    "scientific_name": "Panthera tigris",
+    "common_name": "Tiger",
+    "family": "Felidae",
+    "order": "Carnivora",
+    "class": "Mammalia"
+  },
+  "habitat": {
+    "type": "Tropical Forest",
+    "description": "The tiger prowls through some of the most biodiverse landscapes on Earth, from the steaming mangrove swamps of the Sundarbans to the dense sal forests of central India. These great cats require vast territories of unbroken forest, each individual commanding a home range that may span hundreds of square kilometres of tangled undergrowth, river corridors, and grassland margins.\n\nIn the humid tropics of Southeast Asia, tigers move like shadows through cathedral-like stands of dipterocarp trees, their striped coats dissolving into the dappled light that filters through the canopy. The forest floor, thick with leaf litter and crisscrossed by streams, provides perfect cover for ambush hunting.\n\nFrom the frozen birch forests of the Russian Far East to the tropical dry forests of Rajasthan, the tiger has adapted to an extraordinary range of forested habitats, testament to the remarkable plasticity of this apex predator.",
+    "range_countries": [
+      "India",
+      "Russia",
+      "Indonesia",
+      "Malaysia",
+      "Thailand",
+      "Nepal",
+      "Bangladesh",
+      "Myanmar",
+      "Bhutan",
+      "China"
+    ],
+    "key_locations": [
+      "Sundarbans",
+      "Ranthambore",
+      "Corbett National Park",
+      "Sikhote-Alin",
+      "Way Kambas"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Habitat Loss",
+      "description": "Deforestation for agriculture, palm oil plantations, and urban expansion has reduced tiger habitat by over 95% in the last century."
+    },
+    {
+      "name": "Poaching",
+      "description": "Illegal hunting for traditional medicine trade, particularly for bones, skins, and other body parts, remains a critical threat."
+    },
+    {
+      "name": "Human-Wildlife Conflict",
+      "description": "As forests shrink, tigers increasingly encounter human settlements, leading to retaliatory killings when livestock or people are attacked."
+    },
+    {
+      "name": "Prey Depletion",
+      "description": "Overhunting of deer, wild boar, and other prey species by local communities reduces the food base tigers depend upon."
+    },
+    {
+      "name": "Climate Change",
+      "description": "Rising sea levels threaten the Sundarbans mangrove habitat, while changing monsoon patterns affect prey availability across the range."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Endangered",
+    "population_estimate": "4,500",
+    "population_trend": "Increasing",
+    "key_programs": [
+      "Project Tiger (India)",
+      "TX2 Goal",
+      "Global Tiger Initiative",
+      "TRAFFIC anti-poaching networks"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "From Life of Pi to The Jungle Book, tigers dominate wildlife cinema as symbols of untamed nature and spiritual power.",
+    "literature": "William Blake's \"Tyger Tyger, burning bright\" established the tiger as poetry's most potent symbol of sublime natural force.",
+    "mythology": "Sacred in Hindu mythology as the mount of Goddess Durga, and revered across Asian cultures as guardians and shape-shifters.",
+    "media_presence": "Tigers appear in more wildlife documentaries than any other big cat, with BBC and National Geographic producing dedicated series.",
+    "cultural_paradox": "The most culturally celebrated big cat is simultaneously among the most endangered, with more tigers in captivity than in the wild."
+  },
+  "tmdb_media": [
+    {
+      "title": "The Tank",
+      "year": 2025,
+      "overview": "A German Tiger tank crew is sent on a dangerous mission to rescue the missing officer Paul von Hardenburg from a top-secret bunker behind enemy lines. As they make their way through the lethal no-man's land, they must confront not only the enemy, but also their own fears and inner demons. Fueled by the Wehrmacht's methamphetamine, their mission increasingly becomes a journey into the heart of darkness.",
+      "poster_path": "/65Jr1JAgWlu9em8zHhAfrNJJQBt.jpg",
+      "vote_average": 7.083,
+      "genre_ids": [
+        10752,
+        28,
+        18
+      ],
+      "id": 1252037
+    },
+    {
+      "title": "Paper Tiger",
+      "year": 2026,
+      "overview": "Two brothers chase the American dream, but soon find themselves in the brutal world of violence and corruption of the Russian mafia.",
+      "poster_path": "/9txURTPuB1W85km06SAnrFcOCFF.jpg",
+      "vote_average": 7.5,
+      "genre_ids": [
+        80,
+        18,
+        53
+      ],
+      "id": 1381273
+    },
+    {
+      "title": "Crouching Tiger, Hidden Dragon",
+      "year": 2000,
+      "overview": "Two warriors in pursuit of a stolen sword and a notorious fugitive are led to an impetuous, physically-skilled, teenage nobleman's daughter, who is at a crossroads in her life.",
+      "poster_path": "/iNDVBFNz4XyYzM9Lwip6atSTFqf.jpg",
+      "vote_average": 7.434,
+      "genre_ids": [
+        12,
+        18,
+        28,
+        10749
+      ],
+      "id": 146
+    },
+    {
+      "title": "Tiger Cage II",
+      "year": 1990,
+      "overview": "An ex-cop and divorce lawyer team up with a gangster to clear their names after getting involved in a dirty money scheme led by a vicious money launderer, who plans to expand his business and wipe out anyone who stands in his way.",
+      "poster_path": "/7DKQvMAiYBHBRVNtgc3qAxoAe6l.jpg",
+      "vote_average": 7.051,
+      "genre_ids": [
+        28,
+        80,
+        53
+      ],
+      "id": 58412
+    },
+    {
+      "title": "The Tiger Murder Case",
+      "year": 1930,
+      "overview": "Mysterious murders committed by a criminal have kept the public on their toes and the police have mistakenly accused an imposter of the crimes.",
+      "poster_path": "/fzbD1apfvWKKWgnY6J949lBF47j.jpg",
+      "vote_average": 6,
+      "genre_ids": [
+        9648,
+        80,
+        18
+      ],
+      "id": 285847
+    },
+    {
+      "title": "The Tiger of Santa Julia",
+      "year": 2002,
+      "overview": "An army deserter turned bandit robs from thieves to give the money to the poor. He was famous for being caught by the police \"with his pants down\"",
+      "poster_path": "/wV9iDhGabHKrONzVebKjpz9OXqR.jpg",
+      "vote_average": 6.894,
+      "genre_ids": [
+        35,
+        18,
+        28
+      ],
+      "id": 73524
+    },
+    {
+      "title": "The Tiger",
+      "year": 2015,
+      "overview": "In 1925 Korea, Japanese rulers demand the last remaining tiger be killed. The tiger easily defeats his pursuers until a legendary hunter takes him on.",
+      "poster_path": "/tPI6t2Cvu7vWO9iDs4Cigq8svWl.jpg",
+      "vote_average": 7.687,
+      "genre_ids": [
+        28,
+        36,
+        12,
+        18
+      ],
+      "id": 363093
+    },
+    {
+      "title": "Tiger",
+      "year": 2024,
+      "overview": "Journey alongside a young tigress raising her cubs in the fabled forests of India.",
+      "poster_path": "/pHWcpdSFDKFnxZUF66MPfJRaA5a.jpg",
+      "vote_average": 8,
+      "genre_ids": [
+        99,
+        10751
+      ],
+      "id": 1259918
+    },
+    {
+      "title": "The White Tiger",
+      "year": 2021,
+      "overview": "An ambitious Indian driver uses his wit and cunning to escape from poverty and rise to the top. An epic journey based on the New York Times bestseller.",
+      "poster_path": "/5JnmseS3DZ6ad2VMbrnbGCs8Rst.jpg",
+      "vote_average": 6.986,
+      "genre_ids": [
+        18
+      ],
+      "id": 628534
+    },
+    {
+      "title": "Josee, the Tiger and the Fish",
+      "year": 2020,
+      "overview": "With dreams of diving abroad, Tsuneo gets a job assisting Josee, an artist whose imagination takes her far beyond her wheelchair. But when the tide turns against them, they push each other to places they never thought possible, and inspire a love fit for a storybook.",
+      "poster_path": "/z1D8xi9x4uEhyFruo7uEHXUMD4K.jpg",
+      "vote_average": 8.268,
+      "genre_ids": [
+        16,
+        18,
+        10749
+      ],
+      "id": 652837
+    },
+    {
+      "title": "Tiger House",
+      "year": 2015,
+      "overview": "A young gymnast battles a group of bank robbers at the home of her boyfriend.",
+      "poster_path": "/heqehuEfbg2283Z9hFmsVuv3UE3.jpg",
+      "vote_average": 5.481,
+      "genre_ids": [
+        28,
+        80,
+        18,
+        53
+      ],
+      "id": 341077
+    },
+    {
+      "title": "Tiger Cruise",
+      "year": 2004,
+      "overview": "On its last leg homeward, from Pearl Harbor, Hawaii to San Diego, the USS Constellation hosts a jolly \"tiger cruise\" for US Navy, Marines and USNAF relatives, mainly minors (\"Navy brats\"). Attitudes and emotions vary from simple joy to open frustration, the worst brat being XO commander Gary Dolan's daughter Maddie, who wants him to refuse a promotion to command for a shore job. Then the news of the WCC terror crisis changes everything, as the crew is recalled to war footing.",
+      "poster_path": "/oltUNC3hNkxoHtSuHkSkhCfm5rJ.jpg",
+      "vote_average": 6,
+      "genre_ids": [
+        10770,
+        10751,
+        18
+      ],
+      "id": 51909
+    },
+    {
+      "title": "Blue Tiger",
+      "year": 1994,
+      "overview": "Gena is a sweet and dedicated mother to her little son. One day, whilst shopping with him for a halloween mask, her son is accidently shot through the chest by a Japanese Gunman, trying to kill an opposing gang of bus operators. Gena notices that the gunman has a picture of a blue tiger on his chest. She is turned into an obsessed person and has an identical red tiger etched into her skin. She then tracks down the killer and plots his death. This leads her into the world of the Japanese Mafia",
+      "poster_path": "/5wHnOCUj6q2Ag6M7okiirexjTnv.jpg",
+      "vote_average": 5.25,
+      "genre_ids": [
+        18,
+        28,
+        53
+      ],
+      "id": 37023
+    },
+    {
+      "title": "Tiger",
+      "year": 2018,
+      "overview": "A practicing Sikh is banned by the boxing commission for refusing to back down from his religious beliefs. Through racial profiling and stereotypical threats, he does what any strong American would do: fight back.",
+      "poster_path": "/cLa8lCiZyepoRPqAjnOhOvLPuyN.jpg",
+      "vote_average": 6.4,
+      "genre_ids": [
+        18,
+        28
+      ],
+      "id": 458414
+    },
+    {
+      "title": "The Lost Tiger",
+      "year": 2025,
+      "overview": "Adopted by a big, lively and spirited kangaroo family of traveling wrestlers, Teo’s life is pretty great. But when mysterious visions lead him to a faraway land, Teo is forced to rediscover his roots and embark on an epic journey to save his homeland from impending destruction.",
+      "poster_path": "/6wbvSeKXzvsDP73clF22oXE3kAI.jpg",
+      "vote_average": 6.75,
+      "genre_ids": [
+        12,
+        16,
+        35,
+        10751,
+        14
+      ],
+      "id": 1245562
+    },
+    {
+      "title": "Tiger",
+      "year": 2025,
+      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger’s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn’t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a ‘family’ and begins to explore ways to build one in his own way through a ‘friendship marriage.’",
+      "poster_path": "/sd80NvjETTBGi0ejYLsgwMCx1tm.jpg",
+      "vote_average": 0,
+      "genre_ids": [
+        18
+      ],
+      "id": 1463564
+    },
+    {
+      "title": "Tiger Cage",
+      "year": 1988,
+      "overview": "Something fishy is going on in the anti-Drug Trafficking Unit of the HK Police, and only a few honest cops know that the corruption goes all the way to the top. However, they must prove their case quickly, and by unconventional means, after they are framed for murder and drug-trafficking themselves. Dodging bullets from cops and criminals alike, the race is on to clear their names, protect their loved ones, and bring their corrupt colleagues to justice.",
+      "poster_path": "/3evbtScpCceIFxWOc9cIZ1mMhX7.jpg",
+      "vote_average": 6.7,
+      "genre_ids": [
+        28,
+        80,
+        18,
+        53
+      ],
+      "id": 58409
+    },
+    {
+      "title": "Tiger Claws",
+      "year": 1991,
+      "overview": "A mysterious martial artist is killing martial arts masters with his unique style, Tiger Claw. Two police detectives, who are also martial arts experts, use unorthodox methods to track down the serial killer.",
+      "poster_path": "/A6xwAfDrNvUXRVXtuqiLMhnBTmq.jpg",
+      "vote_average": 5.5,
+      "genre_ids": [
+        28
+      ],
+      "id": 66006
+    },
+    {
+      "title": "Dragon Tiger Gate",
+      "year": 2006,
+      "overview": "Three young martial arts masters emerge from the back streets of Hong Kong to help the powerless fight injustice.",
+      "poster_path": "/qamxFxSDtxFk4WPOp5bOYroLqFa.jpg",
+      "vote_average": 6.7,
+      "genre_ids": [
+        28,
+        53
+      ],
+      "id": 15860
+    },
+    {
+      "title": "The Tiger Rising",
+      "year": 2022,
+      "overview": "When 12-year-old Rob Horton discovers a caged tiger in the woods near his home, his imagination runs wild and life begins to change in the most unexpected ways. With the help of a wise and mysterious maid, Willie May  and the stubborn new girl in school, he must navigate through childhood memories, heartache, and wondrous adventures.",
+      "poster_path": "/mEukzqPoCpbrXLGslT8qdTuyRKZ.jpg",
+      "vote_average": 5.5,
+      "genre_ids": [
+        12,
+        10751,
+        18
+      ],
+      "id": 793269
+    }
+  ]
+}
