@@ -1,0 +1,34 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Build multi-species frontend architecture: species index page, individual species profile pages, updated globe with all species locations, and navigation between species",
+  "status": "completed",
+  "steps": [
+    "Update index.html to transform the species section from a single tiger profile into a species gallery/index showing all 10 species as glass cards. Each card shows: common name, scientific name, IUCN status badge, ecosystem tag, and a brief hook sentence. Cards link to individual species pages. Keep the existing hero, globe, concept, and vision sections. Add schema.org JSON-LD structured data in the head for the site (WebSite, Organization schemas).",
+    "Create individual species HTML pages at species/{slug}.html (e.g., species/tiger.html, species/snow-leopard.html, etc.) - these should be full rich profile pages. Each page includes: (a) a hero header with species name, scientific name, and IUCN status, (b) taxonomy section from GBIF data, (c) habitat & range section, (d) media appearances section showing films/documentaries from OMDb data, (e) threats & conservation section, (f) cultural significance section, (g) navigation to other species. Use the same liquid glass design language. Include JSON-LD structured data (schema.org Species/Thing markup). Add proper semantic HTML (article, header, nav, section, aside) for LLM readability.",
+    "Create src/species-page.js - JavaScript module for species profile pages that: loads the species JSON data from /data/{slug}.json via fetch, populates the page dynamically, initializes GSAP scroll animations for the panels, and handles the species navigation. Include a loading state and error handling.",
+    "Create src/species-gallery.js - JavaScript module for the species gallery on the index page that: imports the species registry, renders the species cards grid with filtering by ecosystem, adds hover/focus glass effects matching the concept cards pattern, and handles click navigation to species pages.",
+    "Update src/globe.js to: (a) import the species registry, (b) replace the 5 hardcoded HOTSPOTS with dynamically generated markers from ALL species coordinates (should be 20-30+ markers total since species have multiple habitat locations), (c) color-code markers by species or ecosystem type, (d) add subtle tooltip on hover showing species name and location label, (e) keep the same atmospheric/aesthetic style but make it richer with more data points.",
+    "Update src/main.js to import and initialize the new species-gallery module instead of tiger-section, and handle routing logic for species pages vs index.",
+    "Update src/scroll-animations.js to add animations for the new species gallery section (staggered card reveals matching the existing concept card pattern).",
+    "Add proper meta tags and Open Graph tags to all pages for SEO. Ensure all pages have descriptive titles, descriptions, and canonical URLs.",
+    "Configure Vite (vite.config.js) to handle multi-page build: add species/*.html pages as additional entry points using rollupOptions.input so Vite builds them all."
+  ],
+  "acceptance_criteria": [
+    "npm run build succeeds and produces dist/ with index.html and species/*.html pages",
+    "Index page shows a gallery of 10 species cards with the glass design language",
+    "Each species page loads its data from the corresponding JSON file in /data/",
+    "Globe shows markers for all species locations (20+ markers), not just 5",
+    "All pages include JSON-LD structured data",
+    "All pages use semantic HTML elements",
+    "Vite config correctly builds all HTML pages as a multi-page app",
+    "Navigation works between index and species pages"
+  ],
+  "verification": [
+    "Run npm run build and confirm dist/ contains index.html and species/*.html files",
+    "Check that dist/data/ contains all species JSON files (copied from public/)",
+    "Verify the built HTML files reference correct asset paths with the /species-on-screen/ base"
+  ],
+  "blocked_reason": null,
+  "findings": "Build succeeds. dist/ output contains index.html, 10 species/*.html files, and 10 data/*.json files. Asset paths correctly use /species-on-screen/ base. Globe now has 31 markers from all species coordinates. The chunk size warning for globe-*.js (535KB, Three.js) is expected and non-breaking. tiger-section.js left in place (unused but not deleted per feature instructions)."
+}

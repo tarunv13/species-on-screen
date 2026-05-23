@@ -1,0 +1,7 @@
+{
+  "task_id": "task-multi-species-expansion",
+  "task_description": "Fix GitHub Actions deploy.yml error and expand the Eco-Cinema Observatory from a single-species tiger prototype to a multi-species platform with 10 flagship species, pre-fetched API data architecture (GBIF + OMDb), individual species profile pages, updated globe visualization, and SEO/LLM-optimized structured content.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}
