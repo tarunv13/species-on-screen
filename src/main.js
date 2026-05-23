@@ -2,7 +2,6 @@ import './style.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initHero } from './hero.js';
-import { initGlobe } from './globe.js';
 import { initScrollAnimations } from './scroll-animations.js';
 import { initConceptSection } from './concept-section.js';
 import { initTigerSection } from './tiger-section.js';
@@ -33,11 +32,36 @@ function initScrollNav() {
   }
 }
 
+// --- Lazy-load globe when its section is near the viewport ---
+function initGlobeLazy() {
+  const globeSection = document.getElementById('globe-section');
+  if (!globeSection) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          import('./globe.js').then(({ initGlobe }) => {
+            initGlobe();
+          });
+          break;
+        }
+      }
+    },
+    { rootMargin: '200px' }
+  );
+
+  observer.observe(globeSection);
+}
+
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('js-loaded');
+
   initScrollNav();
   initHero();
-  initGlobe();
+  initGlobeLazy();
   initScrollAnimations();
   initConceptSection();
   initTigerSection();
