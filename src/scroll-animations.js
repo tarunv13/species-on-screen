@@ -177,15 +177,16 @@ function initConceptScroll() {
 }
 
 /**
- * Species section: header and data items stagger in
+ * Species section: header, hero stat, and connecting story animate in.
+ * Panel reveals are handled by tiger-section.js for more control.
  */
 function initSpeciesScroll() {
   const speciesSection = document.getElementById('species-section');
   if (!speciesSection) return;
 
   const header = speciesSection.querySelector('.species__header');
-  const datums = speciesSection.querySelectorAll('.species__datum');
-  const narrative = speciesSection.querySelector('.species__narrative');
+  const heroStat = speciesSection.querySelector('.species__hero-stat');
+  const connectingStory = speciesSection.querySelector('.species__connecting-story');
 
   if (header) {
     gsap.set(header, { opacity: 0, y: 30 });
@@ -202,33 +203,31 @@ function initSpeciesScroll() {
     });
   }
 
-  if (datums.length > 0) {
-    datums.forEach((datum, i) => {
-      gsap.set(datum, { opacity: 0, y: 20 });
-      gsap.to(datum, {
-        opacity: 1,
-        y: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: datum,
-          start: 'top 85%',
-          end: 'top 65%',
-          scrub: 1,
-        },
-      });
+  if (heroStat) {
+    gsap.set(heroStat, { opacity: 0, scale: 0.8 });
+    gsap.to(heroStat, {
+      opacity: 1,
+      scale: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: heroStat,
+        start: 'top 82%',
+        end: 'top 55%',
+        scrub: 1,
+      },
     });
   }
 
-  if (narrative) {
-    gsap.set(narrative, { opacity: 0, y: 20 });
-    gsap.to(narrative, {
+  if (connectingStory) {
+    gsap.set(connectingStory, { opacity: 0, y: 25 });
+    gsap.to(connectingStory, {
       opacity: 1,
       y: 0,
       ease: 'none',
       scrollTrigger: {
-        trigger: narrative,
-        start: 'top 80%',
-        end: 'top 55%',
+        trigger: connectingStory,
+        start: 'top 85%',
+        end: 'top 60%',
         scrub: 1,
       },
     });
@@ -244,6 +243,8 @@ function initVisionScroll() {
 
   const heading = visionSection.querySelector('.section__heading');
   const texts = visionSection.querySelectorAll('.section__text');
+  const roadmap = visionSection.querySelector('.vision__roadmap');
+  const footer = visionSection.querySelector('.vision__footer');
 
   // Set initial states with blur
   if (heading) {
@@ -263,7 +264,7 @@ function initVisionScroll() {
   }
 
   if (texts.length > 0) {
-    texts.forEach((text, i) => {
+    texts.forEach((text) => {
       gsap.set(text, { opacity: 0, y: 25, filter: 'blur(6px)' });
       gsap.to(text, {
         opacity: 1,
@@ -277,6 +278,35 @@ function initVisionScroll() {
           scrub: 1,
         },
       });
+    });
+  }
+
+  if (roadmap) {
+    gsap.set(roadmap, { opacity: 0, y: 20 });
+    gsap.to(roadmap, {
+      opacity: 1,
+      y: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: roadmap,
+        start: 'top 85%',
+        end: 'top 65%',
+        scrub: 1,
+      },
+    });
+  }
+
+  if (footer) {
+    gsap.set(footer, { opacity: 0 });
+    gsap.to(footer, {
+      opacity: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: footer,
+        start: 'top 90%',
+        end: 'top 75%',
+        scrub: 1,
+      },
     });
   }
 }
