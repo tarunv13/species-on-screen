@@ -64,226 +64,237 @@
     "media_presence": "From Coca-Cola advertisements to climate campaigns, the polar bear is perhaps the most recognizable conservation icon.",
     "cultural_paradox": "The ultimate symbol of climate crisis belongs to a region most people will never visit, creating emotional distance from the emergency."
   },
+  "hero_stat": "Arctic sea ice declining at 13% per decade since 1979",
+  "hero_image": {
+    "url": "https://image.tmdb.org/t/p/original/aVSSuDNzgqHVCdAcSSAA1kdhrkK.jpg",
+    "credit": "TMDB",
+    "source": "tmdb"
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Global emissions reduction requires systemic change beyond individual action",
+      "Arctic communities lack infrastructure to manage increasing bear encounters",
+      "Limited ability to create artificial feeding opportunities during extended ice-free periods"
+    ],
+    "opportunity": [
+      "Fossil fuel infrastructure expanding into Arctic as ice retreats",
+      "International climate agreements insufficient to halt warming trajectory",
+      "Arctic shipping routes opening, increasing disturbance"
+    ],
+    "motivation": [
+      "Economic incentives for Arctic resource extraction outweigh conservation concerns",
+      "Climate change denial delays necessary policy action",
+      "Geographic remoteness reduces public urgency for Arctic protection"
+    ]
+  },
+  "evidence_summary": "The iconic \"stranded polar bear\" imagery has become the most recognized visual metaphor for climate change, measurably increasing public concern and support for emissions reduction policies (Silk et al., 2018; Macdonald et al., 2016).",
+  "methodology_notes": "Polar bear connects to RQ1 through climate attitude polling linked to documentary exposure; RQ2 through analysis of isolated-animal-in-peril as emotional narrative technique; RQ3 through climate simulation game design; RQ4 through public opinion polling on climate policy as outcome measure.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Amstrup, S.C. et al. (2010). Greenhouse gas mitigation can reduce sea-ice loss and increase polar bear persistence. Nature, 468(7326), pp.955-958.",
+    "Stirling, I. & Derocher, A.E. (2012). Effects of climate warming on polar bears: a review of the evidence. Global Change Biology, 18(9), pp.2694-2706."
+  ],
   "tmdb_media": [
     {
-      "title": "Infinitely Polar Bear",
-      "year": 2014,
-      "overview": "A manic-depressive mess of a father tries to win back his wife by attempting to take full responsibility of their two young, spirited daughters, who don't make the overwhelming task any easier.",
-      "poster_path": "/knQuQkoqNLXKvdwcjgGpY1gzmJa.jpg",
-      "vote_average": 6.611,
+      "title": "Polar Bear Safari",
+      "year": 2000,
+      "director": "Miro Cernetig",
+      "tmdb_url": "https://www.themoviedb.org/movie/820650",
+      "poster_path": "/z3sraYhwEIOCaz5jrPYGXkgpmqx.jpg",
+      "backdrop_path": null,
+      "overview": "Polar Bear Safari follows Randy, a wealthy trophy hunter on a 15-day hunting expedition in search of a polar bear and discusses the reliance of the Inuit on guiding these hunting trips to keep the community living in Resolute Bay in the Canadian Arctic where unemployment is high. The local Inuits selling their bear hunting licenses to wealthy hunters to help combat their financial woes.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 105,
+      "query_source": "Polar Bear",
       "genre_ids": [
-        18,
-        35
+        99
       ],
-      "id": 244539
+      "vote_average": 10
+    },
+    {
+      "title": "Polar Bear Country",
+      "year": 2025,
+      "director": "Andrew Ackerman",
+      "tmdb_url": "https://www.themoviedb.org/movie/1432881",
+      "poster_path": "/l0zAouakeSXH3W4dDSSCagSyJWh.jpg",
+      "backdrop_path": null,
+      "overview": "In the northern reaches of Manitoba, resting on the edge of Canada’s Hudson Bay, sits the small town of Churchill. Home to fewer than 1000 year-round residents, Churchill is a remarkable place: it plays host to an annual beluga whale migration, is visited by the Northern Lights over 300 times per year, and sits in a pristine tundra that truly embodies the term “wilderness”. Churchill’s most famous visitor, however, is the mighty Polar Bear. Every year, hundreds of bears gather on the shoreline surrounding Churchill, awaiting the sea ice that forms on Hudson Bay during winter. Once it forms, they’ll use it as a platform from which to hunt seals, but until then, they wait on the coast, creating a fascinating, and potentially dangerous, interaction between the residents of Churchill and the world’s largest land carnivore.",
+      "classification": "documentary",
+      "narrative_technique": "presenter-led",
+      "relevance_score": 95,
+      "query_source": "Polar Bear",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 0
     },
     {
       "title": "Polar Bear",
       "year": 2022,
-      "overview": "A new mother’s memories of her own youth prepare her to navigate motherhood in the increasingly challenging world that polar bears face today.",
+      "director": "Alastair Fothergill",
+      "tmdb_url": "https://www.themoviedb.org/movie/927070",
       "poster_path": "/nCRUQcbBs6Ix6YaBeCgC9OwE0mt.jpg",
-      "vote_average": 7.211,
+      "backdrop_path": "/aVSSuDNzgqHVCdAcSSAA1kdhrkK.jpg",
+      "overview": "A new mother’s memories of her own youth prepare her to navigate motherhood in the increasingly challenging world that polar bears face today.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 90,
+      "query_source": "Polar Bear",
       "genre_ids": [
         99,
         10751
       ],
-      "id": 927070
+      "vote_average": 7.211
+    },
+    {
+      "title": "Polar Bear Summer",
+      "year": 2015,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/944819",
+      "poster_path": "/7nzssoMdQQxAIRHSKdMgIfUFLgd.jpg",
+      "backdrop_path": null,
+      "overview": "The uncommon sight of polar bears wandering a colorful landscape during an iceless summer in Hudson Bay, Canada.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 90,
+      "query_source": "Polar Bear",
+      "genre_ids": [
+        99,
+        10770
+      ],
+      "vote_average": 0
+    },
+    {
+      "title": "Polar Bears: Ice Bear",
+      "year": 2013,
+      "director": "Adam Ravetch",
+      "tmdb_url": "https://www.themoviedb.org/movie/252638",
+      "poster_path": "/8xdL1sbfbPSZjmh2hFvVjNSoPKI.jpg",
+      "backdrop_path": "/oGQjyxmmYJ6RZPyOxK8oHHzQfm8.jpg",
+      "overview": "An enthralling look at the Arctic's biggest predator on ice, capturing rarely-seen behavior, and featuring breathtaking cinematography shot over 12 months in the Canadian Arctic.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 60,
+      "query_source": "Polar Bear",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 6.5
     },
     {
       "title": "Alaska Polar Bear",
       "year": 2018,
-      "overview": "As an adult film director, Tae-joon is called a polar bear because he has a low-talking personality but has a big body and voice when excited. Because of his lustful father, he thinks only of women as a tool to quench her sexual desire. He is currently running a cafe with coffee he learned to soothe the mind and body. He has an uninspiring sex life with the erotic actress Do Do-hee, his sex partner. On the other hand, one day when Yeon-hee, the youngest member of the Alaska directing department, works at Tae-Jun's cafe, Tae-Jun can't stand his sexual desire and violates her...",
+      "director": "Yoon Joong-boo",
+      "tmdb_url": "https://www.themoviedb.org/movie/773559",
       "poster_path": "/vW52Klg1li7xVRECiQKM96FBj3q.jpg",
-      "vote_average": 5,
+      "backdrop_path": "/rfOvXaDrHRZ2Cq2lHbWbYe8rGL1.jpg",
+      "overview": "As an adult film director, Tae-joon is called a polar bear because he has a low-talking personality but has a big body and voice when excited. Because of his lustful father, he thinks only of women as a tool to quench her sexual desire. He is currently running a cafe with coffee he learned to soothe the mind and body. He has an uninspiring sex life with the erotic actress Do Do-hee, his sex partner. On the other hand, one day when Yeon-hee, the youngest member of the Alaska directing department, works at Tae-Jun's cafe, Tae-Jun can't stand his sexual desire and violates her...",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
       "genre_ids": [
         18
       ],
-      "id": 773559
+      "vote_average": 5
     },
     {
       "title": "Polar Bear",
       "year": 2015,
-      "overview": "Polar Bear pursues an act of violence as it ricochets through time. From Aaron as a young boy first encountering the bear, to ten years on, where his own rage finally explodes. Then over four more years on, a now young adult Aaron encounters Lea, both bound to and haunted by the same ghost of violence.",
+      "director": "Sean Buckley",
+      "tmdb_url": "https://www.themoviedb.org/movie/454000",
       "poster_path": "/jldbm1Lw4jhB0zNS4yxRBCVRqlj.jpg",
-      "vote_average": 9,
+      "backdrop_path": "/b5SE74NVQ0YMEHap6Y4tI5GmyMj.jpg",
+      "overview": "Polar Bear pursues an act of violence as it ricochets through time. From Aaron as a young boy first encountering the bear, to ten years on, where his own rage finally explodes. Then over four more years on, a now young adult Aaron encounters Lea, both bound to and haunted by the same ghost of violence.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
       "genre_ids": [
         18
       ],
-      "id": 454000
-    },
-    {
-      "title": "Polar Bear",
-      "year": 2017,
-      "overview": "Heriberto gives a lift to a school reunion to two friends (Flor and Trujillo). In the way, we find out that they were his worst bullies.",
-      "poster_path": "/dlWUAjXTi8fkokXHHuEjRxttwA7.jpg",
-      "vote_average": 6.8,
-      "genre_ids": [
-        18
-      ],
-      "id": 483494
-    },
-    {
-      "title": "Inner Polar Bear",
-      "year": 2022,
-      "overview": "A moving depiction of the alternative human and animal perspectives on the implications of climate change.",
-      "poster_path": null,
-      "vote_average": 0,
-      "genre_ids": [
-        16
-      ],
-      "id": 1039562
+      "vote_average": 9
     },
     {
       "title": "Polar Bear",
       "year": 2023,
-      "overview": "The polar bear and the brown bear are playing hide and seek in the snow.",
+      "director": "Julia Ocker",
+      "tmdb_url": "https://www.themoviedb.org/movie/1217515",
       "poster_path": "/4yIBfMM6XPUP1TgmKPuIs5Dbjv8.jpg",
-      "vote_average": 0,
+      "backdrop_path": null,
+      "overview": "The polar bear and the brown bear are playing hide and seek in the snow.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
       "genre_ids": [
         16
       ],
-      "id": 1217515
-    },
-    {
-      "title": "Polar Bear",
-      "year": 2023,
-      "overview": "All of a man's possessions start to disappear.",
-      "poster_path": "/1pWLR7r8oupneKi2MIBgOr4VHRO.jpg",
-      "vote_average": 0,
-      "genre_ids": [],
-      "id": 1127194
+      "vote_average": 0
     },
     {
       "title": "The Little Polar Bear",
       "year": 2001,
-      "overview": "This charming animated adventure follows a young polar bear, Lars, as he befriends Robbie, a seal. Together, these two form a friendship that proves different breeds of animals can get along perfectly well.",
+      "director": "Thilo Rothkirch",
+      "tmdb_url": "https://www.themoviedb.org/movie/9084",
       "poster_path": "/8PRh6NAZuf99AyZqjYKwjYZZlLW.jpg",
-      "vote_average": 6.194,
+      "backdrop_path": "/mtz8P4wybi2JdigSjQD1GekqJOP.jpg",
+      "overview": "This charming animated adventure follows a young polar bear, Lars, as he befriends Robbie, a seal. Together, these two form a friendship that proves different breeds of animals can get along perfectly well.",
+      "classification": "educational",
+      "narrative_technique": "anthropomorphic",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
       "genre_ids": [
         16,
         10751,
         14
       ],
-      "id": 9084
-    },
-    {
-      "title": "Polar Bear",
-      "year": 2020,
-      "overview": "",
-      "poster_path": null,
-      "vote_average": 0,
-      "genre_ids": [],
-      "id": 1431540
+      "vote_average": 6.194
     },
     {
       "title": "Little Polar Bear",
       "year": 1990,
-      "overview": "Based on the beloved book, the polar bear cub Lars floats away on a patch of ice and ends up in Africa, where, with the help of his new friends, he finds a way back home to his papa at the North Pole.",
+      "director": "Shinya Sadamitsu",
+      "tmdb_url": "https://www.themoviedb.org/movie/1157977",
       "poster_path": "/2bmZtFnJOGL4QuxrHLGPVPQFURn.jpg",
-      "vote_average": 0,
+      "backdrop_path": "/w4oD5tPbJUbxP40F54xnqylYCFA.jpg",
+      "overview": "Based on the beloved book, the polar bear cub Lars floats away on a patch of ice and ends up in Africa, where, with the help of his new friends, he finds a way back home to his papa at the North Pole.",
+      "classification": "educational",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
       "genre_ids": [
         16,
         10751
       ],
-      "id": 1157977
-    },
-    {
-      "title": "The Polar Bear",
-      "year": 1998,
-      "overview": "Four characters become involved in one dramatic story: Nico has a mission to drive a car containing a live bomb to a specified destination, park the car and escape as quickly as she can. Leo has become his client's target, having carried out a \"contract\" that unfortunately had already been cancelled. Fabian and Reza want to enjoy themselves without any money, bringing themselves into contact sooner or later with the police. Sooner or later all four will meet up in dramatic circumstances....",
-      "poster_path": "/9F1selwsaWrzScQIsNupbYuvdIv.jpg",
-      "vote_average": 6.41,
-      "genre_ids": [
-        28,
-        53
-      ],
-      "id": 9321
-    },
-    {
-      "title": "Polar Bear Safari",
-      "year": 2000,
-      "overview": "Polar Bear Safari follows Randy, a wealthy trophy hunter on a 15-day hunting expedition in search of a polar bear and discusses the reliance of the Inuit on guiding these hunting trips to keep the community living in Resolute Bay in the Canadian Arctic where unemployment is high. The local Inuits selling their bear hunting licenses to wealthy hunters to help combat their financial woes.",
-      "poster_path": "/z3sraYhwEIOCaz5jrPYGXkgpmqx.jpg",
-      "vote_average": 10,
-      "genre_ids": [
-        99
-      ],
-      "id": 820650
-    },
-    {
-      "title": "Polar Bear Country",
-      "year": 2025,
-      "overview": "In the northern reaches of Manitoba, resting on the edge of Canada’s Hudson Bay, sits the small town of Churchill. Home to fewer than 1000 year-round residents, Churchill is a remarkable place: it plays host to an annual beluga whale migration, is visited by the Northern Lights over 300 times per year, and sits in a pristine tundra that truly embodies the term “wilderness”. Churchill’s most famous visitor, however, is the mighty Polar Bear. Every year, hundreds of bears gather on the shoreline surrounding Churchill, awaiting the sea ice that forms on Hudson Bay during winter. Once it forms, they’ll use it as a platform from which to hunt seals, but until then, they wait on the coast, creating a fascinating, and potentially dangerous, interaction between the residents of Churchill and the world’s largest land carnivore.",
-      "poster_path": "/l0zAouakeSXH3W4dDSSCagSyJWh.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        99
-      ],
-      "id": 1432881
-    },
-    {
-      "title": "Polar Bears: Ice Bear",
-      "year": 2013,
-      "overview": "An enthralling look at the Arctic's biggest predator on ice, capturing rarely-seen behavior, and featuring breathtaking cinematography shot over 12 months in the Canadian Arctic.",
-      "poster_path": "/8xdL1sbfbPSZjmh2hFvVjNSoPKI.jpg",
-      "vote_average": 6.5,
-      "genre_ids": [
-        99
-      ],
-      "id": 252638
+      "vote_average": 0
     },
     {
       "title": "The Polar Bear",
       "year": 2024,
+      "director": "Alexander Velasquez",
+      "tmdb_url": "https://www.themoviedb.org/movie/1471509",
+      "poster_path": null,
+      "backdrop_path": null,
       "overview": "The Polar Bear (Lucius) has an adventure that turns into a bloody battle.",
-      "poster_path": null,
-      "vote_average": 9,
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
       "genre_ids": [],
-      "id": 1471509
-    },
-    {
-      "title": "Polar Bear Love",
-      "year": 2011,
-      "overview": "Paul has won two tickets to Taiwan. He decides to try speed dating to find someone to take with him and finds more than he expected.",
-      "poster_path": "/xFrfMKxHl72L4Oqaz171O3z5f9e.jpg",
-      "vote_average": 0,
-      "genre_ids": [],
-      "id": 1696310
-    },
-    {
-      "title": "Polar Bear",
-      "year": 1959,
-      "overview": "A Jewish man who escapes a Nazi transport hides in a Polish ski resort town by posing for photos with tourists dressed as a polar bear.",
-      "poster_path": "/r433sOHc3u8aKb2saS4S8n5m12A.jpg",
-      "vote_average": 7.333,
-      "genre_ids": [
-        10752,
-        53
-      ],
-      "id": 503097
-    },
-    {
-      "title": "Polar Bear Summer",
-      "year": 2015,
-      "overview": "The uncommon sight of polar bears wandering a colorful landscape during an iceless summer in Hudson Bay, Canada.",
-      "poster_path": "/7nzssoMdQQxAIRHSKdMgIfUFLgd.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        99,
-        10770
-      ],
-      "id": 944819
-    },
-    {
-      "title": "The Polar Bear Club",
-      "year": 2014,
-      "overview": "A stubborn old man struggles with the changes and loss that occur as he and his group of close friends near their life's final chapter.",
-      "poster_path": null,
-      "vote_average": 0,
-      "genre_ids": [
-        18
-      ],
-      "id": 394558
+      "vote_average": 9
     }
   ]
 }

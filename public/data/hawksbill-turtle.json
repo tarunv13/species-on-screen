@@ -69,5 +69,46 @@
     "media_presence": "Underwater cinematography has made hawksbills icons of marine conservation, their graceful swimming instantly recognizable.",
     "cultural_paradox": "The very beauty of their shells that inspired centuries of craftsmanship has driven them toward extinction."
   },
+  "hero_stat": "Hawksbill populations declined by 80% over three generations",
+  "hero_image": {
+    "url": null,
+    "credit": null,
+    "source": null
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Fishing communities lack affordable bycatch-reduction technology",
+      "Limited public understanding of reef-turtle ecological linkage",
+      "Coastal managers lack tools to monitor nesting beach disturbance"
+    ],
+    "opportunity": [
+      "International shell trade persists through enforcement gaps",
+      "Coastal tourism development prioritized over nesting habitat protection",
+      "Climate change degrading reef feeding grounds beyond local control"
+    ],
+    "motivation": [
+      "Tortoiseshell products culturally valued in East Asian markets",
+      "Egg harvesting seen as traditional right in coastal communities",
+      "Economic returns from coastal development exceed conservation funding"
+    ]
+  },
+  "evidence_summary": "Blue Planet coral reef sequences featuring hawksbills generated significant public concern about marine plastics and reef health, contributing to policy discussions on single-use plastics in multiple countries (Jones et al., 2019).",
+  "methodology_notes": "Hawksbill turtle connects to RQ1 through plastic policy changes linked to marine documentaries; RQ2 through underwater cinematography as observational technique; RQ3 through reef ecosystem simulation potential; RQ4 through beach monitoring volunteer recruitment post-broadcast.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Mortimer, J.A. & Donnelly, M. (2008). Hawksbill Turtle (Eretmochelys imbricata). IUCN Red List Assessment.",
+    "Meylan, A.B. & Donnelly, M. (1999). Status justification for listing the hawksbill turtle as Critically Endangered. Chelonian Conservation and Biology, 3(2), pp.200-224."
+  ],
   "tmdb_media": []
 }

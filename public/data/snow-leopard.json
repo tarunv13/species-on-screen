@@ -71,207 +71,263 @@
     "media_presence": "The difficulty of filming snow leopards makes every documentary appearance a landmark event, with some crews waiting years for footage.",
     "cultural_paradox": "Known as the \"ghost of the mountains,\" the snow leopard's mystique grows even as climate change erodes its high-altitude realm."
   },
+  "hero_stat": "Snow leopards have lost 20% of their range in just 16 years",
+  "hero_image": {
+    "url": "https://image.tmdb.org/t/p/original/t2Jev3z9SkEnZVtW43ZDhbPSkzV.jpg",
+    "credit": "TMDB",
+    "source": "tmdb"
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Remote communities lack livestock protection infrastructure",
+      "Limited veterinary support increases perceived losses to predation",
+      "Insufficient monitoring technology in harsh terrain"
+    ],
+    "opportunity": [
+      "Mining concessions granted in core habitat areas",
+      "Climate change shifting tree lines reduces available alpine territory",
+      "Cross-border cooperation hampered by geopolitical tensions"
+    ],
+    "motivation": [
+      "Livestock losses represent catastrophic economic damage for herders",
+      "Pelt trade offers significant income in impoverished regions",
+      "Low awareness of snow leopard ecological importance among local communities"
+    ]
+  },
+  "evidence_summary": "Planet Earth II snow leopard sequences generated measurable increases in Snow Leopard Trust donations and social media engagement, demonstrating the power of rare wildlife footage to drive conservation support (Silk et al., 2018).",
+  "methodology_notes": "Snow leopard connects to RQ1 through donation tracking post-broadcast; RQ2 through analysis of dramatic cliff-hunting sequences as adventure-narrative technique; RQ3 through potential for mountain ecosystem simulation games; RQ4 through Snow Leopard Trust community monitoring programmes.",
+  "research_questions": [
+    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
+    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
+    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
+    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
+  ],
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Jackson, R.M. et al. (2006). Estimating snow leopard population abundance using photography and capture-recapture techniques. Wildlife Society Bulletin, 34(3), pp.772-781.",
+    "Li, J. et al. (2016). Role of Tibetan Buddhist monasteries in snow leopard conservation. Conservation Biology, 30(4), pp.735-745."
+  ],
   "tmdb_media": [
-    {
-      "title": "Snow Leopard",
-      "year": 2023,
-      "overview": "A snow leopard breaks into the sheep pen of a nomad and kills nine rams. Father and son then argue: the son insists on killing the snow leopard, but the father insists on releasing it.",
-      "poster_path": "/dfm4VXnJ6TE7up47zIsTc6KlBBz.jpg",
-      "vote_average": 7.1,
-      "genre_ids": [
-        18
-      ],
-      "id": 996584
-    },
-    {
-      "title": "Leopard in the Snow",
-      "year": 1979,
-      "overview": "A tender romance develops between an attractive young woman and a famous race car driver who lives incognito after supposedly being killed in an auto accident.",
-      "poster_path": "/8OhHPr5Gw3fOwc1ECFqt5VdGiGd.jpg",
-      "vote_average": 5,
-      "genre_ids": [
-        18
-      ],
-      "id": 135644
-    },
-    {
-      "title": "The Snow Leopard",
-      "year": 2024,
-      "overview": "A composer meets with her composition teacher to help put the final touches on a new piece she is writing for string quartet.",
-      "poster_path": "/3mQiWPDUjceIL50p1OmizFmAYJv.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        18,
-        10402
-      ],
-      "id": 1094607
-    },
-    {
-      "title": "The Snow Leopard",
-      "year": 2018,
-      "overview": "It is about veteran photographer, who've been taking a pictures all his life and whose dream is to take a photograph of snow leopard. He chasing it in the world's greatest mountain ranges, the Himalayas.",
-      "poster_path": null,
-      "vote_average": 0,
-      "genre_ids": [
-        16
-      ],
-      "id": 289409
-    },
-    {
-      "title": "Snow Leopard Sisters",
-      "year": 2025,
-      "overview": "In Nepal’s remote Dolpo region, two Indigenous women form an unlikely friendship to save one of the planet’s most mysterious and vulnerable wild cats: the snow leopard.",
-      "poster_path": "/3eT4xMPqHrLjqO5vOnfhHS8D6ml.jpg",
-      "vote_average": 7,
-      "genre_ids": [
-        99
-      ],
-      "id": 1422627
-    },
-    {
-      "title": "Snow Leopard Secret War",
-      "year": 2021,
-      "overview": "Snow Leopard Secret War is set in 1943, when the war in the pacific was still going on, causing the Japanese army to be affected and had to switch to defense mode. However, they were carrying out another battle plan, a large-scale attack began, they also tasked agents with lying in the area and illegally transporting weapons. . At this time, the leader of the Independent Troupe Tiger Tou Son Bat Lo Luu Vien found the spies and successfully prevented an impending war.",
-      "poster_path": "/jSA2G65O8hTCVB3ACzjJzbfjYUM.jpg",
-      "vote_average": 10,
-      "genre_ids": [
-        28,
-        10752,
-        36
-      ],
-      "id": 915242
-    },
-    {
-      "title": "The Snow Leopard Calling",
-      "year": null,
-      "overview": "Disturbed by how herders trap and torture snow leopards by the herders, Tshiring, a young conservationist from Dolpo who researches snow leopards feels a sense of urgency to protect the last of these endangered big cats. She is convinced this can only happen if local communities are involved in protecting the animals—but also benefit from snow leopards. She takes on a challenging research expedition over three harsh winter months in an empty village to explore the possibility of organizing a snow leopard conservation trek that could help change locals’ perception about the need to protect snow leopards.",
-      "poster_path": null,
-      "vote_average": 10,
-      "genre_ids": [],
-      "id": 775518
-    },
-    {
-      "title": "Snow Leopard: Beyond the Myth",
-      "year": 2008,
-      "overview": "BBC The Natural World.  In 2004, a team from the Planet Earth series captured the first ever film of a wild snow leopard in the mountains of Pakistan. For Nisar Malik, who led the expedition, these images sparked a passion that compelled him to return. With cameraman Mark Smith, he spent two years documenting the snow leopard's daily life, finally lifting the veil on the most elusive of all cats.",
-      "poster_path": "/hORoD8j4QrNfxD83gcKYg0GTYIq.jpg",
-      "vote_average": 7,
-      "genre_ids": [
-        99,
-        10770
-      ],
-      "id": 262477
-    },
     {
       "title": "Snow Leopard of Afghanistan",
       "year": 2012,
-      "overview": "Afghanistan, one of the most dangerous places on earth, is home to a population of endangered and elusive snow leopards.",
+      "director": "Tony Gerber",
+      "tmdb_url": "https://www.themoviedb.org/movie/889417",
       "poster_path": "/qaFHR4zzdDTafVOGKYtUAOzIge5.jpg",
-      "vote_average": 0,
+      "backdrop_path": "/t2Jev3z9SkEnZVtW43ZDhbPSkzV.jpg",
+      "overview": "Afghanistan, one of the most dangerous places on earth, is home to a population of endangered and elusive snow leopards.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 105,
+      "query_source": "Snow Leopard",
       "genre_ids": [
         99
       ],
-      "id": 889417
-    },
-    {
-      "title": "The Descendant of the Snow Leopard",
-      "year": null,
-      "overview": "Set in the remote Kyrgyz mountains, The Descendant of the Snow Leopard tells the story of a resilient nomadic tribe whose survival and spiritual identity are deeply connected to the elusive snow leopard. Based on a traditional Kyrgyz folktale, the film explores themes of courage, heritage, and humanity’s bond with nature, as one family confronts harsh environments, moral dilemmas, and cultural transformation in Soviet-era Central Asia.",
-      "poster_path": null,
-      "vote_average": 0,
-      "genre_ids": [],
-      "id": 1479547
-    },
-    {
-      "title": "Snow Leopard: Soul of the Tiger",
-      "year": 2020,
-      "overview": "Spin-off of war drama «Snow Leopard» (2010) from perspective of Xu Hu character  In 1944, Zhou Weiguo secretly dispatched Xu Hu, a member of the Snow Leopard Special Forces, to the Japanese Japanese Police Command to rescue the arrested Soviet Red Army intelligence officer Tian Chong. The rescued Tian Chong brought intelligence on the border defense map of the Kanto Army. Zhou Weiguo agreed to let Xu Hu cooperate with the military headquarters to fight in the north. A carefully arranged lethal trap was waiting for the Snow Leopard Special Forces.",
-      "poster_path": "/lX7iq6taMSJhOcg9mr2ULZMhYLR.jpg",
-      "vote_average": 7,
-      "genre_ids": [
-        28,
-        9648,
-        10752
-      ],
-      "id": 710224
-    },
-    {
-      "title": "The Descendant of the Snow Leopard",
-      "year": 1984,
-      "overview": "The Russian Descendant of the Snow Leopard is based on a famous Kirghizian folktale. Apparently the Kirghizian folks had plenty of time to tell this story: to print a full synopsis would result in a novelette. Essentially, the story involves a proud group of highland hunters called the Snow Leopards, who in order to survive a brutal winter must request help from the Lowland people. The price for this assistance is the hand of the Snow Leopard's daughter, who is promised in marriage to a wealthy Lowland trader. During the Springtime wedding celebration, the trader becomes fascinated by a stranger who wins all the athletic contests. This \"male\" contestant turns out to be a woman, who has arrived to seek freedom for her imprisoned husband. The subsequent romance between the trader and the beautiful stranger results in disaster and bloodshed for both the Snow Leopards and the Lowlanders.",
-      "poster_path": "/375n8R7UQ1w2ggivIzfIjmEaLad.jpg",
-      "vote_average": 7.571,
-      "genre_ids": [
-        36,
-        18,
-        10749,
-        10752
-      ],
-      "id": 263400
-    },
-    {
-      "title": "Snow Leopard of the Carpathians",
-      "year": 2019,
-      "overview": "The film gives the viewer the opportunity to learn more about the work of mountain rescuers in the Carpathians, and hear the touching and incredible stories of rescuing tourists lost in the mountains and survived.",
-      "poster_path": "/zwodkT036aKPnfffXXjmRGNPG1u.jpg",
-      "vote_average": 0,
-      "genre_ids": [
-        99
-      ],
-      "id": 872440
-    },
-    {
-      "title": "The Frozen Kingdom of the Snow Leopard",
-      "year": 2020,
-      "overview": "Join the big cats as we get up close and personal with their journeys through growing pains, adulthood, survival struggles and unfamiliar territories. These seven films follow the lives of some of the most formidable feline predators - lions, leopards, tigers and cheetahs in intimate detail.",
-      "poster_path": "/o3rBvTBE0dkkHDo2Nuj3Hvvsrz2.jpg",
-      "vote_average": 8.3,
-      "genre_ids": [
-        99
-      ],
-      "id": 783095
+      "vote_average": 0
     },
     {
       "title": "Ghost of The Mountain: The Story of The Elusive Snow Leopard",
       "year": 2025,
-      "overview": "“High in the mountains, a ghost walks among the snow.”  In the remote and frozen landscapes of Ladakh, the snow leopard moves silently, almost unseen. It is one of the rarest and most mysterious big cats in the world.  \"Ghost of The Mountain\" follows the journey of a wildlife photographer searching for this secretive predator. But he is not alone. Along the way, he meets the people who live in these harsh lands— herders, trackers, and conservationists— who work every day to protect the snow leopard and find ways to live alongside it.  Through their stories, we explore the delicate balance between survival and coexistence, between ancient traditions and modern conservation.",
+      "director": "Abhishek Sachidanandan",
+      "tmdb_url": "https://www.themoviedb.org/movie/1612530",
       "poster_path": null,
-      "vote_average": 0,
+      "backdrop_path": null,
+      "overview": "“High in the mountains, a ghost walks among the snow.”  In the remote and frozen landscapes of Ladakh, the snow leopard moves silently, almost unseen. It is one of the rarest and most mysterious big cats in the world.  \"Ghost of The Mountain\" follows the journey of a wildlife photographer searching for this secretive predator. But he is not alone. Along the way, he meets the people who live in these harsh lands— herders, trackers, and conservationists— who work every day to protect the snow leopard and find ways to live alongside it.  Through their stories, we explore the delicate balance between survival and coexistence, between ancient traditions and modern conservation.",
+      "classification": "documentary",
+      "narrative_technique": "presenter-led",
+      "relevance_score": 105,
+      "query_source": "Snow Leopard",
       "genre_ids": [
         99
       ],
-      "id": 1612530
+      "vote_average": 0
     },
     {
-      "title": "The Suori Family and the Snow Leopard",
-      "year": 2010,
-      "overview": "When the snow leopards come down from the mountains, they decimate the flocks, as the Suori family and the filmmaker stand by helpless.",
-      "poster_path": null,
-      "vote_average": 0,
-      "genre_ids": [],
-      "id": 1242486
+      "title": "Snow Leopard Sisters",
+      "year": 2025,
+      "director": "Andrew Lynch",
+      "tmdb_url": "https://www.themoviedb.org/movie/1422627",
+      "poster_path": "/3eT4xMPqHrLjqO5vOnfhHS8D6ml.jpg",
+      "backdrop_path": null,
+      "overview": "In Nepal’s remote Dolpo region, two Indigenous women form an unlikely friendship to save one of the planet’s most mysterious and vulnerable wild cats: the snow leopard.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 95,
+      "query_source": "Snow Leopard",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 7
+    },
+    {
+      "title": "Snow Leopard: Beyond the Myth",
+      "year": 2008,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/262477",
+      "poster_path": "/hORoD8j4QrNfxD83gcKYg0GTYIq.jpg",
+      "backdrop_path": "/6RrKjBpcKHmh6YtQKiqcMJMJkZ8.jpg",
+      "overview": "BBC The Natural World.  In 2004, a team from the Planet Earth series captured the first ever film of a wild snow leopard in the mountains of Pakistan. For Nisar Malik, who led the expedition, these images sparked a passion that compelled him to return. With cameraman Mark Smith, he spent two years documenting the snow leopard's daily life, finally lifting the veil on the most elusive of all cats.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 95,
+      "query_source": "Snow Leopard",
+      "genre_ids": [
+        99,
+        10770
+      ],
+      "vote_average": 7
+    },
+    {
+      "title": "Snow Leopard of the Carpathians",
+      "year": 2019,
+      "director": "Dmytro Hreshko",
+      "tmdb_url": "https://www.themoviedb.org/movie/872440",
+      "poster_path": "/zwodkT036aKPnfffXXjmRGNPG1u.jpg",
+      "backdrop_path": null,
+      "overview": "The film gives the viewer the opportunity to learn more about the work of mountain rescuers in the Carpathians, and hear the touching and incredible stories of rescuing tourists lost in the mountains and survived.",
+      "classification": "documentary",
+      "narrative_technique": "educational",
+      "relevance_score": 60,
+      "query_source": "Snow Leopard",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 0
+    },
+    {
+      "title": "The Frozen Kingdom of the Snow Leopard",
+      "year": 2020,
+      "director": "Frédéric Larrey",
+      "tmdb_url": "https://www.themoviedb.org/movie/783095",
+      "poster_path": "/o3rBvTBE0dkkHDo2Nuj3Hvvsrz2.jpg",
+      "backdrop_path": "/izAvnQEdCHfNC0PJDhpgAuWYuVJ.jpg",
+      "overview": "Join the big cats as we get up close and personal with their journeys through growing pains, adulthood, survival struggles and unfamiliar territories. These seven films follow the lives of some of the most formidable feline predators - lions, leopards, tigers and cheetahs in intimate detail.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 60,
+      "query_source": "Snow Leopard",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 8.3
     },
     {
       "title": "Snow Leopards and Friends",
       "year": 2023,
-      "overview": "",
+      "director": "Xi Zhinong",
+      "tmdb_url": "https://www.themoviedb.org/movie/1158298",
       "poster_path": "/4UKPF2SDUPUVUZQJp3AlfwiiQdl.jpg",
-      "vote_average": 9.5,
+      "backdrop_path": "/uCEJ8nbmWcPXjWEmQM5N59fw5jI.jpg",
+      "overview": "",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 60,
+      "query_source": "Snow Leopard",
       "genre_ids": [
         99
       ],
-      "id": 1158298
+      "vote_average": 9.5
     },
     {
       "title": "Snow Leopards and Friends",
       "year": 2020,
-      "overview": "",
+      "director": "Zi Ding",
+      "tmdb_url": "https://www.themoviedb.org/movie/1044998",
       "poster_path": "/n8nVu0d8d7UXku22aty3cIzfyKN.jpg",
-      "vote_average": 8.3,
+      "backdrop_path": "/hNL7taYoM2ObQy0gCSQZ0fdotL1.jpg",
+      "overview": "",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 60,
+      "query_source": "Snow Leopard",
       "genre_ids": [
         99
       ],
-      "id": 1044998
+      "vote_average": 8.3
+    },
+    {
+      "title": "The Snow Leopard Calling",
+      "year": null,
+      "director": "Sonam Choekyi Lama",
+      "tmdb_url": "https://www.themoviedb.org/movie/775518",
+      "poster_path": null,
+      "backdrop_path": null,
+      "overview": "Disturbed by how herders trap and torture snow leopards by the herders, Tshiring, a young conservationist from Dolpo who researches snow leopards feels a sense of urgency to protect the last of these endangered big cats. She is convinced this can only happen if local communities are involved in protecting the animals—but also benefit from snow leopards. She takes on a challenging research expedition over three harsh winter months in an empty village to explore the possibility of organizing a snow leopard conservation trek that could help change locals’ perception about the need to protect snow leopards.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 55,
+      "query_source": "Snow Leopard",
+      "genre_ids": [],
+      "vote_average": 10
+    },
+    {
+      "title": "The Descendant of the Snow Leopard",
+      "year": null,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/1479547",
+      "poster_path": null,
+      "backdrop_path": null,
+      "overview": "Set in the remote Kyrgyz mountains, The Descendant of the Snow Leopard tells the story of a resilient nomadic tribe whose survival and spiritual identity are deeply connected to the elusive snow leopard. Based on a traditional Kyrgyz folktale, the film explores themes of courage, heritage, and humanity’s bond with nature, as one family confronts harsh environments, moral dilemmas, and cultural transformation in Soviet-era Central Asia.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 45,
+      "query_source": "Snow Leopard",
+      "genre_ids": [],
+      "vote_average": 0
+    },
+    {
+      "title": "Snow Leopard",
+      "year": 2023,
+      "director": "Pema Tseden",
+      "tmdb_url": "https://www.themoviedb.org/movie/996584",
+      "poster_path": "/dfm4VXnJ6TE7up47zIsTc6KlBBz.jpg",
+      "backdrop_path": "/wMVV4U11EiGWNmMJ4crcM9L39rt.jpg",
+      "overview": "A snow leopard breaks into the sheep pen of a nomad and kills nine rams. Father and son then argue: the son insists on killing the snow leopard, but the father insists on releasing it.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Snow Leopard",
+      "genre_ids": [
+        18
+      ],
+      "vote_average": 7.1
+    },
+    {
+      "title": "The Snow Leopard",
+      "year": 2018,
+      "director": "Misha Arobelidze",
+      "tmdb_url": "https://www.themoviedb.org/movie/289409",
+      "poster_path": null,
+      "backdrop_path": null,
+      "overview": "It is about veteran photographer, who've been taking a pictures all his life and whose dream is to take a photograph of snow leopard. He chasing it in the world's greatest mountain ranges, the Himalayas.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Snow Leopard",
+      "genre_ids": [
+        16
+      ],
+      "vote_average": 0
+    },
+    {
+      "title": "The Suori Family and the Snow Leopard",
+      "year": 2010,
+      "director": "Druk Kyab",
+      "tmdb_url": "https://www.themoviedb.org/movie/1242486",
+      "poster_path": null,
+      "backdrop_path": null,
+      "overview": "When the snow leopards come down from the mountains, they decimate the flocks, as the Suori family and the filmmaker stand by helpless.",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Snow Leopard",
+      "genre_ids": [],
+      "vote_average": 0
     }
   ]
 }

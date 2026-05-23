@@ -1,0 +1,37 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Rebuild the main page (index.html + src/) as a cinematic Three.js-driven experience with WebGL camera transitions between sections, a meaningful data-visualization globe, post-processing effects, and GSAP ScrollTrigger driving camera position through 3D space. The website should feel like being inside a film - smooth camera interpolation, depth-of-field, atmospheric particles, film grain. Sections flow like film chapters with the scroll acting as a timeline.",
+  "status": "pending",
+  "steps": [
+    "1. Update package.json if needed - Three.js and GSAP are already installed. No new deps needed (Three.js includes EffectComposer and post-processing in its examples/addons).",
+    "2. Completely rewrite index.html: Structure as a single-page cinematic experience. The HTML should have minimal visible content since Three.js renders the 3D scene full-screen. Key DOM sections: a) #cinematic-canvas (full-screen Three.js renderer), b) Overlay content layers positioned absolute over the canvas that fade in/out as camera moves. Sections: Hero (title/subtitle), Globe (data viz with info panel), Research Framework (the 4 RQs), Species Observatory (gallery grid), Methodology (Rose's visual methodology + COM-B), Vision/Footer. Each section has a scroll-trigger zone.",
+    "3. Create src/cinematic-engine.js - the core Three.js scene manager: a) Initialize scene, camera (PerspectiveCamera), renderer (WebGLRenderer with antialias, alpha). b) Set up EffectComposer with passes: RenderPass, UnrealBloomPass (subtle bloom for glow effects), BokehPass or custom DOF shader (depth-of-field blur), and a custom FilmGrainPass (subtle noise overlay). c) Create a camera path - an array of camera positions/targets that correspond to scroll positions. Use GSAP ScrollTrigger with scrub to interpolate camera.position and camera.lookAt along this path as user scrolls. d) Camera positions: start close (hero - looking at particle field), pull back to reveal globe (globe section), orbit around globe (research framework), zoom into globe surface (species section), pull out to wide shot (methodology), final pull-back (vision). e) Add ambient particle system - thousands of tiny floating motes using THREE.Points with a custom shader for soft glow. f) Add atmospheric fog (THREE.FogExp2) for depth. g) Smooth cubic bezier interpolation between camera keyframes - never linear, always eased.",
+    "4. Completely rewrite src/globe.js as a data-visualization globe: a) Use a higher-quality sphere (128 segments) with a custom ShaderMaterial that shows a stylized Earth with subtle continent outlines (use a simple equirectangular texture or procedural shader). b) Replace decorative dots with instanced 3D columns (THREE.InstancedMesh with CylinderGeometry) rising from species locations. Column height represents 'media coverage volume' (number of TMDB results). Column color codes by ecosystem type. c) Add a glow ring at each column base using a custom ring shader. d) Make columns interactive - raycasting on click/hover shows species name tooltip and clicking triggers navigation to species page. e) Add a time-filter capability: columns can animate between different heights representing coverage in different decades (data permitting). f) Use THREE.CatmullRomCurve3 for smooth arcs connecting related locations (migration paths). g) Globe rotates slowly by default, pauses on interaction. h) The globe should be positioned in the scene so the cinematic camera can orbit around it during scroll.",
+    "5. Create src/overlay-ui.js - manages the HTML overlay content that appears/disappears as camera moves through 3D space: a) Hero overlay: large cinematic title 'Eco-Cinema Observatory', subtitle, fades out as scroll begins. b) Globe info panel: appears when camera is near globe, shows species name on hover, data summary. c) Research Questions panel: the 4 RQs appear as elegant typography when camera is at that scroll position. d) Species gallery: a grid of species cards that appears at the appropriate camera position, links to species/*.html pages. e) Methodology panel: Rose's visual methodology framework, COM-B model summary, academic framing. f) Vision/footer. g) All overlays use GSAP to fade in/out based on scroll position ranges, coordinated with camera movement.",
+    "6. Rewrite src/main.js to orchestrate everything: a) Import and initialize cinematic-engine.js. b) Import and initialize globe.js (globe is added to the Three.js scene). c) Import and initialize overlay-ui.js. d) Set up the GSAP ScrollTrigger timeline that drives both camera position AND overlay visibility. e) Add a scroll-progress indicator (thin bar at top of screen). f) Handle resize events for responsive behavior. g) Add loading screen that shows while Three.js initializes.",
+    "7. Rewrite src/style.css for the cinematic design language: a) Remove all glassmorphism. b) Dark/cinematic base: very dark background (nearly black #0a0a0f), text in soft whites and creams. c) Typography: use system fonts but styled cinematically - large sizes, generous letter-spacing for headings (film-credits style), thin weights for body. d) Overlay panels: semi-transparent dark panels with subtle borders, no blur-glass effect. e) Color accents: ecological greens (#4a7c59), deep ocean blues (#1a4f6e), warm ambers (#c4842c) for highlights. f) Film-grain texture overlay on the body (CSS noise via repeating-gradient or inline SVG filter). g) Scroll sections should be tall (200vh+) to give scroll-trigger room for smooth camera movement. h) Species cards: dark cards with subtle glow on hover, large typography. i) Research Question styling: numbered, large serif-italic text. j) All transitions smooth/eased, no hard opacity cuts.",
+    "8. Remove old unused files: src/concept-section.js, src/vision-section.js, src/species-gallery.js, src/hero.js, src/scroll-animations.js (their functionality is now in cinematic-engine.js and overlay-ui.js).",
+    "9. Update vite.config.js if needed to ensure the new structure builds correctly with the species sub-pages still included as separate entry points."
+  ],
+  "acceptance_criteria": [
+    "npm run build completes without errors",
+    "The built index.html loads a full-screen Three.js canvas with a 3D scene",
+    "The globe displays instanced 3D columns at species locations with heights representing data volume",
+    "Scrolling smoothly animates the camera through different positions in 3D space",
+    "Post-processing effects (bloom, film grain) are applied to the rendered scene",
+    "HTML overlay content (title, RQs, species cards, methodology) appears at correct scroll positions",
+    "Species cards link to individual species/*.html pages",
+    "The 4 Research Questions are prominently displayed in the experience",
+    "Academic methodology (Rose's framework, COM-B) is visible in the methodology section",
+    "The design uses dark/cinematic colors, not the previous light pastel palette"
+  ],
+  "verification": [
+    "Run `npm run build` and confirm it succeeds",
+    "Check that dist/index.html exists and references the bundled JS",
+    "Check that dist/species/ directory still contains all 10 species HTML pages",
+    "Grep the built JS for Three.js scene setup, EffectComposer, ScrollTrigger, and InstancedMesh to confirm all components are included"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
