@@ -1,0 +1,132 @@
+{
+  "id": "giant-panda",
+  "commonName": "Giant Panda",
+  "scientificName": "Ailuropoda melanoleuca",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Carnivora",
+    "family": "Ursidae",
+    "genus": "Ailuropoda",
+    "species": "Ailuropoda melanoleuca"
+  },
+  "media": [
+    {
+      "title": "Born in China",
+      "year": "2016",
+      "type": "documentary",
+      "plot": "Disneynature follows a giant panda mother raising her cub in the misty mountains of Sichuan alongside other Chinese wildlife.",
+      "imdbRating": "7.2",
+      "poster": ""
+    },
+    {
+      "title": "Pandas",
+      "year": "2018",
+      "type": "documentary",
+      "plot": "IMAX documentary following scientists at the Chengdu Research Base as they prepare captive-born pandas for release into the wild.",
+      "imdbRating": "6.8",
+      "poster": ""
+    },
+    {
+      "title": "Kung Fu Panda",
+      "year": "2008",
+      "type": "movie",
+      "plot": "Po, a bumbling but lovable panda, unexpectedly becomes the Dragon Warrior and must defend the Valley of Peace.",
+      "imdbRating": "7.6",
+      "poster": ""
+    },
+    {
+      "title": "National Geographic: Giant Pandas",
+      "year": "2019",
+      "type": "documentary",
+      "plot": "Explores the complex biology of giant pandas and the decades-long effort to save them from extinction through breeding programs.",
+      "imdbRating": "7.4",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Giant pandas inhabit cool, wet bamboo forests in the mountainous regions of central China, typically between 1,500 and 3,000 meters elevation. They depend almost entirely on bamboo, consuming 12-38 kilograms daily across up to 60 different bamboo species. The fragmented mountain forests they occupy represent less than 1% of their historical range.",
+    "range": [
+      "China (Sichuan, Shaanxi, Gansu provinces)"
+    ],
+    "biome": "Temperate Forest",
+    "keyLocations": [
+      "Wolong National Nature Reserve",
+      "Foping National Nature Reserve",
+      "Qinling Mountains",
+      "Min Mountains"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Habitat Fragmentation",
+      "severity": "high",
+      "description": "Roads, railways, and development split panda habitat into isolated patches, preventing movement between populations."
+    },
+    {
+      "name": "Bamboo Die-offs",
+      "severity": "high",
+      "description": "Bamboo species periodically flower and die en masse. In fragmented habitats, pandas cannot move to alternative bamboo sources."
+    },
+    {
+      "name": "Small Population Size",
+      "severity": "moderate",
+      "description": "Many subpopulations are too small to be genetically viable long-term, increasing vulnerability to disease and inbreeding."
+    },
+    {
+      "name": "Climate Change",
+      "severity": "moderate",
+      "description": "Shifting climate zones may reduce suitable bamboo habitat at higher elevations, further constraining available range."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "VU",
+    "population": "Approximately 1,864 individuals in the wild (2014 census), with population increasing",
+    "trend": "increasing",
+    "keyPrograms": [
+      "Giant Panda National Park (established 2021)",
+      "China's Natural Forest Protection Program",
+      "Captive breeding and reintroduction at Chengdu and Bifengxia",
+      "Bamboo corridor restoration projects"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "The giant panda is perhaps the most recognizable conservation symbol on Earth, serving as the logo of the World Wildlife Fund since 1961. In Chinese culture, the panda represents peace and friendship. Its dramatic recovery from fewer than 1,000 individuals to a growing population demonstrates that sustained conservation investment can reverse decline.",
+    "cinema": [
+      "Born in China (2016)",
+      "Kung Fu Panda trilogy (2008-2016)",
+      "Pandas (2018)"
+    ],
+    "literature": [
+      "The Last Panda by George Schaller",
+      "The Giant Pandas of Wolong by Hu Jinchu",
+      "A Panda's World by Caroline Arnold"
+    ],
+    "mythology": [
+      "Chinese legend of the compassionate girl and the mourning pandas",
+      "Symbol of yin-yang balance",
+      "Ancient Chinese war banners bearing panda imagery"
+    ],
+    "symbolism": "Global icon of conservation success, diplomacy (panda diplomacy), and the power of public engagement. Represents hope that endangered species can recover."
+  },
+  "coordinates": [
+    {
+      "lat": 30.7,
+      "lng": 103,
+      "label": "Sichuan, China"
+    },
+    {
+      "lat": 33.5,
+      "lng": 108,
+      "label": "Qinling Mountains, China"
+    },
+    {
+      "lat": 29.5,
+      "lng": 103.5,
+      "label": "Wolong Reserve, China"
+    }
+  ],
+  "accentColor": "#a8c5a0",
+  "ecosystem": "Temperate Forest"
+}

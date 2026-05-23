@@ -1,0 +1,152 @@
+{
+  "id": "tiger",
+  "commonName": "Tiger",
+  "scientificName": "Panthera tigris",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Carnivora",
+    "family": "Felidae",
+    "genus": "Panthera",
+    "species": "Panthera leo"
+  },
+  "media": [
+    {
+      "title": "Tiger: Spy in the Jungle",
+      "year": "2008",
+      "type": "documentary",
+      "plot": "Hidden cameras follow four tiger cubs from birth through their first two years in Pench National Park, India.",
+      "imdbRating": "8.4",
+      "poster": ""
+    },
+    {
+      "title": "Life of Pi",
+      "year": "2012",
+      "type": "movie",
+      "plot": "A young man survives a disaster at sea and shares a lifeboat with a Bengal tiger named Richard Parker.",
+      "imdbRating": "7.9",
+      "poster": ""
+    },
+    {
+      "title": "Tigers: Tracking a Legend",
+      "year": "2019",
+      "type": "documentary",
+      "plot": "Following conservationists working to protect the last wild tigers across fragmented habitats in Southeast Asia.",
+      "imdbRating": "7.2",
+      "poster": ""
+    },
+    {
+      "title": "The Jungle Book",
+      "year": "2016",
+      "type": "movie",
+      "plot": "Mowgli navigates the jungle with the menacing Bengal tiger Shere Khan as his primary adversary.",
+      "imdbRating": "7.4",
+      "poster": ""
+    },
+    {
+      "title": "David Attenborough's Tiger",
+      "year": "2023",
+      "type": "documentary",
+      "plot": "Sir David Attenborough explores the remarkable adaptations and precarious future of wild tigers.",
+      "imdbRating": "7.8",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Tigers inhabit a remarkable diversity of environments, from the tropical rainforests of Sumatra to the snowy taiga of the Russian Far East. They require large territories with dense cover, access to water, and abundant prey. A single male tiger may patrol a territory exceeding 100 square kilometers.",
+    "range": [
+      "India",
+      "Nepal",
+      "Bhutan",
+      "Bangladesh",
+      "Myanmar",
+      "Thailand",
+      "Malaysia",
+      "Indonesia",
+      "China",
+      "Russia"
+    ],
+    "biome": "Tropical Forest",
+    "keyLocations": [
+      "Sundarbans mangrove forest",
+      "Western Ghats",
+      "Sikhote-Alin mountain range",
+      "Taman Negara rainforest"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Habitat Loss",
+      "severity": "critical",
+      "description": "Deforestation for palm oil, agriculture, and infrastructure has reduced tiger habitat by 95% over the last century."
+    },
+    {
+      "name": "Poaching",
+      "severity": "critical",
+      "description": "Illegal trade in tiger parts for traditional medicine and luxury goods drives systematic hunting despite international bans."
+    },
+    {
+      "name": "Human-Wildlife Conflict",
+      "severity": "high",
+      "description": "As habitats shrink, tigers increasingly encounter human settlements, leading to retaliatory killings."
+    },
+    {
+      "name": "Prey Depletion",
+      "severity": "high",
+      "description": "Overhunting of deer and wild boar by local communities reduces the prey base tigers depend upon."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "EN",
+    "population": "Approximately 4,500 individuals in the wild (2023 estimate)",
+    "trend": "increasing",
+    "keyPrograms": [
+      "India's Project Tiger",
+      "TX2 Global Tiger Initiative",
+      "CITES trade enforcement",
+      "Transboundary conservation corridors"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "The tiger occupies an unparalleled place in human culture, serving as a symbol of power, beauty, and wildness across civilizations. From William Blake's 'Tyger Tyger, burning bright' to the national emblem of India and Bangladesh, the tiger represents nature's raw magnificence.",
+    "cinema": [
+      "Life of Pi (2012)",
+      "The Jungle Book (2016)",
+      "Two Brothers (2004)",
+      "Tiger: Spy in the Jungle (2008)"
+    ],
+    "literature": [
+      "The Jungle Book by Rudyard Kipling",
+      "Life of Pi by Yann Martel",
+      "The Tiger by John Vaillant",
+      "Tyger by William Blake"
+    ],
+    "mythology": [
+      "Chinese zodiac guardian",
+      "Hindu goddess Durga's mount",
+      "Korean mountain spirit (Sanshin)",
+      "Malay forest protector"
+    ],
+    "symbolism": "Emblem of courage, strength, and sovereignty. The tiger represents the untamed wilderness and humanity's complex relationship with apex predators."
+  },
+  "coordinates": [
+    {
+      "lat": 26.8,
+      "lng": 81,
+      "label": "India - Terai Arc"
+    },
+    {
+      "lat": 2.5,
+      "lng": 102.5,
+      "label": "Sumatra, Indonesia"
+    },
+    {
+      "lat": 45,
+      "lng": 135,
+      "label": "Russian Far East"
+    }
+  ],
+  "accentColor": "#d4a574",
+  "ecosystem": "Tropical Forest"
+}

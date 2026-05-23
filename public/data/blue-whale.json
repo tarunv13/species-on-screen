@@ -1,0 +1,152 @@
+{
+  "id": "blue-whale",
+  "commonName": "Blue Whale",
+  "scientificName": "Balaenoptera musculus",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Artiodactyla",
+    "family": "Balaenopteridae",
+    "genus": "Balaenoptera",
+    "species": "Balaenoptera musculus"
+  },
+  "media": [
+    {
+      "title": "Blue Planet II",
+      "year": "2017",
+      "type": "documentary",
+      "plot": "Captures blue whales feeding in unprecedented detail, revealing the scale and grace of the largest animal ever to live.",
+      "imdbRating": "9.3",
+      "poster": ""
+    },
+    {
+      "title": "Whale Rider",
+      "year": "2002",
+      "type": "movie",
+      "plot": "A Maori girl challenges tradition to fulfill her destiny as leader of her tribe, deeply connected to whale mythology.",
+      "imdbRating": "7.5",
+      "poster": ""
+    },
+    {
+      "title": "Secrets of the Whales",
+      "year": "2021",
+      "type": "documentary",
+      "plot": "James Cameron-produced series exploring whale culture, communication, and family bonds across multiple species.",
+      "imdbRating": "8.1",
+      "poster": ""
+    },
+    {
+      "title": "The Loneliest Whale",
+      "year": "2021",
+      "type": "documentary",
+      "plot": "The search for a whale calling at an unusual frequency, exploring what its isolation reveals about connection and loss.",
+      "imdbRating": "6.8",
+      "poster": ""
+    },
+    {
+      "title": "Oceans",
+      "year": "2009",
+      "type": "documentary",
+      "plot": "A sweeping cinematic journey through Earth's oceans featuring blue whales among the planet's most magnificent marine creatures.",
+      "imdbRating": "7.7",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Blue whales are found in all major oceans, undertaking immense seasonal migrations between polar feeding grounds and tropical breeding waters. They inhabit the open ocean and continental shelf edges, following blooms of Antarctic krill. A single blue whale can consume up to 6 tons of krill per day during peak feeding.",
+    "range": [
+      "All major oceans",
+      "Antarctic waters",
+      "North Pacific",
+      "North Atlantic",
+      "Indian Ocean"
+    ],
+    "biome": "Ocean",
+    "keyLocations": [
+      "Gulf of California",
+      "Sri Lankan coast",
+      "Chilean upwelling zone",
+      "Antarctic krill grounds",
+      "Monterey Bay"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Ship Strikes",
+      "severity": "high",
+      "description": "Collisions with large vessels in shipping lanes are a leading cause of blue whale mortality, particularly in coastal feeding areas."
+    },
+    {
+      "name": "Ocean Noise Pollution",
+      "severity": "high",
+      "description": "Shipping, sonar, and seismic surveys interfere with blue whale communication across vast distances, disrupting social bonds and navigation."
+    },
+    {
+      "name": "Climate Change",
+      "severity": "critical",
+      "description": "Warming oceans alter krill distribution and abundance, potentially disrupting the food web blue whales depend upon entirely."
+    },
+    {
+      "name": "Entanglement",
+      "severity": "moderate",
+      "description": "Whales become entangled in fishing gear, leading to injury, restricted movement, and drowning."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "EN",
+    "population": "Estimated 10,000-25,000 individuals globally",
+    "trend": "increasing",
+    "keyPrograms": [
+      "International Whaling Commission moratorium",
+      "Ship speed reduction zones",
+      "Marine Protected Areas",
+      "IWC Southern Ocean Sanctuary"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "The blue whale is the largest animal ever known to have existed on Earth, reaching lengths of 30 meters and weights of 200 tonnes. Their hearts are the size of small cars, their tongues weigh as much as elephants. Hunted to near extinction in the 20th century, they represent both humanity's capacity for destruction and for redemption through conservation.",
+    "cinema": [
+      "Blue Planet II (2017)",
+      "Secrets of the Whales (2021)",
+      "Oceans (2009)",
+      "Whale Rider (2002)"
+    ],
+    "literature": [
+      "Moby-Dick by Herman Melville",
+      "Leviathan by Philip Hoare",
+      "Fathom by Rebecca Giggs"
+    ],
+    "mythology": [
+      "Polynesian whale ancestors",
+      "Inuit creator whale spirits",
+      "Norse world-serpent parallels",
+      "Vietnamese whale worship (Ca Ong)"
+    ],
+    "symbolism": "Embodies the sublime scale of nature, the interconnectedness of global ecosystems, and the possibility of recovery from exploitation. A living monument to what conservation can achieve."
+  },
+  "coordinates": [
+    {
+      "lat": -35,
+      "lng": -72,
+      "label": "Chilean Coast"
+    },
+    {
+      "lat": 34,
+      "lng": -120,
+      "label": "California Coast, USA"
+    },
+    {
+      "lat": 8,
+      "lng": 80,
+      "label": "Sri Lanka"
+    },
+    {
+      "lat": -55,
+      "lng": -60,
+      "label": "Antarctic Peninsula"
+    }
+  ],
+  "accentColor": "#8ecae6",
+  "ecosystem": "Ocean"
+}

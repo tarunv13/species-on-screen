@@ -1,0 +1,139 @@
+{
+  "id": "amazon-river-dolphin",
+  "commonName": "Amazon River Dolphin",
+  "scientificName": "Inia geoffrensis",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Cetacea",
+    "family": "Balaenopteridae",
+    "genus": "Balaenoptera",
+    "species": "Balaenoptera physalus"
+  },
+  "media": [
+    {
+      "title": "Amazon Underworld",
+      "year": "2016",
+      "type": "documentary",
+      "plot": "Explores the hidden world beneath the Amazon River, featuring pink river dolphins navigating flooded forests during the wet season.",
+      "imdbRating": "7.3",
+      "poster": ""
+    },
+    {
+      "title": "River Monsters",
+      "year": "2009",
+      "type": "documentary",
+      "plot": "Jeremy Wade explores the Amazon's aquatic life, encountering the enigmatic pink river dolphin and the myths surrounding it.",
+      "imdbRating": "8.1",
+      "poster": ""
+    },
+    {
+      "title": "Wildest Latin America: The Amazon",
+      "year": "2012",
+      "type": "documentary",
+      "plot": "Documents the incredible biodiversity of the Amazon basin, including the pink dolphin's remarkable adaptations to freshwater life.",
+      "imdbRating": "7.5",
+      "poster": ""
+    },
+    {
+      "title": "The Amazon: Soul of a River",
+      "year": "2022",
+      "type": "documentary",
+      "plot": "A cinematic exploration of the Amazon River ecosystem and the species that depend on its seasonal flood pulse, including the boto.",
+      "imdbRating": "7.0",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Amazon river dolphins (boto) inhabit the murky waters of the Amazon and Orinoco river basins, navigating flooded forests during the wet season with remarkable echolocation abilities. Unlike ocean dolphins, they have flexible necks that allow them to weave through submerged trees. They are found in main river channels, tributaries, lakes, and seasonally flooded forests (varzea and igapo).",
+    "range": [
+      "Brazil",
+      "Peru",
+      "Colombia",
+      "Ecuador",
+      "Bolivia",
+      "Venezuela",
+      "Guyana"
+    ],
+    "biome": "Freshwater",
+    "keyLocations": [
+      "Amazon River main stem",
+      "Rio Negro confluence",
+      "Mamiraua Reserve",
+      "Pacaya-Samiria National Reserve"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Dam Construction",
+      "severity": "critical",
+      "description": "Hydroelectric dams fragment river systems, isolating dolphin populations and altering the flood cycles they depend upon for feeding."
+    },
+    {
+      "name": "Mercury Pollution",
+      "severity": "high",
+      "description": "Artisanal gold mining releases mercury into rivers, bioaccumulating through the food chain to toxic levels in top predators like dolphins."
+    },
+    {
+      "name": "Bycatch and Intentional Killing",
+      "severity": "high",
+      "description": "Dolphins are killed for use as fish bait (particularly for piracatinga catfish) and die as bycatch in fishing nets."
+    },
+    {
+      "name": "Deforestation",
+      "severity": "high",
+      "description": "Clearing of riparian and floodplain forests reduces food availability and increases sedimentation in dolphin habitat."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "EN",
+    "population": "Unknown total; declining significantly in surveyed areas. Some populations have halved in recent decades.",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "Brazilian federal protection (2014 ban on piracatinga fishing)",
+      "South American River Dolphin Initiative",
+      "Community-based ecotourism programs",
+      "Mamiraua Sustainable Development Reserve"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "Known as the boto or 'pink dolphin,' the Amazon river dolphin occupies a central place in Amazonian folklore. Local legends describe the boto as a shapeshifter that transforms into a handsome man at night to seduce young women at riverbank festivals. This mythology has paradoxically both protected (through fear and respect) and endangered (through persecution) the species.",
+    "cinema": [
+      "Amazon Underworld (2016)",
+      "Wildest Latin America (2012)",
+      "The Amazon: Soul of a River (2022)"
+    ],
+    "literature": [
+      "Journey of the Pink Dolphins by Sy Montgomery",
+      "The Enchanted Amazon Rain Forest by Nigel Smith",
+      "Tales of the Amazon by Clarice Lispector"
+    ],
+    "mythology": [
+      "Boto encantado shapeshifter legend",
+      "Amazonian river spirit protector",
+      "Tucuxi and boto as river guardians",
+      "Indigenous creation stories of the pink dolphin"
+    ],
+    "symbolism": "Represents the mystery and magic of freshwater ecosystems, the cultural richness of Amazonian peoples, and the hidden biodiversity of the world's greatest river system."
+  },
+  "coordinates": [
+    {
+      "lat": -3.1,
+      "lng": -60,
+      "label": "Amazon River, Brazil"
+    },
+    {
+      "lat": -4,
+      "lng": -73,
+      "label": "Peruvian Amazon"
+    },
+    {
+      "lat": 4,
+      "lng": -67,
+      "label": "Orinoco Basin, Venezuela"
+    }
+  ],
+  "accentColor": "#e8a0c0",
+  "ecosystem": "Freshwater"
+}

@@ -1,0 +1,151 @@
+{
+  "id": "african-elephant",
+  "commonName": "African Elephant",
+  "scientificName": "Loxodonta africana",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Mammalia",
+    "order": "Carnivora",
+    "family": "Felidae",
+    "genus": "Panthera",
+    "species": "Panthera onca"
+  },
+  "media": [
+    {
+      "title": "The Elephant Queen",
+      "year": "2019",
+      "type": "documentary",
+      "plot": "Follows matriarch Athena and her herd across the Kenyan savanna during drought, revealing elephant intelligence and family bonds.",
+      "imdbRating": "7.0",
+      "poster": ""
+    },
+    {
+      "title": "Ivory Game",
+      "year": "2016",
+      "type": "documentary",
+      "plot": "Undercover investigation into the illegal ivory trade spanning Africa and China, exposing the networks driving elephant poaching.",
+      "imdbRating": "7.5",
+      "poster": ""
+    },
+    {
+      "title": "Echo: An Elephant to Remember",
+      "year": "2010",
+      "type": "documentary",
+      "plot": "Chronicles the life of Echo, one of the most studied elephants in history, and her family in Amboseli National Park.",
+      "imdbRating": "8.1",
+      "poster": ""
+    },
+    {
+      "title": "When Elephants Were Young",
+      "year": "2016",
+      "type": "documentary",
+      "plot": "A Thai mahout raises an orphaned elephant with the goal of returning it to the wild, exploring the human-elephant bond.",
+      "imdbRating": "6.5",
+      "poster": ""
+    },
+    {
+      "title": "Africa",
+      "year": "2013",
+      "type": "documentary",
+      "plot": "David Attenborough narrates the story of African elephants navigating the Namib Desert in search of water.",
+      "imdbRating": "8.8",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "African elephants roam diverse habitats across sub-Saharan Africa, from dense tropical forests to open savannas, marshlands, and semi-arid scrublands. As keystone species, they shape their environment by toppling trees, dispersing seeds, and creating water holes used by countless other species. Family groups may traverse hundreds of kilometers along ancient migratory corridors.",
+    "range": [
+      "Kenya",
+      "Tanzania",
+      "Botswana",
+      "Zimbabwe",
+      "South Africa",
+      "Namibia",
+      "Gabon",
+      "Congo",
+      "Cameroon"
+    ],
+    "biome": "Savanna",
+    "keyLocations": [
+      "Amboseli National Park",
+      "Chobe National Park",
+      "Kruger National Park",
+      "Serengeti-Mara ecosystem"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Poaching for Ivory",
+      "severity": "critical",
+      "description": "Despite international bans, demand for ivory drives the killing of approximately 20,000 elephants per year across Africa."
+    },
+    {
+      "name": "Habitat Loss",
+      "severity": "critical",
+      "description": "Agricultural expansion, infrastructure development, and human settlements fragment elephant ranges and block migratory corridors."
+    },
+    {
+      "name": "Human-Elephant Conflict",
+      "severity": "high",
+      "description": "Crop raiding by elephants leads to economic losses for farmers and retaliatory killings, escalating as habitats shrink."
+    },
+    {
+      "name": "Drought and Climate Change",
+      "severity": "high",
+      "description": "Increasing drought frequency reduces water and food availability, concentrating elephants and intensifying competition."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "EN",
+    "population": "Approximately 415,000 African savanna elephants remain",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "CITES ivory trade ban",
+      "Great Elephant Census",
+      "Elephant corridors project",
+      "Community-based natural resource management",
+      "TRAFFIC anti-poaching intelligence"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "Elephants hold profound cultural significance across African societies, revered for their intelligence, memory, and social bonds. They feature prominently in the creation myths and spiritual practices of numerous peoples. In the modern era, the elephant has become the global symbol of conservation, anti-poaching efforts, and the ivory trade crisis.",
+    "cinema": [
+      "The Elephant Queen (2019)",
+      "Ivory Game (2016)",
+      "Echo: An Elephant to Remember (2010)",
+      "Dumbo (2019)"
+    ],
+    "literature": [
+      "Elephant Memories by Cynthia Moss",
+      "An Elephant in My Kitchen by Francoise Malby-Anthony",
+      "Love, Life, and Elephants by Daphne Sheldrick"
+    ],
+    "mythology": [
+      "Ashanti elephant soul bearers",
+      "Zulu elephant wisdom traditions",
+      "Hindu deity Ganesha",
+      "Buddhist white elephant of enlightenment"
+    ],
+    "symbolism": "Represents wisdom, family loyalty, memory, and strength. The elephant matriarch embodies leadership through knowledge rather than force."
+  },
+  "coordinates": [
+    {
+      "lat": -2.5,
+      "lng": 34.5,
+      "label": "Serengeti, Tanzania"
+    },
+    {
+      "lat": -19,
+      "lng": 25,
+      "label": "Chobe, Botswana"
+    },
+    {
+      "lat": -1.5,
+      "lng": 37,
+      "label": "Amboseli, Kenya"
+    }
+  ],
+  "accentColor": "#d4a574",
+  "ecosystem": "Savanna"
+}

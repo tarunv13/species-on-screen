@@ -1,0 +1,138 @@
+{
+  "id": "coral-reef",
+  "commonName": "Staghorn Coral",
+  "scientificName": "Acropora cervicornis",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Mollusca",
+    "class": "Cephalopoda",
+    "order": "Oegopsida",
+    "family": "Chiroteuthidae",
+    "genus": "Chiroteuthis",
+    "species": "Acropora cervicornis"
+  },
+  "media": [
+    {
+      "title": "Chasing Coral",
+      "year": "2017",
+      "type": "documentary",
+      "plot": "Divers, scientists, and photographers document the devastating coral bleaching events transforming reefs worldwide.",
+      "imdbRating": "8.1",
+      "poster": ""
+    },
+    {
+      "title": "Blue Planet II - Coral Reefs",
+      "year": "2017",
+      "type": "documentary",
+      "plot": "Reveals the extraordinary biodiversity of coral reef cities and the catastrophic bleaching threatening their existence.",
+      "imdbRating": "9.3",
+      "poster": ""
+    },
+    {
+      "title": "Living Reef",
+      "year": "2020",
+      "type": "documentary",
+      "plot": "Explores cutting-edge coral restoration science and the race to develop heat-resistant coral strains for a warming world.",
+      "imdbRating": "7.0",
+      "poster": ""
+    },
+    {
+      "title": "Coral Reef Adventure",
+      "year": "2003",
+      "type": "documentary",
+      "plot": "IMAX journey to some of the most remote coral reefs on Earth, documenting their beauty and fragility.",
+      "imdbRating": "6.7",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Staghorn corals are foundational reef-building species found in shallow tropical waters, typically between 1 and 30 meters depth. They form dense thickets that provide critical three-dimensional structure for thousands of other marine species. Requiring clear, warm water (23-29 degrees Celsius) with abundant light, they are among the most sensitive corals to environmental change.",
+    "range": [
+      "Caribbean Sea",
+      "Gulf of Mexico",
+      "Bahamas",
+      "Florida Keys",
+      "Western Atlantic"
+    ],
+    "biome": "Coral Reef",
+    "keyLocations": [
+      "Florida Reef Tract",
+      "Mesoamerican Barrier Reef",
+      "Turks and Caicos",
+      "U.S. Virgin Islands"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Ocean Warming",
+      "severity": "critical",
+      "description": "Even 1-2 degrees Celsius above normal triggers mass bleaching events where corals expel symbiotic algae and starve. Back-to-back bleaching prevents recovery."
+    },
+    {
+      "name": "Ocean Acidification",
+      "severity": "critical",
+      "description": "Absorbed CO2 makes seawater more acidic, dissolving calcium carbonate skeletons faster than corals can build them."
+    },
+    {
+      "name": "Disease",
+      "severity": "critical",
+      "description": "White band disease and stony coral tissue loss disease have devastated staghorn populations, killing entire reef systems within months."
+    },
+    {
+      "name": "Coastal Pollution",
+      "severity": "high",
+      "description": "Nutrient runoff from agriculture fuels algal blooms that smother corals, while sediment blocks the light they need to survive."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "CR",
+    "population": "Population has declined by over 80% since the 1980s across the Caribbean",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "Coral Restoration Foundation nurseries",
+      "NOAA Coral Reef Conservation Program",
+      "Reef Resilience Network",
+      "Assisted gene flow and selective breeding",
+      "Marine Protected Areas"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "Coral reefs are often called the 'rainforests of the sea,' supporting 25% of all marine species while covering less than 1% of the ocean floor. They protect coastlines, support fisheries feeding hundreds of millions of people, and generate billions in tourism revenue. Their decline represents one of the most visible consequences of climate change.",
+    "cinema": [
+      "Chasing Coral (2017)",
+      "Blue Planet II (2017)",
+      "Finding Nemo (2003)",
+      "Coral Reef Adventure (2003)"
+    ],
+    "literature": [
+      "Coral Reefs in the Microbial Seas by Forest Rohwer",
+      "The Reef by Iain McCalman",
+      "Reef Life by Callum Roberts"
+    ],
+    "mythology": [
+      "Pacific Islander reef creation stories",
+      "Aboriginal Australian reef dreaming",
+      "Caribbean reef spirit traditions"
+    ],
+    "symbolism": "Represents biodiversity, ecological interconnection, and climate vulnerability. The coral reef is a living barometer of ocean health and a warning system for planetary change."
+  },
+  "coordinates": [
+    {
+      "lat": 24.5,
+      "lng": -81.8,
+      "label": "Florida Keys, USA"
+    },
+    {
+      "lat": 18,
+      "lng": -87.5,
+      "label": "Caribbean Sea"
+    },
+    {
+      "lat": -16.5,
+      "lng": 145.5,
+      "label": "Great Barrier Reef, Australia"
+    }
+  ],
+  "accentColor": "#8ecae6",
+  "ecosystem": "Coral Reef"
+}

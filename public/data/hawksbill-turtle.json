@@ -1,0 +1,137 @@
+{
+  "id": "hawksbill-turtle",
+  "commonName": "Hawksbill Turtle",
+  "scientificName": "Eretmochelys imbricata",
+  "taxonomy": {
+    "kingdom": "Animalia",
+    "phylum": "Chordata",
+    "class": "Reptilia",
+    "order": "Crocodylia",
+    "family": "Alligatoridae",
+    "genus": "Caiman",
+    "species": "Caiman crocodilus"
+  },
+  "media": [
+    {
+      "title": "A Plastic Ocean",
+      "year": "2016",
+      "type": "documentary",
+      "plot": "Investigates the devastating impact of plastic pollution on marine life including sea turtles across the world's oceans.",
+      "imdbRating": "7.8",
+      "poster": ""
+    },
+    {
+      "title": "Blue Planet II",
+      "year": "2017",
+      "type": "documentary",
+      "plot": "Features hawksbill turtles feeding among coral reefs and the threats facing their ocean habitat.",
+      "imdbRating": "9.3",
+      "poster": ""
+    },
+    {
+      "title": "Turtle: The Incredible Journey",
+      "year": "2009",
+      "type": "documentary",
+      "plot": "Follows a loggerhead turtle on its extraordinary migration across the Atlantic, revealing the perilous life of sea turtles.",
+      "imdbRating": "6.9",
+      "poster": ""
+    },
+    {
+      "title": "Mission Blue",
+      "year": "2014",
+      "type": "documentary",
+      "plot": "Oceanographer Sylvia Earle campaigns to protect marine ecosystems, highlighting species like the hawksbill turtle.",
+      "imdbRating": "7.2",
+      "poster": ""
+    }
+  ],
+  "habitat": {
+    "description": "Hawksbill turtles frequent shallow coastal waters, particularly coral reefs, rocky areas, lagoons, and mangrove-lined estuaries. They are one of the most reef-associated of all sea turtles, using their narrow, pointed beaks to extract sponges from crevices. Nesting occurs on remote tropical beaches, often on small islands.",
+    "range": [
+      "Caribbean Sea",
+      "Indian Ocean",
+      "Pacific Islands",
+      "Southeast Asia",
+      "East Africa",
+      "Australia"
+    ],
+    "biome": "Ocean/Coral Reef",
+    "keyLocations": [
+      "Mesoamerican Barrier Reef",
+      "Maldives atolls",
+      "Seychelles Islands",
+      "Raja Ampat, Indonesia"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Shell Trade",
+      "severity": "critical",
+      "description": "Despite CITES bans, hawksbill shell ('tortoiseshell') is still trafficked for jewelry and ornamental objects, particularly in East Asia."
+    },
+    {
+      "name": "Coral Reef Degradation",
+      "severity": "critical",
+      "description": "Ocean warming, acidification, and pollution destroy the coral reef ecosystems hawksbills depend upon for food."
+    },
+    {
+      "name": "Egg Harvesting",
+      "severity": "high",
+      "description": "Nesting beaches are raided for eggs in many tropical regions, reducing recruitment of young turtles."
+    },
+    {
+      "name": "Bycatch",
+      "severity": "high",
+      "description": "Turtles are accidentally caught in fishing nets, longlines, and trawls, often drowning before they can be released."
+    }
+  ],
+  "conservationStatus": {
+    "iucnStatus": "CR",
+    "population": "Estimated 20,000-23,000 nesting females globally",
+    "trend": "decreasing",
+    "keyPrograms": [
+      "CITES Appendix I protection",
+      "Turtle Excluder Devices (TEDs) in fisheries",
+      "Beach nesting site protection programs",
+      "Coral reef restoration initiatives"
+    ]
+  },
+  "culturalSignificance": {
+    "overview": "Sea turtles have navigated Earth's oceans for over 100 million years, surviving mass extinctions that claimed the dinosaurs. The hawksbill's beautiful shell has been coveted since antiquity - ancient Romans, Greeks, and Japanese all fashioned it into luxury items. Today it symbolizes the fragility of marine ecosystems.",
+    "cinema": [
+      "Blue Planet II (2017)",
+      "A Plastic Ocean (2016)",
+      "Turtle: The Incredible Journey (2009)"
+    ],
+    "literature": [
+      "Voyage of the Turtle by Carl Safina",
+      "The Old Man and the Sea by Ernest Hemingway",
+      "Sea Turtles: A Complete Guide by James Spotila"
+    ],
+    "mythology": [
+      "Hindu world-bearing turtle (Kurma avatar)",
+      "Indigenous Australian dreamtime creation stories",
+      "Caribbean Taino turtle spirits"
+    ],
+    "symbolism": "Represents ancient wisdom, ocean health, and the interconnection between coral reef ecosystems. Their decline signals the broader crisis facing marine environments."
+  },
+  "coordinates": [
+    {
+      "lat": 16.7,
+      "lng": -88.5,
+      "label": "Mesoamerican Reef, Belize"
+    },
+    {
+      "lat": -10,
+      "lng": 142,
+      "label": "Great Barrier Reef, Australia"
+    },
+    {
+      "lat": 4,
+      "lng": 73,
+      "label": "Maldives"
+    }
+  ],
+  "accentColor": "#8ecae6",
+  "ecosystem": "Ocean/Coral Reef"
+}
