@@ -4,7 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco-Cinema Observatory</title>
-  <meta name="description" content="Exploring the species that share our screens and our world." />
+  <meta name="description" content="Exploring the species that share our screens and our world. A data-driven observatory connecting cinema representation with ecological reality." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Eco-Cinema Observatory" />
+  <meta property="og:description" content="Exploring the species that share our screens and our world." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://species-on-screen.github.io/species-on-screen/" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Eco-Cinema Observatory",
+    "description": "A data-driven observatory connecting cinema representation with ecological reality for endangered species.",
+    "url": "https://species-on-screen.github.io/species-on-screen/"
+  }
+  </script>
+
   <script type="module" src="/src/main.js"></script>
 </head>
 <body>
@@ -14,7 +32,7 @@
       <li><a href="#hero" class="scroll-nav__dot active" aria-label="Hero section"></a></li>
       <li><a href="#globe-section" class="scroll-nav__dot" aria-label="Living world"></a></li>
       <li><a href="#concept-section" class="scroll-nav__dot" aria-label="The observatory"></a></li>
-      <li><a href="#species-section" class="scroll-nav__dot" aria-label="Species profile"></a></li>
+      <li><a href="#species-section" class="scroll-nav__dot" aria-label="Species gallery"></a></li>
       <li><a href="#vision-section" class="scroll-nav__dot" aria-label="Vision"></a></li>
     </ul>
   </nav>
@@ -36,10 +54,10 @@
       <div class="section__content">
         <h2 class="section__heading">The Living World</h2>
         <p class="section__text">An interactive globe of species encounters - every dot a story, every story a connection between cinema and the wild.</p>
-        <div id="globe-container" class="globe-container" role="img" aria-label="Interactive 3D globe showing five biodiversity hotspot locations"></div>
+        <div id="globe-container" class="globe-container" role="img" aria-label="Interactive 3D globe showing biodiversity hotspot locations for all observed species"></div>
         <div class="globe-companions">
-          <p class="globe-companion">Five biodiversity hotspots glow on the surface - places where life concentrates and cinema gazes most often.</p>
-          <p class="globe-companion">From the Sundarbans to the Amazon, each marker represents an ecosystem woven into our stories.</p>
+          <p class="globe-companion">Biodiversity hotspots glow on the surface - places where life concentrates and cinema gazes most often.</p>
+          <p class="globe-companion">From the Sundarbans to the Amazon, each marker represents a species woven into our stories.</p>
           <p class="globe-companion">Rotate the globe gently. The living world turns whether or not cameras are watching.</p>
         </div>
       </div>
@@ -70,65 +88,11 @@
       </div>
     </section>
 
-    <!-- Species: Tiger prototype profile -->
+    <!-- Species Gallery -->
     <section id="species-section" class="section section--species">
       <div class="section__content">
-        <header class="species__header">
-          <h2 class="section__heading">Panthera tigris</h2>
-          <p class="species__common-name">Tiger</p>
-        </header>
-
-        <div class="species__hero-stat">
-          <p>Fewer than <span class="species__counter" data-target="4500">4,500</span> remain in the wild</p>
-        </div>
-
-        <div class="species__panels">
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Habitat</h3>
-            <div class="species__panel-content">
-              <p>Tropical and subtropical forests across Asia. Their range spans 13 countries: India, Russia, Indonesia, Malaysia, Thailand, Bangladesh, Nepal, Bhutan, Myanmar, Laos, China, Cambodia, and Vietnam.</p>
-              <p>Key habitats include the Sundarbans mangroves of Bangladesh and India, Siberian boreal forests in Russia, Sumatran rainforests in Indonesia, and tropical dry forests of central India.</p>
-              <p>Their historical range covered most of Asia. Today, tigers occupy less than 7% of their original territory - fragmented islands of wilderness in an ocean of human development.</p>
-            </div>
-          </div>
-
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Cultural Presence</h3>
-            <div class="species__panel-content">
-              <p><strong>Cinema:</strong> Life of Pi (2012), The Jungle Book (1967, 2016), Two Brothers (2004), Tiger Zinda Hai (Bollywood), Roar (1981)</p>
-              <p><strong>Literature:</strong> Shere Khan in Kipling's The Jungle Book, Hobbes in Calvin and Hobbes, The Tiger by John Vaillant, Life of Pi by Yann Martel</p>
-              <p><strong>Mythology &amp; symbolism:</strong> Chinese zodiac (Year of the Tiger), Hindu deity Durga's mount, Korean folk symbol, William Blake's "The Tyger"</p>
-              <p><strong>Media presence:</strong> Tigers appear in advertising more than any other wild cat - cereal boxes, sports teams, national symbols of India, Malaysia, South Korea, and Bangladesh.</p>
-              <p><strong>Cultural paradox:</strong> The tiger is simultaneously one of the most culturally visible and ecologically threatened large mammals on Earth.</p>
-            </div>
-          </div>
-
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Threats</h3>
-            <div class="species__panel-content">
-              <p><strong>Habitat fragmentation:</strong> Agricultural expansion, logging, and infrastructure development continue to carve tiger habitat into ever-smaller pieces.</p>
-              <p><strong>Poaching:</strong> Driven by illegal wildlife trade, demand in traditional medicine, and trafficking of bone and skin products across international borders.</p>
-              <p><strong>Human-wildlife conflict:</strong> As habitat shrinks, tigers and humans increasingly compete for space, leading to retaliatory killings and community fear.</p>
-              <p><strong>Climate change:</strong> Sea level rise threatens the Sundarbans (home to approximately 100 tigers), while changing monsoon patterns affect prey availability.</p>
-              <p><strong>Prey depletion:</strong> Overhunting of deer and wild boar by local communities removes the tiger's food sources, forcing them into closer contact with people.</p>
-            </div>
-          </div>
-
-          <div class="species__panel glass-panel">
-            <h3 class="species__panel-title">Conservation Status</h3>
-            <div class="species__panel-content">
-              <p><strong>IUCN Red List:</strong> Endangered (since 1986, downlisted from Critically Endangered for some subspecies following recovery efforts)</p>
-              <p><strong>Population trend:</strong> Increasing globally - estimated approximately 3,200 in 2010, approximately 3,900 in 2016, and approximately 4,500 in 2022.</p>
-              <p><strong>Major recovery programs:</strong> India's Project Tiger (since 1973), the TX2 global goal to double wild tigers by 2022, and numerous national action plans.</p>
-              <p><strong>Three subspecies extinct in the 20th century:</strong> Bali tiger (1950s), Javan tiger (1970s), Caspian tiger (1970s).</p>
-              <p><strong>Six subspecies remain:</strong> Bengal, Indochinese, Malayan, Siberian, South China (functionally extinct in the wild), and Sumatran.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="species__connecting-story">
-          <p>When Richard Parker gazed from the screen in Life of Pi, 63 million viewers saw a tiger. In that same year, fewer than 3,500 remained in the wild. The question this observatory asks: does seeing translate to saving?</p>
-        </div>
+        <h2 class="section__heading">Species Profiles</h2>
+        <p class="section__text">Ten flagship species observed through the lens of cinema and ecology. Each profile explores the gap between cultural visibility and conservation reality.</p>
       </div>
     </section>
 

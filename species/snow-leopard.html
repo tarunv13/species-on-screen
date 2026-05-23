@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snow Leopard - Panthera uncia | Eco-Cinema Observatory</title>
+  <meta name="description" content="Snow Leopard species profile: taxonomy, habitat, media appearances, conservation status, and cultural significance." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Snow Leopard - Eco-Cinema Observatory" />
+  <meta property="og:description" content="Exploring the Snow Leopard through cinema and ecology." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://species-on-screen.github.io/species-on-screen/species/snow-leopard.html" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "name": "Snow Leopard",
+    "description": "Species profile for Snow Leopard (Panthera uncia) - conservation status, habitat, and cultural significance.",
+    "url": "https://species-on-screen.github.io/species-on-screen/species/snow-leopard.html",
+    "about": {
+      "@type": "Thing",
+      "name": "Panthera uncia",
+      "alternateName": "Snow Leopard"
+    }
+  }
+  </script>
+
+  <script type="module" src="/src/species-page.js"></script>
+</head>
+<body>
+  <nav class="species-page__nav" aria-label="Site navigation">
+    <a href="/species-on-screen/" class="species-page__back-link">&larr; Back to Observatory</a>
+  </nav>
+
+  <article class="species-page">
+    <header class="species-page__hero">
+      <h1 class="species-page__name">Snow Leopard</h1>
+      <p class="species-page__scientific">Panthera uncia</p>
+      <span class="species-page__iucn-badge species-page__iucn-badge--vu">Vulnerable</span>
+    </header>
+
+    <!-- Loading State -->
+    <div id="species-loader" class="species-page__loader">
+      <div class="species-page__spinner"></div>
+      <p>Loading species data...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="species-error" class="species-page__error" style="display: none;"></div>
+
+    <!-- Content Sections -->
+    <section class="species-page__section glass-panel" id="taxonomy-section">
+      <h2 class="species-page__section-title">Taxonomy</h2>
+      <div id="taxonomy-content" class="species-page__section-content"></div>
+    </section>
+
+    <section class="species-page__section glass-panel" id="habitat-section">
+      <h2 class="species-page__section-title">Habitat &amp; Range</h2>
+      <div id="habitat-content" class="species-page__section-content"></div>
+    </section>
+
+    <section class="species-page__section glass-panel" id="media-section">
+      <h2 class="species-page__section-title">Media Appearances</h2>
+      <div id="media-content" class="species-page__section-content"></div>
+    </section>
+
+    <section class="species-page__section glass-panel" id="threats-section">
+      <h2 class="species-page__section-title">Threats &amp; Conservation</h2>
+      <div id="threats-content" class="species-page__section-content"></div>
+    </section>
+
+    <section class="species-page__section glass-panel" id="conservation-section">
+      <h2 class="species-page__section-title">Conservation Status</h2>
+      <div id="conservation-content" class="species-page__section-content"></div>
+    </section>
+
+    <section class="species-page__section glass-panel" id="cultural-section">
+      <h2 class="species-page__section-title">Cultural Significance</h2>
+      <div id="cultural-content" class="species-page__section-content"></div>
+    </section>
+
+    <!-- Species Navigation -->
+    <nav id="species-nav" class="species-page__species-nav" aria-label="Species navigation"></nav>
+  </article>
+</body>
+</html>

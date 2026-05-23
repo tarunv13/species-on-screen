@@ -1,19 +1,30 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { SPECIES } from './data/species-registry.js';
 
 /**
  * Three.js interactive globe - a peaceful, contemplative Earth.
- * Procedural coloring with atmosphere glow and biodiversity hotspot markers.
+ * Procedural coloring with atmosphere glow and species location markers.
+ * Markers are generated from ALL species coordinates in the registry.
  */
 
-// Biodiversity hotspot locations [lat, lng, name]
-const HOTSPOTS = [
-  { lat: 21.9, lng: 89.2, name: 'Sundarbans' },
-  { lat: -3.4, lng: -60.0, name: 'Amazon Basin' },
-  { lat: 0.5, lng: 22.0, name: 'Congo Basin' },
-  { lat: -18.3, lng: 147.7, name: 'Great Barrier Reef' },
-  { lat: 1.0, lng: 114.0, name: 'Borneo' },
-];
+// Generate markers from all species coordinates
+function generateHotspots() {
+  const hotspots = [];
+  SPECIES.forEach(species => {
+    species.coordinates.forEach(coord => {
+      hotspots.push({
+        lat: coord.lat,
+        lng: coord.lng,
+        name: `${species.commonName} - ${coord.label}`,
+        color: species.accentColor
+      });
+    });
+  });
+  return hotspots;
+}
+
+const HOTSPOTS = generateHotspots();
 
 let renderer, scene, camera, controls, globe, atmosphere, markers;
 let animationId = null;
@@ -140,17 +151,18 @@ function createAtmosphere() {
 }
 
 /**
- * Create glowing hotspot markers
+ * Create glowing hotspot markers color-coded by species accent color
  */
 function createMarkers() {
   const group = new THREE.Group();
 
   HOTSPOTS.forEach((hotspot) => {
     const position = latLngToVector3(hotspot.lat, hotspot.lng, 1.02);
+    const color = new THREE.Color(hotspot.color);
 
-    const geometry = new THREE.SphereGeometry(0.02, 16, 16);
+    const geometry = new THREE.SphereGeometry(0.015, 12, 12);
     const material = new THREE.MeshBasicMaterial({
-      color: new THREE.Color('#d4a574'),
+      color: color,
       transparent: true,
       opacity: 0.9,
     });
@@ -161,11 +173,11 @@ function createMarkers() {
     group.add(marker);
 
     // Add a slightly larger glow sphere around the marker
-    const glowGeometry = new THREE.SphereGeometry(0.04, 16, 16);
+    const glowGeometry = new THREE.SphereGeometry(0.03, 12, 12);
     const glowMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color('#d4a574'),
+      color: color,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.2,
     });
     const glow = new THREE.Mesh(glowGeometry, glowMaterial);
     glow.position.copy(position);
@@ -282,7 +294,7 @@ function animate() {
   if (markers) {
     markers.children.forEach((child, i) => {
       if (child.userData && child.userData.name) {
-        const pulse = 0.7 + Math.sin(time * 2 + i) * 0.3;
+        const pulse = 0.7 + Math.sin(time * 2 + i * 0.3) * 0.3;
         child.material.opacity = child.userData.baseOpacity * pulse;
       }
     });
