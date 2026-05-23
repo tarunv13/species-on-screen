@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Build the fully styled individual species page template with all content sections rendered from the JSON data files, maintaining the liquid-glass aesthetic and including TMDB media display, accessibility features, and proper SEO markup.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Flesh out src/species-page.js to be a complete, working species page renderer that: (a) reads the slug from the page's data attribute or URL path, (b) fetches public/data/{slug}.json, (c) renders all sections into the page: hero with species name/scientific name/conservation status badge and a key stat, habitat section with glass-panel, TMDB media section showing film/documentary cards with poster images (use TMDB image base URL https://image.tmdb.org/t/p/w300), threats section, conservation status section, cultural significance section, (d) adds breadcrumb navigation at the top (Observatory > Species Name), (e) initializes GSAP scroll animations for the species page sections",
     "Create src/species-page.css with styles specific to species pages: media card grid (poster + title + year + rating), hero section with large species name, section layouts. Reuse glass-panel/glass-card patterns from style.css. Import this CSS in species-page.js",
@@ -28,5 +28,5 @@
     "Verify the build output size is reasonable (species pages should share chunks)"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Build succeeds. Species pages share ScrollTrigger chunk (113KB). species-page.js bundle is 7.26KB, species-page.css is 7.14KB. All 10 HTML templates already had correct structure from FEAT-001 (skip link, breadcrumb, data-species attr, main#main-content). HTML escaping added via escapeHtml() helper for TMDB overview text safety. Used HTML entities for emoji icons to avoid encoding issues."
 }
