@@ -6,6 +6,7 @@ import { initScrollAnimations } from './scroll-animations.js';
 import { initConceptSection } from './concept-section.js';
 import { initSpeciesGallery } from './species-gallery.js';
 import { initVisionSection } from './vision-section.js';
+import { initNav } from './nav.js';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -64,6 +65,7 @@ window.addEventListener('error', () => {
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('js-loaded');
 
+  initNav();
   initScrollNav();
   initHero();
   initGlobeLazy();

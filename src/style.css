@@ -70,6 +70,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  padding-top: 3rem; /* account for fixed nav */
 }
 
 img,
@@ -347,12 +348,22 @@ p {
   text-decoration: none;
   overflow: hidden;
   cursor: pointer;
+  transition: transform var(--transition-gentle), box-shadow var(--transition-gentle);
 }
 
 .species-gallery__card:hover {
   transform: translateY(-4px);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.species-gallery__card:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+  transform: translateY(-2px) scale(1.01);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
@@ -375,27 +386,27 @@ p {
 
 .species-gallery__iucn-badge--cr {
   background: rgba(220, 53, 69, 0.15);
-  color: #dc3545;
+  color: #a71d2a;
 }
 
 .species-gallery__iucn-badge--en {
   background: rgba(253, 126, 20, 0.15);
-  color: #e67700;
+  color: #b35900;
 }
 
 .species-gallery__iucn-badge--vu {
   background: rgba(255, 193, 7, 0.15);
-  color: #b38600;
+  color: #856404;
 }
 
 .species-gallery__iucn-badge--nt {
   background: rgba(40, 167, 69, 0.15);
-  color: #28a745;
+  color: #1e7e34;
 }
 
 .species-gallery__iucn-badge--lc {
   background: rgba(40, 167, 69, 0.1);
-  color: #5cb85c;
+  color: #3d8b4f;
 }
 
 .species-gallery__ecosystem-tag {
@@ -502,17 +513,17 @@ p {
 
 .species-page__iucn-badge--cr {
   background: rgba(220, 53, 69, 0.12);
-  color: #dc3545;
+  color: #a71d2a;
 }
 
 .species-page__iucn-badge--en {
   background: rgba(253, 126, 20, 0.12);
-  color: #e67700;
+  color: #b35900;
 }
 
 .species-page__iucn-badge--vu {
   background: rgba(255, 193, 7, 0.12);
-  color: #b38600;
+  color: #856404;
 }
 
 .species-page__section {
@@ -862,6 +873,69 @@ p {
 .glass-card p {
   color: var(--color-text-light);
   font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   Site Navigation
+   -------------------------------------------------------------------------- */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-nav__title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color var(--transition-gentle);
+}
+
+a.site-nav__title:hover {
+  color: var(--color-text-light);
+}
+
+.site-nav__breadcrumb {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.site-nav__separator {
+  opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   Skip Link (Accessibility)
+   -------------------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background: var(--color-text);
+  color: var(--color-bg);
+  z-index: 999;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 /* --------------------------------------------------------------------------
