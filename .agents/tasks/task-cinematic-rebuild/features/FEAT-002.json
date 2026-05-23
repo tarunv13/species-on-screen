@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Rebuild the main page (index.html + src/) as a cinematic Three.js-driven experience with WebGL camera transitions between sections, a meaningful data-visualization globe, post-processing effects, and GSAP ScrollTrigger driving camera position through 3D space. The website should feel like being inside a film - smooth camera interpolation, depth-of-field, atmospheric particles, film grain. Sections flow like film chapters with the scroll acting as a timeline.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "1. Update package.json if needed - Three.js and GSAP are already installed. No new deps needed (Three.js includes EffectComposer and post-processing in its examples/addons).",
     "2. Completely rewrite index.html: Structure as a single-page cinematic experience. The HTML should have minimal visible content since Three.js renders the 3D scene full-screen. Key DOM sections: a) #cinematic-canvas (full-screen Three.js renderer), b) Overlay content layers positioned absolute over the canvas that fade in/out as camera moves. Sections: Hero (title/subtitle), Globe (data viz with info panel), Research Framework (the 4 RQs), Species Observatory (gallery grid), Methodology (Rose's visual methodology + COM-B), Vision/Footer. Each section has a scroll-trigger zone.",
@@ -33,5 +33,5 @@
     "Grep the built JS for Three.js scene setup, EffectComposer, ScrollTrigger, and InstancedMesh to confirm all components are included"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Build succeeds (547KB main chunk - large due to Three.js). All 10 species HTML pages still present in dist/species/. Key patterns confirmed in built JS: EffectComposer, UnrealBloom, FilmGrain, ScrollTrigger, InstancedMesh, CylinderGeometry, FogExp2. The chunk size warning is non-blocking. vite.config.js required no changes."
 }
