@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Implement the immersive hero landing experience and 3D globe section with scroll-driven animations. The hero section uses ambient particle/mist effects with the observatory title appearing through a contemplative fade. The globe section renders an interactive Three.js Earth that the user can gently explore, representing the world as a living system. Scrollytelling transitions connect the sections with liquid fluidity.",
-  "status": "pending",
+  "status": "completed",
   "steps": [
     "Create src/hero.js - the immersive landing experience: (1) Large centered title 'Eco-Cinema Observatory' with subtitle 'Observing the relationship between human culture and species fate' that fades in with contemplative timing, (2) Ambient background effect using canvas or CSS - floating soft particles/light motes that drift slowly like dust in morning sunlight or mist in a forest clearing, (3) A gentle scroll-indicator prompt at the bottom. Use GSAP for entrance animations with easing that feels organic (power2.out or similar). The title typography should be elegant, large, and breathable.",
     "Create src/globe.js - Three.js interactive globe: (1) Create a sphere geometry with a procedurally-generated or simple Earth texture (use gradient colors - greens for land masses, blues for ocean - rather than a photographic texture to maintain the dreamy aesthetic), (2) Add a subtle atmosphere glow effect (soft turquoise/white halo), (3) Implement gentle auto-rotation that slows when user interacts, (4) Add mouse/touch interaction for manual rotation with damping, (5) Add small glowing points on the globe representing biodiversity hotspots (a few key locations: Sundarbans/India for tigers, Amazon, Congo Basin, Great Barrier Reef, Borneo), (6) Wrap in a frosted glass panel container. The globe should feel peaceful and alive, not data-heavy. Use OrbitControls with restricted zoom range.",
@@ -27,5 +27,5 @@
     "Confirm src/hero.js exists and implements entrance animations"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Build succeeds in ~238ms. Three.js + GSAP bundle is ~655KB (180KB gzipped) which triggers a chunk size warning but is not an error. Globe uses procedural canvas texture for Earth instead of external image files. OrbitControls imported from three/addons/controls/OrbitControls.js. All 5 hotspot markers render with pulsing glow. Scroll animations use scrub:1 for scroll-linked feel. Hero pin extends scroll by 50vh."
 }
