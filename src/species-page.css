@@ -485,6 +485,19 @@
 }
 
 /* --------------------------------------------------------------------------
+   JS-loaded Safety Net
+   Elements are only hidden when JS has successfully loaded and added the class.
+   If JS fails, removing .sp-loaded makes everything visible.
+   -------------------------------------------------------------------------- */
+.sp-loaded .sp-section:not(.sp-hero) .sp-section__heading,
+.sp-loaded .sp-section:not(.sp-hero) .glass-panel,
+.sp-loaded .sp-section:not(.sp-hero) .glass-card,
+.sp-loaded .sp-section:not(.sp-hero) .sp-media-card {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* --------------------------------------------------------------------------
    Loading State
    -------------------------------------------------------------------------- */
 .species-page-loading {

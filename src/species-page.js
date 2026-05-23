@@ -15,6 +15,7 @@ async function loadSpeciesData() {
     if (!response.ok) throw new Error(`Failed to load data for ${slug}`);
     const data = await response.json();
     renderSpeciesPage(data);
+    document.body.classList.add('sp-loaded');
     initAnimations();
   } catch (error) {
     console.error(error);
@@ -23,6 +24,8 @@ async function loadSpeciesData() {
     }
   }
 }
+
+window.addEventListener('error', () => document.body.classList.remove('sp-loaded'));
 
 function escapeHtml(text) {
   if (!text) return '';
@@ -108,7 +111,7 @@ function renderMedia(media, speciesName) {
     return `
       <article class="sp-media-card glass-card">
         ${posterUrl
-          ? `<img class="sp-media-card__poster" src="${posterUrl}" alt="Movie poster for ${escapeHtml(item.title)}" loading="lazy" />`
+          ? `<img class="sp-media-card__poster" src="${posterUrl}" alt="Movie poster for ${escapeHtml(item.title)}" loading="lazy" onerror="this.outerHTML='<div class=\\'sp-media-card__no-poster\\' aria-hidden=\\'true\\'><span>No Poster</span></div>'" />`
           : `<div class="sp-media-card__no-poster" aria-hidden="true"><span>No Poster</span></div>`
         }
         <div class="sp-media-card__info">
@@ -229,12 +232,15 @@ function renderFooter() {
 
 function statusClass(status) {
   if (!status) return '';
-  return status.toLowerCase().replace(/\s+/g, '-');
+  return status.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 }
 
 function initAnimations() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) return;
+  if (prefersReducedMotion) {
+    document.body.classList.remove('sp-loaded');
+    return;
+  }
 
   const sections = document.querySelectorAll('.sp-section');
   sections.forEach((section, i) => {
@@ -243,21 +249,21 @@ function initAnimations() {
     const panels = section.querySelectorAll('.glass-panel, .glass-card, .sp-media-card');
 
     if (heading) {
-      gsap.set(heading, { opacity: 0, y: 30 });
       gsap.to(heading, {
         opacity: 1, y: 0, ease: 'power2.out', duration: 0.8,
-        scrollTrigger: { trigger: heading, start: 'top 80%' }
+        scrollTrigger: { trigger: heading, start: 'top 85%' }
       });
     }
 
     panels.forEach((panel, j) => {
-      gsap.set(panel, { opacity: 0, y: 30 });
       gsap.to(panel, {
         opacity: 1, y: 0, ease: 'power2.out', duration: 0.6, delay: j * 0.1,
-        scrollTrigger: { trigger: panel, start: 'top 85%' }
+        scrollTrigger: { trigger: panel, start: 'top 90%' }
       });
     });
   });
+
+  ScrollTrigger.refresh();
 }
 
 if (slug) {
