@@ -11,6 +11,11 @@ let globe = null;
 let floatingCards = null;
 let safariScene = null;
 let isTransitioning = false;
+// Single authoritative reference to the currently-playing transition timeline
+// (forward into safari OR rollback to globe). Any new transition must kill the
+// previous one before constructing its own, so two timelines never tween the
+// same DOM property simultaneously.
+let activeTransition = null;
 
 function init() {
   const canvas = document.getElementById('cinematic-canvas');
@@ -87,6 +92,9 @@ function onCardClick(speciesSlug) {
   if (isTransitioning) return;
   isTransitioning = true;
 
+  // Defensive: any leftover transition (should be null in normal flow).
+  killActiveTransition();
+
   // Zero out globe inertia to prevent drift during safari
   globe._velocity.x = 0;
   globe._velocity.y = 0;
@@ -101,6 +109,7 @@ function onCardClick(speciesSlug) {
   const targetTo = worldPos.clone();
 
   const tl = gsap.timeline();
+  activeTransition = tl;
 
   // Phase 1 (0-600ms): Cards fade out
   tl.add(() => {
@@ -126,19 +135,48 @@ function onCardClick(speciesSlug) {
       const cachedData = globe.speciesDataCache[speciesSlug];
       await safariScene.enter(speciesSlug, cachedData);
       isTransitioning = false;
-    } catch {
-      returnToGlobe();
+      activeTransition = null;
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(`[main] Safari enter failed for "${speciesSlug}", rolling back transition state:`, err);
+      executeReturnToGlobe({ force: true });
     }
   });
 }
 
+function killActiveTransition() {
+  if (activeTransition) {
+    activeTransition.kill();
+    activeTransition = null;
+  }
+}
+
 function returnToGlobe() {
-  if (isTransitioning) return;
+  executeReturnToGlobe({ force: false });
+}
+
+// Authoritative rollback. Used by both the user-initiated back button
+// (force=false, respects in-flight transitions) and the onCardClick failure
+// path (force=true, bypasses the guard because we ARE the in-flight
+// transition that needs unwinding).
+function executeReturnToGlobe({ force = false } = {}) {
+  if (isTransitioning && !force) return;
   isTransitioning = true;
 
-  if (safariScene) safariScene.exit();
+  // Kill any in-flight forward timeline so it can no longer tween properties
+  // we're about to reset. GSAP v3: tl.kill() does not fire onComplete and
+  // propagates to nested child timelines added via tl.add().
+  killActiveTransition();
+
+  // Defensively tear down safari state. exit() is idempotent in current
+  // SafariScene; the try/catch shields the rollback if a half-initialised
+  // safari throws on cleanup.
+  if (safariScene && typeof safariScene.exit === 'function') {
+    try { safariScene.exit(); } catch { /* tolerate cleanup errors */ }
+  }
 
   const tl = gsap.timeline();
+  activeTransition = tl;
 
   // Fade safari out
   tl.to('#safari-container', { opacity: 0, duration: 0.4, ease: 'power2.inOut' }, 0);
@@ -156,10 +194,11 @@ function returnToGlobe() {
   const defaultTarget = new THREE.Vector3(0, 0, 0);
   tl.add(engine.flyCamera(defaultPos, defaultTarget, 1.0, 'power3.inOut'), 0.3);
 
-  // Show floating cards again
+  // Show floating cards again, release the transition lock.
   tl.add(() => {
     if (floatingCards) floatingCards.show();
     isTransitioning = false;
+    activeTransition = null;
   }, 1.3);
 }
 
