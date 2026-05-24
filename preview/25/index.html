@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco-Cinema Observatory</title>
+  <meta name="description" content="A cinematic exploration of species on screen and in the wild." />
+  <script type="module" crossorigin src="/species-on-screen/preview/25/assets/main-CBgCMYo3.js"></script>
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/25/assets/lenis-BFYFTrzT.js">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/preview/25/assets/main-ryEBFRv5.css">
+</head>
+<body>
+  <noscript>
+    <div style="background:#0a0a1a;color:#ffffff;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
+      <h1>Eco-Cinema Observatory</h1>
+      <p style="margin:1rem 0;">The Eco-Cinema Observatory explores the relationship between species representation in film and real-world conservation outcomes. The full interactive experience requires JavaScript to render the 3D globe and interactive interface.</p>
+      <h2 style="margin-top:1.5rem;">Species Pages</h2>
+      <ul style="margin:1rem 0;line-height:2;">
+        <li><a href="species/tiger.html" style="color:#4ade80;">Tiger</a></li>
+        <li><a href="species/snow-leopard.html" style="color:#4ade80;">Snow Leopard</a></li>
+        <li><a href="species/bornean-orangutan.html" style="color:#4ade80;">Bornean Orangutan</a></li>
+        <li><a href="species/hawksbill-turtle.html" style="color:#4ade80;">Hawksbill Turtle</a></li>
+        <li><a href="species/blue-whale.html" style="color:#4ade80;">Blue Whale</a></li>
+        <li><a href="species/african-elephant.html" style="color:#4ade80;">African Elephant</a></li>
+        <li><a href="species/polar-bear.html" style="color:#4ade80;">Polar Bear</a></li>
+        <li><a href="species/giant-panda.html" style="color:#4ade80;">Giant Panda</a></li>
+        <li><a href="species/staghorn-coral.html" style="color:#4ade80;">Staghorn Coral</a></li>
+        <li><a href="species/amazon-river-dolphin.html" style="color:#4ade80;">Amazon River Dolphin</a></li>
+      </ul>
+      <p style="font-size:0.9rem;color:#999;">Please enable JavaScript for the full 3D interactive experience.</p>
+    </div>
+  </noscript>
+
+  <canvas id="cinematic-canvas"></canvas>
+
+  <div id="loading-screen">
+    <div class="loading__content">
+      <p class="loading__text">Loading experience</p>
+      <div class="loading__dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <div id="globe-ui-container">
+    <div class="layer-toggle-bar">
+      <button class="layer-toggle-btn active" data-layer="species">Species</button>
+      <button class="layer-toggle-btn" data-layer="habitat">Habitats</button>
+      <button class="layer-toggle-btn" data-layer="threats">Threats</button>
+    </div>
+    <div id="floating-cards-container"></div>
+  </div>
+
+  <div id="safari-container"></div>
+
+  <button class="return-to-globe" style="display:none;">Return to Globe</button>
+
+  <!-- Globe tooltip (for raycasting hover) -->
+  <div id="globe-tooltip" class="globe-tooltip"></div>
+
+  <!-- Screen reader description -->
+  <div class="sr-only">
+    This page presents an interactive 3D globe experience exploring the relationship between species in film and conservation. Interact with the globe by dragging to rotate, and click on species cards to explore individual species.
+  </div>
+</body>
+</html>
