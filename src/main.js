@@ -131,12 +131,19 @@ function onCardClick(speciesSlug) {
 
   // Phase 4: Enter safari scene after transition completes
   tl.eventCallback('onComplete', async () => {
+    // Capture ownership at the moment the timeline naturally completes.
+    // If a force-rollback (or any future code path) replaces activeTransition
+    // while we are awaiting safariScene.enter(), the resolution must NOT
+    // mutate state that no longer belongs to us.
+    const ownedTl = tl;
     try {
       const cachedData = globe.speciesDataCache[speciesSlug];
       await safariScene.enter(speciesSlug, cachedData);
+      if (activeTransition !== ownedTl) return; // stale; new owner has the floor
       isTransitioning = false;
       activeTransition = null;
     } catch (err) {
+      if (activeTransition !== ownedTl) return; // stale; do not double-rollback
       // eslint-disable-next-line no-console
       console.warn(`[main] Safari enter failed for "${speciesSlug}", rolling back transition state:`, err);
       executeReturnToGlobe({ force: true });
@@ -194,12 +201,19 @@ function executeReturnToGlobe({ force = false } = {}) {
   const defaultTarget = new THREE.Vector3(0, 0, 0);
   tl.add(engine.flyCamera(defaultPos, defaultTarget, 1.0, 'power3.inOut'), 0.3);
 
-  // Show floating cards again, release the transition lock.
-  tl.add(() => {
+  // Release the transition lock and re-show cards on the timeline's actual
+  // completion event, not at a fixed beat. Decouples lifecycle ownership
+  // from the assumption that the rollback animation is exactly 1.3s long.
+  // Owner-check guards against a future force-rollback that replaces us
+  // mid-flight (GSAP v3 suppresses onComplete on kill(), so this is a
+  // belt-and-braces invariant for any later refactor).
+  const ownedTl = tl;
+  tl.eventCallback('onComplete', () => {
+    if (activeTransition !== ownedTl) return;
     if (floatingCards) floatingCards.show();
     isTransitioning = false;
     activeTransition = null;
-  }, 1.3);
+  });
 }
 
 function runLandingSequence() {
