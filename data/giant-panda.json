@@ -1,0 +1,391 @@
+{
+  "taxonomy": {
+    "scientific_name": "Ailuropoda melanoleuca",
+    "common_name": "Giant Panda",
+    "family": "Ursidae",
+    "order": "Carnivora",
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/2435013",
+    "iucn_url": "https://www.iucnredlist.org/species/712/166502858"
+  },
+  "habitat": {
+    "type": "Temperate Forest",
+    "description": "The giant panda inhabits the misty bamboo forests of central China, living at elevations between 1,500 and 3,000 metres in a world of perpetual dampness, steep slopes, and dense bamboo understory. These temperate forests, draped in moss and threaded with streams, represent one of the most restricted habitats of any large mammal.\n\nBamboo dominates every aspect of panda life. These bears spend up to 14 hours each day consuming bamboo, eating 12 to 38 kilograms daily to extract sufficient nutrition from this low-calorie food source. Different bamboo species grow at different elevations, and pandas must move seasonally between altitude bands as various species produce new shoots.\n\nThe cloud forests of Sichuan, Shaanxi, and Gansu provinces harbour the last wild pandas in fragmented mountain sanctuaries. Ancient conifers tower above the bamboo, creating a layered forest ecosystem where golden monkeys, red pandas, and takins share the panda's mountain realm.",
+    "range_countries": [
+      "China"
+    ],
+    "key_locations": [
+      "Wolong Nature Reserve",
+      "Foping Nature Reserve",
+      "Minshan Mountains",
+      "Qinling Mountains",
+      "Sichuan Basin margins"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Habitat Fragmentation",
+      "description": "Roads, railways, and agricultural expansion divide panda populations into isolated groups, reducing genetic diversity."
+    },
+    {
+      "name": "Bamboo Die-Off",
+      "description": "Bamboo species periodically flower and die en masse; fragmented habitats prevent pandas from moving to alternative bamboo sources."
+    },
+    {
+      "name": "Small Population Size",
+      "description": "Isolated populations are vulnerable to inbreeding depression and local extinction from stochastic events."
+    },
+    {
+      "name": "Climate Change",
+      "description": "Changing temperatures and precipitation patterns may shift bamboo distribution beyond what pandas can track."
+    },
+    {
+      "name": "Tourism Pressure",
+      "description": "While eco-tourism funds conservation, excessive visitor numbers in reserves can disturb pandas and degrade habitat."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Vulnerable",
+    "population_estimate": "1,864",
+    "population_trend": "Increasing",
+    "key_programs": [
+      "National Giant Panda Conservation Programme",
+      "Giant Panda National Park",
+      "Chengdu Research Base of Giant Panda Breeding",
+      "WWF (panda as logo species)"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Kung Fu Panda brought the species to global pop culture, while IMAX documentaries reveal the reality of panda conservation in China.",
+    "literature": "Pandas appear throughout Chinese literature and art as symbols of peace, gentleness, and harmony with nature.",
+    "mythology": "Ancient Chinese texts describe pandas as peaceful creatures that could mediate between warring tribes, symbols of yin-yang balance.",
+    "media_presence": "As the WWF logo species since 1961, the panda is arguably the world's most recognizable conservation symbol.",
+    "cultural_paradox": "Massive conservation investment in a single charismatic species raises questions about resource allocation while also funding broader ecosystem protection."
+  },
+  "hero_stat": "Only 1,864 giant pandas remain in the wild across 30 fragmented populations",
+  "hero_image": {
+    "url": "https://image.tmdb.org/t/p/original/c0iW1TcdxqnADKv8HaKLG6Q53Wv.jpg",
+    "credit": "TMDB",
+    "source": "tmdb"
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Bamboo corridor restoration requires decades of growth",
+      "Captive breeding struggles with low reproductive rates",
+      "Genetic management across fragmented populations technically challenging"
+    ],
+    "opportunity": [
+      "Infrastructure development continues to fragment remaining habitat",
+      "Climate change altering bamboo distribution faster than corridors can be restored",
+      "Tourism pressure on reserves increasing with prosperity"
+    ],
+    "motivation": [
+      "Panda conservation heavily funded but benefits concentrated on one species",
+      "Political symbolism sometimes prioritized over ecological effectiveness",
+      "Public preference for charismatic megafauna skews funding allocation"
+    ]
+  },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Bamboo corridor restoration requires decades of growth",
+        "source": "Swaisgood et al. (2011)",
+        "source_url": "https://doi.org/10.1111/j.1749-4877.2011.00247.x"
+      },
+      {
+        "text": "Captive breeding struggles with low reproductive rates",
+        "source": "Zhang et al. (2004)",
+        "source_url": "https://doi.org/10.1126/science.1104407"
+      },
+      {
+        "text": "Genetic management across fragmented populations technically challenging",
+        "source": "Wei et al. (2015)",
+        "source_url": "https://doi.org/10.1111/cobi.12582"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Infrastructure development continues to fragment remaining habitat",
+        "source": "Li et al. (2015)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2015.09.024"
+      },
+      {
+        "text": "Climate change altering bamboo distribution faster than corridors can be restored",
+        "source": "Tuanmu et al. (2013)",
+        "source_url": "https://doi.org/10.1111/ele.12025"
+      },
+      {
+        "text": "Tourism pressure on reserves increasing with prosperity",
+        "source": "Zhou & Grumbine (2011)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2011.02.016"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Panda conservation heavily funded but benefits concentrated on one species",
+        "source": "Macdonald et al. (2016)",
+        "source_url": "https://doi.org/10.1111/geb.12374"
+      },
+      {
+        "text": "Political symbolism sometimes prioritized over ecological effectiveness",
+        "source": "Buckingham et al. (2013)",
+        "source_url": "https://doi.org/10.1007/s10668-013-9449-3"
+      },
+      {
+        "text": "Public preference for charismatic megafauna skews funding allocation",
+        "source": "Macdonald et al. (2016)",
+        "source_url": "https://doi.org/10.1111/geb.12374"
+      }
+    ]
+  },
+  "evidence_summary": "The giant panda demonstrates the \"flagship species\" effect where media attention on one charismatic species generates conservation funding that protects entire ecosystems, though critics note allocation inequity (Macdonald et al., 2016).",
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Swaisgood, R.R. et al. (2011). Can science save the giant panda? Unifying science and policy in an adaptive management framework. Integrative Zoology, 6(3), pp.290-296.",
+    "Wei, F. et al. (2015). Progress in the ecology and conservation of giant pandas. Conservation Biology, 29(6), pp.1497-1507."
+  ],
+  "interesting_facts": [
+    {
+      "text": "Despite being classified as bears (order Carnivora), 99% of a giant panda's diet is bamboo.",
+      "source_url": "https://doi.org/10.1111/cobi.12582"
+    },
+    {
+      "text": "Pandas must eat 12-38 kilograms of bamboo daily because they digest only about 17% of what they consume.",
+      "source_url": "https://doi.org/10.1128/mBio.00892-15"
+    },
+    {
+      "text": "Giant pandas have an enlarged wrist bone (a \"pseudo-thumb\") that functions as an opposable digit for gripping bamboo.",
+      "source_url": "https://doi.org/10.1038/s41586-022-04427-0"
+    },
+    {
+      "text": "Newborn pandas weigh about 100 grams, roughly 1/900th of their mother's weight, one of the smallest mammalian birth-size ratios.",
+      "source_url": "https://doi.org/10.1111/j.1749-4877.2011.00247.x"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/1280px-Grosser_Panda.JPG",
+      "alt": "Giant panda eating bamboo",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "J. Patrick Fischer"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_eating_Bamboo.JPG/1280px-Giant_Panda_eating_Bamboo.JPG",
+      "alt": "Giant panda chewing bamboo stem",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "Chen Wu"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Giant_panda_at_Vienna_Zoo_%28cropped%29.jpg/1280px-Giant_panda_at_Vienna_Zoo_%28cropped%29.jpg",
+      "alt": "Giant panda at Vienna Zoo",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "Manyman"
+    }
+  ],
+  "cultural_depth": {
+    "chinese_yinyang": {
+      "description": "The giant panda has been described in Chinese texts for over two thousand years as a symbol of yin-yang balance, its black and white coloring representing the harmony of opposing forces in nature. Ancient texts describe the mo (panda) as a peaceful creature capable of mediating between warring states.",
+      "source": "Schaller, G.B. (1993). The Last Panda. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226736761.001.0001"
+    },
+    "diplomatic_symbol": {
+      "description": "China has practiced \"panda diplomacy\" since the Tang Dynasty, gifting pandas to allied nations. In the modern era, panda loans serve as diplomatic tools, with China lending pandas to countries that sign favorable trade agreements or maintain strong bilateral relations.",
+      "source": "Buckingham, K.C. et al. (2013)",
+      "source_url": "https://doi.org/10.1007/s10668-013-9449-3"
+    },
+    "conservation_icon": {
+      "description": "Since 1961, the giant panda has served as the logo of the World Wildlife Fund (WWF), making it arguably the most recognized conservation symbol globally. This single-species branding has raised billions for conservation while also drawing criticism for disproportionate resource allocation.",
+      "source": "WWF International",
+      "source_url": "https://www.worldwildlife.org/species/giant-panda"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Wolong National Nature Reserve",
+        "lat": 31,
+        "lng": 103.1667,
+        "country": "China"
+      },
+      {
+        "name": "Foping National Nature Reserve",
+        "lat": 33.6667,
+        "lng": 107.8333,
+        "country": "China"
+      },
+      {
+        "name": "Tangjiahe National Nature Reserve",
+        "lat": 32.6333,
+        "lng": 104.7333,
+        "country": "China"
+      },
+      {
+        "name": "Wanglang National Nature Reserve",
+        "lat": 32.9167,
+        "lng": 104.0667,
+        "country": "China"
+      },
+      {
+        "name": "Giant Panda National Park",
+        "lat": 31.5,
+        "lng": 103.5,
+        "country": "China"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/712/166502858"
+    },
+    {
+      "name": "WWF Giant Panda Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/giant-panda"
+    },
+    {
+      "name": "China State Forestry Administration Survey",
+      "type": "government",
+      "url": "https://www.forestry.gov.cn/"
+    },
+    {
+      "name": "Chengdu Research Base of Giant Panda Breeding",
+      "type": "research",
+      "url": "https://www.panda.org.cn/"
+    }
+  ],
+  "safari_scene": {
+    "biome_type": "Temperate Forest",
+    "sky_gradient": ["#0a1a0a", "#2a5a3a"],
+    "silhouette_color": "#0d280d",
+    "mid_color": "#2a6a3a",
+    "foreground_color": "#1a4a2a",
+    "atmosphere": "neutral"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Bamboo Kingdom",
+      "narrative_text": "The giant panda inhabits misty bamboo forests of central China at elevations between 1,500 and 3,000 metres. In a world of perpetual dampness, steep slopes, and dense bamboo understory, these bears spend up to 14 hours daily consuming 12 to 38 kilograms of bamboo.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Symbol of Harmony",
+      "narrative_text": "Described in Chinese texts for over two thousand years as a symbol of yin-yang balance, the panda's black and white coloring represents the harmony of opposing forces in nature. Ancient texts describe the mo as a peaceful creature capable of mediating between warring states.",
+      "source": "Schaller, G.B. (1993). The Last Panda. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226736761.001.0001"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Fragmented World",
+      "narrative_text": "Roads, railways, and agricultural expansion divide panda populations into isolated groups, reducing genetic diversity. When bamboo species periodically die off, fragmented habitats prevent pandas from moving to alternative food sources, leaving them stranded.",
+      "source": "Li et al. (2015)",
+      "source_url": "https://doi.org/10.1016/j.biocon.2015.09.024"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Diplomat Bears",
+      "narrative_text": "China has practiced 'panda diplomacy' since the Tang Dynasty, gifting pandas to allied nations. In the modern era, panda loans serve as diplomatic tools, with China lending pandas to countries that sign favorable trade agreements or maintain strong bilateral relations.",
+      "source": "Buckingham, K.C. et al. (2013)",
+      "source_url": "https://doi.org/10.1007/s10668-013-9449-3"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "National Park Protection",
+      "narrative_text": "The Giant Panda National Park, established in 2021, connects 67 existing reserves into a single protected landscape three times the size of Yellowstone. Combined with the Chengdu breeding program and WWF support, these efforts have driven a remarkable population recovery.",
+      "source": "WWF International",
+      "source_url": "https://www.worldwildlife.org/species/giant-panda"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Conservation Icon",
+      "narrative_text": "With 1,864 wild individuals and an increasing population trend, the giant panda stands as a conservation success story. Downlisted from Endangered to Vulnerable in 2016, the panda demonstrates what sustained investment in habitat protection can achieve.",
+      "source": null,
+      "source_url": null
+    }
+  ],
+  "tmdb_media": [
+    {
+      "title": "The Giant Panda",
+      "year": 2020,
+      "director": "Jacky Poon",
+      "tmdb_url": "https://www.themoviedb.org/movie/724373",
+      "poster_path": "/pItfZJJn3RMY2xAXP1A3ycZCs7y.jpg",
+      "backdrop_path": "/c0iW1TcdxqnADKv8HaKLG6Q53Wv.jpg",
+      "overview": "Since 2003, nine giant pandas from China's Wolong Nature Reserve have been reintroduced into the bamboo forest of the Qinling Mountains. Born in the breeding and research station of the reserve, they did not have close contact with humans before their relocation to the natural environment. For three years, a team of scientists followed one of them, from its birth to the discovery of its new environment.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 95,
+      "query_source": "Giant Panda",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 8
+    },
+    {
+      "title": "The Giant Panda",
+      "year": 2010,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/603631",
+      "poster_path": "/29xJBYOyrWtrASyviJNPuTSJ035.jpg",
+      "backdrop_path": null,
+      "overview": "The Giant Panda is a mammal native to cntral-western and south western China and is a true member of the Ursidae (bear) family. The Panda's closes ursine rlative is the spectalcled bear of South America. The Giant Panda is amoung the worlds most adored and protected rare animal and is one of the few in the world whose natural inhabitant status was able to gain UNESCO Worlld Heritage Site designation. The Sichuan Giant Panda Sancturarites located in the southwest Sichuan province and covering seven natural reserves, were inscribed onto the World Heritage List in 2009. Discover the beauty and wonder of these great panda's and their fight for life.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 90,
+      "query_source": "Giant Panda",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 0
+    },
+    {
+      "title": "Four Seasons in the giant Panda’s kingdom",
+      "year": 2022,
+      "director": "Philippe Molins",
+      "tmdb_url": "https://www.themoviedb.org/movie/1391107",
+      "poster_path": "/ovyiBOAKwIFH5fALXXRg9YvJWQA.jpg",
+      "backdrop_path": null,
+      "overview": "A journey over the seasons to discover the impassive and mysterious giant panda, in the heart of its natural environment. This series, filmed over 4 years, invites us to share the daily life of two panda families, from birth to adulthood. Up close, the black and white ursid is revealed as never before, in its most complete intimacy.",
+      "classification": "documentary",
+      "narrative_technique": "adventure-narrative",
+      "relevance_score": 90,
+      "query_source": "Giant Panda",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 10
+    },
+    {
+      "title": "Giant Pandas: The Last Refuge",
+      "year": 1994,
+      "director": null,
+      "tmdb_url": "https://www.themoviedb.org/movie/395022",
+      "poster_path": "/5znxHBJ3DYxOxRrbQKCkfDxKbxg.jpg",
+      "backdrop_path": null,
+      "overview": "Take a fascinating trip to the world of these enchanting creatures to observe them in their natural environment.  Their work is critical now, because these well-known creatures are in dire jeopardy. The offspring of captive pandas are rare and sickly compared to those naturally raised, and scientists race to discover why before their habitats and population disappear.",
+      "classification": "documentary",
+      "narrative_technique": "observational",
+      "relevance_score": 75,
+      "query_source": "Giant Panda",
+      "genre_ids": [
+        99
+      ],
+      "vote_average": 0
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "taxonomy": {
+    "scientific_name": "Inia geoffrensis",
+    "common_name": "Amazon River Dolphin",
+    "family": "Iniidae",
+    "order": "Artiodactyla",
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/2440845",
+    "iucn_url": "https://www.iucnredlist.org/species/10831/123792024"
+  },
+  "habitat": {
+    "type": "Freshwater",
+    "description": "The Amazon river dolphin, or boto, navigates the murky, tanin-stained waters of the Amazon and Orinoco river basins, threading between submerged tree trunks in flooded forests and hunting fish in channels where visibility drops to zero. These remarkable cetaceans have evolved to thrive in one of the most complex freshwater environments on Earth.\n\nDuring the wet season, river dolphins follow the rising waters into the varzea floodplain forests, swimming between trees in water several metres deep. Their flexible necks and small eyes are adaptations to this cluttered environment, where echolocation replaces sight as the primary sense for navigation and hunting.\n\nIn the dry season, dolphins concentrate in the main river channels and deeper lakes, where receding waters trap fish in ever-shrinking pools. The pink coloration of adult males intensifies with age and activity, flushing brighter during social encounters in these seasonal congregations.",
+    "range_countries": [
+      "Brazil",
+      "Bolivia",
+      "Colombia",
+      "Ecuador",
+      "Peru",
+      "Venezuela",
+      "Guyana"
+    ],
+    "key_locations": [
+      "Amazon River mainstem",
+      "Rio Negro",
+      "Orinoco Basin",
+      "Madeira River",
+      "Mamiraua Reserve"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Dam Construction",
+      "description": "Hydroelectric dams fragment river systems, isolating dolphin populations and altering water flow, sediment, and fish migration patterns."
+    },
+    {
+      "name": "Mercury Pollution",
+      "description": "Gold mining releases mercury into Amazonian waterways, bioaccumulating through the food chain to toxic levels in dolphin tissues."
+    },
+    {
+      "name": "Bycatch and Intentional Killing",
+      "description": "Dolphins are caught in fishing nets and sometimes deliberately killed for use as fish bait or out of perceived competition with fisheries."
+    },
+    {
+      "name": "Deforestation",
+      "description": "Loss of floodplain forests reduces the seasonal habitat that dolphins use for feeding during high water periods."
+    },
+    {
+      "name": "Water Pollution",
+      "description": "Agricultural runoff, sewage, and industrial waste degrade water quality throughout the Amazon basin."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Endangered",
+    "population_estimate": "Unknown - tens of thousands estimated",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "South American River Dolphin Initiative",
+      "WWF Amazon Programme",
+      "Mamiraua Sustainable Development Reserve",
+      "IWC Scientific Committee"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Pink river dolphins appear in Amazon documentaries as mystical inhabitants of flooded forests, their unusual appearance captivating audiences.",
+    "literature": "The boto features in magical realist literature of South America, blurring boundaries between the natural and supernatural.",
+    "mythology": "In Amazonian folklore, the boto can transform into a handsome man who seduces women at riverside festivals, explaining unexpected pregnancies.",
+    "media_presence": "River dolphins represent the hidden biodiversity of freshwater systems, often featured in documentaries about Amazon threats.",
+    "cultural_paradox": "Protected by folklore and superstition for centuries, river dolphins now face threats from the same modernization that erodes traditional beliefs."
+  },
+  "hero_stat": "65% population decline in Amazon river dolphins over 20 years",
+  "hero_image": {
+    "url": null,
+    "credit": null,
+    "source": null
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Fishers lack bycatch prevention technology for river gillnets",
+      "Mercury monitoring systems inadequate across vast river network",
+      "Limited scientific capacity to survey remote river populations"
+    ],
+    "opportunity": [
+      "Dam construction accelerating across Amazon tributaries",
+      "Gold mining expanding into previously inaccessible areas",
+      "Weak environmental enforcement in remote river communities"
+    ],
+    "motivation": [
+      "Hydroelectric power prioritized as \"green\" energy despite biodiversity impact",
+      "Dolphins perceived as fishing competitors by local communities",
+      "Gold mining provides livelihood in areas with few economic alternatives"
+    ]
+  },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Fishers lack bycatch prevention technology for river gillnets",
+        "source": "Mintzer et al. (2013)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2013.05.016"
+      },
+      {
+        "text": "Mercury monitoring systems inadequate across vast river network",
+        "source": "Mosquera-Guerra et al. (2019)",
+        "source_url": "https://doi.org/10.1016/j.scitotenv.2018.12.122"
+      },
+      {
+        "text": "Limited scientific capacity to survey remote river populations",
+        "source": "da Silva et al. (2018)",
+        "source_url": "https://www.iucnredlist.org/species/10831/123792024"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Dam construction accelerating across Amazon tributaries",
+        "source": "Latrubesse et al. (2017)",
+        "source_url": "https://doi.org/10.1038/nature21763"
+      },
+      {
+        "text": "Gold mining expanding into previously inaccessible areas",
+        "source": "Mosquera-Guerra et al. (2019)",
+        "source_url": "https://doi.org/10.1016/j.scitotenv.2018.12.122"
+      },
+      {
+        "text": "Weak environmental enforcement in remote river communities",
+        "source": "Mintzer et al. (2013)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2013.05.016"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Hydroelectric power prioritized as \"green\" energy despite biodiversity impact",
+        "source": "Latrubesse et al. (2017)",
+        "source_url": "https://doi.org/10.1038/nature21763"
+      },
+      {
+        "text": "Dolphins perceived as fishing competitors by local communities",
+        "source": "Mintzer et al. (2013)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2013.05.016"
+      },
+      {
+        "text": "Gold mining provides livelihood in areas with few economic alternatives",
+        "source": "Asner et al. (2013)",
+        "source_url": "https://doi.org/10.1073/pnas.1318271110"
+      }
+    ]
+  },
+  "evidence_summary": "Amazon documentaries featuring river dolphins have raised awareness of freshwater biodiversity threats, though measuring direct conservation impact is complicated by the remoteness of river dolphin habitat and limited baseline data.",
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "da Silva, V.M.F. et al. (2018). Amazon river dolphin (Inia geoffrensis). IUCN Red List Assessment.",
+    "Mintzer, V.J. et al. (2013). Effect of illegal fishing on population decline of the Amazonian boto. Biological Conservation, 165, pp.154-160."
+  ],
+  "interesting_facts": [
+    {
+      "text": "Amazon river dolphins can turn their heads 180 degrees due to unfused neck vertebrae, unique among cetaceans.",
+      "source_url": "https://doi.org/10.1017/S0952836996000456"
+    },
+    {
+      "text": "Adult males turn increasingly pink with age; the coloring intensifies during social interactions and excitement.",
+      "source_url": "https://doi.org/10.1016/j.biocon.2013.05.016"
+    },
+    {
+      "text": "They use echolocation to navigate murky river waters where visibility can be near zero.",
+      "source_url": "https://doi.org/10.1121/1.399439"
+    },
+    {
+      "text": "River dolphins diverged from oceanic dolphins approximately 24 million years ago.",
+      "source_url": "https://doi.org/10.1098/rspb.2011.1373"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Amazon_river_dolphin_with_mouth_open.jpg/1280px-Amazon_river_dolphin_with_mouth_open.jpg",
+      "alt": "Amazon river dolphin with mouth open",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "Jorge Andrade"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Amazon_river_dolphin.jpg/1280px-Amazon_river_dolphin.jpg",
+      "alt": "Amazon river dolphin surfacing",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "Jorge Andrade"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Inia_geoffrensis.jpg/1280px-Inia_geoffrensis.jpg",
+      "alt": "Pink river dolphin in Amazon waters",
+      "credit": "Wikimedia Commons, CC BY-SA 2.0 DE",
+      "photographer": "Oceancetaceen"
+    }
+  ],
+  "cultural_depth": {
+    "amazonian_boto_encantado": {
+      "description": "In Amazonian folklore, the boto encantado (enchanted dolphin) transforms into a handsome young man dressed in white who seduces women at riverside festivals. This shapeshifting mythology historically provided protection for river dolphins, as killing one was believed to bring terrible misfortune.",
+      "source": "Slater, C. (1994). Dance of the Dolphin. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226761954.001.0001"
+    },
+    "tupi_guardian": {
+      "description": "The Tupi-Guarani peoples regard the boto as a guardian of rivers and fish, a spiritual intermediary between the underwater and human worlds. Fishers believe dolphins guide fish toward their nets when treated with respect, and harming a dolphin brings poor catches.",
+      "source": "da Silva, V.M.F. & Best, R.C. (1996)",
+      "source_url": "https://doi.org/10.1017/S0952836996000456"
+    },
+    "colonial_encounter": {
+      "description": "European naturalists encountering Amazon river dolphins in the 18th and 19th centuries were astonished by their pink coloration and flexible necks, features unknown in marine dolphins. These observations contributed to understanding cetacean diversity and the independent evolution of freshwater dolphin lineages.",
+      "source": "Best, R.C. & da Silva, V.M.F. (1989). Amazon River Dolphin. In: Ridgway & Harrison (eds) Handbook of Marine Mammals.",
+      "source_url": "https://doi.org/10.1016/B978-0-12-588504-1.50009-0"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Mamiraua Sustainable Development Reserve",
+        "lat": -3.0667,
+        "lng": -64.8667,
+        "country": "Brazil"
+      },
+      {
+        "name": "Pacaya-Samiria National Reserve",
+        "lat": -5.3333,
+        "lng": -75,
+        "country": "Peru"
+      },
+      {
+        "name": "Jau National Park",
+        "lat": -1.85,
+        "lng": -61.65,
+        "country": "Brazil"
+      },
+      {
+        "name": "Amana Sustainable Development Reserve",
+        "lat": -2.5,
+        "lng": -64.5,
+        "country": "Brazil"
+      },
+      {
+        "name": "Yasuni National Park",
+        "lat": -1,
+        "lng": -75.5,
+        "country": "Ecuador"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/10831/123792024"
+    },
+    {
+      "name": "WWF Amazon Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/amazon-river-dolphin"
+    },
+    {
+      "name": "South American River Dolphin Initiative",
+      "type": "research",
+      "url": "https://www.riverdolphins.org/"
+    },
+    {
+      "name": "Mamiraua Institute for Sustainable Development",
+      "type": "research",
+      "url": "https://www.mamiraua.org.br/"
+    }
+  ],
+  "safari_scene": {
+    "biome_type": "Freshwater",
+    "sky_gradient": ["#0a1a28", "#1a4a5c"],
+    "silhouette_color": "#0a2a38",
+    "mid_color": "#1a5a4a",
+    "foreground_color": "#0a3a3a",
+    "atmosphere": "neutral"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "River Spirits",
+      "narrative_text": "The Amazon river dolphin navigates murky, tannin-stained waters of the Amazon and Orinoco basins, threading between submerged tree trunks in flooded forests. Their flexible necks and echolocation allow them to thrive where visibility drops to zero in one of Earth's most complex freshwater environments.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "The Enchanted Boto",
+      "narrative_text": "In Amazonian folklore, the boto encantado transforms into a handsome young man dressed in white who seduces women at riverside festivals. This shapeshifting mythology historically provided protection for river dolphins, as killing one was believed to bring terrible misfortune.",
+      "source": "Slater, C. (1994). Dance of the Dolphin. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226761954.001.0001"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Dammed Rivers",
+      "narrative_text": "Hydroelectric dams fragment river systems, isolating dolphin populations and altering water flow, sediment, and fish migration patterns. As dam construction accelerates across Amazon tributaries, populations become increasingly cut off from each other.",
+      "source": "Latrubesse et al. (2017)",
+      "source_url": "https://doi.org/10.1038/nature21763"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Guardian of Waters",
+      "narrative_text": "The Tupi-Guarani peoples regard the boto as a guardian of rivers and fish, a spiritual intermediary between the underwater and human worlds. Fishers believe dolphins guide fish toward their nets when treated with respect, and harming a dolphin brings poor catches.",
+      "source": "da Silva, V.M.F. & Best, R.C. (1996)",
+      "source_url": "https://doi.org/10.1017/S0952836996000456"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "River Dolphin Initiative",
+      "narrative_text": "The South American River Dolphin Initiative coordinates research and protection across multiple countries. Working alongside the WWF Amazon Programme and the Mamiraua Sustainable Development Reserve, these efforts seek to maintain river connectivity and reduce harmful fishing practices.",
+      "source": "South American River Dolphin Initiative",
+      "source_url": "https://www.riverdolphins.org/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Unknown Numbers",
+      "narrative_text": "With an estimated population of tens of thousands but an Endangered status and decreasing trend, the Amazon river dolphin faces a future clouded by uncertainty. A 65% decline over 20 years signals urgent need for action, but the remoteness of their habitat makes conservation uniquely challenging.",
+      "source": null,
+      "source_url": null
+    }
+  ],
+  "tmdb_media": []
+}
