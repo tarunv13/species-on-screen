@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "feat",
   "description": "Rewrite all 10 species JSON data files with complete depth: real IUCN/GBIF URLs, Wikimedia Commons photo URLs, cultural_depth sections with academic sources, COM-B with per-claim source_url, interesting_facts with source_url, globe_layers with protected area coordinates, and data_sources with URLs. Also run the TMDB fetch script to get fresh documentary data.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Step 1: Rewrite scripts/fetch-tmdb-data.js to also output the new enriched data fields (photos, cultural_depth, com_b with sources, taxonomy with gbif_url and iucn_url, interesting_facts with source_url, globe_layers with protected_areas, data_sources with URLs). The script already contains the species metadata - extend it to include these new fields in the output JSON. Each species must have: taxonomy.gbif_url, taxonomy.iucn_url, photos array (3-5 Wikimedia Commons URLs per species using verified format https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/{size}-{filename}), cultural_depth object with region-specific cultural entries each having source and source_url, com_b (renamed from root_causes_comb) with each barrier as an object {text, source, source_url}, interesting_facts each with source_url, globe_layers.protected_areas array with name/lat/lng/country, data_sources with url field added to each entry.",
     "Step 2: Run the updated script with: node scripts/fetch-tmdb-data.js - this fetches fresh TMDB data and outputs all 10 enriched JSON files to public/data/. The TMDB API key is ab7c1810da1a84fbc50d3fe313f42a72.",
@@ -28,5 +28,5 @@
     "Run: npx vite build and confirm success"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Script runs successfully. TMDB API returns 0 results for some species (orangutan, hawksbill, coral, dolphin) due to niche search terms, but all enrichment data fields are populated correctly. Build passes cleanly. The root_causes_comb field is preserved as string arrays for backward compat, and the new com_b field has object format with source URLs."
 }
