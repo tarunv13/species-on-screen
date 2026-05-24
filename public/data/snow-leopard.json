@@ -130,7 +130,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1612530",
       "poster_path": null,
       "backdrop_path": null,
-      "overview": "“High in the mountains, a ghost walks among the snow.”  In the remote and frozen landscapes of Ladakh, the snow leopard moves silently, almost unseen. It is one of the rarest and most mysterious big cats in the world.  \"Ghost of The Mountain\" follows the journey of a wildlife photographer searching for this secretive predator. But he is not alone. Along the way, he meets the people who live in these harsh lands— herders, trackers, and conservationists— who work every day to protect the snow leopard and find ways to live alongside it.  Through their stories, we explore the delicate balance between survival and coexistence, between ancient traditions and modern conservation.",
+      "overview": "\u201cHigh in the mountains, a ghost walks among the snow.\u201d  In the remote and frozen landscapes of Ladakh, the snow leopard moves silently, almost unseen. It is one of the rarest and most mysterious big cats in the world.  \"Ghost of The Mountain\" follows the journey of a wildlife photographer searching for this secretive predator. But he is not alone. Along the way, he meets the people who live in these harsh lands\u2014 herders, trackers, and conservationists\u2014 who work every day to protect the snow leopard and find ways to live alongside it.  Through their stories, we explore the delicate balance between survival and coexistence, between ancient traditions and modern conservation.",
       "classification": "documentary",
       "narrative_technique": "presenter-led",
       "relevance_score": 105,
@@ -147,7 +147,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1422627",
       "poster_path": "/3eT4xMPqHrLjqO5vOnfhHS8D6ml.jpg",
       "backdrop_path": null,
-      "overview": "In Nepal’s remote Dolpo region, two Indigenous women form an unlikely friendship to save one of the planet’s most mysterious and vulnerable wild cats: the snow leopard.",
+      "overview": "In Nepal\u2019s remote Dolpo region, two Indigenous women form an unlikely friendship to save one of the planet\u2019s most mysterious and vulnerable wild cats: the snow leopard.",
       "classification": "documentary",
       "narrative_technique": "observational",
       "relevance_score": 95,
@@ -195,7 +195,7 @@
     {
       "title": "The Frozen Kingdom of the Snow Leopard",
       "year": 2020,
-      "director": "Frédéric Larrey",
+      "director": "Fr\u00e9d\u00e9ric Larrey",
       "tmdb_url": "https://www.themoviedb.org/movie/783095",
       "poster_path": "/o3rBvTBE0dkkHDo2Nuj3Hvvsrz2.jpg",
       "backdrop_path": "/izAvnQEdCHfNC0PJDhpgAuWYuVJ.jpg",
@@ -250,7 +250,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/775518",
       "poster_path": null,
       "backdrop_path": null,
-      "overview": "Disturbed by how herders trap and torture snow leopards by the herders, Tshiring, a young conservationist from Dolpo who researches snow leopards feels a sense of urgency to protect the last of these endangered big cats. She is convinced this can only happen if local communities are involved in protecting the animals—but also benefit from snow leopards. She takes on a challenging research expedition over three harsh winter months in an empty village to explore the possibility of organizing a snow leopard conservation trek that could help change locals’ perception about the need to protect snow leopards.",
+      "overview": "Disturbed by how herders trap and torture snow leopards by the herders, Tshiring, a young conservationist from Dolpo who researches snow leopards feels a sense of urgency to protect the last of these endangered big cats. She is convinced this can only happen if local communities are involved in protecting the animals\u2014but also benefit from snow leopards. She takes on a challenging research expedition over three harsh winter months in an empty village to explore the possibility of organizing a snow leopard conservation trek that could help change locals\u2019 perception about the need to protect snow leopards.",
       "classification": "fiction",
       "narrative_technique": "fiction-featuring",
       "relevance_score": 55,
@@ -265,7 +265,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1479547",
       "poster_path": null,
       "backdrop_path": null,
-      "overview": "Set in the remote Kyrgyz mountains, The Descendant of the Snow Leopard tells the story of a resilient nomadic tribe whose survival and spiritual identity are deeply connected to the elusive snow leopard. Based on a traditional Kyrgyz folktale, the film explores themes of courage, heritage, and humanity’s bond with nature, as one family confronts harsh environments, moral dilemmas, and cultural transformation in Soviet-era Central Asia.",
+      "overview": "Set in the remote Kyrgyz mountains, The Descendant of the Snow Leopard tells the story of a resilient nomadic tribe whose survival and spiritual identity are deeply connected to the elusive snow leopard. Based on a traditional Kyrgyz folktale, the film explores themes of courage, heritage, and humanity\u2019s bond with nature, as one family confronts harsh environments, moral dilemmas, and cultural transformation in Soviet-era Central Asia.",
       "classification": "fiction",
       "narrative_technique": "fiction-featuring",
       "relevance_score": 45,
@@ -321,6 +321,55 @@
       "query_source": "Snow Leopard",
       "genre_ids": [],
       "vote_average": 0
+    }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "4,000-6,500",
+      "source": "Snow Leopard Trust / Global Snow Leopard Forum",
+      "year": 2022
+    },
+    "iucn_status": {
+      "status": "Vulnerable",
+      "source": "IUCN Red List",
+      "assessed": 2017
+    },
+    "range_loss": {
+      "value": "20% of range lost in 16 years",
+      "source": "Snow Leopard Trust",
+      "year": 2020
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Snow leopards cannot roar - they communicate through hissing, mewing, and a unique non-aggressive puffing sound called 'prusten'.",
+      "source": "Snow Leopard Trust, 2022"
+    },
+    {
+      "fact": "Their tails can be almost as long as their body (up to 1 metre), used for balance and warmth.",
+      "source": "Jackson & Ahlborn, National Geographic Research, 1989"
+    },
+    {
+      "fact": "A snow leopard can leap up to 15 metres in a single bound when hunting on steep terrain.",
+      "source": "Snow Leopard Conservancy, 2020"
+    },
+    {
+      "fact": "They are so elusive that local researchers call them 'ghosts of the mountain' - some spend entire careers without a sighting.",
+      "source": "Matthiessen, The Snow Leopard, 1978"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Irbis4.jpg/1280px-Irbis4.jpg",
+      "alt": "Snow leopard on rocky terrain",
+      "credit": "Wikimedia Commons",
+      "photographer": "Bernard Landgraf"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Snow_leopard_in_Bronx_Zoo.jpg/1280px-Snow_leopard_in_Bronx_Zoo.jpg",
+      "alt": "Snow leopard portrait",
+      "credit": "Wikimedia Commons",
+      "photographer": "Dingopup"
     }
   ]
 }

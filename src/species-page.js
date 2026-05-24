@@ -1,6 +1,7 @@
 import './species-page.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,6 +9,30 @@ const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w300';
 const TMDB_IMAGE_LARGE = 'https://image.tmdb.org/t/p/original';
 const slug = document.body.dataset.species;
 
+// ============================================================
+// Lenis Smooth Scrolling
+// ============================================================
+function initLenis() {
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true
+  });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  return lenis;
+}
+
+// ============================================================
+// Data Loading
+// ============================================================
 async function loadSpeciesData() {
   const loadingEl = document.querySelector('.species-page-loading');
   try {
@@ -34,11 +59,17 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// ============================================================
+// Main Render
+// ============================================================
 function renderSpeciesPage(data) {
   const main = document.getElementById('main-content');
   const sections = [
     renderHero(data),
+    renderComicStrip(data),
     renderScience(data),
+    renderPhotos(data),
+    renderInterestingFacts(data),
     renderOnScreen(data),
     renderRootCauses(data),
     renderEvidence(data),
@@ -51,7 +82,7 @@ function renderSpeciesPage(data) {
 }
 
 // ============================================================
-// Section 1: Hero Moment
+// Section: Hero
 // ============================================================
 function renderHero(data) {
   const name = data.taxonomy && data.taxonomy.common_name;
@@ -59,9 +90,16 @@ function renderHero(data) {
   const status = data.conservation && data.conservation.iucn_status;
   const heroStat = data.hero_stat;
 
+  let bgImage = '';
+  if (data.photos && data.photos.length > 0) {
+    bgImage = data.photos[0].url;
+  } else if (data.hero_image && data.hero_image.url) {
+    bgImage = data.hero_image.url;
+  }
+
   let bgStyle = '';
-  if (data.hero_image && data.hero_image.url) {
-    bgStyle = `style="background-image: linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.7) 60%, #0a0a0f 100%), url('${data.hero_image.url}')"`;
+  if (bgImage) {
+    bgStyle = `style="background-image: linear-gradient(to bottom, rgba(250,250,248,0.3) 0%, rgba(250,250,248,0.6) 50%, rgba(250,250,248,0.9) 100%), url('${bgImage}')"`;
   }
 
   return `
@@ -77,12 +115,96 @@ function renderHero(data) {
 }
 
 // ============================================================
-// Section 2: The Science
+// Section: Comic Strip
+// ============================================================
+function renderComicStrip(data) {
+  const habitat = data.habitat;
+  const threats = data.threats;
+  const media = data.tmdb_media;
+  const conservation = data.conservation;
+  const speciesName = data.taxonomy && data.taxonomy.common_name;
+
+  const habitatDesc = habitat && habitat.description
+    ? habitat.description.split('\n\n')[0].slice(0, 150) + '...'
+    : 'Habitat information unavailable.';
+
+  const primaryThreat = threats && threats.length > 0 ? threats[0] : null;
+  const threatName = primaryThreat ? primaryThreat.name : 'Unknown';
+  const threatDesc = primaryThreat ? primaryThreat.description.slice(0, 120) + '...' : '';
+
+  const mediaCount = media ? media.length : 0;
+  const posterThumb = media && media.length > 0 && media[0].poster_path
+    ? `${TMDB_IMAGE_BASE}${media[0].poster_path}`
+    : '';
+
+  const iucnStatus = conservation ? conservation.iucn_status : 'Unknown';
+  const keyProgram = conservation && conservation.key_programs && conservation.key_programs.length > 0
+    ? conservation.key_programs[0]
+    : 'Conservation programs active';
+
+  let heroPhoto = '';
+  if (data.photos && data.photos.length > 0) {
+    heroPhoto = data.photos[0].url;
+  }
+
+  return `
+    <section class="sp-section sp-comic sp-section--alt">
+      <div class="sp-section__inner">
+        <h2 class="sp-section__heading">The Story of the ${escapeHtml(speciesName)}</h2>
+        <div class="comic-panels">
+          <div class="comic-panel">
+            ${heroPhoto ? `<div class="comic-panel__bg" style="background-image: url('${heroPhoto}')"></div>` : ''}
+            <div class="comic-panel__content">
+              <span class="comic-panel__label">In the Wild</span>
+              <h3 class="comic-panel__title">${escapeHtml(habitat ? habitat.type : 'Natural Habitat')}</h3>
+              <p class="comic-panel__text">${escapeHtml(habitatDesc)}</p>
+            </div>
+          </div>
+          <div class="comic-panel">
+            <div class="comic-panel__content">
+              <span class="comic-panel__label">Under Threat</span>
+              <h3 class="comic-panel__title">${escapeHtml(threatName)}</h3>
+              <p class="comic-panel__text">${escapeHtml(threatDesc)}</p>
+              ${data.data_sources && data.data_sources.habitat_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.habitat_loss.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.range_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.range_loss.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.decline ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.decline.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.historic_decline ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.historic_decline.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.poaching ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.poaching.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.sea_ice_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.sea_ice_loss.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.reef_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.reef_loss.value)}</p>` : ''}
+              ${data.data_sources && data.data_sources.recovery ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.recovery.value)}</p>` : ''}
+            </div>
+          </div>
+          <div class="comic-panel">
+            <div class="comic-panel__content">
+              <span class="comic-panel__label">On Screen</span>
+              <h3 class="comic-panel__title">${mediaCount} Films & Documentaries</h3>
+              <p class="comic-panel__text">Explored in cinema as a symbol of ${escapeHtml(speciesName ? speciesName.toLowerCase() : 'wildlife')} conservation.</p>
+              ${posterThumb ? `<img src="${posterThumb}" alt="Film poster" style="width:60px;border-radius:8px;margin-top:0.5rem;" loading="lazy" onerror="this.style.display='none'" />` : ''}
+            </div>
+          </div>
+          <div class="comic-panel">
+            <div class="comic-panel__content">
+              <span class="comic-panel__label">The Future</span>
+              <h3 class="comic-panel__title">${escapeHtml(iucnStatus)}</h3>
+              <p class="comic-panel__text">${escapeHtml(keyProgram)}</p>
+              ${conservation && conservation.population_trend ? `<p class="comic-panel__stat">Trend: ${escapeHtml(conservation.population_trend)}</p>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// ============================================================
+// Section: The Science
 // ============================================================
 function renderScience(data) {
   const taxonomy = data.taxonomy;
   const conservation = data.conservation;
   const habitat = data.habitat;
+  const dataSources = data.data_sources;
 
   if (!taxonomy && !conservation && !habitat) return '';
 
@@ -113,6 +235,9 @@ function renderScience(data) {
   let populationHtml = '';
   if (conservation) {
     const trendArrow = getTrendArrow(conservation.population_trend);
+    const popSource = dataSources && dataSources.population;
+    const iucnSource = dataSources && dataSources.iucn_status;
+
     populationHtml = `
       <div class="sp-science__population">
         <h3 class="sp-science__subheading">Population</h3>
@@ -121,12 +246,20 @@ function renderScience(data) {
             <div class="sp-science__pop-item">
               <span class="sp-science__pop-label">Estimate</span>
               <span class="sp-science__pop-value">${escapeHtml(conservation.population_estimate)}</span>
+              ${popSource ? `<span class="citation">(Source: ${escapeHtml(popSource.source)}, ${popSource.year})</span>` : ''}
             </div>
           ` : ''}
           ${conservation.population_trend ? `
             <div class="sp-science__pop-item">
               <span class="sp-science__pop-label">Trend</span>
               <span class="sp-science__pop-value">${trendArrow} ${escapeHtml(conservation.population_trend)}</span>
+            </div>
+          ` : ''}
+          ${conservation.iucn_status ? `
+            <div class="sp-science__pop-item">
+              <span class="sp-science__pop-label">IUCN Status</span>
+              <span class="sp-science__pop-value">${escapeHtml(conservation.iucn_status)}</span>
+              ${iucnSource ? `<span class="citation">(Source: ${escapeHtml(iucnSource.source)}, assessed ${iucnSource.assessed})</span>` : ''}
             </div>
           ` : ''}
         </div>
@@ -183,7 +316,55 @@ function getTrendArrow(trend) {
 }
 
 // ============================================================
-// Section 3: On Screen
+// Section: Photos
+// ============================================================
+function renderPhotos(data) {
+  if (!data.photos || data.photos.length === 0) return '';
+
+  const speciesName = data.taxonomy && data.taxonomy.common_name;
+
+  return `
+    <section class="sp-section sp-photos sp-section--alt">
+      <div class="sp-section__inner">
+        <h2 class="sp-section__heading">${escapeHtml(speciesName)} in the Wild</h2>
+        <div class="sp-photos__grid">
+          ${data.photos.map(photo => `
+            <div class="sp-photos__item">
+              <img class="sp-photos__img" src="${escapeHtml(photo.url)}" alt="${escapeHtml(photo.alt)}" loading="lazy" onerror="this.parentElement.style.display='none'" />
+              <div class="sp-photos__credit">${escapeHtml(photo.photographer || photo.credit)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// ============================================================
+// Section: Interesting Facts
+// ============================================================
+function renderInterestingFacts(data) {
+  if (!data.interesting_facts || data.interesting_facts.length === 0) return '';
+
+  return `
+    <section class="sp-section sp-facts">
+      <div class="sp-section__inner">
+        <h2 class="sp-section__heading">Fascinating Facts</h2>
+        <div class="sp-facts__grid">
+          ${data.interesting_facts.map(item => `
+            <div class="sp-fact-card">
+              <p class="sp-fact-card__text">${escapeHtml(item.fact)}</p>
+              <span class="sp-fact-card__citation">${escapeHtml(item.source)}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// ============================================================
+// Section: On Screen
 // ============================================================
 function renderOnScreen(data) {
   const media = data.tmdb_media;
@@ -200,7 +381,6 @@ function renderOnScreen(data) {
     `;
   }
 
-  // Group by classification
   const groups = { documentary: [], fiction: [], educational: [] };
   media.forEach(item => {
     const cls = (item.classification || 'fiction').toLowerCase();
@@ -270,7 +450,7 @@ function renderMediaCard(item) {
 }
 
 // ============================================================
-// Section 5: Root Causes (COM-B)
+// Section: Root Causes (COM-B)
 // ============================================================
 function renderRootCauses(data) {
   const comb = data.root_causes_comb;
@@ -311,7 +491,7 @@ function renderRootCauses(data) {
 }
 
 // ============================================================
-// Section 6: The Evidence
+// Section: The Evidence
 // ============================================================
 function renderEvidence(data) {
   if (!data.evidence_summary) return '';
@@ -332,7 +512,7 @@ function renderEvidence(data) {
 }
 
 // ============================================================
-// Section 7: References
+// Section: References
 // ============================================================
 function renderReferences(data) {
   if (!data.academic_references || data.academic_references.length === 0) return '';
@@ -356,7 +536,7 @@ function renderFooter() {
   return `
     <footer class="sp-footer">
       <div class="sp-section__inner">
-        <p>Eco-Cinema Observatory &mdash; An open research project</p>
+        <p>Eco-Cinema Observatory - An open research project</p>
         <p><a href="/species-on-screen/">Return to the Observatory</a></p>
       </div>
     </footer>
@@ -395,7 +575,7 @@ function statusClass(status) {
 }
 
 // ============================================================
-// GSAP Scroll Animations
+// GSAP Scroll Animations with Spring Physics
 // ============================================================
 function initAnimations() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -406,15 +586,15 @@ function initAnimations() {
 
   const sections = document.querySelectorAll('.sp-section');
   sections.forEach((section, i) => {
-    if (i === 0) return; // Skip hero
+    if (i === 0) return;
 
     const heading = section.querySelector('.sp-section__heading');
-    const panels = section.querySelectorAll('.sp-panel, .sp-media-card, .sp-comb__column, .sp-evidence__content, .sp-methodology__framework, .sp-methodology__notes, .sp-references__list');
+    const panels = section.querySelectorAll('.sp-panel, .sp-media-card, .sp-comb__column, .sp-evidence__content, .sp-references__list');
 
     if (heading) {
       gsap.fromTo(heading,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, ease: 'power2.out', duration: 0.8,
+        { opacity: 1, y: 0, ease: 'back.out(1.4)', duration: 0.9,
           scrollTrigger: { trigger: heading, start: 'top 85%' }
         }
       );
@@ -423,11 +603,65 @@ function initAnimations() {
     panels.forEach((panel, j) => {
       gsap.fromTo(panel,
         { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, ease: 'power2.out', duration: 0.6, delay: j * 0.1,
+        { opacity: 1, y: 0, ease: 'back.out(1.2)', duration: 0.7, delay: j * 0.1,
           scrollTrigger: { trigger: panel, start: 'top 90%' }
         }
       );
     });
+  });
+
+  // Comic panels with scrub-based animation
+  const comicPanels = document.querySelectorAll('.comic-panel');
+  comicPanels.forEach((panel, i) => {
+    gsap.fromTo(panel,
+      { opacity: 0, y: 40, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, ease: 'back.out(1.7)', duration: 0.8, delay: i * 0.15,
+        scrollTrigger: {
+          trigger: panel,
+          start: 'top 88%',
+          end: 'top 60%',
+          scrub: 1
+        }
+      }
+    );
+  });
+
+  // Fact cards with spring reveal
+  const factCards = document.querySelectorAll('.sp-fact-card');
+  factCards.forEach((card, i) => {
+    gsap.fromTo(card,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, ease: 'elastic.out(1, 0.75)', duration: 1.2, delay: i * 0.1,
+        scrollTrigger: { trigger: card, start: 'top 90%' }
+      }
+    );
+  });
+
+  // Photo items with parallax
+  const photoItems = document.querySelectorAll('.sp-photos__item');
+  photoItems.forEach((item, i) => {
+    gsap.fromTo(item,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, ease: 'power3.out', duration: 0.8, delay: i * 0.15,
+        scrollTrigger: { trigger: item, start: 'top 90%' }
+      }
+    );
+
+    // Parallax effect on the image inside
+    const img = item.querySelector('.sp-photos__img');
+    if (img) {
+      gsap.fromTo(img,
+        { yPercent: -5 },
+        { yPercent: 5, ease: 'none',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        }
+      );
+    }
   });
 
   ScrollTrigger.refresh();
@@ -437,5 +671,6 @@ function initAnimations() {
 // Init
 // ============================================================
 if (slug) {
+  initLenis();
   loadSpeciesData();
 }

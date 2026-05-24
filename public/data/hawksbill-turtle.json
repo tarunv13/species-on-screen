@@ -103,5 +103,54 @@
     "Mortimer, J.A. & Donnelly, M. (2008). Hawksbill Turtle (Eretmochelys imbricata). IUCN Red List Assessment.",
     "Meylan, A.B. & Donnelly, M. (1999). Status justification for listing the hawksbill turtle as Critically Endangered. Chelonian Conservation and Biology, 3(2), pp.200-224."
   ],
-  "tmdb_media": []
+  "tmdb_media": [],
+  "data_sources": {
+    "population": {
+      "value": "20,000-23,000 nesting females",
+      "source": "Mortimer & Donnelly, IUCN",
+      "year": 2008
+    },
+    "iucn_status": {
+      "status": "Critically Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2008
+    },
+    "decline": {
+      "value": "80% decline over three generations",
+      "source": "IUCN Marine Turtle Specialist Group",
+      "year": 2008
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Hawksbills can consume toxic sponges that would kill most other animals, making their flesh potentially poisonous to humans.",
+      "source": "Meylan, Science, 1988"
+    },
+    {
+      "fact": "They navigate thousands of kilometres of open ocean using Earth's magnetic field to return to their birth beach.",
+      "source": "Lohmann et al., Current Biology, 2004"
+    },
+    {
+      "fact": "A single hawksbill removes over 500kg of sponge from reefs annually, preventing coral from being smothered.",
+      "source": "Leon & Bjorndal, Ecology, 2002"
+    },
+    {
+      "fact": "Hawksbill shell ('tortoiseshell') was traded for 2,000 years before international bans, driving populations down 80%.",
+      "source": "CITES Trade Database, 2020"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hawksbill_Turtle_on_coral_reef.jpg/1280px-Hawksbill_Turtle_on_coral_reef.jpg",
+      "alt": "Hawksbill turtle swimming over coral reef",
+      "credit": "Wikimedia Commons",
+      "photographer": "Thierry Caro"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Eretmochelys_imbricata_01.jpg/1280px-Eretmochelys_imbricata_01.jpg",
+      "alt": "Hawksbill turtle close-up",
+      "credit": "Wikimedia Commons",
+      "photographer": "Christoph Rohner"
+    }
+  ]
 }

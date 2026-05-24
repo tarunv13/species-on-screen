@@ -122,5 +122,54 @@
       ],
       "vote_average": 9
     }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "415,000",
+      "source": "Great Elephant Census / IUCN",
+      "year": 2022
+    },
+    "iucn_status": {
+      "status": "Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2021
+    },
+    "poaching": {
+      "value": "55 elephants killed per day at peak",
+      "source": "CITES MIKE Programme",
+      "year": 2016
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Elephants mourn their dead, returning to bones of deceased family members and gently touching them with their trunks.",
+      "source": "McComb et al., Biology Letters, 2006"
+    },
+    {
+      "fact": "They can communicate over distances of 10km using low-frequency infrasound undetectable to human ears.",
+      "source": "Payne et al., Behavioral Ecology, 1986"
+    },
+    {
+      "fact": "An elephant's brain weighs about 5kg - the largest of any land animal - and they demonstrate self-awareness in mirror tests.",
+      "source": "Plotnik et al., PNAS, 2006"
+    },
+    {
+      "fact": "They are ecosystem engineers - their dung disperses seeds up to 65km and their trails become water channels during rains.",
+      "source": "Blake et al., Biotropica, 2009"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/1280px-African_Bush_Elephant.jpg",
+      "alt": "African elephant in savanna",
+      "credit": "Wikimedia Commons",
+      "photographer": "Gorgo"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg/1280px-African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg",
+      "alt": "African elephant bull",
+      "credit": "Wikimedia Commons",
+      "photographer": "Bernard Dupont"
+    }
   ]
 }

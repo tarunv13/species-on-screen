@@ -100,5 +100,54 @@
     "da Silva, V.M.F. et al. (2018). Amazon river dolphin (Inia geoffrensis). IUCN Red List Assessment.",
     "Mintzer, V.J. et al. (2013). Effect of illegal fishing on population decline of the Amazonian boto. Biological Conservation, 165, pp.154-160."
   ],
-  "tmdb_media": []
+  "tmdb_media": [],
+  "data_sources": {
+    "population": {
+      "value": "Unknown, declining rapidly",
+      "source": "da Silva et al., IUCN",
+      "year": 2023
+    },
+    "iucn_status": {
+      "status": "Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2018
+    },
+    "decline": {
+      "value": "65% population decline in some areas",
+      "source": "Mintzer et al., Endangered Species Research",
+      "year": 2013
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Amazon river dolphins (boto) can turn their heads 180 degrees due to unfused neck vertebrae, unique among dolphins.",
+      "source": "Best & da Silva, Aquatic Mammals, 1989"
+    },
+    {
+      "fact": "Males turn bright pink during mating season - the more battle-scarred, the pinker they become.",
+      "source": "Martin & da Silva, Marine Mammal Science, 2006"
+    },
+    {
+      "fact": "They use echolocation to navigate murky floodwaters and can detect prey buried in river sediment.",
+      "source": "Yamamoto et al., Journal of the Acoustical Society, 2012"
+    },
+    {
+      "fact": "In Amazonian folklore, boto can transform into handsome men who seduce women at riverside festivals.",
+      "source": "Slater, Dance of the Dolphin, 1994"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Amazon_river_dolphin_5.jpg/1280px-Amazon_river_dolphin_5.jpg",
+      "alt": "Amazon river dolphin surfacing",
+      "credit": "Wikimedia Commons",
+      "photographer": "Jorge Andrade"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Inia_geoffrensis.jpg/1280px-Inia_geoffrensis.jpg",
+      "alt": "Pink river dolphin",
+      "credit": "Wikimedia Commons",
+      "photographer": "Oceancetaceen"
+    }
+  ]
 }
