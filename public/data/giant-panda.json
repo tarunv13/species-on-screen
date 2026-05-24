@@ -260,6 +260,64 @@
       "url": "https://www.panda.org.cn/"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Temperate Forest",
+    "sky_gradient": ["#0a1a0a", "#2a5a3a"],
+    "silhouette_color": "#0d280d",
+    "mid_color": "#2a6a3a",
+    "foreground_color": "#1a4a2a",
+    "atmosphere": "neutral"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Bamboo Kingdom",
+      "narrative_text": "The giant panda inhabits misty bamboo forests of central China at elevations between 1,500 and 3,000 metres. In a world of perpetual dampness, steep slopes, and dense bamboo understory, these bears spend up to 14 hours daily consuming 12 to 38 kilograms of bamboo.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Symbol of Harmony",
+      "narrative_text": "Described in Chinese texts for over two thousand years as a symbol of yin-yang balance, the panda's black and white coloring represents the harmony of opposing forces in nature. Ancient texts describe the mo as a peaceful creature capable of mediating between warring states.",
+      "source": "Schaller, G.B. (1993). The Last Panda. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226736761.001.0001"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Fragmented World",
+      "narrative_text": "Roads, railways, and agricultural expansion divide panda populations into isolated groups, reducing genetic diversity. When bamboo species periodically die off, fragmented habitats prevent pandas from moving to alternative food sources, leaving them stranded.",
+      "source": "Li et al. (2015)",
+      "source_url": "https://doi.org/10.1016/j.biocon.2015.09.024"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Diplomat Bears",
+      "narrative_text": "China has practiced 'panda diplomacy' since the Tang Dynasty, gifting pandas to allied nations. In the modern era, panda loans serve as diplomatic tools, with China lending pandas to countries that sign favorable trade agreements or maintain strong bilateral relations.",
+      "source": "Buckingham, K.C. et al. (2013)",
+      "source_url": "https://doi.org/10.1007/s10668-013-9449-3"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "National Park Protection",
+      "narrative_text": "The Giant Panda National Park, established in 2021, connects 67 existing reserves into a single protected landscape three times the size of Yellowstone. Combined with the Chengdu breeding program and WWF support, these efforts have driven a remarkable population recovery.",
+      "source": "WWF International",
+      "source_url": "https://www.worldwildlife.org/species/giant-panda"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Conservation Icon",
+      "narrative_text": "With 1,864 wild individuals and an increasing population trend, the giant panda stands as a conservation success story. Downlisted from Endangered to Vulnerable in 2016, the panda demonstrates what sustained investment in habitat protection can achieve.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": [
     {
       "title": "The Giant Panda",

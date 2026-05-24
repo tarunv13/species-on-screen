@@ -31,12 +31,14 @@
   bottom: 0;
   top: auto;
   height: 40%;
+  background: linear-gradient(to top, var(--silhouette-color, #1a2a1a), transparent);
 }
 
 .safari-layer--mid {
   bottom: 0;
   top: auto;
   height: 30%;
+  background: linear-gradient(to top, var(--mid-color, #2a4a2a), transparent);
 }
 
 .safari-layer--subject {
@@ -60,6 +62,7 @@
   bottom: 0;
   top: auto;
   height: 20%;
+  background: linear-gradient(to top, var(--foreground-color, #0a1a0a) 30%, transparent);
 }
 
 .safari-hero__title {
