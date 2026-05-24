@@ -25,16 +25,6 @@ const SHARED_ACADEMIC_REFERENCES = [
 ];
 
 // ============================================================
-// RESEARCH QUESTIONS
-// ============================================================
-const RESEARCH_QUESTIONS = [
-  "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-  "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-  "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-  "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-];
-
-// ============================================================
 // SEMANTIC TRAP GENRES (action, crime, thriller, war)
 // ============================================================
 const TRAP_GENRES = new Set([28, 80, 53, 10752]);
@@ -94,7 +84,6 @@ const SPECIES = [
       motivation: ['Short-term economic gain from land conversion outweighs conservation value', 'Cultural beliefs drive demand for tiger bone medicine', 'Retaliatory killing perceived as necessary for community safety']
     },
     evidence_summary: 'Research indicates that high-profile tiger documentaries (e.g., BBC Tiger: Spy in the Jungle) correlate with increased donations to tiger conservation funds and heightened public awareness, though direct behavioural change remains difficult to measure (Jones et al., 2019).',
-    methodology_notes: 'Tiger connects to RQ1 through measurable donation spikes following broadcast events; RQ2 through comparison of observational vs presenter-led documentary engagement; RQ4 through Project Tiger monitoring data providing baseline for media impact assessment.',
     academic_references: ['Karanth, K.U. & Nichols, J.D. (1998). Estimation of tiger densities using photographic captures and recaptures. Ecology, 79(8), pp.2852-2862.', 'Linkie, M. et al. (2015). Safeguarding Sumatran tigers: evaluating effectiveness of law enforcement patrols. Biological Conservation, 190, pp.42-49.'],
     search_terms: ['tiger', 'bengal tiger', 'sumatran tiger', 'siberian tiger']
   },
@@ -140,7 +129,6 @@ const SPECIES = [
       motivation: ['Livestock losses represent catastrophic economic damage for herders', 'Pelt trade offers significant income in impoverished regions', 'Low awareness of snow leopard ecological importance among local communities']
     },
     evidence_summary: 'Planet Earth II snow leopard sequences generated measurable increases in Snow Leopard Trust donations and social media engagement, demonstrating the power of rare wildlife footage to drive conservation support (Silk et al., 2018).',
-    methodology_notes: 'Snow leopard connects to RQ1 through donation tracking post-broadcast; RQ2 through analysis of dramatic cliff-hunting sequences as adventure-narrative technique; RQ3 through potential for mountain ecosystem simulation games; RQ4 through Snow Leopard Trust community monitoring programmes.',
     academic_references: ['Jackson, R.M. et al. (2006). Estimating snow leopard population abundance using photography and capture-recapture techniques. Wildlife Society Bulletin, 34(3), pp.772-781.', 'Li, J. et al. (2016). Role of Tibetan Buddhist monasteries in snow leopard conservation. Conservation Biology, 30(4), pp.735-745.'],
     search_terms: ['snow leopard', 'mountain cat', 'ghost cat']
   },
@@ -186,7 +174,6 @@ const SPECIES = [
       motivation: ['Palm oil highly profitable compared to sustainable alternatives', 'Consumer disconnect between products and deforestation', 'Short election cycles discourage long-term forest protection policies']
     },
     evidence_summary: 'Documentaries linking orangutan decline to palm oil consumption have measurably shifted consumer purchasing behaviour and supported growth of RSPO-certified products, though industry-wide change remains slow (Silk et al., 2018).',
-    methodology_notes: 'Bornean orangutan connects to RQ1 through consumer behaviour change tracking post-documentary; RQ2 through emotional narrative techniques using infant rescue stories; RQ3 through supply-chain simulation game potential; RQ4 through RSPO certification uptake as measurable outcome.',
     academic_references: ['Wich, S.A. et al. (2012). Understanding the impacts of land-use policies on a threatened species. PLoS ONE, 7(11), e49525.', 'Meijaard, E. et al. (2011). Quantifying killing of orangutans and human-orangutan conflict in Kalimantan. PLoS ONE, 6(11), e27491.'],
     search_terms: ['orangutan', 'borneo orangutan', 'orangutan rainforest']
   },
@@ -232,7 +219,6 @@ const SPECIES = [
       motivation: ['Tortoiseshell products culturally valued in East Asian markets', 'Egg harvesting seen as traditional right in coastal communities', 'Economic returns from coastal development exceed conservation funding']
     },
     evidence_summary: 'Blue Planet coral reef sequences featuring hawksbills generated significant public concern about marine plastics and reef health, contributing to policy discussions on single-use plastics in multiple countries (Jones et al., 2019).',
-    methodology_notes: 'Hawksbill turtle connects to RQ1 through plastic policy changes linked to marine documentaries; RQ2 through underwater cinematography as observational technique; RQ3 through reef ecosystem simulation potential; RQ4 through beach monitoring volunteer recruitment post-broadcast.',
     academic_references: ['Mortimer, J.A. & Donnelly, M. (2008). Hawksbill Turtle (Eretmochelys imbricata). IUCN Red List Assessment.', 'Meylan, A.B. & Donnelly, M. (1999). Status justification for listing the hawksbill turtle as Critically Endangered. Chelonian Conservation and Biology, 3(2), pp.200-224.'],
     search_terms: ['hawksbill turtle', 'sea turtle', 'turtle reef', 'marine turtle']
   },
@@ -278,7 +264,6 @@ const SPECIES = [
       motivation: ['Economic pressure to maintain shipping schedules over speed reductions', 'Whaling moratorium compliance varies by nation', 'Public disconnect from open-ocean conservation issues due to remoteness']
     },
     evidence_summary: 'Blue Planet broadcast events correlate with measurable increases in ocean conservation charity donations and public support for marine protected areas, with blue whale sequences among the most emotionally impactful (Jones et al., 2019).',
-    methodology_notes: 'Blue whale connects to RQ1 through measurable public attitude shifts toward marine protection post-documentary; RQ2 through analysis of scale-revelation as sublime narrative technique; RQ3 through ocean exploration game design potential; RQ4 through marine protected area support polling as outcome measure.',
     academic_references: ['Branch, T.A. et al. (2004). Evidence for increases in Antarctic blue whales based on Bayesian modelling. Marine Mammal Science, 20(4), pp.726-754.', 'Attard, C.R.M. et al. (2012). Hybridization of Southern Hemisphere blue whale subspecies and implications for conservation. Conservation Genetics, 13(6), pp.1497-1507.'],
     search_terms: ['blue whale', 'whale ocean', 'whale documentary']
   },
@@ -324,7 +309,6 @@ const SPECIES = [
       motivation: ['Ivory prices incentivize poaching above legitimate income sources', 'Human-elephant conflict drives retaliatory killing', 'Demand for ivory as status symbol persists despite bans']
     },
     evidence_summary: 'The documentary "The Ivory Game" (2016) contributed to China\'s decision to close its domestic ivory market, demonstrating direct policy impact from wildlife filmmaking (Jones et al., 2019).',
-    methodology_notes: 'African elephant connects to RQ1 through documented policy change following documentary broadcast; RQ2 through investigative journalism as narrative technique in wildlife crime films; RQ3 through anti-poaching strategy game potential; RQ4 through ivory market closure as measurable policy outcome.',
     academic_references: ['Wittemyer, G. et al. (2014). Illegal killing for ivory drives global decline in African elephants. PNAS, 111(36), pp.13117-13121.', 'Chase, M.J. et al. (2016). Continent-wide survey reveals massive decline in African savannah elephants. PeerJ, 4, e2354.'],
     search_terms: ['african elephant', 'elephant safari', 'elephant ivory', 'elephant conservation']
   },
@@ -370,7 +354,6 @@ const SPECIES = [
       motivation: ['Economic incentives for Arctic resource extraction outweigh conservation concerns', 'Climate change denial delays necessary policy action', 'Geographic remoteness reduces public urgency for Arctic protection']
     },
     evidence_summary: 'The iconic "stranded polar bear" imagery has become the most recognized visual metaphor for climate change, measurably increasing public concern and support for emissions reduction policies (Silk et al., 2018; Macdonald et al., 2016).',
-    methodology_notes: 'Polar bear connects to RQ1 through climate attitude polling linked to documentary exposure; RQ2 through analysis of isolated-animal-in-peril as emotional narrative technique; RQ3 through climate simulation game design; RQ4 through public opinion polling on climate policy as outcome measure.',
     academic_references: ['Amstrup, S.C. et al. (2010). Greenhouse gas mitigation can reduce sea-ice loss and increase polar bear persistence. Nature, 468(7326), pp.955-958.', 'Stirling, I. & Derocher, A.E. (2012). Effects of climate warming on polar bears: a review of the evidence. Global Change Biology, 18(9), pp.2694-2706.'],
     search_terms: ['polar bear', 'arctic bear', 'polar bear climate', 'polar bear ice']
   },
@@ -416,7 +399,6 @@ const SPECIES = [
       motivation: ['Panda conservation heavily funded but benefits concentrated on one species', 'Political symbolism sometimes prioritized over ecological effectiveness', 'Public preference for charismatic megafauna skews funding allocation']
     },
     evidence_summary: 'The giant panda demonstrates the "flagship species" effect where media attention on one charismatic species generates conservation funding that protects entire ecosystems, though critics note allocation inequity (Macdonald et al., 2016).',
-    methodology_notes: 'Giant panda connects to RQ1 through WWF brand recognition and fundraising data; RQ2 through anthropomorphic narrative technique analysis in Kung Fu Panda vs observational documentaries; RQ3 through bamboo forest ecosystem management simulation; RQ4 through population recovery metrics as long-term outcome measure.',
     academic_references: ['Swaisgood, R.R. et al. (2011). Can science save the giant panda? Unifying science and policy in an adaptive management framework. Integrative Zoology, 6(3), pp.290-296.', 'Wei, F. et al. (2015). Progress in the ecology and conservation of giant pandas. Conservation Biology, 29(6), pp.1497-1507.'],
     search_terms: ['giant panda', 'panda china', 'panda bamboo', 'panda conservation']
   },
@@ -462,7 +444,6 @@ const SPECIES = [
       motivation: ['Climate action perceived as economically costly in short term', 'Reef degradation invisible to most voters and policymakers', 'Tourism industry slow to invest in reef protection versus exploitation']
     },
     evidence_summary: 'Chasing Coral (2017) won the Audience Award at Sundance and generated measurable increases in coral reef awareness and conservation donations, demonstrating time-lapse documentation as powerful advocacy tool (Jones et al., 2019).',
-    methodology_notes: 'Staghorn coral connects to RQ1 through Chasing Coral impact assessment data; RQ2 through time-lapse as dramatic-reconstruction narrative technique; RQ3 through reef-building simulation game potential; RQ4 through coral nursery volunteer recruitment as measurable engagement outcome.',
     academic_references: ['Aronson, R.B. & Precht, W.F. (2001). White-band disease and the changing face of Caribbean coral reefs. Hydrobiologia, 460(1), pp.25-38.', 'Hughes, T.P. et al. (2017). Global warming and recurrent mass bleaching of corals. Nature, 543(7645), pp.373-377.'],
     search_terms: ['coral reef', 'coral bleaching', 'reef conservation', 'chasing coral']
   },
@@ -508,7 +489,6 @@ const SPECIES = [
       motivation: ['Hydroelectric power prioritized as "green" energy despite biodiversity impact', 'Dolphins perceived as fishing competitors by local communities', 'Gold mining provides livelihood in areas with few economic alternatives']
     },
     evidence_summary: 'Amazon documentaries featuring river dolphins have raised awareness of freshwater biodiversity threats, though measuring direct conservation impact is complicated by the remoteness of river dolphin habitat and limited baseline data.',
-    methodology_notes: 'Amazon river dolphin connects to RQ1 through freshwater conservation awareness campaigns; RQ2 through mystical/folklore narrative integration in documentaries; RQ3 through river ecosystem management simulation; RQ4 through community attitude surveys in riverside communities as outcome measure.',
     academic_references: ['da Silva, V.M.F. et al. (2018). Amazon river dolphin (Inia geoffrensis). IUCN Red List Assessment.', 'Mintzer, V.J. et al. (2013). Effect of illegal fishing on population decline of the Amazonian boto. Biological Conservation, 165, pp.154-160.'],
     search_terms: ['amazon dolphin', 'river dolphin', 'pink dolphin amazon', 'boto dolphin']
   }
@@ -847,8 +827,6 @@ async function main() {
       hero_image,
       root_causes_comb: species.root_causes_comb,
       evidence_summary: species.evidence_summary,
-      methodology_notes: species.methodology_notes,
-      research_questions: RESEARCH_QUESTIONS,
       academic_references: [...SHARED_ACADEMIC_REFERENCES, ...(species.academic_references || [])],
       tmdb_media
     };

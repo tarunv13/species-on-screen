@@ -7,9 +7,7 @@ import { gsap } from 'gsap';
 const OVERLAY_RANGES = {
   hero: [0, 0.0, 0.12, 0.18],
   globe: [0.14, 0.20, 0.30, 0.36],
-  research: [0.32, 0.38, 0.50, 0.56],
   species: [0.52, 0.58, 0.72, 0.78],
-  methodology: [0.74, 0.80, 0.88, 0.92],
   vision: [0.88, 0.93, 1.0, 1.0],
 };
 
@@ -25,9 +23,7 @@ export class OverlayUI {
   _cacheElements() {
     this.overlays.hero = document.querySelector('.overlay--hero');
     this.overlays.globe = document.querySelector('.overlay--globe');
-    this.overlays.research = document.querySelector('.overlay--research');
     this.overlays.species = document.querySelector('.overlay--species');
-    this.overlays.methodology = document.querySelector('.overlay--methodology');
     this.overlays.vision = document.querySelector('.overlay--vision');
   }
 

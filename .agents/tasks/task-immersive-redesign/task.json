@@ -1,0 +1,7 @@
+{
+  "task_id": "task-immersive-redesign",
+  "task_description": "Complete immersive redesign of the Eco-Cinema Observatory site: remove all research questions, transform from dark to light dreamy aesthetic, add real Earth globe with geographic textures, implement Apple 2026-level smooth scrolling with Lenis, add cinematic camera transitions, comic-strip animated species storylines, cited data with sources, species photographs, and scrollytelling essence throughout.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003", "FEAT-004"],
+  "blocked_reason": null
+}

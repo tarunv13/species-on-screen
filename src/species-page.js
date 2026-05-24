@@ -40,7 +40,6 @@ function renderSpeciesPage(data) {
     renderHero(data),
     renderScience(data),
     renderOnScreen(data),
-    renderMethodology(data),
     renderRootCauses(data),
     renderEvidence(data),
     renderReferences(data),
@@ -232,7 +231,7 @@ function renderOnScreen(data) {
     <section class="sp-section sp-onscreen sp-section--alt">
       <div class="sp-section__inner">
         <h2 class="sp-section__heading">On Screen</h2>
-        <p class="sp-section__intro">Films and documentaries featuring ${escapeHtml(speciesName || 'this species')}, catalogued as part of the observatory's investigation into narrative techniques and audience engagement (RQ2).</p>
+        <p class="sp-section__intro">Films and documentaries featuring ${escapeHtml(speciesName || 'this species')}, catalogued as part of the observatory's investigation into narrative techniques and audience engagement.</p>
         ${mediaHtml}
       </div>
     </section>
@@ -267,45 +266,6 @@ function renderMediaCard(item) {
         ${truncatedOverview ? `<p class="sp-media-card__overview">${escapeHtml(truncatedOverview)}</p>` : ''}
       </div>
     </article>
-  `;
-}
-
-// ============================================================
-// Section 4: The Methodology
-// ============================================================
-function renderMethodology(data) {
-  if (!data.methodology_notes && (!data.research_questions || data.research_questions.length === 0)) return '';
-
-  let rqHtml = '';
-  if (data.research_questions && data.research_questions.length > 0) {
-    rqHtml = `
-      <div class="sp-methodology__rqs">
-        <h3 class="sp-methodology__subheading">Research Questions</h3>
-        <ul class="sp-methodology__rq-list">
-          ${data.research_questions.map(rq => `<li>${escapeHtml(rq)}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-  }
-
-  const speciesName = data.taxonomy && data.taxonomy.common_name;
-
-  return `
-    <section class="sp-section sp-methodology">
-      <div class="sp-section__inner">
-        <h2 class="sp-section__heading">The Methodology</h2>
-        <div class="sp-methodology__framework">
-          <p class="sp-methodology__intro">Following Rose's (2016) framework of visual methodology, this observatory applies "sites, modalities, and methods" to analyze how ${escapeHtml(speciesName || 'this species')} is represented across visual media. The analysis considers the site of production, the site of the image itself, and the site of audiencing.</p>
-        </div>
-        ${data.methodology_notes ? `
-          <div class="sp-methodology__notes">
-            <h3 class="sp-methodology__subheading">Species-Specific Connections</h3>
-            <p>${escapeHtml(data.methodology_notes)}</p>
-          </div>
-        ` : ''}
-        ${rqHtml}
-      </div>
-    </section>
   `;
 }
 
@@ -449,7 +409,7 @@ function initAnimations() {
     if (i === 0) return; // Skip hero
 
     const heading = section.querySelector('.sp-section__heading');
-    const panels = section.querySelectorAll('.sp-panel, .sp-media-card, .sp-comb__column, .sp-evidence__content, .sp-methodology__framework, .sp-methodology__notes, .sp-methodology__rqs, .sp-references__list');
+    const panels = section.querySelectorAll('.sp-panel, .sp-media-card, .sp-comb__column, .sp-evidence__content, .sp-methodology__framework, .sp-methodology__notes, .sp-references__list');
 
     if (heading) {
       gsap.fromTo(heading,
