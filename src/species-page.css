@@ -246,6 +246,18 @@ a:hover {
   position: relative;
 }
 
+.sp-hero__credit {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  z-index: 3;
+}
+
 .sp-hero__content {
   max-width: 50rem;
   margin: 0 auto;
@@ -370,14 +382,36 @@ a:hover {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.2;
+  opacity: 0.85;
+}
+
+.comic-panel__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%);
 }
 
 .comic-panel__content {
   position: relative;
   z-index: 2;
   padding: 1.5rem;
-  background: linear-gradient(to top, rgba(255,255,255,0.95) 60%, transparent);
+}
+
+.comic-panel:has(.comic-panel__bg) .comic-panel__content {
+  background: none;
+}
+
+.comic-panel:has(.comic-panel__bg) .comic-panel__label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.comic-panel:has(.comic-panel__bg) .comic-panel__title {
+  color: #ffffff;
+}
+
+.comic-panel:has(.comic-panel__bg) .comic-panel__text {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .comic-panel__label {
@@ -890,6 +924,164 @@ a:hover {
 }
 
 /* --------------------------------------------------------------------------
+   Parallax Divider
+   -------------------------------------------------------------------------- */
+.sp-parallax-divider {
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sp-parallax-divider__overlay {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2rem 3rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 600px;
+}
+
+.sp-parallax-divider__text {
+  color: #ffffff;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Cultural Depth
+   -------------------------------------------------------------------------- */
+.sp-cultural-depth__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.sp-cultural-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.sp-cultural-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+}
+
+.sp-cultural-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-primary, #2d6a4f);
+  margin-bottom: 0.75rem;
+}
+
+.sp-cultural-card__body {
+  margin-bottom: 0.75rem;
+}
+
+.sp-cultural-card__text-full,
+.sp-cultural-card__text-truncated {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.sp-cultural-card .sp-cultural-card__text-truncated {
+  display: none;
+}
+
+.sp-cultural-card--collapsed .sp-cultural-card__text-full {
+  display: none;
+}
+
+.sp-cultural-card--collapsed .sp-cultural-card__text-truncated {
+  display: block;
+}
+
+.sp-cultural-card__toggle {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(45, 106, 79, 0.2);
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  color: var(--eco-primary, #2d6a4f);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sp-cultural-card__toggle:hover {
+  background: rgba(45, 106, 79, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Citation Links
+   -------------------------------------------------------------------------- */
+.sp-citation-link {
+  color: var(--eco-primary, #2d6a4f);
+  text-decoration: underline;
+  font-size: 0.8rem;
+  transition: color 0.2s ease;
+}
+
+.sp-citation-link:hover {
+  color: var(--eco-accent, #40916c);
+}
+
+/* --------------------------------------------------------------------------
+   Protected Areas
+   -------------------------------------------------------------------------- */
+.sp-protected-areas__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.sp-protected-area-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease;
+}
+
+.sp-protected-area-card:hover {
+  transform: translateY(-2px);
+}
+
+.sp-protected-area-card__name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.4rem;
+}
+
+.sp-protected-area-card__country {
+  font-size: 0.85rem;
+  color: var(--accent-primary, #2d6a4f);
+  margin-bottom: 0.3rem;
+}
+
+.sp-protected-area-card__coords {
+  font-size: 0.75rem;
+  color: #888;
+  font-family: monospace;
+}
+
+/* --------------------------------------------------------------------------
    Footer
    -------------------------------------------------------------------------- */
 .sp-footer {
@@ -973,7 +1165,9 @@ a:hover {
 .sp-loaded .sp-references__list,
 .sp-loaded .comic-panel,
 .sp-loaded .sp-fact-card,
-.sp-loaded .sp-photos__item {
+.sp-loaded .sp-photos__item,
+.sp-loaded .sp-cultural-card,
+.sp-loaded .sp-protected-area-card {
   opacity: 0;
   transform: translateY(25px);
 }
@@ -1085,6 +1279,23 @@ a:hover {
   .breadcrumb {
     padding: 0.75rem 1rem;
   }
+
+  .sp-cultural-depth__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-protected-areas__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-parallax-divider {
+    height: 40vh;
+    background-attachment: scroll;
+  }
+
+  .sp-parallax-divider__overlay {
+    padding: 1.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1096,8 +1307,14 @@ a:hover {
   .sp-references__list,
   .comic-panel,
   .sp-fact-card,
-  .sp-photos__item {
+  .sp-photos__item,
+  .sp-cultural-card,
+  .sp-protected-area-card {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .sp-parallax-divider {
+    background-attachment: scroll;
   }
 }
