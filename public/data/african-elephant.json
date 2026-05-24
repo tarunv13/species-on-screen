@@ -4,7 +4,9 @@
     "common_name": "African Elephant",
     "family": "Elephantidae",
     "order": "Proboscidea",
-    "class": "Mammalia"
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/5219392",
+    "iucn_url": "https://www.iucnredlist.org/species/181008073/223766485"
   },
   "habitat": {
     "type": "Savanna",
@@ -93,6 +95,59 @@
       "Demand for ivory as status symbol persists despite bans"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Rangers under-equipped and outnumbered by poaching networks",
+        "source": "Henson et al. (2016)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2016.09.027"
+      },
+      {
+        "text": "Communities lack tools for non-lethal crop protection",
+        "source": "Sitati et al. (2003)",
+        "source_url": "https://doi.org/10.1017/S0030605303000347"
+      },
+      {
+        "text": "Corruption undermines law enforcement at multiple levels",
+        "source": "UNODC (2020)",
+        "source_url": "https://www.unodc.org/unodc/en/data-and-analysis/wildlife.html"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "International ivory demand creates lucrative black market",
+        "source": "Wittemyer et al. (2014)",
+        "source_url": "https://doi.org/10.1073/pnas.1403984111"
+      },
+      {
+        "text": "Vast ranges impossible to patrol effectively",
+        "source": "Chase et al. (2016)",
+        "source_url": "https://doi.org/10.7717/peerj.2354"
+      },
+      {
+        "text": "Political instability enables armed poaching gangs",
+        "source": "UNEP et al. (2013)",
+        "source_url": "https://www.unep.org/resources/report/elephants-dust-african-elephant-crisis"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Ivory prices incentivize poaching above legitimate income sources",
+        "source": "Wittemyer et al. (2014)",
+        "source_url": "https://doi.org/10.1073/pnas.1403984111"
+      },
+      {
+        "text": "Human-elephant conflict drives retaliatory killing",
+        "source": "Sitati et al. (2003)",
+        "source_url": "https://doi.org/10.1017/S0030605303000347"
+      },
+      {
+        "text": "Demand for ivory as status symbol persists despite bans",
+        "source": "Gao & Clark (2014)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2014.06.013"
+      }
+    ]
+  },
   "evidence_summary": "The documentary \"The Ivory Game\" (2016) contributed to China's decision to close its domestic ivory market, demonstrating direct policy impact from wildlife filmmaking (Jones et al., 2019).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -103,6 +158,117 @@
     "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
     "Wittemyer, G. et al. (2014). Illegal killing for ivory drives global decline in African elephants. PNAS, 111(36), pp.13117-13121.",
     "Chase, M.J. et al. (2016). Continent-wide survey reveals massive decline in African savannah elephants. PeerJ, 4, e2354."
+  ],
+  "interesting_facts": [
+    {
+      "text": "African elephants can communicate using infrasound below human hearing range, detectable by other elephants up to 10 km away.",
+      "source_url": "https://doi.org/10.1016/0003-3472(88)90130-8"
+    },
+    {
+      "text": "An elephant's brain weighs about 5 kg, the largest of any land animal, and they demonstrate self-awareness, grief, and empathy.",
+      "source_url": "https://doi.org/10.1073/pnas.0607097103"
+    },
+    {
+      "text": "Elephants are ecosystem engineers; a single individual disperses seeds across vast distances and creates water holes used by dozens of other species.",
+      "source_url": "https://doi.org/10.1111/j.1365-2664.2009.01764.x"
+    },
+    {
+      "text": "They can recognize and remember over 200 other individual elephants by their calls alone.",
+      "source_url": "https://doi.org/10.1006/anbe.2000.1503"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/1280px-African_Bush_Elephant.jpg",
+      "alt": "African bush elephant in savanna",
+      "credit": "Wikimedia Commons, Public Domain",
+      "photographer": "Gorgo"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg/1280px-African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg",
+      "alt": "African elephant bull",
+      "credit": "Wikimedia Commons, CC BY-SA 2.0",
+      "photographer": "Bernard DUPONT"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/African_Elephant_in_Serengeti.jpg/1280px-African_Elephant_in_Serengeti.jpg",
+      "alt": "African elephant in Serengeti",
+      "credit": "Wikimedia Commons, GFDL 1.2",
+      "photographer": "Ikiwaner"
+    }
+  ],
+  "cultural_depth": {
+    "hindu_ganesh": {
+      "description": "Ganesha, the elephant-headed Hindu deity, is worshipped as the remover of obstacles and god of beginnings. Representing wisdom, learning, and auspiciousness, Ganesha is invoked at the start of new ventures and is among the most widely worshipped deities across South and Southeast Asia.",
+      "source": "Brown, R.L. (1991). Ganesh: Studies of an Asian God. SUNY Press.",
+      "source_url": "https://sunypress.edu/Books/G/Ganesh"
+    },
+    "west_african_wisdom": {
+      "description": "In West African folklore, the elephant is the wisest of animals, serving as judge and mediator in disputes among forest creatures. Akan proverbs teach that the elephant never tires of carrying its tusks, symbolizing the patient bearing of responsibility and leadership.",
+      "source": "Yankah, K. (2012). The Proverb in the Context of Akan Rhetoric. Diasporic Africa Press.",
+      "source_url": "https://doi.org/10.2307/j.ctvh8r0rz"
+    },
+    "maasai_coexistence": {
+      "description": "Maasai pastoralists have coexisted with elephants for centuries, developing cultural practices that minimize conflict. Elephants are respected as intelligent beings, and Maasai traditional knowledge of elephant behavior and movement patterns now informs modern conservation corridor planning.",
+      "source": "Western, D. (2019). The Amboseli Elephants. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226001708.001.0001"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Amboseli National Park",
+        "lat": -2.6527,
+        "lng": 37.2606,
+        "country": "Kenya"
+      },
+      {
+        "name": "Chobe National Park",
+        "lat": -18.5,
+        "lng": 25,
+        "country": "Botswana"
+      },
+      {
+        "name": "Kruger National Park",
+        "lat": -23.9884,
+        "lng": 31.5547,
+        "country": "South Africa"
+      },
+      {
+        "name": "Serengeti National Park",
+        "lat": -2.3333,
+        "lng": 34.8333,
+        "country": "Tanzania"
+      },
+      {
+        "name": "Okavango Delta",
+        "lat": -19.5,
+        "lng": 22.5,
+        "country": "Botswana"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/181008073/223766485"
+    },
+    {
+      "name": "CITES Elephant Trade Information System",
+      "type": "trade",
+      "url": "https://www.cites.org/eng/prog/etis"
+    },
+    {
+      "name": "Great Elephant Census",
+      "type": "research",
+      "url": "https://www.greatelephantcensus.com/"
+    },
+    {
+      "name": "WWF African Elephant Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/african-elephant"
+    }
   ],
   "tmdb_media": [
     {
@@ -121,55 +287,6 @@
         99
       ],
       "vote_average": 9
-    }
-  ],
-  "data_sources": {
-    "population": {
-      "value": "415,000",
-      "source": "Great Elephant Census / IUCN",
-      "year": 2022
-    },
-    "iucn_status": {
-      "status": "Endangered",
-      "source": "IUCN Red List",
-      "assessed": 2021
-    },
-    "poaching": {
-      "value": "55 elephants killed per day at peak",
-      "source": "CITES MIKE Programme",
-      "year": 2016
-    }
-  },
-  "interesting_facts": [
-    {
-      "fact": "Elephants mourn their dead, returning to bones of deceased family members and gently touching them with their trunks.",
-      "source": "McComb et al., Biology Letters, 2006"
-    },
-    {
-      "fact": "They can communicate over distances of 10km using low-frequency infrasound undetectable to human ears.",
-      "source": "Payne et al., Behavioral Ecology, 1986"
-    },
-    {
-      "fact": "An elephant's brain weighs about 5kg - the largest of any land animal - and they demonstrate self-awareness in mirror tests.",
-      "source": "Plotnik et al., PNAS, 2006"
-    },
-    {
-      "fact": "They are ecosystem engineers - their dung disperses seeds up to 65km and their trails become water channels during rains.",
-      "source": "Blake et al., Biotropica, 2009"
-    }
-  ],
-  "photos": [
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/1280px-African_Bush_Elephant.jpg",
-      "alt": "African elephant in savanna",
-      "credit": "Wikimedia Commons",
-      "photographer": "Gorgo"
-    },
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg/1280px-African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg",
-      "alt": "African elephant bull",
-      "credit": "Wikimedia Commons",
-      "photographer": "Bernard Dupont"
     }
   ]
 }

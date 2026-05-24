@@ -1,0 +1,33 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Enhance the globe with togglable geographic layers (habitat regions, protected area pulsing markers with labels), an info panel on click with species photo/status and explore button, and layer toggle buttons in the HTML overlay.",
+  "status": "pending",
+  "steps": [
+    "Step 1: In src/globe.js, add a layers system with a setLayer(layerName) method. Layers: 'media' (existing columns - default), 'habitat' (colored region indicators for each species range), 'protected_areas' (pulsing markers at specific national park/reserve coordinates with labels). Load protected area coordinates from the species JSON files' globe_layers.protected_areas arrays.",
+    "Step 2: Implement the 'habitat' layer: for each HOTSPOT, draw a wider semi-transparent disc (RingGeometry or CircleGeometry) on the globe surface colored by ecosystem. These should be larger than columns (radius ~0.06) to show range regions.",
+    "Step 3: Implement the 'protected_areas' layer: load protected area data from species JSON files asynchronously. For each protected area, create a pulsing sphere marker (animate scale with sin wave) at the lat/lng position. Add a sprite or DOM label showing the area name on hover.",
+    "Step 4: Add an info panel that appears when a user clicks on any marker (column, habitat disc, or protected area). The panel should be an HTML overlay div (id='globe-info-panel') showing: species name, IUCN status badge, a thumbnail image (from species photos[0].url), and an 'Explore' button that navigates to the species page.",
+    "Step 5: Add the info panel HTML to index.html near the existing globe-tooltip div. Style it as a card floating on the right side of the viewport.",
+    "Step 6: In src/overlay-ui.js or a new section in index.html, add layer toggle buttons near the globe section. Three buttons: 'Media Coverage' (default active), 'Habitat Range', 'Protected Areas'. Clicking each calls globe.setLayer(layerName). Style as pill-shaped toggle buttons.",
+    "Step 7: Add CSS for the globe info panel and layer toggle buttons in src/style.css (or inline in index.html). The info panel should have backdrop-filter: blur, rounded corners, and smooth entrance animation. Layer toggles should highlight the active one.",
+    "Step 8: Wire up the layer toggles in src/main.js - after globe is initialized, query the toggle buttons and attach click handlers that call globe.setLayer()."
+  ],
+  "acceptance_criteria": [
+    "Globe has 3 togglable layers accessible via buttons in the UI",
+    "Clicking a layer toggle button switches the visualization (media columns vs habitat discs vs protected area markers)",
+    "Clicking a marker/column shows an info panel with species name, status, photo thumbnail, and Explore button",
+    "The Explore button navigates to the correct species page",
+    "Protected area markers pulse/animate to draw attention",
+    "Layer toggle buttons are visible near the globe section and one is highlighted as active",
+    "npx vite build succeeds"
+  ],
+  "verification": [
+    "Run: npx vite build and confirm success",
+    "Grep src/globe.js for 'setLayer' and confirm the method exists",
+    "Grep index.html for 'globe-info-panel' and confirm the panel HTML exists",
+    "Grep index.html or src/main.js for 'layer-toggle' and confirm toggle buttons are wired up"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
