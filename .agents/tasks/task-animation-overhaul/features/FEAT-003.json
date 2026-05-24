@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Implement the globe flora and fauna system with animated 3D sprites/billboards on the globe surface at each habitat location, and enhance species pages with parallax storytelling and themed color accents.",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "STEP 1 - Globe Flora & Fauna Sprites: In src/globe.js, add animated 3D sprites/billboards on the globe surface at each habitat location using Three.js InstancedMesh with billboarded sprites for performance. Each habitat type gets 5-10 small animated elements near its globe markers (max 200 total sprites). Habitat-specific elements: Tropical Forest - animated tree sprites with gentle sway, bird silhouettes; Mountain - snow particles, wind-swept grass sprites; Coral Reef - swaying coral/seaweed sprites, fish silhouettes; Ocean - wave particles, whale trail effects; Savanna - grass sprites swaying, dust motes; Arctic - ice crystal particles, aurora-like glow; Temperate Forest - leaf sprites, bamboo; Freshwater - water ripple sprites, lily pad sprites. Use sine-wave vertex displacement in a custom ShaderMaterial for organic movement. Movement should be SUBTLE and GENTLE - drift, sway, float.",
     "STEP 2 - Species Page Parallax: In src/species-page.js, add parallax depth layers to species page sections. Section background images move at different scroll speeds from text content and data visualization elements. Use GSAP ScrollTrigger scrub for all parallax elements. Add decorative elements (leaves, particles, light rays) as parallax layers using CSS pseudo-elements or injected DOM elements with data-parallax-speed.",
