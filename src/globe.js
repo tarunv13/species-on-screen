@@ -282,7 +282,8 @@ export class Globe {
       imgEl.style.display = 'none';
     }
 
-    exploreEl.href = `species/${speciesSlug}.html`;
+    const basePath = import.meta.env.BASE_URL || '/';
+    exploreEl.href = `${basePath}species/${speciesSlug}.html`;
     panel.style.display = 'flex';
   }
 
