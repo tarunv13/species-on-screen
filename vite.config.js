@@ -14,6 +14,18 @@ try {
   // species/ directory may not exist yet during initial setup
 }
 
+// Collect prototype HTML pages
+const prototypePages = {};
+try {
+  const files = readdirSync(resolve(__dirname, 'prototypes'));
+  files.filter(f => f.endsWith('.html')).forEach(f => {
+    const name = f.replace('.html', '');
+    prototypePages[`prototype-${name}`] = resolve(__dirname, 'prototypes', f);
+  });
+} catch (e) {
+  // prototypes/ directory may not exist yet
+}
+
 export default defineConfig({
   base: '/species-on-screen/',
   build: {
@@ -21,7 +33,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        ...speciesPages
+        ...speciesPages,
+        ...prototypePages
       }
     }
   }
