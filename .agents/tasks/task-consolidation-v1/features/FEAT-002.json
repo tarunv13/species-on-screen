@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Rewrite src/species-page.js to render ALL data sections with full content visibility: hero image from photos array, photo gallery with parallax, comic strip panels with photo backgrounds, COM-B cards with clickable source links, TMDB media section with poster images linked to TMDB URLs, cultural depth expandable cards with clickable source links, facts cards with clickable citations, conservation stats with inline clickable source links, and parallax storytelling dividers between sections.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Step 1: Modify renderHero() to use the first photo from data.photos array as the full-width background image. Add a photo credit overlay at bottom-right of the hero section. Ensure the image URL is set directly (not via TMDB backdrop).",
     "Step 2: Add a new renderCulturalDepth(data) function that reads data.cultural_depth and renders expandable cards per culture/region. Each card shows the region name, description text, and a clickable <a href='source_url' target='_blank' rel='noopener'>source</a> link. Cards should have a click-to-expand interaction (toggle a CSS class for overflow).",
@@ -36,5 +36,5 @@
     "Grep species-page.js for 'sp-parallax-divider' and confirm parallax dividers exist"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All sections implemented successfully. TMDB image base changed from w300 to w500. The interesting_facts in data files have 'text' and 'source_url' fields (no separate 'source' field), so we use 'Source' as fallback link text. The com_b format uses objects with text/source/source_url while root_causes_comb uses strings - both are supported. data_sources is now an array (not object) so we find entries by type field. Build passes cleanly."
 }
