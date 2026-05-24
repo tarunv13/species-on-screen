@@ -93,13 +93,6 @@
     ]
   },
   "evidence_summary": "Research indicates that high-profile tiger documentaries (e.g., BBC Tiger: Spy in the Jungle) correlate with increased donations to tiger conservation funds and heightened public awareness, though direct behavioural change remains difficult to measure (Jones et al., 2019).",
-  "methodology_notes": "Tiger connects to RQ1 through measurable donation spikes following broadcast events; RQ2 through comparison of observational vs presenter-led documentary engagement; RQ4 through Project Tiger monitoring data providing baseline for media impact assessment.",
-  "research_questions": [
-    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-  ],
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
     "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
@@ -191,7 +184,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1463564",
       "poster_path": "/sd80NvjETTBGi0ejYLsgwMCx1tm.jpg",
       "backdrop_path": "/s4x2NVH60YxGsqGJCKr9Ws71MIG.jpg",
-      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger’s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn’t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a ‘family’ and begins to explore ways to build one in his own way through a ‘friendship marriage.’",
+      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger\u2019s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn\u2019t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a \u2018family\u2019 and begins to explore ways to build one in his own way through a \u2018friendship marriage.\u2019",
       "classification": "fiction",
       "narrative_technique": "fiction-featuring",
       "relevance_score": 40,
@@ -200,6 +193,55 @@
         18
       ],
       "vote_average": 0
+    }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "~4,500",
+      "source": "Global Tiger Initiative / WWF",
+      "year": 2023
+    },
+    "iucn_status": {
+      "status": "Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2022
+    },
+    "habitat_loss": {
+      "value": "95% of historical range lost",
+      "source": "WWF Tigers Alive Initiative",
+      "year": 2023
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "No two tigers have the same stripe pattern - they are as unique as human fingerprints.",
+      "source": "Karanth & Nichols, Ecology, 1998"
+    },
+    {
+      "fact": "A tiger's roar can be heard from over 3 kilometres away and can temporarily paralyze prey.",
+      "source": "National Geographic, 2019"
+    },
+    {
+      "fact": "Tigers are the only big cat species that enjoy swimming, often cooling off in pools and streams.",
+      "source": "Sunquist & Sunquist, Wild Cats of the World, 2002"
+    },
+    {
+      "fact": "There are more tigers in captivity in the United States alone than remain in the wild globally.",
+      "source": "WWF, 2023"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24_Sumatran_Tiger.jpg/1280px-24_Sumatran_Tiger.jpg",
+      "alt": "Tiger in natural habitat",
+      "credit": "Wikimedia Commons",
+      "photographer": "Mohan Moolepetlu"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tiger_in_Ranthambhore.jpg/1280px-Tiger_in_Ranthambhore.jpg",
+      "alt": "Bengal tiger in Ranthambore",
+      "credit": "Wikimedia Commons",
+      "photographer": "Koshy Koshy"
     }
   ]
 }
