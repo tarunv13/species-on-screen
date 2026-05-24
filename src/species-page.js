@@ -600,24 +600,22 @@ function initAnimations() {
     panels.forEach((panel, j) => {
       gsap.fromTo(panel,
         { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, ease: 'elastic.out(1, 0.5)', duration: 0.9, delay: j * 0.06,
+        { opacity: 1, y: 0, ease: 'back.out(1.4)', duration: 0.9, delay: j * 0.06,
           scrollTrigger: { trigger: panel, start: 'top 90%' }
         }
       );
     });
   });
 
-  // Comic panels with scrub-based animation
+  // Comic panels with elastic spring and stagger
   const comicPanels = document.querySelectorAll('.comic-panel');
   comicPanels.forEach((panel, i) => {
     gsap.fromTo(panel,
       { opacity: 0, y: 40, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, ease: 'back.out(1.7)', duration: 0.8, delay: i * 0.15,
+      { opacity: 1, y: 0, scale: 1, ease: 'elastic.out(1, 0.5)', duration: 1.0, delay: i * 0.06,
         scrollTrigger: {
           trigger: panel,
           start: 'top 88%',
-          end: 'top 60%',
-          scrub: 1
         }
       }
     );
@@ -634,12 +632,12 @@ function initAnimations() {
     );
   });
 
-  // Photo items with parallax
+  // Photo items with scale entrance
   const photoItems = document.querySelectorAll('.sp-photos__item');
   photoItems.forEach((item, i) => {
     gsap.fromTo(item,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, ease: 'power3.out', duration: 0.8, delay: i * 0.15,
+      { opacity: 0, y: 40, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, ease: 'back.out(1.4)', duration: 0.8, delay: i * 0.06,
         scrollTrigger: { trigger: item, start: 'top 90%' }
       }
     );
@@ -661,7 +659,60 @@ function initAnimations() {
     }
   });
 
+  // Parallax storytelling layers
+  initParallax();
+
   ScrollTrigger.refresh();
+}
+
+// ============================================================
+// Parallax Depth Layers
+// ============================================================
+function initParallax() {
+  // Hero background subtle parallax
+  const hero = document.querySelector('.sp-hero');
+  if (hero) {
+    gsap.to(hero, {
+      backgroundPositionY: '30%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: hero,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+  }
+
+  // Section headings move slightly slower for depth effect
+  document.querySelectorAll('.sp-section__heading').forEach(heading => {
+    gsap.fromTo(heading,
+      { y: -15 },
+      { y: 15, ease: 'none',
+        scrollTrigger: {
+          trigger: heading,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      }
+    );
+  });
+
+  // Habitat/evidence cards with parallax offset
+  document.querySelectorAll('.sp-science__habitat, .sp-evidence__content').forEach(el => {
+    gsap.fromTo(el,
+      { y: 20 },
+      { y: -20, ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      }
+    );
+  });
 }
 
 // ============================================================

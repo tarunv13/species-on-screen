@@ -85,6 +85,7 @@ export class Globe {
 
     this._createGlobe();
     this._createColumns();
+    this._createFloraFauna();
     this._setupInteraction();
     this._loadMediaCounts();
   }
@@ -187,6 +188,111 @@ export class Globe {
     });
   }
 
+  _createFloraFauna() {
+    this.floraFaunaTime = 0;
+    this.floraFaunaMeshes = [];
+
+    // Group hotspots by ecosystem
+    const ecosystems = {};
+    HOTSPOTS.forEach(h => {
+      if (!ecosystems[h.ecosystem]) ecosystems[h.ecosystem] = [];
+      ecosystems[h.ecosystem].push(h);
+    });
+
+    // Sprite configs per ecosystem type - total capped at 200
+    const spriteConfigs = {
+      'tropical-forest': { count: 30, color: [0.3, 0.7, 0.35], size: 4.0, speed: 0.5 },
+      'mountain': { count: 25, color: [0.9, 0.92, 0.95], size: 3.0, speed: 0.4 },
+      'coral-reef': { count: 25, color: [0.9, 0.45, 0.4], size: 3.5, speed: 0.6 },
+      'ocean': { count: 25, color: [0.2, 0.5, 0.8], size: 3.0, speed: 0.3 },
+      'savanna': { count: 25, color: [0.8, 0.7, 0.3], size: 3.0, speed: 0.5 },
+      'arctic': { count: 25, color: [0.85, 0.9, 1.0], size: 2.5, speed: 0.3 },
+      'temperate-forest': { count: 25, color: [0.35, 0.65, 0.3], size: 3.5, speed: 0.5 },
+      'freshwater': { count: 20, color: [0.3, 0.6, 0.8], size: 3.0, speed: 0.6 },
+    };
+
+    Object.entries(ecosystems).forEach(([type, hotspots]) => {
+      const config = spriteConfigs[type];
+      if (!config) return;
+
+      const count = config.count;
+      const positions = new Float32Array(count * 3);
+      const seeds = new Float32Array(count);
+      const sizes = new Float32Array(count);
+
+      // Distribute sprites around hotspot locations
+      for (let i = 0; i < count; i++) {
+        const hotspot = hotspots[i % hotspots.length];
+        const latOffset = (Math.random() - 0.5) * 10;
+        const lngOffset = (Math.random() - 0.5) * 10;
+        const radius = 1.55 + Math.random() * 0.1;
+        const pos = latLngToVector3(hotspot.lat + latOffset, hotspot.lng + lngOffset, radius);
+
+        positions[i * 3] = pos.x;
+        positions[i * 3 + 1] = pos.y;
+        positions[i * 3 + 2] = pos.z;
+        seeds[i] = Math.random();
+        sizes[i] = config.size * (0.7 + Math.random() * 0.6);
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('seed', new THREE.BufferAttribute(seeds, 1));
+      geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+          color: { value: new THREE.Vector3(...config.color) },
+          speed: { value: config.speed },
+        },
+        vertexShader: `
+          uniform float time;
+          uniform float speed;
+          attribute float seed;
+          attribute float size;
+          varying float vAlpha;
+
+          void main() {
+            vec3 pos = position;
+
+            // Gentle sway using sine waves
+            float offset = seed * 6.2831;
+            pos.x += sin(time * speed + offset) * 0.03;
+            pos.y += cos(time * 0.3 + offset * 1.5) * 0.02;
+            pos.z += sin(time * 0.4 + offset * 0.7) * 0.02;
+
+            vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+            gl_PointSize = size * (200.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+
+            // Alpha variation for organic pulsing
+            vAlpha = 0.4 + 0.3 * sin(time * 0.2 + seed * 4.0);
+          }
+        `,
+        fragmentShader: `
+          uniform vec3 color;
+          varying float vAlpha;
+
+          void main() {
+            // Soft circular falloff
+            float dist = length(gl_PointCoord - vec2(0.5)) * 2.0;
+            float alpha = smoothstep(1.0, 0.3, dist) * vAlpha;
+            if (alpha < 0.01) discard;
+            gl_FragColor = vec4(color, alpha);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.NormalBlending,
+      });
+
+      const points = new THREE.Points(geometry, material);
+      this.group.add(points);
+      this.floraFaunaMeshes.push(points);
+    });
+  }
+
   _setupInteraction() {
     const domElement = this.renderer.domElement;
 
@@ -265,6 +371,12 @@ export class Globe {
       this.group.rotation.y += this.autoRotateSpeed * delta;
     }
 
+    // Update flora/fauna time uniform
+    this.floraFaunaTime += delta;
+    this.floraFaunaMeshes.forEach(mesh => {
+      mesh.material.uniforms.time.value = this.floraFaunaTime;
+    });
+
     // Raycasting for hover
     this.raycaster.setFromCamera(this.mouse, this.camera);
     const intersects = this.raycaster.intersectObjects(this.columnMeshes);
@@ -323,6 +435,12 @@ export class Globe {
     this.columnMeshes.forEach((column) => {
       column.geometry.dispose();
       column.material.dispose();
+    });
+
+    // Dispose flora/fauna meshes
+    this.floraFaunaMeshes.forEach((mesh) => {
+      mesh.geometry.dispose();
+      mesh.material.dispose();
     });
 
     // Dispose globe sphere and atmosphere
