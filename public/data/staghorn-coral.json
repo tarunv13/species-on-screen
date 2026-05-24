@@ -103,5 +103,54 @@
     "Aronson, R.B. & Precht, W.F. (2001). White-band disease and the changing face of Caribbean coral reefs. Hydrobiologia, 460(1), pp.25-38.",
     "Hughes, T.P. et al. (2017). Global warming and recurrent mass bleaching of corals. Nature, 543(7645), pp.373-377."
   ],
-  "tmdb_media": []
+  "tmdb_media": [],
+  "data_sources": {
+    "population": {
+      "value": "Declined 80-98% across Caribbean",
+      "source": "NOAA / Acropora Biological Review Team",
+      "year": 2023
+    },
+    "iucn_status": {
+      "status": "Critically Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2008
+    },
+    "reef_loss": {
+      "value": "50% of coral reefs lost since 1950s",
+      "source": "Global Coral Reef Monitoring Network",
+      "year": 2021
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Staghorn coral can grow up to 20cm per year, making it one of the fastest-growing coral species.",
+      "source": "NOAA Coral Reef Conservation Program, 2022"
+    },
+    {
+      "fact": "A single staghorn colony can provide habitat for over 300 species of fish and invertebrates.",
+      "source": "Alvarez-Filip et al., Proceedings of the Royal Society B, 2009"
+    },
+    {
+      "fact": "Corals are animals, not plants - each branch is a colony of thousands of tiny polyps working together.",
+      "source": "Veron, Corals of the World, 2000"
+    },
+    {
+      "fact": "They reproduce by 'broadcast spawning' - releasing millions of eggs simultaneously during one night per year, synchronized by moonlight.",
+      "source": "Harrison et al., Science, 1984"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Staghorn-coral-1.jpg/1280px-Staghorn-coral-1.jpg",
+      "alt": "Staghorn coral colony underwater",
+      "credit": "Wikimedia Commons",
+      "photographer": "NOAA"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Coral_reef_at_palmyra.jpg/1280px-Coral_reef_at_palmyra.jpg",
+      "alt": "Coral reef ecosystem",
+      "credit": "Wikimedia Commons",
+      "photographer": "USFWS"
+    }
+  ]
 }

@@ -109,7 +109,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1147747",
       "poster_path": "/hM8yRTvPy7JUqOU1t9OHaaYJBY4.jpg",
       "backdrop_path": "/stXyO1gITPss9E3cMguPq3n4C1l.jpg",
-      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions—one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico’s stunning Gulf of California—the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
+      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions\u2014one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico\u2019s stunning Gulf of California\u2014the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
       "classification": "documentary",
       "narrative_technique": "adventure-narrative",
       "relevance_score": 105,
@@ -166,6 +166,55 @@
       "query_source": "Blue Whale",
       "genre_ids": [],
       "vote_average": 0
+    }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "10,000-25,000",
+      "source": "IWC / IUCN",
+      "year": 2018
+    },
+    "iucn_status": {
+      "status": "Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2018
+    },
+    "historic_decline": {
+      "value": "99% reduction before whaling ban",
+      "source": "Branch et al., Marine Mammal Science",
+      "year": 2004
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "A blue whale's heart is the size of a small car, and its aorta is large enough for a human to crawl through.",
+      "source": "Goldbogen et al., Proceedings of the Royal Society B, 2019"
+    },
+    {
+      "fact": "Blue whale calls at 188 decibels are the loudest sound produced by any animal, detectable across entire ocean basins.",
+      "source": "Cummings & Thompson, Journal of the Acoustical Society, 1971"
+    },
+    {
+      "fact": "They consume up to 4 tonnes of krill per day during feeding season - roughly 40 million individual krill.",
+      "source": "Savoca et al., Nature, 2021"
+    },
+    {
+      "fact": "A blue whale calf gains approximately 90 kg per day during its first year, drinking 380 litres of milk daily.",
+      "source": "Lockyer, Reports of the IWC, 1981"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Blue_whale_tail.jpg/1280px-Blue_whale_tail.jpg",
+      "alt": "Blue whale tail fluke above water",
+      "credit": "Wikimedia Commons",
+      "photographer": "Mike Baird"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Blue_Whale_001_body_bw.jpg/1280px-Blue_Whale_001_body_bw.jpg",
+      "alt": "Blue whale surfacing",
+      "credit": "Wikimedia Commons",
+      "photographer": "NOAA"
     }
   ]
 }

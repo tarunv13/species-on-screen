@@ -95,5 +95,54 @@
     "Wich, S.A. et al. (2012). Understanding the impacts of land-use policies on a threatened species. PLoS ONE, 7(11), e49525.",
     "Meijaard, E. et al. (2011). Quantifying killing of orangutans and human-orangutan conflict in Kalimantan. PLoS ONE, 6(11), e27491."
   ],
-  "tmdb_media": []
+  "tmdb_media": [],
+  "data_sources": {
+    "population": {
+      "value": "104,700",
+      "source": "Wich et al., Current Biology",
+      "year": 2016
+    },
+    "iucn_status": {
+      "status": "Critically Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2016
+    },
+    "habitat_loss": {
+      "value": "100 orangutans lost per week",
+      "source": "Borneo Orangutan Survival Foundation",
+      "year": 2023
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Orangutans share 97% of their DNA with humans, making them one of our closest living relatives.",
+      "source": "Locke et al., Nature, 2011"
+    },
+    {
+      "fact": "They build a fresh nest every single night, constructing elaborate sleeping platforms from branches.",
+      "source": "Prasetyo et al., Biological Conservation, 2009"
+    },
+    {
+      "fact": "Orangutans have been observed using tools, self-medicating with plants, and even creating simple maps.",
+      "source": "van Schaik et al., Science, 2003"
+    },
+    {
+      "fact": "A mother orangutan stays with her offspring for 7-8 years - the longest childhood of any animal except humans.",
+      "source": "Wich et al., Journal of Human Evolution, 2004"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Orang_Utan%2C_Pair_of_Bornean_Orangutan_%28Pongo_pygmaeus%29.jpg/1280px-Orang_Utan%2C_Pair_of_Bornean_Orangutan_%28Pongo_pygmaeus%29.jpg",
+      "alt": "Bornean orangutan pair in canopy",
+      "credit": "Wikimedia Commons",
+      "photographer": "Sergey Pisarevskiy"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Bornean_orangutan_%28Pongo_pygmaeus%29%2C_Tanjung_Puting_National_Park_03.jpg/1280px-Bornean_orangutan_%28Pongo_pygmaeus%29%2C_Tanjung_Puting_National_Park_03.jpg",
+      "alt": "Bornean orangutan at Tanjung Puting",
+      "credit": "Wikimedia Commons",
+      "photographer": "Thomas Fuhrmann"
+    }
+  ]
 }
