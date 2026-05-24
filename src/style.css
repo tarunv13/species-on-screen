@@ -108,12 +108,30 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   will-change: transform, opacity;
+  /* Reset <button> user-agent defaults so the visual aesthetic of the
+     card is identical whether the element is a <div> or a <button>. */
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .floating-card:hover {
   background: rgba(255, 255, 255, 0.18);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Suppress the default browser focus ring; replaced by :focus-visible
+   below so mouse users see no indicator and keyboard users get a ring
+   that matches the cinematic green accent. */
+.floating-card:focus { outline: none; }
+
+.floating-card:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(74, 222, 128, 0.6);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25), 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .floating-card__thumb {
