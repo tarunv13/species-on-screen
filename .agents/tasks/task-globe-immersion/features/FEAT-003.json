@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Enhance species JSON data with safari_scene and comic_strip fields, add scalable architecture for arbitrary species, and ensure the globe shows 'coming soon' placeholder dots for future species locations.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "STEP 1 - Update all 10 species JSON files in public/data/ to add safari_scene and comic_strip fields. For each species, add: (a) safari_scene object with: { biome_type: string matching habitat.type, sky_gradient: [color1, color2] for top-to-bottom sky, silhouette_color: hex for distant landscape, mid_color: hex for vegetation, foreground_color: hex for close elements, atmosphere: 'warm'|'cool'|'neutral' }. (b) comic_strip array with 6 objects, each: { panel_number: 1-6, label: string, title: string, narrative_text: string (2-3 sentences telling the story), source: string or null, source_url: string or null }. The 6 panels follow the arc: 1=Species in habitat, 2=Cultural/mythological bond, 3=Primary threat arrives, 4=Human-wildlife interaction story, 5=Conservation efforts, 6=The future outlook. Derive all text from existing data fields (habitat.description, cultural_depth, threats, conservation, cultural_significance).",
     "STEP 2 - Update tiger.json comic_strip example: Panel 1 title 'Lord of the Forest' narrative from habitat.description first paragraph. Panel 2 title 'Sacred Guardian' from cultural_depth.india_waghoba. Panel 3 title 'Habitat Under Siege' from threats[0]. Panel 4 title 'The Sundarbans Pact' from cultural_depth.india_sundarbans. Panel 5 title 'Project Tiger' from conservation.key_programs. Panel 6 title 'A Fragile Recovery' from conservation.population_trend + estimate.",
@@ -22,5 +22,5 @@
     "Verify JSON validity by running: node -e \"const fs=require('fs');const files=['tiger','african-elephant','polar-bear','snow-leopard','blue-whale','bornean-orangutan','hawksbill-turtle','giant-panda','staghorn-coral','amazon-river-dolphin'];files.forEach(f=>{const d=JSON.parse(fs.readFileSync('public/data/'+f+'.json'));if(!d.safari_scene||!d.comic_strip||d.comic_strip.length!==6)throw new Error(f+' missing fields')});console.log('All valid')\""
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All 10 species JSON files updated with safari_scene and comic_strip fields. COMING_SOON_HOTSPOTS (7 locations) added to globe.js with dim pulsing markers and 'Coming Soon' tooltip on hover. safari-scene.js now reads safari_scene colors from data and passes them as CSS custom properties. safari-scene.css uses --silhouette-color, --mid-color, --foreground-color variables for layer gradients. Build passes cleanly."
 }
