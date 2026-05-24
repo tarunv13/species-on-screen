@@ -65,15 +65,25 @@ function init() {
 }
 
 function waitForSpeciesData() {
-  const expectedCount = 10;
-  const check = () => {
-    if (Object.keys(globe.speciesDataCache).length >= expectedCount) {
-      initFloatingCards();
-    } else {
-      setTimeout(check, 200);
+  if (!globe || typeof globe.whenDataLoaded !== 'function') return;
+
+  globe.whenDataLoaded().then(({ loaded, failed }) => {
+    if (failed.length > 0) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[main] ${failed.length}/${failed.length + loaded.length} species failed to load — continuing with ${loaded.length}.`
+      );
     }
-  };
-  check();
+    if (loaded.length === 0) {
+      // eslint-disable-next-line no-console
+      console.warn('[main] No species data loaded — floating cards will not render. Globe remains interactive.');
+      return;
+    }
+    initFloatingCards();
+  }).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.warn('[main] Species data load pipeline error:', err);
+  });
 }
 
 function initFloatingCards() {
