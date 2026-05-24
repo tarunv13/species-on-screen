@@ -38,6 +38,12 @@ function init() {
   // Initialize globe and add to scene
   globe = new Globe(engine.getScene(), engine.getCamera(), engine.renderer);
 
+  // Set up globe layer toggle buttons
+  setupGlobeLayerToggles();
+
+  // Set up globe info panel
+  setupGlobeInfoPanel();
+
   // Initialize overlay UI
   overlayUI = new OverlayUI();
 
@@ -296,6 +302,16 @@ function updateNavActive(progress) {
   items.forEach((item, i) => {
     item.classList.toggle('site-nav__item--active', i === activeIndex);
   });
+
+  // Show/hide globe layer toggles when globe section is active
+  const layerToggles = document.getElementById('globe-layer-toggles');
+  if (layerToggles) {
+    if (progress > 0.10 && progress < 0.45) {
+      layerToggles.classList.add('visible');
+    } else {
+      layerToggles.classList.remove('visible');
+    }
+  }
 }
 
 /**
@@ -304,6 +320,48 @@ function updateNavActive(progress) {
 function onResize() {
   if (engine) {
     engine.resize();
+  }
+}
+
+/**
+ * Set up globe layer toggle buttons
+ */
+function setupGlobeLayerToggles() {
+  const buttons = document.querySelectorAll('.globe-layer-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (globe) {
+        globe.setLayer(btn.dataset.layer);
+      }
+    });
+  });
+}
+
+/**
+ * Set up globe info panel close and explore interactions
+ */
+function setupGlobeInfoPanel() {
+  const panel = document.getElementById('globe-info-panel');
+  if (!panel) return;
+
+  const closeBtn = panel.querySelector('.globe-info-panel__close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      panel.style.display = 'none';
+    });
+  }
+
+  const exploreBtn = panel.querySelector('.globe-info-panel__explore');
+  if (exploreBtn) {
+    exploreBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const url = exploreBtn.getAttribute('href');
+      if (url && url !== '#') {
+        window.location.href = url;
+      }
+    });
   }
 }
 
