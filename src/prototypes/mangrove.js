@@ -22,11 +22,7 @@ function init() {
   const engine = new CinematicEngine(canvas);
 
   // ---------------------------------------------------------------------
-  // 1. Strip engine defaults that don't apply to this shot. Same ritual
-  //    alpine.js performs — the engine ships a starfield + cool ambient
-  //    + warm directional + dark blue background that none of our biomes
-  //    inherit. Particles are unparented, not destroyed, because the
-  //    engine's animate loop reads their uniform every frame.
+  // 1. Strip engine defaults that don't apply to this shot.
   // ---------------------------------------------------------------------
   if (engine.particles) engine.scene.remove(engine.particles);
   engine.scene.background = null;
@@ -38,24 +34,18 @@ function init() {
 
   // ---------------------------------------------------------------------
   // 2. Renderer config the engine doesn't enable.
-  //    Shadow casting is the load-bearing affordance of this prototype:
-  //    canopy → water dappled patches, roots → water silhouettes. Soft
-  //    shadows are required for both to read as filtered light rather
-  //    than as cut-out stencils. Mobile drops shadows entirely; the
-  //    enclosure still reads, the dappling does not.
+  //    Exposure raised from 1.0 → 1.6 so ACES no longer crushes the
+  //    low-key palette into uniform black. The palette itself has also
+  //    been lifted in each material; the two changes together produce
+  //    the tonal hierarchy the previous pass was missing.
   // ---------------------------------------------------------------------
   engine.renderer.shadowMap.enabled = !mobile;
   engine.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  engine.renderer.toneMappingExposure = 1.6;
 
   // ---------------------------------------------------------------------
-  // 3. Camera config — long-ish lens, very shallow far plane.
-  //    Eye-line sits at y = 1.4: a person low in a poled boat. Portrait
-  //    phones lift the camera and target slightly so the foreground
-  //    water still occupies the lower third — same offset-on-resize
-  //    pattern alpine uses, with mangrove-specific values.
-  //
-  //    far = 250 (alpine: 12000). Humidity compresses depth. Anything
-  //    further than ~80 units is already fog by the time it renders.
+  // 3. Camera config — unchanged from the first pass.
+  //    fov 32, near 0.1, far 250, eyeline at y=1.4 (low boat).
   // ---------------------------------------------------------------------
   const camera = engine.getCamera();
   camera.fov = 32;
@@ -70,18 +60,16 @@ function init() {
   engine.setCameraPosition(startCamPos, startCamTarget);
 
   // ---------------------------------------------------------------------
-  // 4. Fog — humid warm-umber haze, roughly 37x denser than alpine's
-  //    cool-grey thin fog. The colour matches the dim ambient bleed
-  //    of late-afternoon canopy filtering, not the colour of any sky.
-  //    There is no sky in this biome.
+  // 4. Fog — slightly warmer-and-brighter than the first pass so the
+  //    medium itself reads as illuminated air, which is what
+  //    communicates humidity. Distant objects fade INTO a brighter
+  //    background, so the eye reads atmospheric perspective rather
+  //    than a uniform mid-dark slurry.
   // ---------------------------------------------------------------------
-  engine.scene.fog = new THREE.FogExp2(0x4a3322, 0.022);
+  engine.scene.fog = new THREE.FogExp2(0x584a36, 0.020);
 
   // ---------------------------------------------------------------------
-  // 5. World — three depth layers per Article XIII:
-  //      far  : the haze itself (the fog wall)
-  //      mid  : prop-root forest receding on both sides of the channel
-  //      fore : tannin water surface and the closest cluster of roots
+  // 5. World — same three primitives, all augmented internally.
   // ---------------------------------------------------------------------
   const water = new MangroveWater({ mobile });
   const roots = new MangroveRoots({ mobile });
@@ -91,44 +79,80 @@ function init() {
   engine.scene.add(canopy);
 
   // ---------------------------------------------------------------------
-  // 6. Lights — filtered overhead key + warm/dark hemispheric fill.
-  //    Sun is high (y=60) and slightly behind-and-right of the boat
-  //    so its shadows project forward through the channel, giving the
-  //    forward boat-drift a parallax of moving shadow patterns on the
-  //    water — the structural occlusion depth made temporal.
-  //    Intensity is low (0.7 vs alpine's 1.4) because most of the sun
-  //    is absorbed by the canopy before it ever reaches the surface.
+  // 6. Lights — overhauled.
+  //
+  //    Sun:
+  //      - position (10, 14, 5) [was (8, 60, 12) — was almost overhead]
+  //        so trunks now have a lit edge and a dark edge. Modeling
+  //        roots in 3D is what makes them stop reading as silhouettes.
+  //      - intensity 1.4 [was 0.7] — the unfiltered source must be
+  //        bright so the canopy gaps that survive read as actual hits,
+  //        not as slightly-less-dark patches.
+  //      - colour 0xffd28a [was 0xfff0d0] — warmer, late-afternoon
+  //        gold rather than neutral warm white.
+  //
+  //    Hemi:
+  //      - sky 0x8a7240 [was 0x6a5a32] — lifted so the canopy
+  //        underside fills surfaces it can't directly light.
+  //      - ground 0x251810 [was 0x1a1208] — the water is dark but
+  //        not black; bounce off it has presence.
+  //      - intensity 0.45 [was 0.25].
+  //
+  //    Forward fill: a small 0xb89870 light sitting just below
+  //    eyeline ahead of the camera. Simulates the ambient bounce of
+  //    the channel itself — the light that comes from the medium of
+  //    humid air. Intensity 0.20.
   // ---------------------------------------------------------------------
-  const sun = new THREE.DirectionalLight(0xfff0d0, 0.7);
-  sun.position.set(8, 60, 12);
+  const sun = new THREE.DirectionalLight(0xffd28a, 1.4);
+  sun.position.set(10, 14, 5);
   sun.target.position.set(0, 0, -8);
   sun.castShadow = !mobile;
   sun.shadow.mapSize.set(2048, 2048);
-  // Tight orthographic frustum around the visible channel — the
-  // shadow map is dense over the area the camera will see, not
-  // wasted on the haze.
-  sun.shadow.camera.left = -12;
-  sun.shadow.camera.right = 12;
-  sun.shadow.camera.top = 16;
-  sun.shadow.camera.bottom = -16;
-  sun.shadow.camera.near = 5;
-  sun.shadow.camera.far = 100;
-  sun.shadow.bias = -0.0006;
-  sun.shadow.normalBias = 0.04;
+  // Frustum re-tuned for the new sun position. The new angle means the
+  // shadow camera covers a slightly wider area of the channel.
+  sun.shadow.camera.left = -16;
+  sun.shadow.camera.right = 16;
+  sun.shadow.camera.top = 18;
+  sun.shadow.camera.bottom = -18;
+  sun.shadow.camera.near = 4;
+  sun.shadow.camera.far = 80;
+  sun.shadow.bias = -0.0008;
+  sun.shadow.normalBias = 0.06;
   engine.scene.add(sun);
   engine.scene.add(sun.target);
 
-  // Hemispheric fill: warm filtered "sky" (i.e. canopy underside) above,
-  // dark tannin "ground" (i.e. water) below. Higher intensity than
-  // alpine's 0.06 because the diffuse fill matters more in an enclosed
-  // space than on an open ridge.
-  const hemi = new THREE.HemisphereLight(0x6a5a32, 0x1a1208, 0.25);
+  const hemi = new THREE.HemisphereLight(0x8a7240, 0x251810, 0.45);
   engine.scene.add(hemi);
 
+  // Forward fill — small, low, slightly behind the camera's lookAt
+  // direction so it lifts the front-facing side of approaching roots.
+  const fill = new THREE.DirectionalLight(0xb89870, 0.20);
+  fill.position.set(0, 0.4, 6); // forward of camera, near eyeline
+  fill.target.position.set(0, 0.6, -8);
+  engine.scene.add(fill);
+  engine.scene.add(fill.target);
+
   // ---------------------------------------------------------------------
-  // 7. Per-frame water tidal update.
-  //    One ambient motion only (Principle XVIII). The leaf-litter UV
-  //    drift is part of the water material — same tide, one motion.
+  // 6b. Environment map — PMREM-baked from the scene itself.
+  //     The water and (to a lesser extent) the wet bark gain specular
+  //     response to the canopy above and the channel below. Without
+  //     this, MeshStandardMaterial has nothing to reflect, so wet
+  //     surfaces read as matte mud. Skipped on mobile to preserve
+  //     the perf envelope.
+  //
+  //     Bake happens AFTER the world is added so the env capture sees
+  //     prop-roots, canopy, water — the actual diffuse surround.
+  // ---------------------------------------------------------------------
+  if (!mobile) {
+    const pmrem = new THREE.PMREMGenerator(engine.renderer);
+    pmrem.compileEquirectangularShader();
+    const envRT = pmrem.fromScene(engine.scene, 0.04, 0.1, 100);
+    engine.scene.environment = envRT.texture;
+    pmrem.dispose();
+  }
+
+  // ---------------------------------------------------------------------
+  // 7. Per-frame water tidal update. One ambient motion (Principle XVIII).
   // ---------------------------------------------------------------------
   engine.onUpdate((delta) => {
     if (prefersReducedMotion()) return;
@@ -136,10 +160,7 @@ function init() {
   });
 
   // ---------------------------------------------------------------------
-  // 8. Resize / orientation — recompose camera height for portrait so
-  //    the water still occupies the lower third. Preserves whatever
-  //    forward-Z position the timeline has reached, the same way
-  //    alpine preserves its lateral target.x.
+  // 8. Resize / orientation.
   // ---------------------------------------------------------------------
   window.addEventListener('resize', () => {
     engine.resize();
@@ -154,8 +175,7 @@ function init() {
   });
 
   // ---------------------------------------------------------------------
-  // 9. Pause GSAP when tab is hidden. The engine already pauses its
-  //    own clock on visibilitychange; this aligns the timeline.
+  // 9. GSAP visibility pause.
   // ---------------------------------------------------------------------
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) gsap.globalTimeline.pause();
@@ -163,37 +183,25 @@ function init() {
   });
 
   // ---------------------------------------------------------------------
-  // 10. Warm shaders by rendering one frame, then start the timeline.
+  // 10. Warm shaders, then start timeline.
   // ---------------------------------------------------------------------
   engine.composer.render();
   requestAnimationFrame(() => startTimeline(engine));
 }
 
 function startTimeline(engine) {
-  // Reduced-motion: hold the opening composition for the full session.
-  // The first frame has already rendered, so the user sees the fully
-  // composed image; only the boat drift is suppressed.
   if (prefersReducedMotion()) return;
 
   const camera = engine.getCamera();
   const tl = gsap.timeline({ defaults: { ease: 'none' } });
 
-  // 0.0–2.0 s: held composition. Article I. The viewer registers the
-  // place — water, roots, haze — before anything moves.
+  // 0.0–2.0 s: held composition. Article I.
   tl.to({}, { duration: 2.0 });
 
-  // 2.0–10.0 s: linear forward dolly. Article II Drift, but on the
-  // camera's own Z axis instead of a yaw-target. The boat is drifting
-  // through the channel. Camera position changes; lookAt-target stays
-  // ahead, so the line of sight stays roughly forward and slightly
-  // down. Speed: 1.6 units/sec — at the typical mangrove root cluster
-  // distances (x ≈ ±2.5, z within ±6 of the camera), the nearest
-  // visible trunk passes from edge-of-frame to behind the camera in
-  // ~6 seconds, satisfying the doctrinal "one screen-width every
-  // 8–12 seconds" rule for the dominant subject.
+  // 2.0–10.0 s: linear forward dolly. Article II Drift on Z axis.
   tl.to(camera.position, { z: -8, duration: 8.0, ease: 'none' });
 
-  // 10.0–12.0 s: decelerated settle. Final frame is held, not looped.
+  // 10.0–12.0 s: decelerated settle. Final frame is held.
   tl.to(camera.position, { z: -10, duration: 2.0, ease: 'power2.out' });
 }
 
