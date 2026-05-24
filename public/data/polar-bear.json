@@ -4,7 +4,9 @@
     "common_name": "Polar Bear",
     "family": "Ursidae",
     "order": "Carnivora",
-    "class": "Mammalia"
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/2435022",
+    "iucn_url": "https://www.iucnredlist.org/species/22823/166773151"
   },
   "habitat": {
     "type": "Arctic",
@@ -87,6 +89,59 @@
       "Geographic remoteness reduces public urgency for Arctic protection"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Global emissions reduction requires systemic change beyond individual action",
+        "source": "Amstrup et al. (2010)",
+        "source_url": "https://doi.org/10.1038/nature09653"
+      },
+      {
+        "text": "Arctic communities lack infrastructure to manage increasing bear encounters",
+        "source": "Wilder et al. (2017)",
+        "source_url": "https://doi.org/10.1002/wsb.783"
+      },
+      {
+        "text": "Limited ability to create artificial feeding opportunities during extended ice-free periods",
+        "source": "Stirling & Derocher (2012)",
+        "source_url": "https://doi.org/10.1111/j.1365-2486.2012.02753.x"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Fossil fuel infrastructure expanding into Arctic as ice retreats",
+        "source": "Laidre et al. (2015)",
+        "source_url": "https://doi.org/10.1111/cobi.12474"
+      },
+      {
+        "text": "International climate agreements insufficient to halt warming trajectory",
+        "source": "IPCC (2021)",
+        "source_url": "https://www.ipcc.ch/report/ar6/wg1/"
+      },
+      {
+        "text": "Arctic shipping routes opening, increasing disturbance",
+        "source": "Hauser et al. (2018)",
+        "source_url": "https://doi.org/10.1002/ece3.4518"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Economic incentives for Arctic resource extraction outweigh conservation concerns",
+        "source": "Laidre et al. (2015)",
+        "source_url": "https://doi.org/10.1111/cobi.12474"
+      },
+      {
+        "text": "Climate change denial delays necessary policy action",
+        "source": "Stirling & Derocher (2012)",
+        "source_url": "https://doi.org/10.1111/j.1365-2486.2012.02753.x"
+      },
+      {
+        "text": "Geographic remoteness reduces public urgency for Arctic protection",
+        "source": "Silk et al. (2018)",
+        "source_url": "https://doi.org/10.1002/pan3.6"
+      }
+    ]
+  },
   "evidence_summary": "The iconic \"stranded polar bear\" imagery has become the most recognized visual metaphor for climate change, measurably increasing public concern and support for emissions reduction policies (Silk et al., 2018; Macdonald et al., 2016).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -97,6 +152,117 @@
     "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
     "Amstrup, S.C. et al. (2010). Greenhouse gas mitigation can reduce sea-ice loss and increase polar bear persistence. Nature, 468(7326), pp.955-958.",
     "Stirling, I. & Derocher, A.E. (2012). Effects of climate warming on polar bears: a review of the evidence. Global Change Biology, 18(9), pp.2694-2706."
+  ],
+  "interesting_facts": [
+    {
+      "text": "Polar bear fur is not white but transparent and hollow, appearing white due to light scattering; their skin is actually black.",
+      "source_url": "https://doi.org/10.1364/AO.33.007518"
+    },
+    {
+      "text": "They can detect a seal beneath a metre of snow from nearly a kilometre away using their extraordinary sense of smell.",
+      "source_url": "https://www.worldwildlife.org/species/polar-bear"
+    },
+    {
+      "text": "Polar bears are classified as marine mammals because they spend most of their lives on sea ice.",
+      "source_url": "https://doi.org/10.1111/j.1365-2486.2012.02753.x"
+    },
+    {
+      "text": "They can swim continuously for over 100 hours, covering distances of more than 680 kilometres.",
+      "source_url": "https://doi.org/10.1139/z2012-033"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Polar_Bear_-_Alaska_%28cropped%29.jpg/1280px-Polar_Bear_-_Alaska_%28cropped%29.jpg",
+      "alt": "Polar bear in Alaska",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "Alan D. Wilson"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Polar_Bear_2004-11-15.jpg/1280px-Polar_Bear_2004-11-15.jpg",
+      "alt": "Polar bear walking on snow",
+      "credit": "Wikimedia Commons, CC BY-SA 2.5",
+      "photographer": "Ansgar Walk"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Polar_Bear_-_Alaska.jpg/1280px-Polar_Bear_-_Alaska.jpg",
+      "alt": "Polar bear on ice in Alaska",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "Alan D. Wilson"
+    }
+  ],
+  "cultural_depth": {
+    "inuit_nanuq": {
+      "description": "In Inuit cosmology, Nanuq (the polar bear) is a powerful spiritual being deserving of profound respect. Traditional hunting protocols require specific prayers, songs, and offerings. The polar bear is considered the most intelligent and dangerous of Arctic animals, capable of understanding human speech.",
+      "source": "Dowsley, M. & Wenzel, G. (2008)",
+      "source_url": "https://doi.org/10.1007/s10745-008-9174-7"
+    },
+    "norse_mythology": {
+      "description": "In Norse mythology, the ice bear appears as a form taken by warriors and gods. The berserkers, elite Viking warriors, wore bear skins and channeled ursine ferocity in battle. The polar bear pelt was among the most prized gifts exchanged between Nordic royalty.",
+      "source": "Pluskowski, A. (2006). Wolves and the Wilderness in the Middle Ages. Boydell Press.",
+      "source_url": "https://boydellandbrewer.com/9781843831532/wolves-and-the-wilderness-in-the-middle-ages/"
+    },
+    "sami_tradition": {
+      "description": "The Sami people of northern Scandinavia maintain traditional beliefs about the bear as a sacred ancestor requiring elaborate funeral rites after a hunt. Bear ceremonies, documented since the 17th century, reflect deep spiritual connections between Arctic peoples and ursine predators.",
+      "source": "Ingold, T. (1994). From Trust to Domination. In: Manning & Serpell (eds) Animals and Human Society.",
+      "source_url": "https://doi.org/10.4324/9780203421444"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Wrangel Island Nature Reserve",
+        "lat": 71.2333,
+        "lng": -179.7667,
+        "country": "Russia"
+      },
+      {
+        "name": "Arctic National Wildlife Refuge",
+        "lat": 69.5,
+        "lng": -144.5,
+        "country": "United States"
+      },
+      {
+        "name": "Nordaust-Svalbard Nature Reserve",
+        "lat": 79.5,
+        "lng": 24,
+        "country": "Norway"
+      },
+      {
+        "name": "Wapusk National Park",
+        "lat": 57.3,
+        "lng": -93.2,
+        "country": "Canada"
+      },
+      {
+        "name": "Franz Josef Land Nature Reserve",
+        "lat": 80.5,
+        "lng": 55,
+        "country": "Russia"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/22823/166773151"
+    },
+    {
+      "name": "Polar Bear Specialist Group",
+      "type": "research",
+      "url": "https://www.iucn-pbsg.org/"
+    },
+    {
+      "name": "WWF Arctic Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/polar-bear"
+    },
+    {
+      "name": "NSIDC Sea Ice Data",
+      "type": "climate",
+      "url": "https://nsidc.org/data/seaice_index"
+    }
   ],
   "tmdb_media": [
     {
@@ -123,7 +289,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1432881",
       "poster_path": "/l0zAouakeSXH3W4dDSSCagSyJWh.jpg",
       "backdrop_path": null,
-      "overview": "In the northern reaches of Manitoba, resting on the edge of Canada\u2019s Hudson Bay, sits the small town of Churchill. Home to fewer than 1000 year-round residents, Churchill is a remarkable place: it plays host to an annual beluga whale migration, is visited by the Northern Lights over 300 times per year, and sits in a pristine tundra that truly embodies the term \u201cwilderness\u201d. Churchill\u2019s most famous visitor, however, is the mighty Polar Bear. Every year, hundreds of bears gather on the shoreline surrounding Churchill, awaiting the sea ice that forms on Hudson Bay during winter. Once it forms, they\u2019ll use it as a platform from which to hunt seals, but until then, they wait on the coast, creating a fascinating, and potentially dangerous, interaction between the residents of Churchill and the world\u2019s largest land carnivore.",
+      "overview": "In the northern reaches of Manitoba, resting on the edge of Canada’s Hudson Bay, sits the small town of Churchill. Home to fewer than 1000 year-round residents, Churchill is a remarkable place: it plays host to an annual beluga whale migration, is visited by the Northern Lights over 300 times per year, and sits in a pristine tundra that truly embodies the term “wilderness”. Churchill’s most famous visitor, however, is the mighty Polar Bear. Every year, hundreds of bears gather on the shoreline surrounding Churchill, awaiting the sea ice that forms on Hudson Bay during winter. Once it forms, they’ll use it as a platform from which to hunt seals, but until then, they wait on the coast, creating a fascinating, and potentially dangerous, interaction between the residents of Churchill and the world’s largest land carnivore.",
       "classification": "documentary",
       "narrative_technique": "presenter-led",
       "relevance_score": 95,
@@ -140,7 +306,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/927070",
       "poster_path": "/nCRUQcbBs6Ix6YaBeCgC9OwE0mt.jpg",
       "backdrop_path": "/aVSSuDNzgqHVCdAcSSAA1kdhrkK.jpg",
-      "overview": "A new mother\u2019s memories of her own youth prepare her to navigate motherhood in the increasingly challenging world that polar bears face today.",
+      "overview": "A new mother’s memories of her own youth prepare her to navigate motherhood in the increasingly challenging world that polar bears face today.",
       "classification": "documentary",
       "narrative_technique": "observational",
       "relevance_score": 90,
@@ -187,23 +353,6 @@
       "vote_average": 6.5
     },
     {
-      "title": "Alaska Polar Bear",
-      "year": 2018,
-      "director": "Yoon Joong-boo",
-      "tmdb_url": "https://www.themoviedb.org/movie/773559",
-      "poster_path": "/vW52Klg1li7xVRECiQKM96FBj3q.jpg",
-      "backdrop_path": "/rfOvXaDrHRZ2Cq2lHbWbYe8rGL1.jpg",
-      "overview": "As an adult film director, Tae-joon is called a polar bear because he has a low-talking personality but has a big body and voice when excited. Because of his lustful father, he thinks only of women as a tool to quench her sexual desire. He is currently running a cafe with coffee he learned to soothe the mind and body. He has an uninspiring sex life with the erotic actress Do Do-hee, his sex partner. On the other hand, one day when Yeon-hee, the youngest member of the Alaska directing department, works at Tae-Jun's cafe, Tae-Jun can't stand his sexual desire and violates her...",
-      "classification": "fiction",
-      "narrative_technique": "fiction-featuring",
-      "relevance_score": 40,
-      "query_source": "Polar Bear",
-      "genre_ids": [
-        18
-      ],
-      "vote_average": 5
-    },
-    {
       "title": "Polar Bear",
       "year": 2015,
       "director": "Sean Buckley",
@@ -219,6 +368,23 @@
         18
       ],
       "vote_average": 9
+    },
+    {
+      "title": "Alaska Polar Bear",
+      "year": 2018,
+      "director": "Yoon Joong-boo",
+      "tmdb_url": "https://www.themoviedb.org/movie/773559",
+      "poster_path": "/vW52Klg1li7xVRECiQKM96FBj3q.jpg",
+      "backdrop_path": "/rfOvXaDrHRZ2Cq2lHbWbYe8rGL1.jpg",
+      "overview": "As an adult film director, Tae-joon is called a polar bear because he has a low-talking personality but has a big body and voice when excited. Because of his lustful father, he thinks only of women as a tool to quench her sexual desire. He is currently running a cafe with coffee he learned to soothe the mind and body. He has an uninspiring sex life with the erotic actress Do Do-hee, his sex partner. On the other hand, one day when Yeon-hee, the youngest member of the Alaska directing department, works at Tae-Jun's cafe, Tae-Jun can't stand his sexual desire and violates her...",
+      "classification": "fiction",
+      "narrative_technique": "fiction-featuring",
+      "relevance_score": 40,
+      "query_source": "Polar Bear",
+      "genre_ids": [
+        18
+      ],
+      "vote_average": 5
     },
     {
       "title": "Polar Bear",
@@ -288,55 +454,6 @@
       "query_source": "Polar Bear",
       "genre_ids": [],
       "vote_average": 9
-    }
-  ],
-  "data_sources": {
-    "population": {
-      "value": "22,000-31,000",
-      "source": "IUCN Polar Bear Specialist Group",
-      "year": 2021
-    },
-    "iucn_status": {
-      "status": "Vulnerable",
-      "source": "IUCN Red List",
-      "assessed": 2015
-    },
-    "sea_ice_loss": {
-      "value": "13% Arctic sea ice decline per decade",
-      "source": "NSIDC / NASA",
-      "year": 2023
-    }
-  },
-  "interesting_facts": [
-    {
-      "fact": "Polar bear fur is actually transparent, not white - each hair is a hollow tube that scatters light, appearing white.",
-      "source": "Koon & Vohnsen, Applied Optics, 1998"
-    },
-    {
-      "fact": "They can swim continuously for over 100 hours and have been tracked swimming 687km without stopping.",
-      "source": "Pagano et al., Ecography, 2012"
-    },
-    {
-      "fact": "Under their white-appearing fur, polar bears have jet-black skin to absorb heat from the sun.",
-      "source": "Stirling, Polar Bears: The Natural History, 2011"
-    },
-    {
-      "fact": "A polar bear can smell a seal through 3 feet of ice and from nearly 1.6km away.",
-      "source": "DeMaster & Stirling, Polar Bears Proceedings, 1981"
-    }
-  ],
-  "photos": [
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Polar_Bear_-_Alaska_%28cropped%29.jpg/1280px-Polar_Bear_-_Alaska_%28cropped%29.jpg",
-      "alt": "Polar bear in Arctic landscape",
-      "credit": "Wikimedia Commons",
-      "photographer": "Alan Wilson"
-    },
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Ursus_maritimus_us_fish.jpg/1280px-Ursus_maritimus_us_fish.jpg",
-      "alt": "Polar bear on sea ice",
-      "credit": "Wikimedia Commons",
-      "photographer": "US Fish and Wildlife Service"
     }
   ]
 }
