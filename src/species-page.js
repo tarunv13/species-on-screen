@@ -36,12 +36,21 @@ function initLenis() {
 async function loadSpeciesData() {
   const loadingEl = document.querySelector('.species-page-loading');
   try {
-    const response = await fetch(`/species-on-screen/data/${slug}.json`);
+    const basePath = import.meta.env.BASE_URL || '/';
+    const response = await fetch(`${basePath}data/${slug}.json`);
     if (!response.ok) throw new Error(`Failed to load data for ${slug}`);
     const data = await response.json();
     renderSpeciesPage(data);
     document.body.classList.add('sp-loaded');
     initAnimations();
+    // Fallback: if GSAP animations haven't revealed content after 3 seconds, force visibility
+    setTimeout(() => {
+      document.querySelectorAll('.sp-loaded .sp-section').forEach(el => {
+        if (getComputedStyle(el.querySelector('.sp-section__heading') || el).opacity === '0') {
+          document.body.classList.remove('sp-loaded');
+        }
+      });
+    }, 3000);
   } catch (error) {
     console.error(error);
     if (loadingEl) {
@@ -359,12 +368,12 @@ function renderInterestingFacts(data) {
         <div class="sp-facts__grid">
           ${data.interesting_facts.map(item => {
             const factText = item.fact || item.text || '';
-            const sourceLabel = item.source || (item.source_url ? 'Source' : '');
+            const sourceText = item.source || 'View source';
             const sourceUrl = item.source_url || '';
             return `
               <div class="sp-fact-card">
                 <p class="sp-fact-card__text">${escapeHtml(factText)}</p>
-                ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link sp-fact-card__citation">${escapeHtml(sourceLabel)}</a>` : (sourceLabel ? `<span class="sp-fact-card__citation">${escapeHtml(sourceLabel)}</span>` : '')}
+                ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link sp-fact-card__citation">${escapeHtml(sourceText)}</a>` : (sourceText !== 'View source' ? `<span class="sp-fact-card__citation">${escapeHtml(sourceText)}</span>` : '')}
               </div>
             `;
           }).join('')}
