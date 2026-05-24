@@ -2,9 +2,10 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { gsap } from 'gsap';
 
 /**
- * Ambient particle system - soft golden/green motes floating in space
+ * Ambient particle system - soft motes floating in space
  */
 function createParticleSystem() {
   const count = 1000;
@@ -56,7 +57,7 @@ function createParticleSystem() {
         float dist = length(gl_PointCoord - vec2(0.5));
         if (dist > 0.5) discard;
         float alpha = smoothstep(0.5, 0.0, dist) * vOpacity;
-        gl_FragColor = vec4(0.6, 0.8, 0.4, alpha * 0.4);
+        gl_FragColor = vec4(0.4, 0.6, 0.9, alpha * 0.4);
       }
     `,
     transparent: true,
@@ -68,58 +69,18 @@ function createParticleSystem() {
 }
 
 /**
- * Camera keyframes - positions and lookAt targets for each chapter
- */
-const CAMERA_KEYFRAMES = [
-  // 0% - Hero: close-up
-  { position: new THREE.Vector3(0, 0.5, 4.5), target: new THREE.Vector3(0, 0, 0) },
-  // 25% - Globe: centered
-  { position: new THREE.Vector3(0, 0.3, 5.5), target: new THREE.Vector3(0, 0, 0) },
-  // 50% - Orbital side view
-  { position: new THREE.Vector3(3, 2, 4), target: new THREE.Vector3(0, 0, 0) },
-  // 75% - Species gallery
-  { position: new THREE.Vector3(-2, 1.5, 5), target: new THREE.Vector3(0, 0, 0) },
-  // 100% - Far pullback
-  { position: new THREE.Vector3(0, 1, 8), target: new THREE.Vector3(0, 0, 0) },
-];
-
-/**
- * Cubic ease in-out for smooth interpolation
- */
-function easeInOutCubic(t) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-/**
- * Interpolate camera position between keyframes with cubic easing
- */
-function interpolateKeyframes(progress) {
-  const segments = CAMERA_KEYFRAMES.length - 1;
-  const rawIndex = progress * segments;
-  const index = Math.min(Math.floor(rawIndex), segments - 1);
-  const localT = rawIndex - index;
-  const easedT = easeInOutCubic(localT);
-
-  const from = CAMERA_KEYFRAMES[index];
-  const to = CAMERA_KEYFRAMES[index + 1];
-
-  const position = new THREE.Vector3().lerpVectors(from.position, to.position, easedT);
-  const target = new THREE.Vector3().lerpVectors(from.target, to.target, easedT);
-
-  return { position, target };
-}
-
-/**
  * CinematicEngine - core Three.js scene manager
  */
 export class CinematicEngine {
   constructor(canvas) {
     this.canvas = canvas;
     this.clock = new THREE.Clock();
-    this.scrollProgress = 0;
     this._updateCallbacks = [];
     this._paused = false;
     this._lastTime = performance.now();
+
+    // Camera target for lookAt (used by flyCamera)
+    this._cameraTarget = new THREE.Vector3(0, 0, 0);
 
     this._initScene();
     this._initRenderer();
@@ -132,8 +93,7 @@ export class CinematicEngine {
 
   _initScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xf5f5f0);
-    this.scene.fog = new THREE.FogExp2(0xf5f5f0, 0.04);
+    this.scene.background = new THREE.Color(0x0a0a1a);
 
     this.camera = new THREE.PerspectiveCamera(
       60,
@@ -141,15 +101,16 @@ export class CinematicEngine {
       0.1,
       100
     );
-    this.camera.position.copy(CAMERA_KEYFRAMES[0].position);
-    this.camera.lookAt(CAMERA_KEYFRAMES[0].target);
+    // Start camera far away for the fly-in
+    this.camera.position.set(0, 2, 20);
+    this.camera.lookAt(this._cameraTarget);
   }
 
   _initRenderer() {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
-      alpha: true,
+      alpha: false,
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -165,9 +126,9 @@ export class CinematicEngine {
 
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      0.15,  // strength
+      0.3,   // strength
       0.4,   // radius
-      0.9    // threshold
+      0.85   // threshold
     );
     this.composer.addPass(bloomPass);
   }
@@ -178,10 +139,10 @@ export class CinematicEngine {
   }
 
   _initLighting() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene.add(ambient);
 
-    const directional = new THREE.DirectionalLight(0xfff5e6, 1.0);
+    const directional = new THREE.DirectionalLight(0xfff5e6, 1.2);
     directional.position.set(5, 5, 3);
     this.scene.add(directional);
   }
@@ -214,6 +175,9 @@ export class CinematicEngine {
       // Update particle drift
       this.particles.material.uniforms.time.value = elapsed;
 
+      // Update camera lookAt
+      this.camera.lookAt(this._cameraTarget);
+
       // Run registered update callbacks (e.g., globe.update)
       for (const cb of this._updateCallbacks) {
         cb(delta);
@@ -233,13 +197,38 @@ export class CinematicEngine {
   }
 
   /**
-   * Update camera based on scroll progress (0-1)
+   * Animate camera from current position to target position/lookAt using GSAP
+   * Returns the GSAP timeline
    */
-  update(progress) {
-    this.scrollProgress = Math.max(0, Math.min(1, progress));
-    const { position, target } = interpolateKeyframes(this.scrollProgress);
-    this.camera.position.copy(position);
-    this.camera.lookAt(target);
+  flyCamera(toPos, toTarget, duration = 1.5, ease = 'power3.inOut') {
+    const tl = gsap.timeline();
+
+    tl.to(this.camera.position, {
+      x: toPos.x,
+      y: toPos.y,
+      z: toPos.z,
+      duration,
+      ease,
+    }, 0);
+
+    tl.to(this._cameraTarget, {
+      x: toTarget.x,
+      y: toTarget.y,
+      z: toTarget.z,
+      duration,
+      ease,
+    }, 0);
+
+    return tl;
+  }
+
+  /**
+   * Immediately set camera position and lookAt target
+   */
+  setCameraPosition(pos, target) {
+    this.camera.position.set(pos.x, pos.y, pos.z);
+    this._cameraTarget.set(target.x, target.y, target.z);
+    this.camera.lookAt(this._cameraTarget);
   }
 
   /**
