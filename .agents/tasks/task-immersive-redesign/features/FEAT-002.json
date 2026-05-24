@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Complete visual redesign of the main page (index.html) from dark to light dreamy aesthetic with real Earth globe, Lenis smooth scrolling, cinematic camera flow, Apple 2026-level scroll smoothness, and immersive scrollytelling sections. This is the core visual transformation.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "STEP 1 - Rewrite src/style.css completely: Change from dark (#0a0a0f) to light aesthetic. Background: soft whites (#fafaf8, #f5f5f0). Text: dark charcoal (#1a1a1a). Surfaces: translucent frosted glass (backdrop-filter: blur) with soft shadows. Color palette: pastel greens, turquoise, ochre, translucent whites. Remove the film grain body::after overlay. Remove all dark backgrounds. Loading screen should be light. Add smooth transition styles, parallax layers, spring animation keyframes.",
     "STEP 2 - Rewrite src/cinematic-engine.js: Remove the FilmGrainShader entirely and the grainPass. Change scene fog to light (FogExp2 with white/cream color like 0xf5f5f0). Change scene background to light cream. Keep UnrealBloomPass but reduce intensity for light theme (soft glow not dark bloom). Change particle system colors from dark blue-tinted to soft golden/green motes. Change lighting from dark ambient (0x222244) to bright warm lighting. Update camera keyframes for more cinematic movements (dolly, crane, orbital sweeps). Add easing via cubic-bezier curves for camera interpolation.",
@@ -29,5 +29,5 @@
     "Run: grep -c 'FilmGrainShader\\|#0a0a0f\\|research_questions' src/cinematic-engine.js src/style.css index.html -- should return 0 for each"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Complete visual redesign implemented and verified. Build passes cleanly. All dark colors removed, FilmGrainShader removed, real Earth texture loaded via CDN, Lenis smooth scrolling initialized and connected to GSAP ScrollTrigger, overlay panels use frosted glass with backdrop-filter blur, species cards have spring hover transforms. Added new By the Numbers section between globe and species. Scroll container increased to 700vh. The chunk size warning for main.js (566KB) is pre-existing from Three.js bundle size and not a blocker."
 }
