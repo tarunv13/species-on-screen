@@ -5,12 +5,11 @@ import { gsap } from 'gsap';
  * Values are [fadeInStart, fullyVisible, fadeOutStart, fullyHidden]
  */
 const OVERLAY_RANGES = {
-  hero: [0, 0.0, 0.12, 0.18],
-  globe: [0.14, 0.20, 0.30, 0.36],
-  research: [0.32, 0.38, 0.50, 0.56],
-  species: [0.52, 0.58, 0.72, 0.78],
-  methodology: [0.74, 0.80, 0.88, 0.92],
-  vision: [0.88, 0.93, 1.0, 1.0],
+  hero: [0, 0.0, 0.15, 0.22],
+  globe: [0.18, 0.25, 0.40, 0.48],
+  numbers: [0.38, 0.44, 0.48, 0.54],
+  species: [0.50, 0.52, 0.75, 0.82],
+  vision: [0.78, 0.85, 1.0, 1.0],
 };
 
 /**
@@ -19,15 +18,15 @@ const OVERLAY_RANGES = {
 export class OverlayUI {
   constructor() {
     this.overlays = {};
+    this._prevVisible = {};
     this._cacheElements();
   }
 
   _cacheElements() {
     this.overlays.hero = document.querySelector('.overlay--hero');
     this.overlays.globe = document.querySelector('.overlay--globe');
-    this.overlays.research = document.querySelector('.overlay--research');
+    this.overlays.numbers = document.querySelector('.overlay--numbers');
     this.overlays.species = document.querySelector('.overlay--species');
-    this.overlays.methodology = document.querySelector('.overlay--methodology');
     this.overlays.vision = document.querySelector('.overlay--vision');
   }
 
@@ -55,6 +54,27 @@ export class OverlayUI {
   }
 
   /**
+   * Stagger child elements when an overlay becomes visible
+   */
+  _staggerChildren(el, isBecomingVisible) {
+    if (!el) return;
+    const children = el.querySelectorAll('.overlay__heading, .overlay__text, .overlay__tagline, .species-grid, .numbers-grid');
+    if (isBecomingVisible && children.length > 0) {
+      gsap.fromTo(children, {
+        opacity: 0,
+        y: 15,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'power2.out',
+        overwrite: true,
+      });
+    }
+  }
+
+  /**
    * Update overlay visibility based on scroll progress (0-1)
    */
   update(progress) {
@@ -63,11 +83,22 @@ export class OverlayUI {
       if (!el) return;
 
       const opacity = this._getOpacity(progress, range);
+      const isVisible = opacity > 0.01;
+      const wasVisible = this._prevVisible[key] || false;
+
+      // Trigger stagger animation on visibility change
+      if (isVisible && !wasVisible) {
+        this._staggerChildren(el, true);
+      }
+      this._prevVisible[key] = isVisible;
+
+      const translateY = isVisible ? 0 : 30;
 
       gsap.set(el, {
         opacity,
-        visibility: opacity > 0.01 ? 'visible' : 'hidden',
+        visibility: isVisible ? 'visible' : 'hidden',
         pointerEvents: opacity > 0.5 ? 'auto' : 'none',
+        y: translateY * (1 - opacity),
       });
     });
   }

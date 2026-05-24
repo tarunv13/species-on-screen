@@ -84,13 +84,6 @@
     ]
   },
   "evidence_summary": "The giant panda demonstrates the \"flagship species\" effect where media attention on one charismatic species generates conservation funding that protects entire ecosystems, though critics note allocation inequity (Macdonald et al., 2016).",
-  "methodology_notes": "Giant panda connects to RQ1 through WWF brand recognition and fundraising data; RQ2 through anthropomorphic narrative technique analysis in Kung Fu Panda vs observational documentaries; RQ3 through bamboo forest ecosystem management simulation; RQ4 through population recovery metrics as long-term outcome measure.",
-  "research_questions": [
-    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-  ],
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
     "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
@@ -137,7 +130,7 @@
       "vote_average": 0
     },
     {
-      "title": "Four Seasons in the giant Panda’s kingdom",
+      "title": "Four Seasons in the giant Panda\u2019s kingdom",
       "year": 2022,
       "director": "Philippe Molins",
       "tmdb_url": "https://www.themoviedb.org/movie/1391107",
@@ -169,6 +162,55 @@
         99
       ],
       "vote_average": 0
+    }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "1,864 in the wild",
+      "source": "China National Giant Panda Survey",
+      "year": 2015
+    },
+    "iucn_status": {
+      "status": "Vulnerable",
+      "source": "IUCN Red List",
+      "assessed": 2016
+    },
+    "recovery": {
+      "value": "17% population increase over a decade",
+      "source": "State Forestry Administration of China",
+      "year": 2015
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Despite being classified as carnivores, 99% of a giant panda's diet is bamboo - they eat 12-38kg per day.",
+      "source": "Schaller et al., The Giant Pandas of Wolong, 1985"
+    },
+    {
+      "fact": "Panda cubs are born pink, blind, and roughly 1/900th the size of their mother - one of the smallest mammalian birth ratios.",
+      "source": "Zhang et al., Giant Pandas: Biology and Conservation, 2004"
+    },
+    {
+      "fact": "Their 'pseudo-thumb' (an enlarged wrist bone) evolved specifically for gripping bamboo stalks.",
+      "source": "Endo et al., Nature, 1999"
+    },
+    {
+      "fact": "China's panda conservation efforts protect habitat for 70% of the country's forest-dwelling endangered species.",
+      "source": "Li & Pimm, Nature Ecology & Evolution, 2020"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/1280px-Grosser_Panda.JPG",
+      "alt": "Giant panda eating bamboo",
+      "credit": "Wikimedia Commons",
+      "photographer": "J. Patrick Fischer"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1280px-Giant_Panda_2004-03-2.jpg",
+      "alt": "Giant panda in natural habitat",
+      "credit": "Wikimedia Commons",
+      "photographer": "Mila Zinkova"
     }
   ]
 }

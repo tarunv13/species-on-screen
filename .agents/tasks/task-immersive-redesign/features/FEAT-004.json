@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-004",
+  "type": "chore",
+  "description": "Final cleanup: update scripts/fetch-tmdb-data.js to remove all RQ references and methodology_notes from the data pipeline, ensure the build is clean, and remove any remaining dark theme artifacts across the codebase.",
+  "status": "completed",
+  "steps": [
+    "STEP 1 - Edit scripts/fetch-tmdb-data.js: Remove the RESEARCH_QUESTIONS constant. Remove methodology_notes from each species object. Remove any code that writes research_questions to the output JSON. Keep all TMDB fetching logic intact. Keep species data, habitat, conservation, cultural_significance, threats, root_causes_comb, evidence_summary, academic_references, and hero_stat fields. The script should still work if run (minus the removed fields).",
+    "STEP 2 - Final grep scan: Search for any remaining references to RQ1-RQ4, research_questions, methodology_notes, PhD, 'research framework', #0a0a0f, FilmGrainShader across ALL project files. Fix any stragglers.",
+    "STEP 3 - Run npm run build one final time to confirm the full project builds cleanly.",
+    "STEP 4 - Verify that dist/ output contains all expected pages: index.html and all 10 species HTML pages."
+  ],
+  "acceptance_criteria": [
+    "npm run build succeeds",
+    "Zero grep matches for RQ1, RQ2, RQ3, RQ4, research_questions, methodology_notes across all source files",
+    "dist/ contains index.html and all 10 species pages",
+    "scripts/fetch-tmdb-data.js no longer outputs research_questions or methodology_notes fields"
+  ],
+  "verification": [
+    "Run: npm run build in /projects/sandbox/species-on-screen -- should exit 0",
+    "Run: grep -r 'RQ1\\|RQ2\\|RQ3\\|RQ4\\|research_questions\\|methodology_notes\\|FilmGrainShader' --include='*.js' --include='*.json' --include='*.html' --include='*.css' /projects/sandbox/species-on-screen/src /projects/sandbox/species-on-screen/public /projects/sandbox/species-on-screen/species /projects/sandbox/species-on-screen/scripts /projects/sandbox/species-on-screen/index.html 2>/dev/null | grep -v node_modules | grep -v .agents -- should return empty",
+    "Run: ls /projects/sandbox/species-on-screen/dist/species/ | wc -l -- should be 10"
+  ],
+  "blocked_reason": null,
+  "findings": "No code changes were required. All legacy references (RESEARCH_QUESTIONS, methodology_notes, research_questions, RQ1-RQ4, FilmGrainShader, #0a0a0f, Research Framework) had already been removed by previous features (FEAT-001 through FEAT-003). Build succeeds cleanly. dist/ contains index.html and all 10 species HTML pages as expected."
+}

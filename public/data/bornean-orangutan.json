@@ -85,13 +85,6 @@
     ]
   },
   "evidence_summary": "Documentaries linking orangutan decline to palm oil consumption have measurably shifted consumer purchasing behaviour and supported growth of RSPO-certified products, though industry-wide change remains slow (Silk et al., 2018).",
-  "methodology_notes": "Bornean orangutan connects to RQ1 through consumer behaviour change tracking post-documentary; RQ2 through emotional narrative techniques using infant rescue stories; RQ3 through supply-chain simulation game potential; RQ4 through RSPO certification uptake as measurable outcome.",
-  "research_questions": [
-    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-  ],
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
     "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
@@ -102,5 +95,54 @@
     "Wich, S.A. et al. (2012). Understanding the impacts of land-use policies on a threatened species. PLoS ONE, 7(11), e49525.",
     "Meijaard, E. et al. (2011). Quantifying killing of orangutans and human-orangutan conflict in Kalimantan. PLoS ONE, 6(11), e27491."
   ],
-  "tmdb_media": []
+  "tmdb_media": [],
+  "data_sources": {
+    "population": {
+      "value": "104,700",
+      "source": "Wich et al., Current Biology",
+      "year": 2016
+    },
+    "iucn_status": {
+      "status": "Critically Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2016
+    },
+    "habitat_loss": {
+      "value": "100 orangutans lost per week",
+      "source": "Borneo Orangutan Survival Foundation",
+      "year": 2023
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Orangutans share 97% of their DNA with humans, making them one of our closest living relatives.",
+      "source": "Locke et al., Nature, 2011"
+    },
+    {
+      "fact": "They build a fresh nest every single night, constructing elaborate sleeping platforms from branches.",
+      "source": "Prasetyo et al., Biological Conservation, 2009"
+    },
+    {
+      "fact": "Orangutans have been observed using tools, self-medicating with plants, and even creating simple maps.",
+      "source": "van Schaik et al., Science, 2003"
+    },
+    {
+      "fact": "A mother orangutan stays with her offspring for 7-8 years - the longest childhood of any animal except humans.",
+      "source": "Wich et al., Journal of Human Evolution, 2004"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Orang_Utan%2C_Pair_of_Bornean_Orangutan_%28Pongo_pygmaeus%29.jpg/1280px-Orang_Utan%2C_Pair_of_Bornean_Orangutan_%28Pongo_pygmaeus%29.jpg",
+      "alt": "Bornean orangutan pair in canopy",
+      "credit": "Wikimedia Commons",
+      "photographer": "Sergey Pisarevskiy"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Bornean_orangutan_%28Pongo_pygmaeus%29%2C_Tanjung_Puting_National_Park_03.jpg/1280px-Bornean_orangutan_%28Pongo_pygmaeus%29%2C_Tanjung_Puting_National_Park_03.jpg",
+      "alt": "Bornean orangutan at Tanjung Puting",
+      "credit": "Wikimedia Commons",
+      "photographer": "Thomas Fuhrmann"
+    }
+  ]
 }

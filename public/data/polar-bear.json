@@ -88,13 +88,6 @@
     ]
   },
   "evidence_summary": "The iconic \"stranded polar bear\" imagery has become the most recognized visual metaphor for climate change, measurably increasing public concern and support for emissions reduction policies (Silk et al., 2018; Macdonald et al., 2016).",
-  "methodology_notes": "Polar bear connects to RQ1 through climate attitude polling linked to documentary exposure; RQ2 through analysis of isolated-animal-in-peril as emotional narrative technique; RQ3 through climate simulation game design; RQ4 through public opinion polling on climate policy as outcome measure.",
-  "research_questions": [
-    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-  ],
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
     "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
@@ -130,7 +123,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1432881",
       "poster_path": "/l0zAouakeSXH3W4dDSSCagSyJWh.jpg",
       "backdrop_path": null,
-      "overview": "In the northern reaches of Manitoba, resting on the edge of Canada’s Hudson Bay, sits the small town of Churchill. Home to fewer than 1000 year-round residents, Churchill is a remarkable place: it plays host to an annual beluga whale migration, is visited by the Northern Lights over 300 times per year, and sits in a pristine tundra that truly embodies the term “wilderness”. Churchill’s most famous visitor, however, is the mighty Polar Bear. Every year, hundreds of bears gather on the shoreline surrounding Churchill, awaiting the sea ice that forms on Hudson Bay during winter. Once it forms, they’ll use it as a platform from which to hunt seals, but until then, they wait on the coast, creating a fascinating, and potentially dangerous, interaction between the residents of Churchill and the world’s largest land carnivore.",
+      "overview": "In the northern reaches of Manitoba, resting on the edge of Canada\u2019s Hudson Bay, sits the small town of Churchill. Home to fewer than 1000 year-round residents, Churchill is a remarkable place: it plays host to an annual beluga whale migration, is visited by the Northern Lights over 300 times per year, and sits in a pristine tundra that truly embodies the term \u201cwilderness\u201d. Churchill\u2019s most famous visitor, however, is the mighty Polar Bear. Every year, hundreds of bears gather on the shoreline surrounding Churchill, awaiting the sea ice that forms on Hudson Bay during winter. Once it forms, they\u2019ll use it as a platform from which to hunt seals, but until then, they wait on the coast, creating a fascinating, and potentially dangerous, interaction between the residents of Churchill and the world\u2019s largest land carnivore.",
       "classification": "documentary",
       "narrative_technique": "presenter-led",
       "relevance_score": 95,
@@ -147,7 +140,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/927070",
       "poster_path": "/nCRUQcbBs6Ix6YaBeCgC9OwE0mt.jpg",
       "backdrop_path": "/aVSSuDNzgqHVCdAcSSAA1kdhrkK.jpg",
-      "overview": "A new mother’s memories of her own youth prepare her to navigate motherhood in the increasingly challenging world that polar bears face today.",
+      "overview": "A new mother\u2019s memories of her own youth prepare her to navigate motherhood in the increasingly challenging world that polar bears face today.",
       "classification": "documentary",
       "narrative_technique": "observational",
       "relevance_score": 90,
@@ -295,6 +288,55 @@
       "query_source": "Polar Bear",
       "genre_ids": [],
       "vote_average": 9
+    }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "22,000-31,000",
+      "source": "IUCN Polar Bear Specialist Group",
+      "year": 2021
+    },
+    "iucn_status": {
+      "status": "Vulnerable",
+      "source": "IUCN Red List",
+      "assessed": 2015
+    },
+    "sea_ice_loss": {
+      "value": "13% Arctic sea ice decline per decade",
+      "source": "NSIDC / NASA",
+      "year": 2023
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Polar bear fur is actually transparent, not white - each hair is a hollow tube that scatters light, appearing white.",
+      "source": "Koon & Vohnsen, Applied Optics, 1998"
+    },
+    {
+      "fact": "They can swim continuously for over 100 hours and have been tracked swimming 687km without stopping.",
+      "source": "Pagano et al., Ecography, 2012"
+    },
+    {
+      "fact": "Under their white-appearing fur, polar bears have jet-black skin to absorb heat from the sun.",
+      "source": "Stirling, Polar Bears: The Natural History, 2011"
+    },
+    {
+      "fact": "A polar bear can smell a seal through 3 feet of ice and from nearly 1.6km away.",
+      "source": "DeMaster & Stirling, Polar Bears Proceedings, 1981"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Polar_Bear_-_Alaska_%28cropped%29.jpg/1280px-Polar_Bear_-_Alaska_%28cropped%29.jpg",
+      "alt": "Polar bear in Arctic landscape",
+      "credit": "Wikimedia Commons",
+      "photographer": "Alan Wilson"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Ursus_maritimus_us_fish.jpg/1280px-Ursus_maritimus_us_fish.jpg",
+      "alt": "Polar bear on sea ice",
+      "credit": "Wikimedia Commons",
+      "photographer": "US Fish and Wildlife Service"
     }
   ]
 }

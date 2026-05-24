@@ -1,0 +1,33 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Complete visual redesign of the main page (index.html) from dark to light dreamy aesthetic with real Earth globe, Lenis smooth scrolling, cinematic camera flow, Apple 2026-level scroll smoothness, and immersive scrollytelling sections. This is the core visual transformation.",
+  "status": "completed",
+  "steps": [
+    "STEP 1 - Rewrite src/style.css completely: Change from dark (#0a0a0f) to light aesthetic. Background: soft whites (#fafaf8, #f5f5f0). Text: dark charcoal (#1a1a1a). Surfaces: translucent frosted glass (backdrop-filter: blur) with soft shadows. Color palette: pastel greens, turquoise, ochre, translucent whites. Remove the film grain body::after overlay. Remove all dark backgrounds. Loading screen should be light. Add smooth transition styles, parallax layers, spring animation keyframes.",
+    "STEP 2 - Rewrite src/cinematic-engine.js: Remove the FilmGrainShader entirely and the grainPass. Change scene fog to light (FogExp2 with white/cream color like 0xf5f5f0). Change scene background to light cream. Keep UnrealBloomPass but reduce intensity for light theme (soft glow not dark bloom). Change particle system colors from dark blue-tinted to soft golden/green motes. Change lighting from dark ambient (0x222244) to bright warm lighting. Update camera keyframes for more cinematic movements (dolly, crane, orbital sweeps). Add easing via cubic-bezier curves for camera interpolation.",
+    "STEP 3 - Rewrite src/globe.js: Replace the procedural shader globe with a REAL Earth using NASA Blue Marble texture. Use a CDN texture URL: 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg' for the Earth surface. Add a second texture for bump map or just use the color map. Remove the dark Fresnel shader. Use MeshStandardMaterial with the Earth texture map. Change atmosphere glow from blue-dark rim to a soft light atmospheric halo (white/cream outer glow). Keep the data columns (hotspots) but restyle them for light theme - make them slightly transparent with pastel ecosystem colors. On hover/click a column, show a species info card overlay (species name, IUCN status, habitat type, thumbnail if available). Keep the raycasting interaction. Make the globe clearly show real continents and oceans for geographic understanding.",
+    "STEP 4 - Rewrite src/main.js: Import and initialize Lenis for buttery smooth scrolling. Configure Lenis with smooth settings (lerp: 0.06-0.1, duration: 1.2). Connect Lenis to GSAP ScrollTrigger via the lenis scroll event. Keep the engine/globe/overlay initialization. Add parallax depth effects - elements at different scroll speeds. Add GSAP ScrollTrigger animations with scrub: true and smooth interpolation for section reveals.",
+    "STEP 5 - Rewrite src/overlay-ui.js: Replace simple opacity fade with rich scrollytelling transitions. Each section should animate in with spring physics (GSAP with ease: 'back.out(1.7)' or similar). Add parallax offsets to text elements. Sections should feel like film chapters filling the viewport. Add stagger animations for child elements (headings, paragraphs, cards animate in sequentially). Remove the research and methodology overlay ranges.",
+    "STEP 6 - Rewrite index.html overlay content: Remove research-questions and methodology overlays (already done in FEAT-001). Redesign remaining overlays for light theme. Hero section: keep title but make it feel dreamy with soft white text on translucent glass. Globe section: redesign info panel with frosted glass aesthetic. Species gallery: redesign cards with AC2-style spring hover animations, lift effects, cursor-following parallax. Add proper photo placeholders for species cards. Vision section: redesign with light aesthetic. Add new scrollytelling sections between existing ones: full-bleed photo section, animated data visualization placeholder, quote blocks from researchers that fade in, infographic fact panels. Add a comic-strip style 'story teaser' section for species.",
+    "STEP 7 - Add Assassin's Creed-style navigation to species gallery: Cards should lift and reveal info on hover with spring animations. Add cursor-following parallax effect on card elements. Smooth hover states with transform: translateY, scale, and box-shadow transitions. Cards should feel like they respond to the user's presence.",
+    "STEP 8 - Verify the build: Run npm run build and ensure no errors. The page should compile correctly with all new dependencies and rewritten modules."
+  ],
+  "acceptance_criteria": [
+    "npm run build succeeds",
+    "No dark background colors (#0a0a0f, #0f0f14, #111118) remain in style.css",
+    "Lenis is imported and initialized in main.js",
+    "Globe uses a real Earth texture (TextureLoader with earth image URL)",
+    "Film grain shader is completely removed from cinematic-engine.js",
+    "Scene fog and background are light colored (white/cream range)",
+    "Species gallery cards have spring-animated hover states",
+    "Overlay panels use frosted glass (backdrop-filter: blur) on light backgrounds",
+    "No research questions or methodology content remains in index.html"
+  ],
+  "verification": [
+    "Run: npm run build in /projects/sandbox/species-on-screen -- should exit 0",
+    "Run: grep -c 'FilmGrainShader\\|#0a0a0f\\|research_questions' src/cinematic-engine.js src/style.css index.html -- should return 0 for each"
+  ],
+  "blocked_reason": null,
+  "findings": "Complete visual redesign implemented and verified. Build passes cleanly. All dark colors removed, FilmGrainShader removed, real Earth texture loaded via CDN, Lenis smooth scrolling initialized and connected to GSAP ScrollTrigger, overlay panels use frosted glass with backdrop-filter blur, species cards have spring hover transforms. Added new By the Numbers section between globe and species. Scroll container increased to 700vh. The chunk size warning for main.js (566KB) is pre-existing from Three.js bundle size and not a blocker."
+}

@@ -9,7 +9,7 @@
 </head>
 <body>
   <noscript>
-    <div style="background:#0a0a0f;color:#e8e4e0;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
+    <div style="background:#fafaf8;color:#1a1a1a;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
       <h1>Eco-Cinema Observatory</h1>
       <p style="margin:1rem 0;">The Eco-Cinema Observatory explores the relationship between species representation in film and real-world conservation outcomes. The full interactive experience requires JavaScript to render the 3D globe and scroll-driven interface.</p>
       <h2 style="margin-top:1.5rem;">Species Pages</h2>
@@ -25,7 +25,7 @@
         <li><a href="species/staghorn-coral.html" style="color:#4a7c59;">Staghorn Coral</a></li>
         <li><a href="species/amazon-river-dolphin.html" style="color:#4a7c59;">Amazon River Dolphin</a></li>
       </ul>
-      <p style="font-size:0.9rem;color:#999;">Please enable JavaScript for the full 3D cinematic experience.</p>
+      <p style="font-size:0.9rem;color:#666;">Please enable JavaScript for the full 3D cinematic experience.</p>
     </div>
   </noscript>
   <div id="app-container">
@@ -42,6 +42,7 @@
       <div class="overlay overlay--hero">
         <h1 class="overlay__title">Eco-Cinema Observatory</h1>
         <p class="overlay__subtitle">Where the species on our screens meet the living world beyond them.</p>
+        <p class="overlay__tagline">A scrollytelling journey into species, cinema, and conservation</p>
         <div class="overlay__scroll-hint" aria-hidden="true">
           <span class="overlay__scroll-arrow"></span>
           <span class="overlay__scroll-text">Scroll to explore</span>
@@ -51,32 +52,32 @@
       <!-- Globe info -->
       <div class="overlay overlay--globe">
         <div class="overlay__panel">
-          <h2 class="overlay__heading">The Living World</h2>
-          <p class="overlay__text">Thirty-one habitat locations glow across the surface. Each column rises with the weight of media coverage - the taller the column, the more times cinema has turned its lens toward that place.</p>
-          <p class="overlay__text overlay__text--secondary">Hover a column to reveal its species. Click to explore.</p>
+          <h2 class="overlay__heading">Explore the Living World</h2>
+          <p class="overlay__text">Each glowing column represents media coverage of species in that region. Hover to discover, click to explore.</p>
+          <p class="overlay__text overlay__text--secondary">31 habitat locations across 5 continents, each telling a story of species and cinema.</p>
         </div>
       </div>
 
-      <!-- Research Questions -->
-      <div class="overlay overlay--research">
+      <!-- By the Numbers -->
+      <div class="overlay overlay--numbers">
         <div class="overlay__panel overlay__panel--wide">
-          <h2 class="overlay__heading">Research Framework</h2>
-          <div class="research-questions">
-            <div class="rq">
-              <span class="rq__number">RQ1</span>
-              <p class="rq__text">What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?</p>
+          <h2 class="overlay__heading">By the Numbers</h2>
+          <div class="numbers-grid">
+            <div class="numbers-grid__item">
+              <div class="numbers-grid__value">10</div>
+              <div class="numbers-grid__label">Flagship Species</div>
             </div>
-            <div class="rq">
-              <span class="rq__number">RQ2</span>
-              <p class="rq__text">What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?</p>
+            <div class="numbers-grid__item">
+              <div class="numbers-grid__value">5</div>
+              <div class="numbers-grid__label">Continents</div>
             </div>
-            <div class="rq">
-              <span class="rq__number">RQ3</span>
-              <p class="rq__text">How can non-commercial video games be used to engage more with biodiversity and conservation?</p>
+            <div class="numbers-grid__item">
+              <div class="numbers-grid__value">50+</div>
+              <div class="numbers-grid__label">Films Catalogued</div>
             </div>
-            <div class="rq">
-              <span class="rq__number">RQ4</span>
-              <p class="rq__text">What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?</p>
+            <div class="numbers-grid__item">
+              <div class="numbers-grid__value">Decades</div>
+              <div class="numbers-grid__label">Of Data</div>
             </div>
           </div>
         </div>
@@ -86,7 +87,7 @@
       <div class="overlay overlay--species">
         <div class="overlay__panel overlay__panel--full">
           <h2 class="overlay__heading">Species Observatory</h2>
-          <p class="overlay__text">Ten flagship species. Each a window into the relationship between cinema and conservation.</p>
+          <p class="overlay__text">Each species has a story. Scroll their pages to uncover the connection between screen and survival.</p>
           <div class="species-grid">
             <a href="species/tiger.html" class="species-card" data-ecosystem="tropical-forest" aria-label="Tiger (Panthera tigris) - Endangered, Tropical Forest habitat">
               <span class="species-card__ecosystem">Tropical Forest</span>
@@ -152,32 +153,6 @@
         </div>
       </div>
 
-      <!-- Methodology -->
-      <div class="overlay overlay--methodology">
-        <div class="overlay__panel overlay__panel--wide">
-          <h2 class="overlay__heading">Methodology</h2>
-          <div class="methodology-grid">
-            <div class="methodology-block">
-              <h3 class="methodology-block__title">Rose's Visual Methodology</h3>
-              <p class="methodology-block__text">Following Gillian Rose's critical visual methodology framework (2016), this observatory examines species representation across three sites of meaning: the site of production (how filmmakers construct animal narratives), the site of the image itself (what visual techniques are employed), and the site of audiencing (how viewers interpret and respond to these representations).</p>
-            </div>
-            <div class="methodology-block">
-              <h3 class="methodology-block__title">COM-B Behavioural Model</h3>
-              <p class="methodology-block__text">The COM-B model (Michie et al., 2011) provides the behavioural science framework for understanding the gap between media exposure and conservation action. We examine how cinematic representation affects Capability (knowledge and skills), Opportunity (social and physical enablers), and Motivation (reflective and automatic drivers) for pro-conservation behaviour.</p>
-            </div>
-          </div>
-          <div class="methodology-refs">
-            <p class="methodology-refs__label">Key References</p>
-            <ul class="methodology-refs__list">
-              <li>Rose, G. (2016). Visual Methodologies. SAGE.</li>
-              <li>Michie, S. et al. (2011). The Behaviour Change Wheel. Implementation Science.</li>
-              <li>Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science.</li>
-              <li>Silk, M. et al. (2018). The Wildlife Docusoap. Geoforum.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <!-- Vision / End -->
       <div class="overlay overlay--vision">
         <div class="overlay__panel">
@@ -185,7 +160,7 @@
           <p class="overlay__text overlay__text--large">Every story shapes our response.</p>
           <p class="overlay__text">The Eco-Cinema Observatory connects the cultural record of how species appear on our screens with the ecological record of how they fare in the wild. By mapping these connections, we begin to understand how human attention relates to species fate.</p>
           <footer class="overlay__footer">
-            <p>Eco-Cinema Observatory &mdash; An open research project</p>
+            <p>Eco-Cinema Observatory - An open exploration project</p>
           </footer>
         </div>
       </div>
@@ -205,7 +180,7 @@
 
     <!-- Screen reader description -->
     <div class="sr-only">
-      This page presents an interactive 3D cinematic experience exploring the relationship between species in film and conservation. The experience includes a rotating globe with data visualization columns, research questions, a species gallery, and methodology sections. Use the scroll to navigate through sections, or access individual species pages via the links below.
+      This page presents an interactive 3D cinematic experience exploring the relationship between species in film and conservation. The experience includes a rotating globe with data visualization columns, a species gallery with ten flagship species, and a closing vision section. Use the scroll to navigate through sections, or access individual species pages via the links below.
     </div>
 
     <!-- Globe tooltip (for raycasting hover) -->

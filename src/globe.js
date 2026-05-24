@@ -65,68 +65,7 @@ function latLngToVector3(lat, lng, radius) {
 }
 
 /**
- * Globe vertex shader with Fresnel rim lighting
- */
-const globeVertexShader = `
-  varying vec3 vNormal;
-  varying vec3 vPosition;
-  varying vec2 vUv;
-
-  void main() {
-    vNormal = normalize(normalMatrix * normal);
-    vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-/**
- * Globe fragment shader - dark base with Fresnel rim glow and subtle continent hints
- */
-const globeFragmentShader = `
-  varying vec3 vNormal;
-  varying vec3 vPosition;
-  varying vec2 vUv;
-
-  // Simple noise for continent hints
-  float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-  }
-
-  float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    f = f * f * (3.0 - 2.0 * f);
-    float a = hash(i);
-    float b = hash(i + vec2(1.0, 0.0));
-    float c = hash(i + vec2(0.0, 1.0));
-    float d = hash(i + vec2(1.0, 1.0));
-    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
-  }
-
-  void main() {
-    // Base dark color
-    vec3 baseColor = vec3(0.04, 0.04, 0.08);
-
-    // Continent hints via procedural noise
-    float n = noise(vUv * 8.0) * 0.5 + noise(vUv * 16.0) * 0.25;
-    float continentMask = smoothstep(0.45, 0.55, n);
-    vec3 landColor = vec3(0.08, 0.1, 0.12);
-    baseColor = mix(baseColor, landColor, continentMask * 0.6);
-
-    // Fresnel rim light
-    vec3 viewDir = normalize(-vPosition);
-    float fresnel = 1.0 - max(dot(viewDir, vNormal), 0.0);
-    fresnel = pow(fresnel, 3.0);
-    vec3 rimColor = vec3(0.2, 0.4, 0.6);
-
-    vec3 finalColor = baseColor + rimColor * fresnel * 0.8;
-    gl_FragColor = vec4(finalColor, 1.0);
-  }
-`;
-
-/**
- * Globe class - data visualization with instanced columns
+ * Globe class - real Earth with data visualization columns
  */
 export class Globe {
   constructor(scene, camera, renderer) {
@@ -151,17 +90,32 @@ export class Globe {
   }
 
   _createGlobe() {
-    // Main sphere
+    // Main sphere with real Earth texture
     const geometry = new THREE.SphereGeometry(1.5, 128, 128);
-    const material = new THREE.ShaderMaterial({
-      vertexShader: globeVertexShader,
-      fragmentShader: globeFragmentShader,
-      transparent: false,
+    const textureLoader = new THREE.TextureLoader();
+
+    const material = new THREE.MeshStandardMaterial({
+      roughness: 0.8,
+      metalness: 0.1,
     });
     this.sphere = new THREE.Mesh(geometry, material);
     this.group.add(this.sphere);
 
-    // Atmosphere glow (outer rim)
+    textureLoader.load(
+      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+      (texture) => {
+        material.map = texture;
+        material.needsUpdate = true;
+      },
+      undefined,
+      (err) => {
+        console.warn('Globe texture failed to load, using fallback color:', err);
+        material.color = new THREE.Color(0x4488aa);
+        material.needsUpdate = true;
+      }
+    );
+
+    // Atmosphere glow (soft light halo)
     const atmosGeometry = new THREE.SphereGeometry(1.58, 64, 64);
     const atmosMaterial = new THREE.ShaderMaterial({
       vertexShader: `
@@ -175,10 +129,10 @@ export class Globe {
         varying vec3 vNormal;
         void main() {
           float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
-          gl_FragColor = vec4(0.2, 0.4, 0.7, intensity * 0.4);
+          gl_FragColor = vec4(1.0, 0.98, 0.95, intensity * 0.3);
         }
       `,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
       side: THREE.BackSide,
       transparent: true,
       depthWrite: false,
@@ -200,13 +154,15 @@ export class Globe {
       // Default height (will be updated when media counts load)
       const height = 0.1;
 
-      // Column
+      // Column with slightly transparent, brighter ecosystem colors
       const columnMaterial = new THREE.MeshStandardMaterial({
         color: new THREE.Color(hotspot.color),
         emissive: new THREE.Color(hotspot.color),
-        emissiveIntensity: 0.3,
+        emissiveIntensity: 0.5,
         metalness: 0.2,
-        roughness: 0.6,
+        roughness: 0.5,
+        transparent: true,
+        opacity: 0.85,
       });
       const column = new THREE.Mesh(columnGeometry.clone(), columnMaterial);
       column.position.copy(basePos);
@@ -217,11 +173,11 @@ export class Globe {
       this.group.add(column);
       this.columnMeshes.push(column);
 
-      // Base ring
+      // Base ring - slightly more visible
       const ringMaterial = new THREE.MeshBasicMaterial({
         color: new THREE.Color(hotspot.color),
         transparent: true,
-        opacity: 0.5,
+        opacity: 0.7,
         side: THREE.DoubleSide,
       });
       const ring = new THREE.Mesh(ringGeometry.clone(), ringMaterial);
@@ -336,9 +292,9 @@ export class Globe {
       if (prevHovered !== idx) {
         // Reset previous
         if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
-          this.columnMeshes[prevHovered].material.emissiveIntensity = 0.3;
+          this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5;
         }
-        hit.material.emissiveIntensity = 0.8;
+        hit.material.emissiveIntensity = 1.0;
         this.renderer.domElement.style.cursor = 'pointer';
       }
     } else {
@@ -347,7 +303,7 @@ export class Globe {
         tooltip.style.opacity = '0';
       }
       if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
-        this.columnMeshes[prevHovered].material.emissiveIntensity = 0.3;
+        this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5;
       }
       this.renderer.domElement.style.cursor = '';
     }

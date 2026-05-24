@@ -94,13 +94,6 @@
     ]
   },
   "evidence_summary": "The documentary \"The Ivory Game\" (2016) contributed to China's decision to close its domestic ivory market, demonstrating direct policy impact from wildlife filmmaking (Jones et al., 2019).",
-  "methodology_notes": "African elephant connects to RQ1 through documented policy change following documentary broadcast; RQ2 through investigative journalism as narrative technique in wildlife crime films; RQ3 through anti-poaching strategy game potential; RQ4 through ivory market closure as measurable policy outcome.",
-  "research_questions": [
-    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-  ],
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
     "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
@@ -128,6 +121,55 @@
         99
       ],
       "vote_average": 9
+    }
+  ],
+  "data_sources": {
+    "population": {
+      "value": "415,000",
+      "source": "Great Elephant Census / IUCN",
+      "year": 2022
+    },
+    "iucn_status": {
+      "status": "Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2021
+    },
+    "poaching": {
+      "value": "55 elephants killed per day at peak",
+      "source": "CITES MIKE Programme",
+      "year": 2016
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Elephants mourn their dead, returning to bones of deceased family members and gently touching them with their trunks.",
+      "source": "McComb et al., Biology Letters, 2006"
+    },
+    {
+      "fact": "They can communicate over distances of 10km using low-frequency infrasound undetectable to human ears.",
+      "source": "Payne et al., Behavioral Ecology, 1986"
+    },
+    {
+      "fact": "An elephant's brain weighs about 5kg - the largest of any land animal - and they demonstrate self-awareness in mirror tests.",
+      "source": "Plotnik et al., PNAS, 2006"
+    },
+    {
+      "fact": "They are ecosystem engineers - their dung disperses seeds up to 65km and their trails become water channels during rains.",
+      "source": "Blake et al., Biotropica, 2009"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/1280px-African_Bush_Elephant.jpg",
+      "alt": "African elephant in savanna",
+      "credit": "Wikimedia Commons",
+      "photographer": "Gorgo"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg/1280px-African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg",
+      "alt": "African elephant bull",
+      "credit": "Wikimedia Commons",
+      "photographer": "Bernard Dupont"
     }
   ]
 }

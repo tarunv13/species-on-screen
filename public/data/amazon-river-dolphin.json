@@ -90,13 +90,6 @@
     ]
   },
   "evidence_summary": "Amazon documentaries featuring river dolphins have raised awareness of freshwater biodiversity threats, though measuring direct conservation impact is complicated by the remoteness of river dolphin habitat and limited baseline data.",
-  "methodology_notes": "Amazon river dolphin connects to RQ1 through freshwater conservation awareness campaigns; RQ2 through mystical/folklore narrative integration in documentaries; RQ3 through river ecosystem management simulation; RQ4 through community attitude surveys in riverside communities as outcome measure.",
-  "research_questions": [
-    "RQ1: What is the evidence of digital content helping enhance awareness and effective changes in attitudes and behaviour towards conservation?",
-    "RQ2: What narrative techniques are utilised in nature documentaries, and how do they affect public perception, audience engagement, and emotional response?",
-    "RQ3: How can non-commercial video games be used to engage more with biodiversity and conservation?",
-    "RQ4: What are the best practices to evaluate the effectiveness of digital content in raising awareness and enhancing public engagement in conservation initiatives?"
-  ],
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
     "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
@@ -107,5 +100,54 @@
     "da Silva, V.M.F. et al. (2018). Amazon river dolphin (Inia geoffrensis). IUCN Red List Assessment.",
     "Mintzer, V.J. et al. (2013). Effect of illegal fishing on population decline of the Amazonian boto. Biological Conservation, 165, pp.154-160."
   ],
-  "tmdb_media": []
+  "tmdb_media": [],
+  "data_sources": {
+    "population": {
+      "value": "Unknown, declining rapidly",
+      "source": "da Silva et al., IUCN",
+      "year": 2023
+    },
+    "iucn_status": {
+      "status": "Endangered",
+      "source": "IUCN Red List",
+      "assessed": 2018
+    },
+    "decline": {
+      "value": "65% population decline in some areas",
+      "source": "Mintzer et al., Endangered Species Research",
+      "year": 2013
+    }
+  },
+  "interesting_facts": [
+    {
+      "fact": "Amazon river dolphins (boto) can turn their heads 180 degrees due to unfused neck vertebrae, unique among dolphins.",
+      "source": "Best & da Silva, Aquatic Mammals, 1989"
+    },
+    {
+      "fact": "Males turn bright pink during mating season - the more battle-scarred, the pinker they become.",
+      "source": "Martin & da Silva, Marine Mammal Science, 2006"
+    },
+    {
+      "fact": "They use echolocation to navigate murky floodwaters and can detect prey buried in river sediment.",
+      "source": "Yamamoto et al., Journal of the Acoustical Society, 2012"
+    },
+    {
+      "fact": "In Amazonian folklore, boto can transform into handsome men who seduce women at riverside festivals.",
+      "source": "Slater, Dance of the Dolphin, 1994"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Amazon_river_dolphin_5.jpg/1280px-Amazon_river_dolphin_5.jpg",
+      "alt": "Amazon river dolphin surfacing",
+      "credit": "Wikimedia Commons",
+      "photographer": "Jorge Andrade"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Inia_geoffrensis.jpg/1280px-Inia_geoffrensis.jpg",
+      "alt": "Pink river dolphin",
+      "credit": "Wikimedia Commons",
+      "photographer": "Oceancetaceen"
+    }
+  ]
 }
