@@ -269,5 +269,63 @@
       "url": "https://gcrmn.net/"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Coral Reef",
+    "sky_gradient": ["#0a1428", "#1a4a6e"],
+    "silhouette_color": "#0a2848",
+    "mid_color": "#4a2a2a",
+    "foreground_color": "#2a1a3a",
+    "atmosphere": "warm"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Living Architecture",
+      "narrative_text": "Staghorn coral builds the three-dimensional architecture of tropical reefs, its branching colonies creating a complex underwater forest that shelters thousands of marine species. Growing up to 20 centimetres per year, these are among the most important reef-building organisms in the Caribbean.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Stone of Medusa",
+      "narrative_text": "Ancient Greeks and Romans believed coral was formed from the blood of Medusa when Perseus laid her severed head upon the seashore. Red coral became a powerful protective amulet worn to ward off evil spirits and ill fortune throughout the Mediterranean world.",
+      "source": "Tescione, G. (1973). The Italians and Their Coral Fishing.",
+      "source_url": "https://www.biodiversitylibrary.org/page/27078392"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Burning Seas",
+      "narrative_text": "Rising sea temperatures cause coral bleaching, expelling the symbiotic algae that provide corals with energy. Combined with White Band Disease, which has killed 80-98% of Caribbean staghorn populations since the 1980s, ocean warming poses an existential threat.",
+      "source": "Hughes et al. (2017)",
+      "source_url": "https://doi.org/10.1038/nature21707"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Ancestor Reefs",
+      "narrative_text": "Pacific Island cultures view coral reefs as ancestral formations, living structures built by the accumulated work of countless generations. In some Polynesian traditions, specific reef formations are associated with particular family lineages and their destruction is a form of ancestral desecration.",
+      "source": "Veitayaki, J. (2002). Taking the Last Harvest. University of the South Pacific.",
+      "source_url": "https://doi.org/10.1016/S0964-5691(02)00012-6"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "Restoration Pioneers",
+      "narrative_text": "The Coral Restoration Foundation operates underwater nurseries where staghorn coral fragments are grown on artificial trees before being transplanted onto degraded reefs. NOAA and Florida DEP programs have outplanted hundreds of thousands of coral colonies across the Caribbean.",
+      "source": "Coral Restoration Foundation",
+      "source_url": "https://www.coralrestoration.org/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Racing the Clock",
+      "narrative_text": "Having declined 80-98% since 1980, staghorn coral is Critically Endangered with populations still decreasing. Restoration efforts are accelerating, but without action on ocean warming and acidification, the race to save Caribbean reefs may be running out of time.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": []
 }

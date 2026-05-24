@@ -267,6 +267,64 @@
       "url": "https://www.worldwildlife.org/species/blue-whale"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Ocean",
+    "sky_gradient": ["#0a1628", "#1a3a5c"],
+    "silhouette_color": "#0a2040",
+    "mid_color": "#1a4a6e",
+    "foreground_color": "#0a3050",
+    "atmosphere": "cool"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Cathedral of the Deep",
+      "narrative_text": "The blue whale, the largest animal ever to have lived on Earth, inhabits the vast open oceans, undertaking migrations that span entire ocean basins. In polar summers they congregate in productive waters where upwellings fuel explosive blooms of krill, consuming up to four tonnes per day.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Children of Tangaroa",
+      "narrative_text": "In Maori tradition, whales are descendants of Tangaroa, god of the sea, and are treated as sacred taonga (treasures). Whale strandings are viewed as gifts from the ocean requiring proper karakia (prayer) and respectful treatment of the remains.",
+      "source": "Te Papa Tongarewa Museum of New Zealand",
+      "source_url": "https://www.tepapa.govt.nz/discover-collections/read-watch-play/maori/whales-te-ao-maori"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Collision Course",
+      "narrative_text": "Collisions with large vessels are a significant cause of blue whale mortality, particularly in busy shipping lanes that overlap with feeding areas. As global trade intensifies, the risk of fatal ship strikes continues to grow in critical whale habitat.",
+      "source": "Laist et al. (2001)",
+      "source_url": "https://doi.org/10.1111/j.1748-7692.2001.tb00980.x"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Voices of the Sea",
+      "narrative_text": "Inuit cosmology connects whales to Sedna, goddess of sea creatures, who releases marine mammals to hunters who follow proper spiritual protocols. The whale hunt remains a central cultural practice for Arctic peoples, governed by elaborate spiritual preparation.",
+      "source": "Laugrand, F. & Oosten, J. (2015). Hunters, Predators and Prey. Berghahn Books.",
+      "source_url": "https://doi.org/10.3167/9781782384908"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "The Moratorium",
+      "narrative_text": "The International Whaling Commission moratorium, enacted in 1986, ended commercial whaling and gave blue whale populations a chance to recover. NOAA ship speed regulations and the IWC Southern Ocean Whale Sanctuary provide additional layers of protection.",
+      "source": "IWC",
+      "source_url": "https://iwc.int/management-and-conservation/whaling/moratorium"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Slow Recovery",
+      "narrative_text": "With a population of 10,000 to 25,000 and Endangered status, blue whales are slowly recovering from near-extinction by commercial whaling. However, warming oceans threaten the krill populations they depend on, making the long-term trajectory uncertain.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": [
     {
       "title": "Blue Whales: Return of the Giants",

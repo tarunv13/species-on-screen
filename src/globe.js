@@ -38,6 +38,16 @@ const SPECIES_FILES = [
   'staghorn-coral', 'amazon-river-dolphin',
 ];
 
+const COMING_SOON_HOTSPOTS = [
+  { lat: -0.95, lng: -91.0, name: 'Galapagos Islands' },
+  { lat: -18.77, lng: 46.87, name: 'Madagascar' },
+  { lat: 44.46, lng: -110.83, name: 'Yellowstone' },
+  { lat: -4.0, lng: 21.75, name: 'Congo Basin' },
+  { lat: 27.99, lng: 86.93, name: 'Himalayas' },
+  { lat: -16.5, lng: 148.0, name: 'Great Barrier Reef' },
+  { lat: 69.0, lng: 33.0, name: 'Barents Sea' },
+];
+
 function latLngToVector3(lat, lng, radius) {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lng + 180) * (Math.PI / 180);
@@ -59,6 +69,7 @@ export class Globe {
     this.habitatMeshes = [];
     this.protectedAreaMeshes = [];
     this.protectedAreaData = [];
+    this.comingSoonMeshes = [];
     this.speciesDataCache = {};
     this.activeLayer = 'media';
     this.raycaster = new THREE.Raycaster();
@@ -73,6 +84,7 @@ export class Globe {
     this._createColumns();
     this._createHabitatLayer();
     this._createFloraFauna();
+    this._createComingSoonMarkers();
     this._setupInteraction();
     this._setupDragRotate();
     this._loadMediaCounts();
@@ -205,6 +217,19 @@ export class Globe {
     });
   }
 
+  _createComingSoonMarkers() {
+    const sphereGeometry = new THREE.SphereGeometry(0.012, 10, 10);
+    const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x888888, transparent: true, opacity: 0.35 });
+    COMING_SOON_HOTSPOTS.forEach((hotspot) => {
+      const pos = latLngToVector3(hotspot.lat, hotspot.lng, 1.51);
+      const marker = new THREE.Mesh(sphereGeometry.clone(), markerMaterial.clone());
+      marker.position.copy(pos);
+      marker.userData = { comingSoon: true, name: hotspot.name };
+      this.group.add(marker);
+      this.comingSoonMeshes.push(marker);
+    });
+  }
+
   _setupDragRotate() {
     const canvas = this.renderer.domElement;
     this._onPointerDown = (e) => { this._isDragging = true; this._prevPointer.x = e.clientX; this._prevPointer.y = e.clientY; this._velocity.x = 0; this._velocity.y = 0; };
@@ -311,21 +336,23 @@ export class Globe {
     if (this.activeLayer === 'protected_areas' || this.activeLayer === 'threats') {
       this.protectedAreaMeshes.forEach((marker, i) => { marker.scale.setScalar(1.0 + Math.sin(this.floraFaunaTime * 3 + i) * 0.3); });
     }
+    this.comingSoonMeshes.forEach((marker, i) => { marker.scale.setScalar(1.0 + Math.sin(this.floraFaunaTime * 2 + i * 1.5) * 0.2); });
     this.raycaster.setFromCamera(this.mouse, this.camera);
     let raycastTargets = [];
     if (this.activeLayer === 'media' || this.activeLayer === 'species') raycastTargets = this.columnMeshes;
     else if (this.activeLayer === 'habitat') raycastTargets = this.habitatMeshes;
     else if (this.activeLayer === 'protected_areas' || this.activeLayer === 'threats') raycastTargets = this.protectedAreaMeshes;
-    const intersects = this.raycaster.intersectObjects(raycastTargets);
+    const allTargets = raycastTargets.concat(this.comingSoonMeshes);
+    const intersects = this.raycaster.intersectObjects(allTargets);
     const tooltip = document.getElementById('globe-tooltip');
     const prevHovered = this.hoveredIndex;
     if (intersects.length > 0) {
       const hit = intersects[0].object;
       this.hoveredIndex = hit.userData.hotspotIndex !== undefined ? hit.userData.hotspotIndex : -1;
-      if (tooltip) { tooltip.textContent = hit.userData.name || ''; tooltip.style.opacity = '1'; const rect = this.renderer.domElement.getBoundingClientRect(); const x = ((this.mouse.x + 1) / 2) * rect.width; const y = ((1 - this.mouse.y) / 2) * rect.height; tooltip.style.left = `${x + 15}px`; tooltip.style.top = `${y - 10}px`; }
+      if (tooltip) { const label = hit.userData.comingSoon ? `${hit.userData.name} - Coming Soon` : (hit.userData.name || ''); tooltip.textContent = label; tooltip.style.opacity = '1'; const rect = this.renderer.domElement.getBoundingClientRect(); const x = ((this.mouse.x + 1) / 2) * rect.width; const y = ((1 - this.mouse.y) / 2) * rect.height; tooltip.style.left = `${x + 15}px`; tooltip.style.top = `${y - 10}px`; }
       if (prevHovered !== this.hoveredIndex && prevHovered >= 0 && this.columnMeshes[prevHovered]) { this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5; }
       if (hit.material && hit.material.emissiveIntensity !== undefined) hit.material.emissiveIntensity = 1.0;
-      this.renderer.domElement.style.cursor = 'pointer';
+      this.renderer.domElement.style.cursor = hit.userData.comingSoon ? 'default' : 'pointer';
     } else {
       this.hoveredIndex = -1;
       if (tooltip) tooltip.style.opacity = '0';
@@ -346,6 +373,7 @@ export class Globe {
     this.columnMeshes.forEach((c) => { c.geometry.dispose(); c.material.dispose(); });
     this.habitatMeshes.forEach((d) => { d.geometry.dispose(); d.material.dispose(); });
     this.protectedAreaMeshes.forEach((m) => { m.geometry.dispose(); m.material.dispose(); });
+    this.comingSoonMeshes.forEach((m) => { m.geometry.dispose(); m.material.dispose(); });
     this.floraFaunaMeshes.forEach((m) => { m.geometry.dispose(); m.material.dispose(); });
     if (this.sphere) { this.sphere.geometry.dispose(); this.sphere.material.dispose(); }
     if (this.atmosphere) { this.atmosphere.geometry.dispose(); this.atmosphere.material.dispose(); }

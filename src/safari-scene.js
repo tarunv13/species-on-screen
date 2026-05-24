@@ -258,6 +258,14 @@ export class SafariScene {
     const habitatType = (habitat.type || '').toLowerCase().replace(/\s+/g, '-');
     const palette = HABITAT_PALETTES[habitatType] || HABITAT_PALETTES[habitat.type?.toLowerCase()] || HABITAT_PALETTES['ocean'];
 
+    // Use safari_scene colors if available, otherwise fall back to HABITAT_PALETTES
+    const safariScene = data.safari_scene;
+    const skyTop = safariScene ? safariScene.sky_gradient[0] : palette.skyTop;
+    const skyBottom = safariScene ? safariScene.sky_gradient[1] : palette.skyBottom;
+    const silhouetteColor = safariScene ? safariScene.silhouette_color : '#1a2a1a';
+    const midColor = safariScene ? safariScene.mid_color : '#2a4a2a';
+    const foregroundColor = safariScene ? safariScene.foreground_color : '#0a1a0a';
+
     // Get first photo for the hero subject
     const heroPhoto = photos.length > 0 ? photos[0].url : '';
     const heroPhotoAlt = photos.length > 0 ? (photos[0].alt || commonName) : commonName;
@@ -270,7 +278,7 @@ export class SafariScene {
 
     // Hero section
     html += `
-      <div class="safari-hero" style="--sky-top: ${palette.skyTop}; --sky-bottom: ${palette.skyBottom};">
+      <div class="safari-hero" style="--sky-top: ${skyTop}; --sky-bottom: ${skyBottom}; --silhouette-color: ${silhouetteColor}; --mid-color: ${midColor}; --foreground-color: ${foregroundColor};">
         <div class="safari-layer safari-layer--sky"></div>
         <div class="safari-layer safari-layer--far"></div>
         <div class="safari-layer safari-layer--mid"></div>
