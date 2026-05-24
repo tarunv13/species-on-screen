@@ -4,6 +4,97 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   Ecosystem Color Custom Properties (STEP 7)
+   -------------------------------------------------------------------------- */
+:root {
+  --eco-primary: #2d6a4f;
+  --eco-accent: #4a7c59;
+  --accent-primary: #2d6a4f;
+  --accent-secondary: #4a7c59;
+  --accent-glow: rgba(45, 106, 79, 0.1);
+}
+
+body[data-species="tiger"] {
+  --eco-primary: #b5651d;
+  --eco-accent: #4a7c59;
+  --accent-primary: #4a7c59;
+  --accent-secondary: #b5651d;
+  --accent-glow: rgba(74, 124, 89, 0.1);
+}
+
+body[data-species="snow-leopard"] {
+  --eco-primary: #6464a0;
+  --eco-accent: #e8e4f0;
+  --accent-primary: #6b6f8a;
+  --accent-secondary: #8b8fa8;
+  --accent-glow: rgba(107, 111, 138, 0.1);
+}
+
+body[data-species="bornean-orangutan"] {
+  --eco-primary: #2d6a4f;
+  --eco-accent: #4a7c59;
+  --accent-primary: #4a7c59;
+  --accent-secondary: #c4842c;
+  --accent-glow: rgba(196, 132, 44, 0.1);
+}
+
+body[data-species="hawksbill-turtle"] {
+  --eco-primary: #1a4f6e;
+  --eco-accent: #5aa0cc;
+  --accent-primary: #1a9988;
+  --accent-secondary: #2bb5a0;
+  --accent-glow: rgba(26, 153, 136, 0.1);
+}
+
+body[data-species="blue-whale"] {
+  --eco-primary: #1a4f6e;
+  --eco-accent: #5aa0cc;
+  --accent-primary: #1a4f6e;
+  --accent-secondary: #2d8fba;
+  --accent-glow: rgba(26, 79, 110, 0.1);
+}
+
+body[data-species="african-elephant"] {
+  --eco-primary: #c4842c;
+  --eco-accent: #d4a762;
+  --accent-primary: #c4842c;
+  --accent-secondary: #daa520;
+  --accent-glow: rgba(196, 132, 44, 0.1);
+}
+
+body[data-species="polar-bear"] {
+  --eco-primary: #5a7a9e;
+  --eco-accent: #c8dae8;
+  --accent-primary: #5ba4c4;
+  --accent-secondary: #a8d8ea;
+  --accent-glow: rgba(91, 164, 196, 0.1);
+}
+
+body[data-species="giant-panda"] {
+  --eco-primary: #2d6a4f;
+  --eco-accent: #4a7c59;
+  --accent-primary: #4a7c59;
+  --accent-secondary: #88c070;
+  --accent-glow: rgba(74, 124, 89, 0.1);
+}
+
+body[data-species="staghorn-coral"] {
+  --eco-primary: #1a4f6e;
+  --eco-accent: #5aa0cc;
+  --accent-primary: #e87461;
+  --accent-secondary: #ff9a76;
+  --accent-glow: rgba(232, 116, 97, 0.1);
+}
+
+body[data-species="amazon-river-dolphin"] {
+  --eco-primary: #1a6060;
+  --eco-accent: #5aa0a0;
+  --accent-primary: #1a6b8a;
+  --accent-secondary: #4db8c4;
+  --accent-glow: rgba(26, 107, 138, 0.1);
+}
+
+/* --------------------------------------------------------------------------
    Base / Reset for Species Page
    -------------------------------------------------------------------------- */
 body {
@@ -26,13 +117,13 @@ body {
 }
 
 a {
-  color: #2d6a4f;
+  color: var(--eco-primary, #2d6a4f);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #40916c;
+  color: var(--eco-accent, #40916c);
   text-decoration: underline;
 }
 
@@ -906,6 +997,40 @@ a:hover {
 .gsap-slide-right {
   opacity: 0;
   transform: translateX(30px);
+}
+
+/* --------------------------------------------------------------------------
+   Themed Color Accents (Applied via CSS Custom Properties)
+   -------------------------------------------------------------------------- */
+.sp-hero__content {
+  border-color: var(--accent-glow, rgba(255, 255, 255, 0.8));
+  box-shadow: 0 8px 40px var(--accent-glow, rgba(0, 0, 0, 0.08));
+}
+
+.sp-section__heading {
+  color: var(--accent-primary, #1a1a1a);
+}
+
+.breadcrumb a {
+  color: var(--accent-primary, #2d6a4f);
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-secondary, #40916c);
+}
+
+.sp-hero__stat {
+  color: var(--accent-secondary, #b5651d);
+}
+
+.comic-panel__label {
+  color: var(--accent-primary, #2d6a4f);
+}
+
+.sp-science__locations li {
+  background: var(--accent-glow, rgba(45, 106, 79, 0.06));
+  border-color: var(--accent-secondary, rgba(45, 106, 79, 0.15));
+  color: var(--accent-primary, #2d6a4f);
 }
 
 /* --------------------------------------------------------------------------

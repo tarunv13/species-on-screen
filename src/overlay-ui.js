@@ -66,9 +66,9 @@ export class OverlayUI {
       }, {
         opacity: 1,
         y: 0,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: 'power2.out',
+        duration: 0.6,
+        stagger: 0.06,
+        ease: 'back.out(1.4)',
         overwrite: true,
       });
     }
