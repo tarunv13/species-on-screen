@@ -261,5 +261,63 @@
       "url": "https://rspo.org/"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Tropical Forest",
+    "sky_gradient": ["#0a1e0a", "#1a4a2e"],
+    "silhouette_color": "#0d2b0d",
+    "mid_color": "#1a5c2e",
+    "foreground_color": "#0f3a14",
+    "atmosphere": "warm"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Canopy World",
+      "narrative_text": "The Bornean orangutan dwells in ancient dipterocarp rainforests, spending nearly all its life in the canopy. Moving through a three-dimensional world of branches, lianas, and fruiting trees, these great apes navigate with extraordinary spatial memory across one of Earth's oldest forest ecosystems.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "People of the Forest",
+      "narrative_text": "The name 'orangutan' derives from Malay 'orang hutan' meaning 'person of the forest,' reflecting deep cultural recognition of their humanlike qualities. This linguistic connection reveals centuries of coexistence and the perception of orangutans as almost-human forest dwellers.",
+      "source": "Rijksen, H.D. & Meijaard, E. (1999). Our Vanishing Relative. Kluwer Academic.",
+      "source_url": "https://doi.org/10.1007/978-94-011-4521-1"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Palm Oil's Price",
+      "narrative_text": "Industrial palm oil plantations have destroyed millions of hectares of orangutan habitat, fragmenting populations into isolated patches. The global appetite for this cheap vegetable oil drives continuous forest clearing across Borneo and Sumatra.",
+      "source": "Meijaard et al. (2020)",
+      "source_url": "https://doi.org/10.1016/j.oneear.2020.10.009"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Dayak Forest Wisdom",
+      "narrative_text": "The Dayak peoples of Borneo hold orangutans as forest guardians with near-human intelligence. Traditional stories describe orangutans as humans who retreated into the forest to avoid conflict, and some communities maintain taboos against hunting them.",
+      "source": "Meijaard, E. et al. (2011)",
+      "source_url": "https://doi.org/10.1371/journal.pone.0027491"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "Survival Foundation",
+      "narrative_text": "The Borneo Orangutan Survival Foundation rescues displaced and orphaned orangutans, rehabilitating them for release back into protected forests. Together with HUTAN-KOCP and the Roundtable on Sustainable Palm Oil, these programs work to secure remaining habitat.",
+      "source": "Borneo Orangutan Survival Foundation",
+      "source_url": "https://www.orangutan.or.id/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Critically Endangered",
+      "narrative_text": "With approximately 104,700 individuals remaining and populations still decreasing, the Bornean orangutan is Critically Endangered. At current rates of habitat loss, scientists estimate significant further decline without immediate and sustained intervention.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": []
 }

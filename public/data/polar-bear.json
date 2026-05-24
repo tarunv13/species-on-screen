@@ -264,6 +264,64 @@
       "url": "https://nsidc.org/data/seaice_index"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Arctic",
+    "sky_gradient": ["#1a2a3a", "#4a6a8a"],
+    "silhouette_color": "#2a3a4a",
+    "mid_color": "#5a7a9a",
+    "foreground_color": "#3a5a7a",
+    "atmosphere": "cool"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Lords of the Ice",
+      "narrative_text": "The polar bear reigns over the frozen realm of the Arctic, a marine mammal as much at home on drifting sea ice as on solid ground. These apex predators depend on the seasonal formation and breakup of sea ice to access the seals that form the foundation of their diet.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Nanuq the Great",
+      "narrative_text": "In Inuit cosmology, Nanuq is a powerful spiritual being deserving of profound respect. Traditional hunting protocols require specific prayers, songs, and offerings. The polar bear is considered the most intelligent and dangerous of Arctic animals, capable of understanding human speech.",
+      "source": "Dowsley, M. & Wenzel, G. (2008)",
+      "source_url": "https://doi.org/10.1007/s10745-008-9174-7"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Melting World",
+      "narrative_text": "Arctic sea ice is declining at approximately 13% per decade, directly reducing the platform polar bears need to hunt seals. The lengthening ice-free season forces bears ashore for longer fasting periods, pushing many beyond the limits of survival.",
+      "source": "Amstrup et al. (2010)",
+      "source_url": "https://doi.org/10.1038/nature09653"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Spirit of the North",
+      "narrative_text": "In Norse mythology, the ice bear appears as a form taken by warriors and gods. The berserkers, elite Viking warriors, wore bear skins and channeled ursine ferocity in battle. The polar bear pelt was among the most prized gifts exchanged between Nordic royalty.",
+      "source": "Pluskowski, A. (2006). Wolves and the Wilderness in the Middle Ages. Boydell Press.",
+      "source_url": "https://boydellandbrewer.com/9781843831532/wolves-and-the-wilderness-in-the-middle-ages/"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "International Protection",
+      "narrative_text": "The 1973 Agreement on Conservation of Polar Bears was among the first international wildlife treaties, uniting Arctic nations in polar bear protection. The Polar Bear Specialist Group and Arctic Council continue coordinating research and conservation across borders.",
+      "source": "IUCN Polar Bear Specialist Group",
+      "source_url": "https://www.iucn-pbsg.org/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "On Thin Ice",
+      "narrative_text": "With 22,000 to 31,000 individuals remaining and a Vulnerable status, polar bears face an uncertain future tied directly to global climate action. Without significant reductions in greenhouse gas emissions, continued sea ice loss threatens the long-term survival of this iconic Arctic predator.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": [
     {
       "title": "Polar Bear Safari",
