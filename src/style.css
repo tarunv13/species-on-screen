@@ -261,6 +261,23 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* ===== REDUCED MOTION =====
+   Selective: keep narrative opacity fades and interaction-feedback
+   transitions; drop only motion that is decorative or vestibular
+   (continuous loops, per-frame transform smoothing). Camera flies and
+   scroll-bound translates are gated in JS via prefersReducedMotion(). */
+@media (prefers-reduced-motion: reduce) {
+  /* Drop the 100ms transform smoothing so floating cards track globe
+     rotation exactly instead of trailing the underlying hotspot. */
+  .floating-card {
+    transition: opacity 0.3s ease;
+  }
+  /* Decorative loop. */
+  .loading__dots span {
+    animation: none;
+  }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .floating-card {
