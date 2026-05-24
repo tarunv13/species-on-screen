@@ -2,6 +2,7 @@ import './safari-scene.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import { prefersReducedMotion } from './reduced-motion.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -114,7 +115,22 @@ export class SafariScene {
   }
 
   _initScrollAnimations() {
+    const reduced = prefersReducedMotion();
     const panels = this.container.querySelectorAll('.comic-panel');
+    const sections = this.container.querySelectorAll(
+      '.safari-intro, .safari-threats, .safari-media, .safari-culture, .safari-facts'
+    );
+
+    if (reduced) {
+      // Reduced-motion: skip ScrollTrigger entirely. Panels and sections
+      // start in their final state so they are immediately visible. No
+      // scroll-bound translate, no opacity-fade-on-enter — content reads
+      // as a static layout, narrative order preserved by document order.
+      panels.forEach((panel) => { gsap.set(panel, { opacity: 1, y: 0 }); });
+      sections.forEach((section) => { gsap.set(section, { opacity: 1, y: 0 }); });
+      return;
+    }
+
     panels.forEach((panel) => {
       const st = ScrollTrigger.create({
         trigger: panel,
@@ -134,9 +150,6 @@ export class SafariScene {
     });
 
     // Animate sections on scroll
-    const sections = this.container.querySelectorAll(
-      '.safari-intro, .safari-threats, .safari-media, .safari-culture, .safari-facts'
-    );
     sections.forEach((section) => {
       gsap.set(section, { opacity: 0, y: 20 });
       const st = ScrollTrigger.create({

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { prefersReducedMotion } from './reduced-motion.js';
 
 const HOTSPOTS = [
   { lat: 21.9, lng: 89.2, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
@@ -331,12 +332,22 @@ export class Globe {
       this.group.rotation.y += this._velocity.x; this.group.rotation.x += this._velocity.y;
       this.group.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, this.group.rotation.x));
     }
-    this.floraFaunaTime += delta;
+    // Reduced-motion: hold floraFaunaTime at 0 so flora/fauna shaders
+    // and marker pulses render their static t=0 frame. The shaders and
+    // sin() expressions still execute (no branch in the render loop)
+    // but with a frozen input, eliminating continuous orbital motion
+    // while preserving the visual presence of all markers and motes.
+    const reduced = prefersReducedMotion();
+    if (!reduced) this.floraFaunaTime += delta;
     this.floraFaunaMeshes.forEach(mesh => { mesh.material.uniforms.time.value = this.floraFaunaTime; });
     if (this.activeLayer === 'protected_areas' || this.activeLayer === 'threats') {
-      this.protectedAreaMeshes.forEach((marker, i) => { marker.scale.setScalar(1.0 + Math.sin(this.floraFaunaTime * 3 + i) * 0.3); });
+      this.protectedAreaMeshes.forEach((marker, i) => {
+        marker.scale.setScalar(reduced ? 1.0 : 1.0 + Math.sin(this.floraFaunaTime * 3 + i) * 0.3);
+      });
     }
-    this.comingSoonMeshes.forEach((marker, i) => { marker.scale.setScalar(1.0 + Math.sin(this.floraFaunaTime * 2 + i * 1.5) * 0.2); });
+    this.comingSoonMeshes.forEach((marker, i) => {
+      marker.scale.setScalar(reduced ? 1.0 : 1.0 + Math.sin(this.floraFaunaTime * 2 + i * 1.5) * 0.2);
+    });
     this.raycaster.setFromCamera(this.mouse, this.camera);
     let raycastTargets = [];
     if (this.activeLayer === 'media' || this.activeLayer === 'species') raycastTargets = this.columnMeshes;
