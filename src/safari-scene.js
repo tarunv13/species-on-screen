@@ -38,6 +38,16 @@ function truncate(text, maxLen) {
 }
 
 /**
+ * Validate a CSS color value matches hex format. Returns fallback if invalid.
+ */
+function sanitizeColor(value, fallback) {
+  if (typeof value === 'string' && /^#[0-9a-fA-F]{3,8}$/.test(value)) {
+    return value;
+  }
+  return fallback || '#1a1a2a';
+}
+
+/**
  * SafariScene - manages the full-screen habitat experience
  */
 export class SafariScene {
@@ -48,18 +58,18 @@ export class SafariScene {
     this._scrollTriggers = [];
   }
 
-  async enter(speciesSlug) {
-    const basePath = import.meta.env.BASE_URL || '/';
-    try {
+  async enter(speciesSlug, cachedData) {
+    this.container.scrollTop = 0;
+    let data = cachedData;
+    if (!data) {
+      const basePath = import.meta.env.BASE_URL || '/';
       const res = await fetch(`${basePath}data/${speciesSlug}.json`);
-      if (!res.ok) return;
-      const data = await res.json();
-      this._render(data);
-      this._initLenis();
-      this._initScrollAnimations();
-    } catch (e) {
-      // Fail silently - safari just won't populate
+      if (!res.ok) throw new Error(`Failed to load ${speciesSlug}`);
+      data = await res.json();
     }
+    this._render(data);
+    this._initLenis();
+    this._initScrollAnimations();
   }
 
   exit() {
@@ -84,6 +94,9 @@ export class SafariScene {
 
     // Clear container
     this.container.innerHTML = '';
+
+    // Refresh ScrollTrigger to clear measurement caches
+    ScrollTrigger.refresh();
   }
 
   _initLenis() {
@@ -259,12 +272,12 @@ export class SafariScene {
     const palette = HABITAT_PALETTES[habitatType] || HABITAT_PALETTES[habitat.type?.toLowerCase()] || HABITAT_PALETTES['ocean'];
 
     // Use safari_scene colors if available, otherwise fall back to HABITAT_PALETTES
-    const safariScene = data.safari_scene;
-    const skyTop = safariScene ? safariScene.sky_gradient[0] : palette.skyTop;
-    const skyBottom = safariScene ? safariScene.sky_gradient[1] : palette.skyBottom;
-    const silhouetteColor = safariScene ? safariScene.silhouette_color : '#1a2a1a';
-    const midColor = safariScene ? safariScene.mid_color : '#2a4a2a';
-    const foregroundColor = safariScene ? safariScene.foreground_color : '#0a1a0a';
+    const safariSceneData = data.safari_scene;
+    const skyTop = sanitizeColor(safariSceneData ? safariSceneData.sky_gradient[0] : null, palette.skyTop);
+    const skyBottom = sanitizeColor(safariSceneData ? safariSceneData.sky_gradient[1] : null, palette.skyBottom);
+    const silhouetteColor = sanitizeColor(safariSceneData ? safariSceneData.silhouette_color : null, '#1a2a1a');
+    const midColor = sanitizeColor(safariSceneData ? safariSceneData.mid_color : null, '#2a4a2a');
+    const foregroundColor = sanitizeColor(safariSceneData ? safariSceneData.foreground_color : null, '#0a1a0a');
 
     // Get first photo for the hero subject
     const heroPhoto = photos.length > 0 ? photos[0].url : '';

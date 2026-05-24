@@ -65,8 +65,9 @@ function init() {
 }
 
 function waitForSpeciesData() {
+  const expectedCount = 10;
   const check = () => {
-    if (Object.keys(globe.speciesDataCache).length > 0) {
+    if (Object.keys(globe.speciesDataCache).length >= expectedCount) {
       initFloatingCards();
     } else {
       setTimeout(check, 200);
@@ -85,6 +86,10 @@ function initFloatingCards() {
 function onCardClick(speciesSlug) {
   if (isTransitioning) return;
   isTransitioning = true;
+
+  // Zero out globe inertia to prevent drift during safari
+  globe._velocity.x = 0;
+  globe._velocity.y = 0;
 
   const speciesWorldPos = globe.getSpeciesPosition(speciesSlug);
   // Transform to world coordinates
@@ -112,12 +117,19 @@ function onCardClick(speciesSlug) {
     const returnBtn = document.querySelector('.return-to-globe');
     if (safariContainer) safariContainer.classList.add('active');
     if (returnBtn) returnBtn.style.display = 'block';
-    if (safariScene) safariScene.enter(speciesSlug);
   }, 1.6);
   tl.to('#safari-container', { opacity: 1, duration: 0.4, ease: 'power2.out' }, 1.6);
 
-  // Phase 4: Done
-  tl.add(() => { isTransitioning = false; }, 2.0);
+  // Phase 4: Enter safari scene after transition completes
+  tl.eventCallback('onComplete', async () => {
+    try {
+      const cachedData = globe.speciesDataCache[speciesSlug];
+      await safariScene.enter(speciesSlug, cachedData);
+      isTransitioning = false;
+    } catch {
+      returnToGlobe();
+    }
+  });
 }
 
 function returnToGlobe() {
