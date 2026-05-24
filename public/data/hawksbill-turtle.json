@@ -4,7 +4,9 @@
     "common_name": "Hawksbill Turtle",
     "family": "Cheloniidae",
     "order": "Testudines",
-    "class": "Reptilia"
+    "class": "Reptilia",
+    "gbif_url": "https://www.gbif.org/species/5220228",
+    "iucn_url": "https://www.iucnredlist.org/species/8005/226534848"
   },
   "habitat": {
     "type": "Coral Reef",
@@ -92,6 +94,59 @@
       "Economic returns from coastal development exceed conservation funding"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Fishing communities lack affordable bycatch-reduction technology",
+        "source": "Gilman et al. (2010)",
+        "source_url": "https://doi.org/10.3354/esr00171"
+      },
+      {
+        "text": "Limited public understanding of reef-turtle ecological linkage",
+        "source": "Meylan & Donnelly (1999)",
+        "source_url": "https://doi.org/10.2744/1071-8443(1999)003[0200:SJFLTH]2.0.CO;2"
+      },
+      {
+        "text": "Coastal managers lack tools to monitor nesting beach disturbance",
+        "source": "Sea Turtle Conservancy",
+        "source_url": "https://conserveturtles.org/information-about-sea-turtles/"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "International shell trade persists through enforcement gaps",
+        "source": "CITES Trade Database",
+        "source_url": "https://trade.cites.org/"
+      },
+      {
+        "text": "Coastal tourism development prioritized over nesting habitat protection",
+        "source": "Witherington & Martin (2003)",
+        "source_url": "https://doi.org/10.1016/S0006-3207(02)00297-5"
+      },
+      {
+        "text": "Climate change degrading reef feeding grounds beyond local control",
+        "source": "Hawkes et al. (2009)",
+        "source_url": "https://doi.org/10.1016/j.tree.2009.06.009"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Tortoiseshell products culturally valued in East Asian markets",
+        "source": "TRAFFIC (2019)",
+        "source_url": "https://www.traffic.org/publications/reports/shell-shocked/"
+      },
+      {
+        "text": "Egg harvesting seen as traditional right in coastal communities",
+        "source": "Campbell (2003)",
+        "source_url": "https://doi.org/10.1016/S0006-3207(02)00401-9"
+      },
+      {
+        "text": "Economic returns from coastal development exceed conservation funding",
+        "source": "Wilson et al. (2006)",
+        "source_url": "https://doi.org/10.1126/science.1131774"
+      }
+    ]
+  },
   "evidence_summary": "Blue Planet coral reef sequences featuring hawksbills generated significant public concern about marine plastics and reef health, contributing to policy discussions on single-use plastics in multiple countries (Jones et al., 2019).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -103,54 +158,116 @@
     "Mortimer, J.A. & Donnelly, M. (2008). Hawksbill Turtle (Eretmochelys imbricata). IUCN Red List Assessment.",
     "Meylan, A.B. & Donnelly, M. (1999). Status justification for listing the hawksbill turtle as Critically Endangered. Chelonian Conservation and Biology, 3(2), pp.200-224."
   ],
-  "tmdb_media": [],
-  "data_sources": {
-    "population": {
-      "value": "20,000-23,000 nesting females",
-      "source": "Mortimer & Donnelly, IUCN",
-      "year": 2008
-    },
-    "iucn_status": {
-      "status": "Critically Endangered",
-      "source": "IUCN Red List",
-      "assessed": 2008
-    },
-    "decline": {
-      "value": "80% decline over three generations",
-      "source": "IUCN Marine Turtle Specialist Group",
-      "year": 2008
-    }
-  },
   "interesting_facts": [
     {
-      "fact": "Hawksbills can consume toxic sponges that would kill most other animals, making their flesh potentially poisonous to humans.",
-      "source": "Meylan, Science, 1988"
+      "text": "Hawksbill turtles can consume sponges toxic to most other marine animals, playing a critical role in reef health.",
+      "source_url": "https://doi.org/10.2744/1071-8443(1999)003[0200:SJFLTH]2.0.CO;2"
     },
     {
-      "fact": "They navigate thousands of kilometres of open ocean using Earth's magnetic field to return to their birth beach.",
-      "source": "Lohmann et al., Current Biology, 2004"
+      "text": "They can navigate across thousands of ocean kilometres to return to the exact beach where they hatched decades earlier.",
+      "source_url": "https://doi.org/10.1098/rspb.2007.1745"
     },
     {
-      "fact": "A single hawksbill removes over 500kg of sponge from reefs annually, preventing coral from being smothered.",
-      "source": "Leon & Bjorndal, Ecology, 2002"
+      "text": "Hawksbill shell (tortoiseshell) trade dates back to ancient Egypt, with artifacts found in Tutankhamun's tomb.",
+      "source_url": "https://www.cites.org/eng/gallery/species/reptile/hawksbill_turtle.html"
     },
     {
-      "fact": "Hawksbill shell ('tortoiseshell') was traded for 2,000 years before international bans, driving populations down 80%.",
-      "source": "CITES Trade Database, 2020"
+      "text": "A single hawksbill turtle can consume over 500 kilograms of sponges per year.",
+      "source_url": "https://doi.org/10.3354/esr00165"
     }
   ],
   "photos": [
     {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hawksbill_Turtle_on_coral_reef.jpg/1280px-Hawksbill_Turtle_on_coral_reef.jpg",
-      "alt": "Hawksbill turtle swimming over coral reef",
-      "credit": "Wikimedia Commons",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hawksbill_Sea_Turtle_Carey_de_Concha_%28rev%29.jpg/1280px-Hawksbill_Sea_Turtle_Carey_de_Concha_%28rev%29.jpg",
+      "alt": "Hawksbill sea turtle swimming over reef",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
       "photographer": "Thierry Caro"
     },
     {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Eretmochelys_imbricata_01.jpg/1280px-Eretmochelys_imbricata_01.jpg",
-      "alt": "Hawksbill turtle close-up",
-      "credit": "Wikimedia Commons",
-      "photographer": "Christoph Rohner"
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Eretmochelys-imbricata-K%C3%A9lonia-2.JPG/1280px-Eretmochelys-imbricata-K%C3%A9lonia-2.JPG",
+      "alt": "Hawksbill turtle at Kelonia",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "B.navez"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Hawksbill_Turtle_at_Tortuguero_National_Park.jpg/1280px-Hawksbill_Turtle_at_Tortuguero_National_Park.jpg",
+      "alt": "Hawksbill turtle at Tortuguero National Park",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "David Stanley"
     }
-  ]
+  ],
+  "cultural_depth": {
+    "pacific_islands_navigation": {
+      "description": "Pacific Island navigators observed sea turtle movements to locate distant islands and predict weather patterns. Hawksbill turtles, associated with reef systems, signalled the presence of shallow water and potential landfalls to voyagers crossing vast oceanic distances.",
+      "source": "Johannes, R.E. (1981). Words of the Lagoon. UC Press.",
+      "source_url": "https://doi.org/10.1525/9780520309135"
+    },
+    "caribbean_shell_craft": {
+      "description": "Caribbean and Mediterranean artisans transformed hawksbill shell (tortoiseshell) into combs, jewelry, and decorative objects for over two millennia. This trade, dating to ancient Rome, created demand that persisted into the 20th century and devastated populations.",
+      "source": "Mortimer, J.A. & Donnelly, M. (2008)",
+      "source_url": "https://www.iucnredlist.org/species/8005/226534848"
+    },
+    "mesoamerica_mythology": {
+      "description": "In Mayan cosmology, sea turtles carried the Earth on their backs and were associated with creation and renewal. The turtle glyph appears in Mayan calendrics, and turtle imagery adorns temples at coastal sites throughout the Yucatan Peninsula.",
+      "source": "Miller, M.E. & Taube, K. (1993). The Gods and Symbols of Ancient Mexico and the Maya. Thames & Hudson.",
+      "source_url": "https://www.Thames&Hudson.com"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Great Barrier Reef Marine Park",
+        "lat": -18.2861,
+        "lng": 147.7,
+        "country": "Australia"
+      },
+      {
+        "name": "Tortuguero National Park",
+        "lat": 10.543,
+        "lng": -83.502,
+        "country": "Costa Rica"
+      },
+      {
+        "name": "Ras Al Jinz Turtle Reserve",
+        "lat": 22.4,
+        "lng": 59.8,
+        "country": "Oman"
+      },
+      {
+        "name": "Baa Atoll Biosphere Reserve",
+        "lat": 5.25,
+        "lng": 72.95,
+        "country": "Maldives"
+      },
+      {
+        "name": "Buck Island Reef National Monument",
+        "lat": 17.7889,
+        "lng": -64.6189,
+        "country": "US Virgin Islands"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/8005/226534848"
+    },
+    {
+      "name": "Sea Turtle Conservancy",
+      "type": "conservation",
+      "url": "https://conserveturtles.org/information-about-sea-turtles/"
+    },
+    {
+      "name": "CITES Appendix I",
+      "type": "trade",
+      "url": "https://www.cites.org/eng/gallery/species/reptile/hawksbill_turtle.html"
+    },
+    {
+      "name": "WWF Marine Turtle Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/hawksbill-turtle"
+    }
+  ],
+  "tmdb_media": []
 }

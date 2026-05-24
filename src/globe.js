@@ -77,6 +77,11 @@ export class Globe {
 
     this.mediaCounts = {};
     this.columnMeshes = [];
+    this.habitatMeshes = [];
+    this.protectedAreaMeshes = [];
+    this.protectedAreaData = [];
+    this.speciesDataCache = {};
+    this.activeLayer = 'media';
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2(-999, -999);
     this.hoveredIndex = -1;
@@ -85,6 +90,7 @@ export class Globe {
 
     this._createGlobe();
     this._createColumns();
+    this._createHabitatLayer();
     this._createFloraFauna();
     this._setupInteraction();
     this._loadMediaCounts();
@@ -186,6 +192,106 @@ export class Globe {
       ring.lookAt(basePos.clone().add(normal));
       this.group.add(ring);
     });
+  }
+
+  _createHabitatLayer() {
+    const discGeometry = new THREE.CircleGeometry(0.06, 24);
+
+    HOTSPOTS.forEach((hotspot) => {
+      const basePos = latLngToVector3(hotspot.lat, hotspot.lng, 1.505);
+      const normal = basePos.clone().normalize();
+
+      const discMaterial = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(hotspot.color),
+        transparent: true,
+        opacity: 0.4,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      });
+      const disc = new THREE.Mesh(discGeometry.clone(), discMaterial);
+      disc.position.copy(basePos);
+      disc.lookAt(basePos.clone().add(normal));
+      disc.userData = { species: hotspot.species, name: hotspot.name };
+      disc.visible = false;
+      this.group.add(disc);
+      this.habitatMeshes.push(disc);
+    });
+  }
+
+  _createProtectedAreaMarkers(allProtectedAreas) {
+    const sphereGeometry = new THREE.SphereGeometry(0.02, 12, 12);
+    const markerMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff6b35,
+      emissive: 0xff6b35,
+      emissiveIntensity: 0.6,
+      transparent: true,
+      opacity: 0.9,
+    });
+
+    allProtectedAreas.forEach((area) => {
+      const pos = latLngToVector3(area.lat, area.lng, 1.52);
+      const marker = new THREE.Mesh(sphereGeometry.clone(), markerMaterial.clone());
+      marker.position.copy(pos);
+      marker.userData = { name: area.name, species: area.species, country: area.country };
+      marker.visible = false;
+      this.group.add(marker);
+      this.protectedAreaMeshes.push(marker);
+      this.protectedAreaData.push(area);
+    });
+  }
+
+  setLayer(layerName) {
+    this.activeLayer = layerName;
+
+    // Hide all layer meshes
+    this.columnMeshes.forEach(m => { m.visible = false; });
+    this.habitatMeshes.forEach(m => { m.visible = false; });
+    this.protectedAreaMeshes.forEach(m => { m.visible = false; });
+
+    // Show selected layer
+    if (layerName === 'media') {
+      this.columnMeshes.forEach(m => { m.visible = true; });
+    } else if (layerName === 'habitat') {
+      this.habitatMeshes.forEach(m => { m.visible = true; });
+    } else if (layerName === 'protected_areas') {
+      this.protectedAreaMeshes.forEach(m => { m.visible = true; });
+    }
+
+    // Hide info panel on layer switch
+    this._hideInfoPanel();
+  }
+
+  _showInfoPanel(speciesSlug, clickedName) {
+    const panel = document.getElementById('globe-info-panel');
+    if (!panel) return;
+
+    const data = this.speciesDataCache[speciesSlug];
+    const nameEl = panel.querySelector('.globe-info-panel__name');
+    const statusEl = panel.querySelector('.globe-info-panel__status');
+    const imgEl = panel.querySelector('.globe-info-panel__img');
+    const exploreEl = panel.querySelector('.globe-info-panel__explore');
+
+    nameEl.textContent = data ? (data.taxonomy?.common_name || clickedName) : clickedName;
+    statusEl.textContent = data ? (data.conservation?.iucn_status || '') : '';
+
+    if (data && data.photos && data.photos.length > 0) {
+      imgEl.src = data.photos[0].url;
+      imgEl.alt = data.photos[0].alt || clickedName;
+      imgEl.style.display = '';
+    } else {
+      imgEl.style.display = 'none';
+    }
+
+    const basePath = import.meta.env.BASE_URL || '/';
+    exploreEl.href = `${basePath}species/${speciesSlug}.html`;
+    panel.style.display = 'flex';
+  }
+
+  _hideInfoPanel() {
+    const panel = document.getElementById('globe-info-panel');
+    if (panel) {
+      panel.style.display = 'none';
+    }
   }
 
   _createFloraFauna() {
@@ -312,12 +418,13 @@ export class Globe {
     this._onClick = () => {
       if (this.hoveredIndex >= 0) {
         const hotspot = HOTSPOTS[this.hoveredIndex];
-        const url = `species/${hotspot.species}.html`;
-        if (this._navigationHandler) {
-          this._navigationHandler(url);
-        } else {
-          window.location.href = url;
-        }
+        this._showInfoPanel(hotspot.species, hotspot.name);
+      } else if (this._hoveredProtectedArea >= 0) {
+        const area = this.protectedAreaData[this._hoveredProtectedArea];
+        this._showInfoPanel(area.species, area.name);
+      } else if (this._hoveredHabitat >= 0) {
+        const hotspot = HOTSPOTS[this._hoveredHabitat];
+        this._showInfoPanel(hotspot.species, hotspot.name);
       }
     };
 
@@ -340,12 +447,22 @@ export class Globe {
     const basePath = import.meta.env.BASE_URL || '/';
 
     try {
+      const allProtectedAreas = [];
       const promises = SPECIES_FILES.map(async (slug) => {
         try {
           const res = await fetch(`${basePath}data/${slug}.json`);
           if (!res.ok) return { slug, count: 0 };
           const data = await res.json();
+          this.speciesDataCache[slug] = data;
           const count = data.tmdb_media ? data.tmdb_media.length : 0;
+
+          // Collect protected areas
+          if (data.globe_layers && data.globe_layers.protected_areas) {
+            data.globe_layers.protected_areas.forEach((area) => {
+              allProtectedAreas.push({ ...area, species: slug });
+            });
+          }
+
           return { slug, count };
         } catch {
           return { slug, count: 0 };
@@ -358,6 +475,7 @@ export class Globe {
       });
 
       this._updateColumnHeights();
+      this._createProtectedAreaMarkers(allProtectedAreas);
     } catch {
       // Fail silently - columns keep default height
     }
@@ -390,36 +508,92 @@ export class Globe {
       mesh.material.uniforms.time.value = this.floraFaunaTime;
     });
 
+    // Pulsing animation for protected area markers
+    if (this.activeLayer === 'protected_areas') {
+      this.protectedAreaMeshes.forEach((marker, i) => {
+        const scale = 1.0 + Math.sin(this.floraFaunaTime * 3 + i) * 0.3;
+        marker.scale.setScalar(scale);
+      });
+    }
+
     // Raycasting for hover
     this.raycaster.setFromCamera(this.mouse, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.columnMeshes);
 
+    // Determine which meshes to raycast against based on active layer
+    let raycastTargets = [];
+    if (this.activeLayer === 'media') {
+      raycastTargets = this.columnMeshes;
+    } else if (this.activeLayer === 'habitat') {
+      raycastTargets = this.habitatMeshes;
+    } else if (this.activeLayer === 'protected_areas') {
+      raycastTargets = this.protectedAreaMeshes;
+    }
+
+    const intersects = this.raycaster.intersectObjects(raycastTargets);
     const tooltip = document.getElementById('globe-tooltip');
     const prevHovered = this.hoveredIndex;
+    const prevHoveredPA = this._hoveredProtectedArea;
+    const prevHoveredHab = this._hoveredHabitat;
+
+    this._hoveredProtectedArea = -1;
+    this._hoveredHabitat = -1;
 
     if (intersects.length > 0) {
       const hit = intersects[0].object;
-      const idx = hit.userData.hotspotIndex;
-      this.hoveredIndex = idx;
 
-      if (tooltip) {
-        tooltip.textContent = hit.userData.name;
-        tooltip.style.opacity = '1';
-        // Position tooltip near mouse
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        const x = ((this.mouse.x + 1) / 2) * rect.width;
-        const y = ((1 - this.mouse.y) / 2) * rect.height;
-        tooltip.style.left = `${x + 15}px`;
-        tooltip.style.top = `${y - 10}px`;
-      }
+      if (this.activeLayer === 'media') {
+        const idx = hit.userData.hotspotIndex;
+        this.hoveredIndex = idx;
 
-      // Highlight hovered column
-      if (prevHovered !== idx) {
-        // Reset previous
-        if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
-          this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5;
+        if (tooltip) {
+          tooltip.textContent = hit.userData.name;
+          tooltip.style.opacity = '1';
+          const rect = this.renderer.domElement.getBoundingClientRect();
+          const x = ((this.mouse.x + 1) / 2) * rect.width;
+          const y = ((1 - this.mouse.y) / 2) * rect.height;
+          tooltip.style.left = `${x + 15}px`;
+          tooltip.style.top = `${y - 10}px`;
         }
-        hit.material.emissiveIntensity = 1.0;
+
+        if (prevHovered !== idx) {
+          if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
+            this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5;
+          }
+          hit.material.emissiveIntensity = 1.0;
+        }
+        this.renderer.domElement.style.cursor = 'pointer';
+
+      } else if (this.activeLayer === 'habitat') {
+        const idx = this.habitatMeshes.indexOf(hit);
+        this._hoveredHabitat = idx;
+        this.hoveredIndex = -1;
+
+        if (tooltip) {
+          tooltip.textContent = hit.userData.name;
+          tooltip.style.opacity = '1';
+          const rect = this.renderer.domElement.getBoundingClientRect();
+          const x = ((this.mouse.x + 1) / 2) * rect.width;
+          const y = ((1 - this.mouse.y) / 2) * rect.height;
+          tooltip.style.left = `${x + 15}px`;
+          tooltip.style.top = `${y - 10}px`;
+        }
+        this.renderer.domElement.style.cursor = 'pointer';
+
+      } else if (this.activeLayer === 'protected_areas') {
+        const idx = this.protectedAreaMeshes.indexOf(hit);
+        this._hoveredProtectedArea = idx;
+        this.hoveredIndex = -1;
+
+        if (tooltip) {
+          const area = this.protectedAreaData[idx];
+          tooltip.textContent = area ? `${area.name} (${area.country})` : '';
+          tooltip.style.opacity = '1';
+          const rect = this.renderer.domElement.getBoundingClientRect();
+          const x = ((this.mouse.x + 1) / 2) * rect.width;
+          const y = ((1 - this.mouse.y) / 2) * rect.height;
+          tooltip.style.left = `${x + 15}px`;
+          tooltip.style.top = `${y - 10}px`;
+        }
         this.renderer.domElement.style.cursor = 'pointer';
       }
     } else {
@@ -450,6 +624,18 @@ export class Globe {
       column.material.dispose();
     });
 
+    // Dispose habitat meshes
+    this.habitatMeshes.forEach((disc) => {
+      disc.geometry.dispose();
+      disc.material.dispose();
+    });
+
+    // Dispose protected area meshes
+    this.protectedAreaMeshes.forEach((marker) => {
+      marker.geometry.dispose();
+      marker.material.dispose();
+    });
+
     // Dispose flora/fauna meshes
     this.floraFaunaMeshes.forEach((mesh) => {
       mesh.geometry.dispose();
@@ -471,6 +657,9 @@ export class Globe {
     if (tooltip && tooltip.parentNode) {
       tooltip.parentNode.removeChild(tooltip);
     }
+
+    // Hide info panel
+    this._hideInfoPanel();
 
     // Remove group from scene
     this.scene.remove(this.group);

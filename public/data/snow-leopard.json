@@ -4,7 +4,9 @@
     "common_name": "Snow Leopard",
     "family": "Felidae",
     "order": "Carnivora",
-    "class": "Mammalia"
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/2435024",
+    "iucn_url": "https://www.iucnredlist.org/species/22732/102331691"
   },
   "habitat": {
     "type": "Mountain",
@@ -94,6 +96,59 @@
       "Low awareness of snow leopard ecological importance among local communities"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Remote communities lack livestock protection infrastructure",
+        "source": "Jackson et al. (2010)",
+        "source_url": "https://doi.org/10.1017/S0030605310000190"
+      },
+      {
+        "text": "Limited veterinary support increases perceived losses to predation",
+        "source": "Snow Leopard Trust",
+        "source_url": "https://snowleopard.org/what-we-do/community-programs/"
+      },
+      {
+        "text": "Insufficient monitoring technology in harsh terrain",
+        "source": "Sharma et al. (2014)",
+        "source_url": "https://doi.org/10.1017/S0030605313000483"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Mining concessions granted in core habitat areas",
+        "source": "Rosen et al. (2012)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2012.08.020"
+      },
+      {
+        "text": "Climate change shifting tree lines reduces available alpine territory",
+        "source": "Forrest et al. (2012)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2012.01.048"
+      },
+      {
+        "text": "Cross-border cooperation hampered by geopolitical tensions",
+        "source": "GSLEP Secretariat",
+        "source_url": "https://globalsnowleopard.org/"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Livestock losses represent catastrophic economic damage for herders",
+        "source": "Mishra et al. (2003)",
+        "source_url": "https://doi.org/10.1016/S0006-3207(02)00318-X"
+      },
+      {
+        "text": "Pelt trade offers significant income in impoverished regions",
+        "source": "Nowell et al. (2016)",
+        "source_url": "https://www.traffic.org/publications/reports/an-ounce-of-prevention/"
+      },
+      {
+        "text": "Low awareness of snow leopard ecological importance among local communities",
+        "source": "Li et al. (2016)",
+        "source_url": "https://doi.org/10.1111/cobi.12612"
+      }
+    ]
+  },
   "evidence_summary": "Planet Earth II snow leopard sequences generated measurable increases in Snow Leopard Trust donations and social media engagement, demonstrating the power of rare wildlife footage to drive conservation support (Silk et al., 2018).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -104,6 +159,117 @@
     "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
     "Jackson, R.M. et al. (2006). Estimating snow leopard population abundance using photography and capture-recapture techniques. Wildlife Society Bulletin, 34(3), pp.772-781.",
     "Li, J. et al. (2016). Role of Tibetan Buddhist monasteries in snow leopard conservation. Conservation Biology, 30(4), pp.735-745."
+  ],
+  "interesting_facts": [
+    {
+      "text": "Snow leopards cannot roar; they communicate through hisses, growls, mews, and a unique puffing sound called prusten.",
+      "source_url": "https://snowleopard.org/about-snow-leopards/"
+    },
+    {
+      "text": "Their extraordinarily long tail (nearly as long as their body) serves as a balance aid and a warm face-covering during blizzards.",
+      "source_url": "https://doi.org/10.1017/S0030605310000190"
+    },
+    {
+      "text": "Snow leopards can leap up to 15 metres horizontally across mountain crevasses.",
+      "source_url": "https://www.panthera.org/cat/snow-leopard"
+    },
+    {
+      "text": "They can bring down prey up to three times their own body weight on near-vertical cliff faces.",
+      "source_url": "https://snowleopard.org/about-snow-leopards/"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Snow_leopard_in_Chattar_Plain_%28cropped%29.jpg/1280px-Snow_leopard_in_Chattar_Plain_%28cropped%29.jpg",
+      "alt": "Snow leopard in Chattar Plain",
+      "credit": "Wikimedia Commons, CC BY-SA 4.0",
+      "photographer": "Mohd Irsyad"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SnowLeopard.jpg/1280px-SnowLeopard.jpg",
+      "alt": "Snow leopard on rocky terrain",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "Bernard Landgraf"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Snow_Leopard_Relaxing.jpg/1280px-Snow_Leopard_Relaxing.jpg",
+      "alt": "Snow leopard resting on rocks",
+      "credit": "Wikimedia Commons, CC BY-ND 2.0",
+      "photographer": "Tambako The Jaguar"
+    }
+  ],
+  "cultural_depth": {
+    "central_asia_mountain_spirit": {
+      "description": "Across Central Asian pastoral communities, the snow leopard is considered a sacred mountain spirit whose presence indicates the health of alpine ecosystems. Killing one is believed to bring misfortune upon the herder and their family for generations.",
+      "source": "Snow Leopard Trust Research",
+      "source_url": "https://snowleopard.org/research/"
+    },
+    "tibet_buddhist": {
+      "description": "In Tibetan Buddhist iconography, the snow leopard appears as a symbol of meditation and solitary contemplation. Monasteries in snow leopard range have become important allies in conservation, with monks monitoring populations and discouraging poaching among local communities.",
+      "source": "Li, J. et al. (2016)",
+      "source_url": "https://doi.org/10.1111/cobi.12612"
+    },
+    "kyrgyz_folklore": {
+      "description": "In Kyrgyz folklore, the ilbirs (snow leopard) is a mystical guardian of mountain pastures. Traditional stories describe snow leopards as shape-shifting spirits that test the virtue of hunters, rewarding those who show restraint and punishing the greedy.",
+      "source": "Global Snow Leopard & Ecosystem Protection Program",
+      "source_url": "https://globalsnowleopard.org/"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Hemis National Park",
+        "lat": 33.89,
+        "lng": 77.55,
+        "country": "India"
+      },
+      {
+        "name": "Sagarmatha National Park",
+        "lat": 27.96,
+        "lng": 86.82,
+        "country": "Nepal"
+      },
+      {
+        "name": "Altai Tavan Bogd National Park",
+        "lat": 48.8,
+        "lng": 87.8,
+        "country": "Mongolia"
+      },
+      {
+        "name": "Sarychat-Ertash Reserve",
+        "lat": 41.75,
+        "lng": 78.5,
+        "country": "Kyrgyzstan"
+      },
+      {
+        "name": "Qomolangma National Nature Preserve",
+        "lat": 28.25,
+        "lng": 86.93,
+        "country": "China"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/22732/102331691"
+    },
+    {
+      "name": "Snow Leopard Trust",
+      "type": "conservation",
+      "url": "https://snowleopard.org/"
+    },
+    {
+      "name": "Global Snow Leopard & Ecosystem Protection Program",
+      "type": "policy",
+      "url": "https://globalsnowleopard.org/"
+    },
+    {
+      "name": "Panthera Snow Leopard Program",
+      "type": "conservation",
+      "url": "https://www.panthera.org/cat/snow-leopard"
+    }
   ],
   "tmdb_media": [
     {
@@ -130,7 +296,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1612530",
       "poster_path": null,
       "backdrop_path": null,
-      "overview": "\u201cHigh in the mountains, a ghost walks among the snow.\u201d  In the remote and frozen landscapes of Ladakh, the snow leopard moves silently, almost unseen. It is one of the rarest and most mysterious big cats in the world.  \"Ghost of The Mountain\" follows the journey of a wildlife photographer searching for this secretive predator. But he is not alone. Along the way, he meets the people who live in these harsh lands\u2014 herders, trackers, and conservationists\u2014 who work every day to protect the snow leopard and find ways to live alongside it.  Through their stories, we explore the delicate balance between survival and coexistence, between ancient traditions and modern conservation.",
+      "overview": "“High in the mountains, a ghost walks among the snow.”  In the remote and frozen landscapes of Ladakh, the snow leopard moves silently, almost unseen. It is one of the rarest and most mysterious big cats in the world.  \"Ghost of The Mountain\" follows the journey of a wildlife photographer searching for this secretive predator. But he is not alone. Along the way, he meets the people who live in these harsh lands— herders, trackers, and conservationists— who work every day to protect the snow leopard and find ways to live alongside it.  Through their stories, we explore the delicate balance between survival and coexistence, between ancient traditions and modern conservation.",
       "classification": "documentary",
       "narrative_technique": "presenter-led",
       "relevance_score": 105,
@@ -147,7 +313,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1422627",
       "poster_path": "/3eT4xMPqHrLjqO5vOnfhHS8D6ml.jpg",
       "backdrop_path": null,
-      "overview": "In Nepal\u2019s remote Dolpo region, two Indigenous women form an unlikely friendship to save one of the planet\u2019s most mysterious and vulnerable wild cats: the snow leopard.",
+      "overview": "In Nepal’s remote Dolpo region, two Indigenous women form an unlikely friendship to save one of the planet’s most mysterious and vulnerable wild cats: the snow leopard.",
       "classification": "documentary",
       "narrative_technique": "observational",
       "relevance_score": 95,
@@ -195,7 +361,7 @@
     {
       "title": "The Frozen Kingdom of the Snow Leopard",
       "year": 2020,
-      "director": "Fr\u00e9d\u00e9ric Larrey",
+      "director": "Frédéric Larrey",
       "tmdb_url": "https://www.themoviedb.org/movie/783095",
       "poster_path": "/o3rBvTBE0dkkHDo2Nuj3Hvvsrz2.jpg",
       "backdrop_path": "/izAvnQEdCHfNC0PJDhpgAuWYuVJ.jpg",
@@ -250,7 +416,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/775518",
       "poster_path": null,
       "backdrop_path": null,
-      "overview": "Disturbed by how herders trap and torture snow leopards by the herders, Tshiring, a young conservationist from Dolpo who researches snow leopards feels a sense of urgency to protect the last of these endangered big cats. She is convinced this can only happen if local communities are involved in protecting the animals\u2014but also benefit from snow leopards. She takes on a challenging research expedition over three harsh winter months in an empty village to explore the possibility of organizing a snow leopard conservation trek that could help change locals\u2019 perception about the need to protect snow leopards.",
+      "overview": "Disturbed by how herders trap and torture snow leopards by the herders, Tshiring, a young conservationist from Dolpo who researches snow leopards feels a sense of urgency to protect the last of these endangered big cats. She is convinced this can only happen if local communities are involved in protecting the animals—but also benefit from snow leopards. She takes on a challenging research expedition over three harsh winter months in an empty village to explore the possibility of organizing a snow leopard conservation trek that could help change locals’ perception about the need to protect snow leopards.",
       "classification": "fiction",
       "narrative_technique": "fiction-featuring",
       "relevance_score": 55,
@@ -265,7 +431,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1479547",
       "poster_path": null,
       "backdrop_path": null,
-      "overview": "Set in the remote Kyrgyz mountains, The Descendant of the Snow Leopard tells the story of a resilient nomadic tribe whose survival and spiritual identity are deeply connected to the elusive snow leopard. Based on a traditional Kyrgyz folktale, the film explores themes of courage, heritage, and humanity\u2019s bond with nature, as one family confronts harsh environments, moral dilemmas, and cultural transformation in Soviet-era Central Asia.",
+      "overview": "Set in the remote Kyrgyz mountains, The Descendant of the Snow Leopard tells the story of a resilient nomadic tribe whose survival and spiritual identity are deeply connected to the elusive snow leopard. Based on a traditional Kyrgyz folktale, the film explores themes of courage, heritage, and humanity’s bond with nature, as one family confronts harsh environments, moral dilemmas, and cultural transformation in Soviet-era Central Asia.",
       "classification": "fiction",
       "narrative_technique": "fiction-featuring",
       "relevance_score": 45,
@@ -321,55 +487,6 @@
       "query_source": "Snow Leopard",
       "genre_ids": [],
       "vote_average": 0
-    }
-  ],
-  "data_sources": {
-    "population": {
-      "value": "4,000-6,500",
-      "source": "Snow Leopard Trust / Global Snow Leopard Forum",
-      "year": 2022
-    },
-    "iucn_status": {
-      "status": "Vulnerable",
-      "source": "IUCN Red List",
-      "assessed": 2017
-    },
-    "range_loss": {
-      "value": "20% of range lost in 16 years",
-      "source": "Snow Leopard Trust",
-      "year": 2020
-    }
-  },
-  "interesting_facts": [
-    {
-      "fact": "Snow leopards cannot roar - they communicate through hissing, mewing, and a unique non-aggressive puffing sound called 'prusten'.",
-      "source": "Snow Leopard Trust, 2022"
-    },
-    {
-      "fact": "Their tails can be almost as long as their body (up to 1 metre), used for balance and warmth.",
-      "source": "Jackson & Ahlborn, National Geographic Research, 1989"
-    },
-    {
-      "fact": "A snow leopard can leap up to 15 metres in a single bound when hunting on steep terrain.",
-      "source": "Snow Leopard Conservancy, 2020"
-    },
-    {
-      "fact": "They are so elusive that local researchers call them 'ghosts of the mountain' - some spend entire careers without a sighting.",
-      "source": "Matthiessen, The Snow Leopard, 1978"
-    }
-  ],
-  "photos": [
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Irbis4.jpg/1280px-Irbis4.jpg",
-      "alt": "Snow leopard on rocky terrain",
-      "credit": "Wikimedia Commons",
-      "photographer": "Bernard Landgraf"
-    },
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Snow_leopard_in_Bronx_Zoo.jpg/1280px-Snow_leopard_in_Bronx_Zoo.jpg",
-      "alt": "Snow leopard portrait",
-      "credit": "Wikimedia Commons",
-      "photographer": "Dingopup"
     }
   ]
 }

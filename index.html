@@ -256,6 +256,22 @@
       This page presents an interactive 3D cinematic experience exploring the relationship between species in film and conservation. The experience includes a rotating globe with data visualization columns, a species gallery with ten flagship species, and a closing vision section. Use the scroll to navigate through sections, or access individual species pages via the links below.
     </div>
 
+    <!-- Globe Layer Toggles -->
+    <div class="globe-layer-toggles" id="globe-layer-toggles">
+      <button class="globe-layer-btn active" data-layer="media">Media Coverage</button>
+      <button class="globe-layer-btn" data-layer="habitat">Habitat Range</button>
+      <button class="globe-layer-btn" data-layer="protected_areas">Protected Areas</button>
+    </div>
+
+    <!-- Globe Info Panel -->
+    <div id="globe-info-panel" class="globe-info-panel" style="display:none;">
+      <button class="globe-info-panel__close" aria-label="Close">&times;</button>
+      <img class="globe-info-panel__img" src="" alt="" />
+      <h3 class="globe-info-panel__name"></h3>
+      <span class="globe-info-panel__status"></span>
+      <a class="globe-info-panel__explore" href="#">Explore Species</a>
+    </div>
+
     <!-- Globe tooltip (for raycasting hover) -->
     <div id="globe-tooltip" class="globe-tooltip"></div>
   </div>

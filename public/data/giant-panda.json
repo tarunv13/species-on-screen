@@ -4,7 +4,9 @@
     "common_name": "Giant Panda",
     "family": "Ursidae",
     "order": "Carnivora",
-    "class": "Mammalia"
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/2435013",
+    "iucn_url": "https://www.iucnredlist.org/species/712/166502858"
   },
   "habitat": {
     "type": "Temperate Forest",
@@ -83,6 +85,59 @@
       "Public preference for charismatic megafauna skews funding allocation"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Bamboo corridor restoration requires decades of growth",
+        "source": "Swaisgood et al. (2011)",
+        "source_url": "https://doi.org/10.1111/j.1749-4877.2011.00247.x"
+      },
+      {
+        "text": "Captive breeding struggles with low reproductive rates",
+        "source": "Zhang et al. (2004)",
+        "source_url": "https://doi.org/10.1126/science.1104407"
+      },
+      {
+        "text": "Genetic management across fragmented populations technically challenging",
+        "source": "Wei et al. (2015)",
+        "source_url": "https://doi.org/10.1111/cobi.12582"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Infrastructure development continues to fragment remaining habitat",
+        "source": "Li et al. (2015)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2015.09.024"
+      },
+      {
+        "text": "Climate change altering bamboo distribution faster than corridors can be restored",
+        "source": "Tuanmu et al. (2013)",
+        "source_url": "https://doi.org/10.1111/ele.12025"
+      },
+      {
+        "text": "Tourism pressure on reserves increasing with prosperity",
+        "source": "Zhou & Grumbine (2011)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2011.02.016"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Panda conservation heavily funded but benefits concentrated on one species",
+        "source": "Macdonald et al. (2016)",
+        "source_url": "https://doi.org/10.1111/geb.12374"
+      },
+      {
+        "text": "Political symbolism sometimes prioritized over ecological effectiveness",
+        "source": "Buckingham et al. (2013)",
+        "source_url": "https://doi.org/10.1007/s10668-013-9449-3"
+      },
+      {
+        "text": "Public preference for charismatic megafauna skews funding allocation",
+        "source": "Macdonald et al. (2016)",
+        "source_url": "https://doi.org/10.1111/geb.12374"
+      }
+    ]
+  },
   "evidence_summary": "The giant panda demonstrates the \"flagship species\" effect where media attention on one charismatic species generates conservation funding that protects entire ecosystems, though critics note allocation inequity (Macdonald et al., 2016).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -93,6 +148,117 @@
     "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
     "Swaisgood, R.R. et al. (2011). Can science save the giant panda? Unifying science and policy in an adaptive management framework. Integrative Zoology, 6(3), pp.290-296.",
     "Wei, F. et al. (2015). Progress in the ecology and conservation of giant pandas. Conservation Biology, 29(6), pp.1497-1507."
+  ],
+  "interesting_facts": [
+    {
+      "text": "Despite being classified as bears (order Carnivora), 99% of a giant panda's diet is bamboo.",
+      "source_url": "https://doi.org/10.1111/cobi.12582"
+    },
+    {
+      "text": "Pandas must eat 12-38 kilograms of bamboo daily because they digest only about 17% of what they consume.",
+      "source_url": "https://doi.org/10.1128/mBio.00892-15"
+    },
+    {
+      "text": "Giant pandas have an enlarged wrist bone (a \"pseudo-thumb\") that functions as an opposable digit for gripping bamboo.",
+      "source_url": "https://doi.org/10.1038/s41586-022-04427-0"
+    },
+    {
+      "text": "Newborn pandas weigh about 100 grams, roughly 1/900th of their mother's weight, one of the smallest mammalian birth-size ratios.",
+      "source_url": "https://doi.org/10.1111/j.1749-4877.2011.00247.x"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/1280px-Grosser_Panda.JPG",
+      "alt": "Giant panda eating bamboo",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "J. Patrick Fischer"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_eating_Bamboo.JPG/1280px-Giant_Panda_eating_Bamboo.JPG",
+      "alt": "Giant panda chewing bamboo stem",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "Chen Wu"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Giant_panda_at_Vienna_Zoo_%28cropped%29.jpg/1280px-Giant_panda_at_Vienna_Zoo_%28cropped%29.jpg",
+      "alt": "Giant panda at Vienna Zoo",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "Manyman"
+    }
+  ],
+  "cultural_depth": {
+    "chinese_yinyang": {
+      "description": "The giant panda has been described in Chinese texts for over two thousand years as a symbol of yin-yang balance, its black and white coloring representing the harmony of opposing forces in nature. Ancient texts describe the mo (panda) as a peaceful creature capable of mediating between warring states.",
+      "source": "Schaller, G.B. (1993). The Last Panda. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226736761.001.0001"
+    },
+    "diplomatic_symbol": {
+      "description": "China has practiced \"panda diplomacy\" since the Tang Dynasty, gifting pandas to allied nations. In the modern era, panda loans serve as diplomatic tools, with China lending pandas to countries that sign favorable trade agreements or maintain strong bilateral relations.",
+      "source": "Buckingham, K.C. et al. (2013)",
+      "source_url": "https://doi.org/10.1007/s10668-013-9449-3"
+    },
+    "conservation_icon": {
+      "description": "Since 1961, the giant panda has served as the logo of the World Wildlife Fund (WWF), making it arguably the most recognized conservation symbol globally. This single-species branding has raised billions for conservation while also drawing criticism for disproportionate resource allocation.",
+      "source": "WWF International",
+      "source_url": "https://www.worldwildlife.org/species/giant-panda"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Wolong National Nature Reserve",
+        "lat": 31,
+        "lng": 103.1667,
+        "country": "China"
+      },
+      {
+        "name": "Foping National Nature Reserve",
+        "lat": 33.6667,
+        "lng": 107.8333,
+        "country": "China"
+      },
+      {
+        "name": "Tangjiahe National Nature Reserve",
+        "lat": 32.6333,
+        "lng": 104.7333,
+        "country": "China"
+      },
+      {
+        "name": "Wanglang National Nature Reserve",
+        "lat": 32.9167,
+        "lng": 104.0667,
+        "country": "China"
+      },
+      {
+        "name": "Giant Panda National Park",
+        "lat": 31.5,
+        "lng": 103.5,
+        "country": "China"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/712/166502858"
+    },
+    {
+      "name": "WWF Giant Panda Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/giant-panda"
+    },
+    {
+      "name": "China State Forestry Administration Survey",
+      "type": "government",
+      "url": "https://www.forestry.gov.cn/"
+    },
+    {
+      "name": "Chengdu Research Base of Giant Panda Breeding",
+      "type": "research",
+      "url": "https://www.panda.org.cn/"
+    }
   ],
   "tmdb_media": [
     {
@@ -130,7 +296,7 @@
       "vote_average": 0
     },
     {
-      "title": "Four Seasons in the giant Panda\u2019s kingdom",
+      "title": "Four Seasons in the giant Panda’s kingdom",
       "year": 2022,
       "director": "Philippe Molins",
       "tmdb_url": "https://www.themoviedb.org/movie/1391107",
@@ -162,55 +328,6 @@
         99
       ],
       "vote_average": 0
-    }
-  ],
-  "data_sources": {
-    "population": {
-      "value": "1,864 in the wild",
-      "source": "China National Giant Panda Survey",
-      "year": 2015
-    },
-    "iucn_status": {
-      "status": "Vulnerable",
-      "source": "IUCN Red List",
-      "assessed": 2016
-    },
-    "recovery": {
-      "value": "17% population increase over a decade",
-      "source": "State Forestry Administration of China",
-      "year": 2015
-    }
-  },
-  "interesting_facts": [
-    {
-      "fact": "Despite being classified as carnivores, 99% of a giant panda's diet is bamboo - they eat 12-38kg per day.",
-      "source": "Schaller et al., The Giant Pandas of Wolong, 1985"
-    },
-    {
-      "fact": "Panda cubs are born pink, blind, and roughly 1/900th the size of their mother - one of the smallest mammalian birth ratios.",
-      "source": "Zhang et al., Giant Pandas: Biology and Conservation, 2004"
-    },
-    {
-      "fact": "Their 'pseudo-thumb' (an enlarged wrist bone) evolved specifically for gripping bamboo stalks.",
-      "source": "Endo et al., Nature, 1999"
-    },
-    {
-      "fact": "China's panda conservation efforts protect habitat for 70% of the country's forest-dwelling endangered species.",
-      "source": "Li & Pimm, Nature Ecology & Evolution, 2020"
-    }
-  ],
-  "photos": [
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/1280px-Grosser_Panda.JPG",
-      "alt": "Giant panda eating bamboo",
-      "credit": "Wikimedia Commons",
-      "photographer": "J. Patrick Fischer"
-    },
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1280px-Giant_Panda_2004-03-2.jpg",
-      "alt": "Giant panda in natural habitat",
-      "credit": "Wikimedia Commons",
-      "photographer": "Mila Zinkova"
     }
   ]
 }
