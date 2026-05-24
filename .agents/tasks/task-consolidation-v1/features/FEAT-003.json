@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Enhance the globe with togglable geographic layers (habitat regions, protected area pulsing markers with labels), an info panel on click with species photo/status and explore button, and layer toggle buttons in the HTML overlay.",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "Step 1: In src/globe.js, add a layers system with a setLayer(layerName) method. Layers: 'media' (existing columns - default), 'habitat' (colored region indicators for each species range), 'protected_areas' (pulsing markers at specific national park/reserve coordinates with labels). Load protected area coordinates from the species JSON files' globe_layers.protected_areas arrays.",
     "Step 2: Implement the 'habitat' layer: for each HOTSPOT, draw a wider semi-transparent disc (RingGeometry or CircleGeometry) on the globe surface colored by ecosystem. These should be larger than columns (radius ~0.06) to show range regions.",
