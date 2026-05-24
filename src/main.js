@@ -99,6 +99,23 @@ function onCardClick(speciesSlug) {
   globe._velocity.x = 0;
   globe._velocity.y = 0;
 
+  // Begin hero-image preload as early as possible, in parallel with the
+  // 2s forward transition. By the time onComplete awaits it, the bitmap
+  // is normally already in the HTTP cache and the safari hero paints
+  // synchronously when innerHTML is set inside enter(). The 2500ms
+  // ceiling means a stalled CDN can extend the transition by at most
+  // ~500ms past the 2s timeline; if it times out, the safari opens
+  // with the same blank-then-fade behaviour as before this commit, so
+  // the change is monotonically non-regressive.
+  const cachedData = globe.speciesDataCache[speciesSlug];
+  const heroUrl = cachedData
+    && Array.isArray(cachedData.photos)
+    && cachedData.photos.length > 0
+    && typeof cachedData.photos[0].url === 'string'
+    ? cachedData.photos[0].url
+    : null;
+  const heroPreload = preloadImage(heroUrl, 2500);
+
   const speciesWorldPos = globe.getSpeciesPosition(speciesSlug);
   // Transform to world coordinates
   globe.group.updateMatrixWorld();
@@ -137,7 +154,10 @@ function onCardClick(speciesSlug) {
     // mutate state that no longer belongs to us.
     const ownedTl = tl;
     try {
-      const cachedData = globe.speciesDataCache[speciesSlug];
+      // Block enter() until the hero bitmap is decoded (or the preload
+      // timeout fires). heroPreload never rejects — preloadImage is
+      // fault-tolerant by construction — so this await cannot throw.
+      await heroPreload;
       await safariScene.enter(speciesSlug, cachedData);
       if (activeTransition !== ownedTl) return; // stale; new owner has the floor
       isTransitioning = false;
@@ -148,6 +168,44 @@ function onCardClick(speciesSlug) {
       console.warn(`[main] Safari enter failed for "${speciesSlug}", rolling back transition state:`, err);
       executeReturnToGlobe({ force: true });
     }
+  });
+}
+
+/**
+ * Resolve once the image at `url` has been fetched and decoded (so a
+ * subsequent `<img src=URL>` paints synchronously from the HTTP cache),
+ * or after `timeoutMs` has elapsed — whichever happens first. Never
+ * rejects; on any failure mode the resolved promise lets the caller
+ * proceed with whatever fallback behaviour they already had.
+ *
+ * Preload is a passive cache-warmer: no DOM insertion, no event-listener
+ * leak, and the Image instance is GC-eligible once decode settles.
+ *
+ * @param {string|null} url
+ * @param {number} timeoutMs
+ * @returns {Promise<void>}
+ */
+function preloadImage(url, timeoutMs) {
+  if (!url) return Promise.resolve();
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = url; // triggers HTTP fetch immediately
+    if (typeof img.decode === 'function') {
+      // decode() resolves only after the bitmap is paint-ready
+      img.decode().then(finish, finish);
+    } else {
+      img.onload = finish;
+      img.onerror = finish;
+    }
+    // Hard ceiling so a stalled CDN cannot extend the transition.
+    setTimeout(finish, timeoutMs);
   });
 }
 
