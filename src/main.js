@@ -17,6 +17,7 @@ let globe = null;
 let overlayUI = null;
 let progressBar = null;
 let lenis = null;
+let lenisTickerCallback = null;
 
 /**
  * Initialize the cinematic experience
@@ -51,6 +52,9 @@ function init() {
 
   // Initialize 3D hover (STEP 3)
   init3DHover();
+
+  // Species card click animation before full-page navigation
+  setupSpeciesCardClicks();
 
   // Update nav state on scroll
   setupNavigation();
@@ -96,7 +100,8 @@ function createLenis() {
 
   // Connect Lenis to GSAP ScrollTrigger
   instance.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => { instance.raf(time * 1000); });
+  lenisTickerCallback = (time) => { instance.raf(time * 1000); };
+  gsap.ticker.add(lenisTickerCallback);
   gsap.ticker.lagSmoothing(0);
 
   return instance;
@@ -260,6 +265,20 @@ function setupNavigation() {
 }
 
 /**
+ * Species card click handler - plays zoom animation then navigates via full page load
+ */
+function setupSpeciesCardClicks() {
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.species-card');
+    if (!card) return;
+    e.preventDefault();
+    animateCardZoom(card).then(() => {
+      window.location.href = card.href;
+    });
+  });
+}
+
+/**
  * Update nav active item based on scroll progress
  */
 function updateNavActive(progress) {
@@ -303,15 +322,12 @@ function initBarba() {
 
         // Destroy Lenis before page swap (issue #3)
         if (lenis) {
+          if (lenisTickerCallback) {
+            gsap.ticker.remove(lenisTickerCallback);
+            lenisTickerCallback = null;
+          }
           lenis.destroy();
           lenis = null;
-        }
-
-        // Check if a species card was clicked for zoom animation (issue #1)
-        const trigger = data.trigger;
-        if (trigger && trigger.closest && trigger.closest('.species-card')) {
-          const card = trigger.closest('.species-card');
-          return animateCardZoom(card);
         }
 
         return gsap.to(data.current.container, {
@@ -351,10 +367,10 @@ function initBarba() {
     }],
   });
 
-  // Wire globe clicks to use Barba for SPA transitions (issue #7)
+  // Wire globe clicks to full-page navigation for species pages
   if (globe) {
     globe.setNavigationHandler((url) => {
-      barba.go(url);
+      window.location.href = url;
     });
   }
 }

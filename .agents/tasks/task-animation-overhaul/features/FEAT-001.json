@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "chore",
   "description": "Install @barba/core dependency and verify baseline build still passes. This establishes the foundation for all subsequent animation work.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "Run npm install @barba/core in /projects/sandbox/species-on-screen",
     "Run npm run build and confirm it still passes cleanly",
@@ -16,5 +16,5 @@
     "npm run build"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Installed @barba/core@^2.10.3 (added 3 packages total). Build passes cleanly with only the pre-existing chunk size warning for Three.js bundle (548kB). No new warnings introduced."
 }

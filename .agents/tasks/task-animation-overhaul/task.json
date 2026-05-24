@@ -12,9 +12,9 @@
     "summary": "npm run build passes cleanly. No test framework exists - validation is build-only. All 39 modules transform correctly. Only warning is pre-existing Three.js chunk size (587kB)."
   },
   "review_fixes": {
-    "review_file": "2025-01-22-120000-review.md",
+    "review_file": "2025-01-22-121000-review.md",
     "status": "completed",
-    "issues_fixed": 7,
-    "findings": "All 7 review issues resolved: animateCardZoom wired into Barba leave, ScrollTrigger cleanup in leave/re-register in afterEnter, Lenis lifecycle management, nav click handlers with scrollTo, will-change toggled via onToggle, hover-3d cleanup with WeakSet/WeakMap, globe navigation via setNavigationHandler+barba.go. Build passes with no errors."
+    "issues_fixed": 2,
+    "findings": "Fixed orphaned GSAP ticker callback by storing callback reference in module-level variable and calling gsap.ticker.remove() before lenis.destroy(). Fixed species page blank on Barba navigation by adding data-barba-prevent=self to species card links, adding setupSpeciesCardClicks() for zoom animation before full-page navigation, and changing globe navigation handler to use window.location.href instead of barba.go()."
   }
 }
