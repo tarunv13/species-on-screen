@@ -4,6 +4,64 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   Ecosystem Color Custom Properties (STEP 7)
+   -------------------------------------------------------------------------- */
+:root {
+  --eco-primary: #2d6a4f;
+  --eco-accent: #4a7c59;
+}
+
+body[data-species="tiger"] {
+  --eco-primary: #b5651d;
+  --eco-accent: #4a7c59;
+}
+
+body[data-species="snow-leopard"] {
+  --eco-primary: #6464a0;
+  --eco-accent: #e8e4f0;
+}
+
+body[data-species="bornean-orangutan"] {
+  --eco-primary: #2d6a4f;
+  --eco-accent: #4a7c59;
+}
+
+body[data-species="hawksbill-turtle"] {
+  --eco-primary: #1a4f6e;
+  --eco-accent: #5aa0cc;
+}
+
+body[data-species="blue-whale"] {
+  --eco-primary: #1a4f6e;
+  --eco-accent: #5aa0cc;
+}
+
+body[data-species="african-elephant"] {
+  --eco-primary: #c4842c;
+  --eco-accent: #d4a762;
+}
+
+body[data-species="polar-bear"] {
+  --eco-primary: #5a7a9e;
+  --eco-accent: #c8dae8;
+}
+
+body[data-species="giant-panda"] {
+  --eco-primary: #2d6a4f;
+  --eco-accent: #4a7c59;
+}
+
+body[data-species="staghorn-coral"] {
+  --eco-primary: #1a4f6e;
+  --eco-accent: #5aa0cc;
+}
+
+body[data-species="amazon-river-dolphin"] {
+  --eco-primary: #1a6060;
+  --eco-accent: #5aa0a0;
+}
+
+/* --------------------------------------------------------------------------
    Base / Reset for Species Page
    -------------------------------------------------------------------------- */
 body {
@@ -26,13 +84,13 @@ body {
 }
 
 a {
-  color: #2d6a4f;
+  color: var(--eco-primary, #2d6a4f);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #40916c;
+  color: var(--eco-accent, #40916c);
   text-decoration: underline;
 }
 
