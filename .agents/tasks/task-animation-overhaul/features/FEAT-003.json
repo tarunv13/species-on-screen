@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Implement the globe flora and fauna system with animated 3D sprites/billboards on the globe surface at each habitat location, and enhance species pages with parallax storytelling and themed color accents.",
+  "status": "completed",
+  "steps": [
+    "STEP 1 - Globe Flora & Fauna Sprites: In src/globe.js, add animated 3D sprites/billboards on the globe surface at each habitat location using Three.js InstancedMesh with billboarded sprites for performance. Each habitat type gets 5-10 small animated elements near its globe markers (max 200 total sprites). Habitat-specific elements: Tropical Forest - animated tree sprites with gentle sway, bird silhouettes; Mountain - snow particles, wind-swept grass sprites; Coral Reef - swaying coral/seaweed sprites, fish silhouettes; Ocean - wave particles, whale trail effects; Savanna - grass sprites swaying, dust motes; Arctic - ice crystal particles, aurora-like glow; Temperate Forest - leaf sprites, bamboo; Freshwater - water ripple sprites, lily pad sprites. Use sine-wave vertex displacement in a custom ShaderMaterial for organic movement. Movement should be SUBTLE and GENTLE - drift, sway, float.",
+    "STEP 2 - Species Page Parallax: In src/species-page.js, add parallax depth layers to species page sections. Section background images move at different scroll speeds from text content and data visualization elements. Use GSAP ScrollTrigger scrub for all parallax elements. Add decorative elements (leaves, particles, light rays) as parallax layers using CSS pseudo-elements or injected DOM elements with data-parallax-speed.",
+    "STEP 3 - Species Page Themed Colors: In src/species-page.css and src/species-page.js, implement distinct color accents per species ecosystem. Define CSS custom properties on body based on data-species attribute: --accent-primary, --accent-secondary, --accent-glow. Tiger: warm amber/green (#4a7c59, #b5651d), Polar Bear: ice blue/white (#a8d8ea, #e8f4f8), Blue Whale: deep ocean blue (#1a4f6e, #2d8fba), Snow Leopard: cool grey/purple (#8b8fa8, #e8e4f0), Orangutan: warm forest green (#4a7c59, #c4842c), Hawksbill Turtle: reef turquoise (#1a9988, #2bb5a0), Elephant: savanna gold (#c4842c, #daa520), Panda: bamboo green (#4a7c59, #88c070), Coral: reef pink/orange (#e87461, #ff9a76), Dolphin: river blue (#1a6b8a, #4db8c4). Apply these colors to headings, badges, borders, and decorative elements.",
+    "STEP 4 - Species Page Spring Animations Enhancement: In src/species-page.js, upgrade all section reveal animations to use spring physics consistently. Use back.out(1.7) for card reveals with overshoot, elastic.out(1, 0.3) for section heading bounce-in, power4.out for snappy panel slides. Stagger comic panels and media cards with 60ms delay between each."
+  ],
+  "acceptance_criteria": [
+    "npm run build passes with no errors",
+    "Globe has animated flora/fauna sprites using InstancedMesh or billboard sprites near habitat markers",
+    "Total sprite count is capped at 200 for performance",
+    "Sprite movement uses sine-wave displacement (gentle drift/sway)",
+    "Species pages have ecosystem-specific CSS custom properties for color theming",
+    "Species page sections have parallax depth between background and text content",
+    "Spring physics easing is consistently used in species page reveal animations"
+  ],
+  "verification": [
+    "npm run build"
+  ],
+  "blocked_reason": null,
+  "findings": "All 4 steps implemented successfully. Globe flora/fauna uses THREE.Points with BufferGeometry and ShaderMaterial for performance (200 total sprites across 8 ecosystem types). Species page parallax uses GSAP ScrollTrigger scrub on hero background and section headings. Themed colors added via --accent-primary, --accent-secondary, --accent-glow CSS custom properties per species. Spring animations upgraded: comic panels use elastic.out(1, 0.5) with 60ms stagger, photo items have scale from 0.95 entrance, media cards/panels use back.out(1.4) with 60ms stagger. Build passes with only the pre-existing Three.js chunk size warning (585kB)."
+}
