@@ -1,0 +1,28 @@
+{
+  "project_type": "Vite multi-page static site with Three.js 3D globe, GSAP scroll animations, and Lenis smooth scrolling",
+  "language": "JavaScript (ES modules)",
+  "build_system": "Vite 8 with multi-page input (index.html + species/*.html). Build uses rollup internally. No special quirks beyond large chunk warning for Three.js.",
+  "test_framework": "No test framework - validation is via build success only",
+  "build_command": "npm run build",
+  "test_command": "npm run build (no unit tests exist)",
+  "verification_instructions": "1. Run npm run build - must succeed with no errors. 2. Verify no import errors by checking for unresolved modules in build output.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "npm install (already done, node_modules exists)",
+  "environment_constraints": "Node.js v22.22.3, npm 11.4.2 available. Network available for npm installs. No Docker daemon needed - static site only.",
+  "contribution_requirements": "Light aesthetic (soft whites, pastels, translucent). Spring physics over linear easing. 60fps performance target. Mobile responsive with graceful degradation.",
+  "key_patterns": "Entry points: src/main.js (homepage), src/species-page.js (species pages). 3D scene in src/cinematic-engine.js, globe in src/globe.js. CSS in src/style.css (homepage) and src/species-page.css (species). HTML pages: index.html + species/*.html. Globe uses HOTSPOTS array with lat/lng/ecosystem data. OverlayUI manages scroll-driven overlay visibility. GSAP ScrollTrigger with scrub for scroll-driven animations. Lenis for smooth scrolling connected to GSAP ticker.",
+  "relevant_files": [
+    "src/main.js",
+    "src/cinematic-engine.js",
+    "src/globe.js",
+    "src/overlay-ui.js",
+    "src/style.css",
+    "src/species-page.js",
+    "src/species-page.css",
+    "index.html",
+    "species/tiger.html",
+    "vite.config.js",
+    "package.json"
+  ],
+  "directory_structure": "Root: index.html, vite.config.js, package.json. src/: JS entry points and CSS. species/: individual HTML pages per species. public/data/: JSON data files for each species. dist/: build output."
+}
