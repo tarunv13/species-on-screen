@@ -9,6 +9,12 @@ export class FloatingCards {
     this.cards = {};
     this._visible = false;
     this._activeLayer = 'species';
+    // Tracks the most recently focused card slug so that focus can be
+    // restored to the same card after a safari round-trip. Updated only
+    // by real focus events on cards (mouse, keyboard, programmatic).
+    // Read by show() and only acted on if document.activeElement is the
+    // body (i.e. the user has not navigated focus elsewhere).
+    this._lastFocusedSlug = null;
 
     this._createCards();
   }
@@ -20,7 +26,8 @@ export class FloatingCards {
       const data = this.speciesDataCache[slug];
       if (!data) return;
 
-      const card = document.createElement('div');
+      const card = document.createElement('button');
+      card.type = 'button';
       card.className = 'floating-card';
       card.dataset.species = slug;
 
@@ -28,9 +35,17 @@ export class FloatingCards {
       const status = data.conservation?.iucn_status || '';
       const photo = data.photos && data.photos.length > 0 ? data.photos[0].url : '';
 
+      // Accessible name for screen readers. Visible text remains the
+      // single source of visual truth; aria-label overrides the
+      // accessible name so AT users hear a single clean phrase.
+      const ariaLabel = status
+        ? `${name}. Conservation status: ${status}.`
+        : `${name}.`;
+      card.setAttribute('aria-label', ariaLabel);
+
       let thumbHtml = '';
       if (photo) {
-        thumbHtml = `<img class="floating-card__thumb" src="${photo}" alt="${name}" />`;
+        thumbHtml = `<img class="floating-card__thumb" src="${photo}" alt="" />`;
       }
 
       card.innerHTML = `
@@ -45,6 +60,13 @@ export class FloatingCards {
         if (this.onCardClick) {
           this.onCardClick(slug);
         }
+      });
+
+      // Track focus for restoration after safari exit. Fires for every
+      // focus source (Tab, programmatic, mouse-on-Windows). The handler
+      // does not clear on blur — "last focused" is the right semantic.
+      card.addEventListener('focus', () => {
+        this._lastFocusedSlug = slug;
       });
 
       this.container.appendChild(card);
@@ -80,6 +102,23 @@ export class FloatingCards {
   show() {
     this._visible = true;
     this.container.style.opacity = '1';
+
+    // Restore keyboard focus to the most recently focused card, but
+    // only if the user has not actively moved focus elsewhere. This
+    // closes the "keyboard user returns from safari and focus is on
+    // body" gap without ever fighting an explicit user action. For
+    // mouse users on platforms where button click does not auto-focus
+    // (macOS Safari), _lastFocusedSlug is null and this is a no-op.
+    if (this._lastFocusedSlug && document.activeElement === document.body) {
+      const card = this.cards[this._lastFocusedSlug];
+      if (card && typeof card.focus === 'function') {
+        try {
+          card.focus({ preventScroll: true });
+        } catch {
+          card.focus();
+        }
+      }
+    }
   }
 
   hide() {
