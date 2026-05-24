@@ -87,7 +87,15 @@ export class Globe {
     this._createComingSoonMarkers();
     this._setupInteraction();
     this._setupDragRotate();
-    this._loadMediaCounts();
+    this._dataLoadPromise = this._loadMediaCounts();
+  }
+
+  /**
+   * Resolves once species data fetching has settled (success or partial failure).
+   * @returns {Promise<{loaded: string[], failed: {slug: string, reason: string}[]}>}
+   */
+  whenDataLoaded() {
+    return this._dataLoadPromise;
   }
 
   _createGlobe() {
@@ -294,26 +302,46 @@ export class Globe {
 
   async _loadMediaCounts() {
     const basePath = import.meta.env.BASE_URL || '/';
-    try {
-      const allProtectedAreas = [];
-      const promises = SPECIES_FILES.map(async (slug) => {
-        try {
-          const res = await fetch(`${basePath}data/${slug}.json`);
-          if (!res.ok) return { slug, count: 0 };
-          const data = await res.json();
-          this.speciesDataCache[slug] = data;
-          const count = data.tmdb_media ? data.tmdb_media.length : 0;
-          if (data.globe_layers && data.globe_layers.protected_areas) {
-            data.globe_layers.protected_areas.forEach((area) => { allProtectedAreas.push({ ...area, species: slug }); });
-          }
-          return { slug, count };
-        } catch { return { slug, count: 0 }; }
-      });
-      const results = await Promise.all(promises);
-      results.forEach(({ slug, count }) => { this.mediaCounts[slug] = count; });
-      this._updateColumnHeights();
-      this._createProtectedAreaMarkers(allProtectedAreas);
-    } catch { /* fail silently */ }
+    const allProtectedAreas = [];
+    const loaded = [];
+    const failed = [];
+
+    const settled = await Promise.allSettled(
+      SPECIES_FILES.map(async (slug) => {
+        const res = await fetch(`${basePath}data/${slug}.json`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        return { slug, data };
+      })
+    );
+
+    settled.forEach((result, i) => {
+      const slug = SPECIES_FILES[i];
+      if (result.status === 'fulfilled') {
+        const { data } = result.value;
+        this.speciesDataCache[slug] = data;
+        this.mediaCounts[slug] = data.tmdb_media ? data.tmdb_media.length : 0;
+        if (data.globe_layers && data.globe_layers.protected_areas) {
+          data.globe_layers.protected_areas.forEach((area) => {
+            allProtectedAreas.push({ ...area, species: slug });
+          });
+        }
+        loaded.push(slug);
+      } else {
+        this.mediaCounts[slug] = 0;
+        const reason = result.reason && result.reason.message
+          ? result.reason.message
+          : String(result.reason);
+        failed.push({ slug, reason });
+        // eslint-disable-next-line no-console
+        console.warn(`[globe] Species data unavailable: ${slug} (${reason}). Hotspot retained, card skipped.`);
+      }
+    });
+
+    this._updateColumnHeights();
+    this._createProtectedAreaMarkers(allProtectedAreas);
+
+    return { loaded, failed };
   }
 
   _updateColumnHeights() {
