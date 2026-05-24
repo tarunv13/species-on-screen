@@ -1,7 +1,19 @@
-name: Deploy production to gh-pages
+name: Deploy production
 
-# Production build is published to the root of the gh-pages branch.
-# Per-PR previews live alongside it under preview/{pr-number}/.
+# Production build is published two ways for now:
+#
+#   1. Via GitHub Pages "GitHub Actions" source mode (the canonical path).
+#      The build artifact is uploaded and deployed via actions/deploy-pages,
+#      which is what actually shows up at https://<owner>.github.io/<repo>/.
+#
+#   2. To the root of the gh-pages branch (legacy/auxiliary). Per-PR
+#      previews from pr-preview.yml live alongside it under preview/{n}/.
+#      Note that, with Pages source = "GitHub Actions", these branch
+#      writes are no longer served publicly. They are kept for now to
+#      avoid breaking pr-preview.yml's directory-management logic; that
+#      workflow's URL output should be considered stale until preview
+#      flows are migrated to per-PR Pages environments separately.
+#
 # All three gh-pages writer workflows (this, pr-preview.yml, pr-cleanup.yml)
 # serialize via the gh-pages-write concurrency group below.
 
@@ -11,7 +23,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write     # for the gh-pages branch push
+  pages: write        # for actions/configure-pages + actions/deploy-pages
+  id-token: write     # OIDC token used by deploy-pages
 
 concurrency:
   group: gh-pages-write
@@ -20,6 +34,9 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.pages-deploy.outputs.page_url }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -36,16 +53,32 @@ jobs:
       - name: Build production
         run: npm run build
 
-      - name: Deploy to gh-pages branch
+      # Programmatically enables Pages with source = "GitHub Actions" if
+      # not already set. Idempotent on subsequent runs. Required because
+      # the previous source-mode (Branch: gh-pages) had stopped serving
+      # updated commits, leaving production stale by ~10 hours.
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      # Legacy mirror to gh-pages branch. Kept for compatibility with
+      # pr-preview.yml's directory layout. Does NOT serve content under
+      # the new Pages-as-Actions configuration.
+      - name: Mirror to gh-pages branch
         run: |
           set -euo pipefail
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-          # Move build artifact aside; switching branches will replace tracked files.
-          mv dist /tmp/new-dist
+          # Copy aside before checkout overwrites the working tree.
+          cp -r dist /tmp/new-dist
 
-          # Switch to gh-pages, creating it as an orphan branch if missing.
           if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
             git fetch origin gh-pages:gh-pages
             git checkout gh-pages
@@ -58,25 +91,23 @@ jobs:
             git rm -rf . 2>/dev/null || true
           fi
 
-          # Clear current root contents (preserves .git only).
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
-
-          # Lay down new production build.
           cp -r /tmp/new-dist/. .
 
-          # Restore any preserved PR previews so production deploys never
-          # wipe in-flight preview deployments.
           if [ -d /tmp/preview-backup ]; then
             mv /tmp/preview-backup preview
           fi
 
-          # Disable Jekyll processing so files prefixed with _ are served as-is.
           touch .nojekyll
 
           git add -A
           if git diff --cached --quiet; then
-            echo "No production changes to deploy"
+            echo "No production changes to deploy to gh-pages branch"
           else
-            git commit -m "Deploy production from ${GITHUB_SHA::7}"
+            git commit -m "Mirror production build from ${GITHUB_SHA::7}"
             git push origin gh-pages
           fi
+
+      - name: Deploy to GitHub Pages
+        id: pages-deploy
+        uses: actions/deploy-pages@v4
