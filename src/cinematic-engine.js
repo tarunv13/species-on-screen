@@ -3,6 +3,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { gsap } from 'gsap';
+import { prefersReducedMotion } from './reduced-motion.js';
 
 /**
  * Ambient particle system - soft motes floating in space
@@ -172,8 +173,10 @@ export class CinematicEngine {
       const delta = (now - this._lastTime) / 1000;
       this._lastTime = now;
 
-      // Update particle drift
-      this.particles.material.uniforms.time.value = elapsed;
+      // Update particle drift. Reduced-motion: freeze the time uniform
+      // at 0 so the 1000 ambient motes render at their initial random
+      // positions — visually present as a starfield, no orbital motion.
+      this.particles.material.uniforms.time.value = prefersReducedMotion() ? 0 : elapsed;
 
       // Update camera lookAt
       this.camera.lookAt(this._cameraTarget);

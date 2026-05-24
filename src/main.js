@@ -5,6 +5,7 @@ import { CinematicEngine } from './cinematic-engine.js';
 import { Globe } from './globe.js';
 import { FloatingCards } from './floating-cards.js';
 import { SafariScene } from './safari-scene.js';
+import { prefersReducedMotion } from './reduced-motion.js';
 
 let engine = null;
 let globe = null;
@@ -141,8 +142,11 @@ function onCardClick(speciesSlug) {
     if (floatingCards) floatingCards.hide();
   }, 0);
 
-  // Phase 2 (600-1400ms): Camera flies toward species point
-  tl.add(engine.flyCamera(cameraTo, targetTo, 0.8, 'power3.inOut'), 0.6);
+  // Phase 2 (600-1400ms): Camera flies toward species point.
+  // Reduced-motion: collapse the spatial fly to ~1 frame; the rest of
+  // the timeline (canvas/safari fades) carries the narrative tempo.
+  const forwardFlyDuration = prefersReducedMotion() ? 0.01 : 0.8;
+  tl.add(engine.flyCamera(cameraTo, targetTo, forwardFlyDuration, 'power3.inOut'), 0.6);
 
   // Phase 3 (1400-2000ms): Globe fades, safari appears
   tl.to('#cinematic-canvas', { opacity: 0.3, duration: 0.6, ease: 'power2.inOut' }, 1.4);
@@ -297,7 +301,10 @@ function executeReturnToGlobe({ force = false } = {}) {
 
   const defaultPos = new THREE.Vector3(0, 0.3, 5.5);
   const defaultTarget = new THREE.Vector3(0, 0, 0);
-  tl.add(engine.flyCamera(defaultPos, defaultTarget, 1.0, 'power3.inOut'), 0.3);
+  // Reduced-motion: snap camera home; canvas opacity tween still
+  // carries the perceived return.
+  const flybackDuration = prefersReducedMotion() ? 0.01 : 1.0;
+  tl.add(engine.flyCamera(defaultPos, defaultTarget, flybackDuration, 'power3.inOut'), 0.3);
 
   // Release the transition lock and re-show cards on the timeline's actual
   // completion event, not at a fixed beat. Decouples lifecycle ownership
@@ -321,7 +328,13 @@ function runLandingSequence() {
   const targetPos = new THREE.Vector3(0, 0.3, 5.5);
   const targetLookAt = new THREE.Vector3(0, 0, 0);
 
-  const tl = engine.flyCamera(targetPos, targetLookAt, 3, 'power3.inOut');
+  // Reduced-motion: snap to the final camera position so the page
+  // opens already-arrived. The runLandingSequence onComplete still
+  // fires (just immediately) and adds .active to the globe-UI, which
+  // CSS-fades in over 0.6s — so the narrative beat "globe arrives,
+  // then UI reveals" is preserved without any fly-in trajectory.
+  const landingDuration = prefersReducedMotion() ? 0.01 : 3;
+  const tl = engine.flyCamera(targetPos, targetLookAt, landingDuration, 'power3.inOut');
 
   tl.eventCallback('onComplete', () => {
     // Show globe UI after landing completes
