@@ -6,6 +6,24 @@ import { gsap } from 'gsap';
  */
 
 const MAX_ROTATION = 8; // degrees
+const _initializedElements = new WeakSet();
+const _listeners = new WeakMap();
+
+/**
+ * Destroy all 3D hover listeners on previously initialized elements
+ */
+export function destroy3DHover() {
+  const elements = document.querySelectorAll('.hover-3d');
+  elements.forEach((el) => {
+    const handlers = _listeners.get(el);
+    if (handlers) {
+      el.removeEventListener('mousemove', handlers.mousemove);
+      el.removeEventListener('mouseleave', handlers.mouseleave);
+      _listeners.delete(el);
+    }
+    _initializedElements.delete(el);
+  });
+}
 
 /**
  * Initialize 3D hover effect on all .hover-3d elements
@@ -14,9 +32,12 @@ export function init3DHover() {
   const elements = document.querySelectorAll('.hover-3d');
 
   elements.forEach((el) => {
+    // Skip if already initialized
+    if (_initializedElements.has(el)) return;
+
     const content = el.querySelector('.hover-3d__content');
 
-    el.addEventListener('mousemove', (e) => {
+    const onMouseMove = (e) => {
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -48,9 +69,9 @@ export function init3DHover() {
           overwrite: 'auto',
         });
       }
-    });
+    };
 
-    el.addEventListener('mouseleave', () => {
+    const onMouseLeave = () => {
       gsap.to(el, {
         rotateX: 0,
         rotateY: 0,
@@ -69,6 +90,12 @@ export function init3DHover() {
           overwrite: 'auto',
         });
       }
-    });
+    };
+
+    el.addEventListener('mousemove', onMouseMove);
+    el.addEventListener('mouseleave', onMouseLeave);
+
+    _listeners.set(el, { mousemove: onMouseMove, mouseleave: onMouseLeave });
+    _initializedElements.add(el);
   });
 }
