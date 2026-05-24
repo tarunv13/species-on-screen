@@ -1,0 +1,14 @@
+{
+  "task_id": "task-consolidation-v1",
+  "task_description": "Consolidation pass to fix all content and rendering gaps: rewrite species JSON data with real depth and URLs, fix species page rendering to show all sections with clickable links and visible images, enhance globe with layers and info panel interaction.",
+  "status": "completed",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null,
+  "verification": {
+    "build": "pass",
+    "tests": "pass",
+    "test_quality": "pass",
+    "docker_build": "skipped",
+    "summary": "npx vite build succeeds. All 10 species JSON files validated with required fields (gbif_url, iucn_url, photos, cultural_depth, com_b with source_urls, globe_layers, data_sources). Zero RQ references remain. Species page renderer has 7 target=_blank link patterns, parallax dividers, cultural depth cards. Globe has setLayer method, info panel, and layer toggle buttons wired up."
+  }
+}

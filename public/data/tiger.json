@@ -4,7 +4,9 @@
     "common_name": "Tiger",
     "family": "Felidae",
     "order": "Carnivora",
-    "class": "Mammalia"
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/5219404",
+    "iucn_url": "https://www.iucnredlist.org/species/15955/221500984"
   },
   "habitat": {
     "type": "Tropical Forest",
@@ -92,6 +94,59 @@
       "Retaliatory killing perceived as necessary for community safety"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Lack of local knowledge about coexistence strategies",
+        "source": "Karanth et al. (2016)",
+        "source_url": "https://doi.org/10.1017/S0030605316001101"
+      },
+      {
+        "text": "Limited ranger capacity for anti-poaching patrols",
+        "source": "Linkie et al. (2015)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2015.06.012"
+      },
+      {
+        "text": "Insufficient forensic tools for wildlife crime prosecution",
+        "source": "TRAFFIC (2020)",
+        "source_url": "https://www.traffic.org/publications/reports/reduced-to-skin-and-bones-revisited/"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Expanding agriculture encroaches on forest corridors",
+        "source": "Joshi et al. (2016)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2016.07.032"
+      },
+      {
+        "text": "Black market demand creates financial incentive for poaching",
+        "source": "TRAFFIC (2020)",
+        "source_url": "https://www.traffic.org/publications/reports/reduced-to-skin-and-bones-revisited/"
+      },
+      {
+        "text": "Inadequate cross-border enforcement between range states",
+        "source": "Global Tiger Initiative",
+        "source_url": "https://www.worldbank.org/en/topic/environment/brief/the-global-tiger-initiative"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Short-term economic gain from land conversion outweighs conservation value",
+        "source": "Joshi et al. (2016)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2016.07.032"
+      },
+      {
+        "text": "Cultural beliefs drive demand for tiger bone medicine",
+        "source": "Gratwicke et al. (2008)",
+        "source_url": "https://doi.org/10.1371/journal.pone.0003584"
+      },
+      {
+        "text": "Retaliatory killing perceived as necessary for community safety",
+        "source": "Inskip & Zimmermann (2009)",
+        "source_url": "https://doi.org/10.1017/S0030605309990728"
+      }
+    ]
+  },
   "evidence_summary": "Research indicates that high-profile tiger documentaries (e.g., BBC Tiger: Spy in the Jungle) correlate with increased donations to tiger conservation funds and heightened public awareness, though direct behavioural change remains difficult to measure (Jones et al., 2019).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -102,6 +157,126 @@
     "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
     "Karanth, K.U. & Nichols, J.D. (1998). Estimation of tiger densities using photographic captures and recaptures. Ecology, 79(8), pp.2852-2862.",
     "Linkie, M. et al. (2015). Safeguarding Sumatran tigers: evaluating effectiveness of law enforcement patrols. Biological Conservation, 190, pp.42-49."
+  ],
+  "interesting_facts": [
+    {
+      "text": "No two tigers have the same stripe pattern; their markings are as unique as human fingerprints.",
+      "source_url": "https://doi.org/10.1002/ece3.1387"
+    },
+    {
+      "text": "Tigers can leap forward up to 10 metres in a single bound when attacking prey.",
+      "source_url": "https://www.panthera.org/cat/tiger"
+    },
+    {
+      "text": "A tiger's roar can be heard from up to 3 kilometres away and can temporarily paralyze prey with fear.",
+      "source_url": "https://doi.org/10.1121/1.870688"
+    },
+    {
+      "text": "Unlike most cats, tigers are powerful swimmers and often cool off in pools and streams.",
+      "source_url": "https://www.worldwildlife.org/species/tiger"
+    },
+    {
+      "text": "There are more tigers in captivity in the United States alone than remain in the wild worldwide.",
+      "source_url": "https://www.worldwildlife.org/stories/more-tigers-in-american-backyards-than-in-the-wild"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24_Sumatran_Tiger.jpg/1280px-24_Sumatran_Tiger.jpg",
+      "alt": "Sumatran tiger in natural habitat",
+      "credit": "Wikimedia Commons, CC BY-SA 4.0",
+      "photographer": "Mohan Moolepetlu"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tiger_in_Ranthambhore.jpg/1280px-Tiger_in_Ranthambhore.jpg",
+      "alt": "Bengal tiger in Ranthambore National Park",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "Koshy Koshy"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Panthera_tigris_tigris.jpg/1280px-Panthera_tigris_tigris.jpg",
+      "alt": "Bengal tiger walking through grassland",
+      "credit": "Wikimedia Commons, CC BY-SA 4.0",
+      "photographer": "Charles J. Sharp"
+    }
+  ],
+  "cultural_depth": {
+    "india_waghoba": {
+      "description": "The Warli tribe of Maharashtra worship Waghoba, a tiger deity believed to protect villages from harm. Shrines at forest edges mark the boundary between human and tiger territory, and rituals ensure peaceful coexistence between communities and the great cats.",
+      "source": "Karanth, K.K. et al. (2016)",
+      "source_url": "https://doi.org/10.1017/S0030605316001101"
+    },
+    "india_sundarbans": {
+      "description": "In the Sundarbans mangrove forest, the goddess Bonbibi is worshipped as protector of forest-goers against tiger attacks. Honey collectors and fishers recite her legend before entering the forest, seeking divine protection from the man-eating tigers of the delta.",
+      "source": "Jalais, A. (2010). Forest of Tigers. Routledge.",
+      "source_url": "https://doi.org/10.4324/9780203847275"
+    },
+    "china_zodiac": {
+      "description": "The tiger is the third animal of the Chinese zodiac, representing bravery, power, and authority. In traditional Chinese medicine, tiger bone was prescribed for joint ailments, driving centuries of demand that contributed to wild population collapse.",
+      "source": "Gratwicke, B. et al. (2008)",
+      "source_url": "https://doi.org/10.1371/journal.pone.0003584"
+    },
+    "korea_horangi": {
+      "description": "The horangi (tiger) is a foundational symbol in Korean culture, appearing in the Dangun creation myth as a patient creature that earned human form. Tigers appear in Korean art as guardians, tricksters, and symbols of Korean identity and resilience.",
+      "source": "National Museum of Korea",
+      "source_url": "https://www.museum.go.kr/site/eng/content/permanent-exhibitions"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Ranthambore National Park",
+        "lat": 26.0173,
+        "lng": 76.5026,
+        "country": "India"
+      },
+      {
+        "name": "Sundarbans National Park",
+        "lat": 21.9497,
+        "lng": 88.8988,
+        "country": "India"
+      },
+      {
+        "name": "Corbett National Park",
+        "lat": 29.53,
+        "lng": 78.7747,
+        "country": "India"
+      },
+      {
+        "name": "Sikhote-Alin Nature Reserve",
+        "lat": 45.3167,
+        "lng": 136,
+        "country": "Russia"
+      },
+      {
+        "name": "Way Kambas National Park",
+        "lat": -4.9333,
+        "lng": 105.75,
+        "country": "Indonesia"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/15955/221500984"
+    },
+    {
+      "name": "WWF Tiger Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/tiger"
+    },
+    {
+      "name": "Global Tiger Initiative",
+      "type": "policy",
+      "url": "https://www.worldbank.org/en/topic/environment/brief/the-global-tiger-initiative"
+    },
+    {
+      "name": "TRAFFIC Wildlife Trade Report",
+      "type": "trade",
+      "url": "https://www.traffic.org/publications/reports/reduced-to-skin-and-bones-revisited/"
+    }
   ],
   "tmdb_media": [
     {
@@ -184,7 +359,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1463564",
       "poster_path": "/sd80NvjETTBGi0ejYLsgwMCx1tm.jpg",
       "backdrop_path": "/s4x2NVH60YxGsqGJCKr9Ws71MIG.jpg",
-      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger\u2019s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn\u2019t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a \u2018family\u2019 and begins to explore ways to build one in his own way through a \u2018friendship marriage.\u2019",
+      "overview": "Working at a men-only massage shop and hopping between gay porn auditions, Tiger heads to his hometown one day after hearing his father is critically ill. His father intends to leave the house to his son and the dental clinic to his daughter. However, his sister denies Tiger’s right to inherit, threatening him with the prospect of outing him. Through time spent with a married friend he hasn’t seen in years and while looking after his young niece, Tiger realizes that he also wants to be part of a ‘family’ and begins to explore ways to build one in his own way through a ‘friendship marriage.’",
       "classification": "fiction",
       "narrative_technique": "fiction-featuring",
       "relevance_score": 40,
@@ -193,55 +368,6 @@
         18
       ],
       "vote_average": 0
-    }
-  ],
-  "data_sources": {
-    "population": {
-      "value": "~4,500",
-      "source": "Global Tiger Initiative / WWF",
-      "year": 2023
-    },
-    "iucn_status": {
-      "status": "Endangered",
-      "source": "IUCN Red List",
-      "assessed": 2022
-    },
-    "habitat_loss": {
-      "value": "95% of historical range lost",
-      "source": "WWF Tigers Alive Initiative",
-      "year": 2023
-    }
-  },
-  "interesting_facts": [
-    {
-      "fact": "No two tigers have the same stripe pattern - they are as unique as human fingerprints.",
-      "source": "Karanth & Nichols, Ecology, 1998"
-    },
-    {
-      "fact": "A tiger's roar can be heard from over 3 kilometres away and can temporarily paralyze prey.",
-      "source": "National Geographic, 2019"
-    },
-    {
-      "fact": "Tigers are the only big cat species that enjoy swimming, often cooling off in pools and streams.",
-      "source": "Sunquist & Sunquist, Wild Cats of the World, 2002"
-    },
-    {
-      "fact": "There are more tigers in captivity in the United States alone than remain in the wild globally.",
-      "source": "WWF, 2023"
-    }
-  ],
-  "photos": [
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24_Sumatran_Tiger.jpg/1280px-24_Sumatran_Tiger.jpg",
-      "alt": "Tiger in natural habitat",
-      "credit": "Wikimedia Commons",
-      "photographer": "Mohan Moolepetlu"
-    },
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tiger_in_Ranthambhore.jpg/1280px-Tiger_in_Ranthambhore.jpg",
-      "alt": "Bengal tiger in Ranthambore",
-      "credit": "Wikimedia Commons",
-      "photographer": "Koshy Koshy"
     }
   ]
 }

@@ -5,7 +5,7 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w300';
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
 const TMDB_IMAGE_LARGE = 'https://image.tmdb.org/t/p/original';
 const slug = document.body.dataset.species;
 
@@ -36,12 +36,21 @@ function initLenis() {
 async function loadSpeciesData() {
   const loadingEl = document.querySelector('.species-page-loading');
   try {
-    const response = await fetch(`/species-on-screen/data/${slug}.json`);
+    const basePath = import.meta.env.BASE_URL || '/';
+    const response = await fetch(`${basePath}data/${slug}.json`);
     if (!response.ok) throw new Error(`Failed to load data for ${slug}`);
     const data = await response.json();
     renderSpeciesPage(data);
     document.body.classList.add('sp-loaded');
     initAnimations();
+    // Fallback: if GSAP animations haven't revealed content after 3 seconds, force visibility
+    setTimeout(() => {
+      document.querySelectorAll('.sp-loaded .sp-section').forEach(el => {
+        if (getComputedStyle(el.querySelector('.sp-section__heading') || el).opacity === '0') {
+          document.body.classList.remove('sp-loaded');
+        }
+      });
+    }, 3000);
   } catch (error) {
     console.error(error);
     if (loadingEl) {
@@ -66,12 +75,16 @@ function renderSpeciesPage(data) {
   const main = document.getElementById('main-content');
   const sections = [
     renderHero(data),
+    renderParallaxDivider(data.photos && data.photos[1] ? data.photos[1].url : '', getSpeciesQuote(data, 0)),
     renderComicStrip(data),
+    renderParallaxDivider(data.photos && data.photos[2] ? data.photos[2].url : '', getSpeciesQuote(data, 1)),
     renderScience(data),
     renderPhotos(data),
-    renderInterestingFacts(data),
-    renderOnScreen(data),
+    renderCulturalDepth(data),
     renderRootCauses(data),
+    renderOnScreen(data),
+    renderInterestingFacts(data),
+    renderProtectedAreas(data),
     renderEvidence(data),
     renderReferences(data),
     renderFooter()
@@ -79,6 +92,16 @@ function renderSpeciesPage(data) {
 
   main.innerHTML = sections.join('');
   initBackToTop();
+  initCulturalCardToggles();
+}
+
+function getSpeciesQuote(data, index) {
+  const name = data.taxonomy && data.taxonomy.common_name ? data.taxonomy.common_name : 'this species';
+  const quotes = [
+    `In wildness is the preservation of the world.`,
+    `The greatness of a nation can be judged by the way its animals are treated.`
+  ];
+  return quotes[index] || quotes[0];
 }
 
 // ============================================================
@@ -91,8 +114,10 @@ function renderHero(data) {
   const heroStat = data.hero_stat;
 
   let bgImage = '';
+  let photoCredit = '';
   if (data.photos && data.photos.length > 0) {
     bgImage = data.photos[0].url;
+    photoCredit = data.photos[0].photographer || data.photos[0].credit || '';
   } else if (data.hero_image && data.hero_image.url) {
     bgImage = data.hero_image.url;
   }
@@ -110,6 +135,7 @@ function renderHero(data) {
         ${status ? `<span class="sp-badge sp-badge--${statusClass(status)}">${escapeHtml(status)}</span>` : ''}
         ${heroStat ? `<p class="sp-hero__stat">${escapeHtml(heroStat)}</p>` : ''}
       </div>
+      ${photoCredit ? `<div class="sp-hero__credit">${escapeHtml(photoCredit)}</div>` : ''}
     </section>
   `;
 }
@@ -123,6 +149,7 @@ function renderComicStrip(data) {
   const media = data.tmdb_media;
   const conservation = data.conservation;
   const speciesName = data.taxonomy && data.taxonomy.common_name;
+  const photos = data.photos || [];
 
   const habitatDesc = habitat && habitat.description
     ? habitat.description.split('\n\n')[0].slice(0, 150) + '...'
@@ -133,61 +160,40 @@ function renderComicStrip(data) {
   const threatDesc = primaryThreat ? primaryThreat.description.slice(0, 120) + '...' : '';
 
   const mediaCount = media ? media.length : 0;
-  const posterThumb = media && media.length > 0 && media[0].poster_path
-    ? `${TMDB_IMAGE_BASE}${media[0].poster_path}`
-    : '';
 
   const iucnStatus = conservation ? conservation.iucn_status : 'Unknown';
   const keyProgram = conservation && conservation.key_programs && conservation.key_programs.length > 0
     ? conservation.key_programs[0]
     : 'Conservation programs active';
 
-  let heroPhoto = '';
-  if (data.photos && data.photos.length > 0) {
-    heroPhoto = data.photos[0].url;
-  }
+  const panelData = [
+    { label: 'In the Wild', title: habitat ? habitat.type : 'Natural Habitat', text: habitatDesc },
+    { label: 'Under Threat', title: threatName, text: threatDesc },
+    { label: 'On Screen', title: `${mediaCount} Films & Documentaries`, text: `Explored in cinema as a symbol of ${speciesName ? speciesName.toLowerCase() : 'wildlife'} conservation.` },
+    { label: 'The Future', title: iucnStatus, text: keyProgram }
+  ];
+
+  const panelsHtml = panelData.map((panel, i) => {
+    const photo = photos[i % photos.length];
+    const bgUrl = photo ? photo.url : '';
+    return `
+      <div class="comic-panel">
+        ${bgUrl ? `<div class="comic-panel__bg" style="background-image: url('${escapeHtml(bgUrl)}')"></div>` : ''}
+        <div class="comic-panel__content">
+          <span class="comic-panel__label">${escapeHtml(panel.label)}</span>
+          <h3 class="comic-panel__title">${escapeHtml(panel.title)}</h3>
+          <p class="comic-panel__text">${escapeHtml(panel.text)}</p>
+        </div>
+      </div>
+    `;
+  }).join('');
 
   return `
     <section class="sp-section sp-comic sp-section--alt">
       <div class="sp-section__inner">
         <h2 class="sp-section__heading">The Story of the ${escapeHtml(speciesName)}</h2>
         <div class="comic-panels">
-          <div class="comic-panel">
-            ${heroPhoto ? `<div class="comic-panel__bg" style="background-image: url('${escapeHtml(heroPhoto)}')"></div>` : ''}
-            <div class="comic-panel__content">
-              <span class="comic-panel__label">In the Wild</span>
-              <h3 class="comic-panel__title">${escapeHtml(habitat ? habitat.type : 'Natural Habitat')}</h3>
-              <p class="comic-panel__text">${escapeHtml(habitatDesc)}</p>
-            </div>
-          </div>
-          <div class="comic-panel">
-            <div class="comic-panel__content">
-              <span class="comic-panel__label">Under Threat</span>
-              <h3 class="comic-panel__title">${escapeHtml(threatName)}</h3>
-              <p class="comic-panel__text">${escapeHtml(threatDesc)}</p>
-              ${data.data_sources ? Object.entries(data.data_sources)
-                .filter(([key]) => key !== 'population' && key !== 'iucn_status')
-                .filter(([, entry]) => entry && entry.value)
-                .map(([, entry]) => `<p class="comic-panel__stat">${escapeHtml(entry.value)}</p>`)
-                .join('') : ''}
-            </div>
-          </div>
-          <div class="comic-panel">
-            <div class="comic-panel__content">
-              <span class="comic-panel__label">On Screen</span>
-              <h3 class="comic-panel__title">${mediaCount} Films & Documentaries</h3>
-              <p class="comic-panel__text">Explored in cinema as a symbol of ${escapeHtml(speciesName ? speciesName.toLowerCase() : 'wildlife')} conservation.</p>
-              ${posterThumb ? `<img src="${escapeHtml(posterThumb)}" alt="Film poster" style="width:60px;border-radius:8px;margin-top:0.5rem;" loading="lazy" onerror="this.style.display='none'" />` : ''}
-            </div>
-          </div>
-          <div class="comic-panel">
-            <div class="comic-panel__content">
-              <span class="comic-panel__label">The Future</span>
-              <h3 class="comic-panel__title">${escapeHtml(iucnStatus)}</h3>
-              <p class="comic-panel__text">${escapeHtml(keyProgram)}</p>
-              ${conservation && conservation.population_trend ? `<p class="comic-panel__stat">Trend: ${escapeHtml(conservation.population_trend)}</p>` : ''}
-            </div>
-          </div>
+          ${panelsHtml}
         </div>
       </div>
     </section>
@@ -207,10 +213,12 @@ function renderScience(data) {
 
   const taxonomyRows = [];
   if (taxonomy) {
-    if (taxonomy.class) taxonomyRows.push(['Class', taxonomy.class]);
-    if (taxonomy.order) taxonomyRows.push(['Order', taxonomy.order]);
-    if (taxonomy.family) taxonomyRows.push(['Family', taxonomy.family]);
-    if (taxonomy.scientific_name) taxonomyRows.push(['Species', taxonomy.scientific_name]);
+    if (taxonomy.class) taxonomyRows.push(['Class', taxonomy.class, null]);
+    if (taxonomy.order) taxonomyRows.push(['Order', taxonomy.order, null]);
+    if (taxonomy.family) taxonomyRows.push(['Family', taxonomy.family, null]);
+    if (taxonomy.scientific_name) taxonomyRows.push(['Species', taxonomy.scientific_name, null]);
+    if (taxonomy.gbif_url) taxonomyRows.push(['GBIF', 'View on GBIF', taxonomy.gbif_url]);
+    if (taxonomy.iucn_url) taxonomyRows.push(['IUCN', 'View on IUCN Red List', taxonomy.iucn_url]);
   }
 
   const taxonomyTable = taxonomyRows.length > 0 ? `
@@ -218,10 +226,10 @@ function renderScience(data) {
       <h3 class="sp-science__subheading">Taxonomy</h3>
       <table class="sp-taxonomy-table">
         <tbody>
-          ${taxonomyRows.map(([label, value]) => `
+          ${taxonomyRows.map(([label, value, url]) => `
             <tr>
               <td class="sp-taxonomy-table__label">${escapeHtml(label)}</td>
-              <td class="sp-taxonomy-table__value">${escapeHtml(value)}</td>
+              <td class="sp-taxonomy-table__value">${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(value)}</a>` : escapeHtml(value)}</td>
             </tr>
           `).join('')}
         </tbody>
@@ -229,11 +237,21 @@ function renderScience(data) {
     </div>
   ` : '';
 
+  // Find sources from the new array format
+  let iucnSource = null;
+  let populationSource = null;
+  if (Array.isArray(dataSources)) {
+    iucnSource = dataSources.find(s => s.type === 'assessment' || s.name.toLowerCase().includes('iucn'));
+    populationSource = dataSources.find(s => s.type === 'population' || s.type === 'conservation');
+  } else if (dataSources) {
+    // Old object format fallback
+    iucnSource = dataSources.iucn_status;
+    populationSource = dataSources.population;
+  }
+
   let populationHtml = '';
   if (conservation) {
     const trendArrow = getTrendArrow(conservation.population_trend);
-    const popSource = dataSources && dataSources.population;
-    const iucnSource = dataSources && dataSources.iucn_status;
 
     populationHtml = `
       <div class="sp-science__population">
@@ -243,7 +261,7 @@ function renderScience(data) {
             <div class="sp-science__pop-item">
               <span class="sp-science__pop-label">Estimate</span>
               <span class="sp-science__pop-value">${escapeHtml(conservation.population_estimate)}</span>
-              ${popSource ? `<span class="citation">(Source: ${escapeHtml(popSource.source)}, ${popSource.year})</span>` : ''}
+              ${populationSource ? `<span class="citation">${populationSource.url ? `<a href="${escapeHtml(populationSource.url)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link">${escapeHtml(populationSource.name || populationSource.source)}</a>` : escapeHtml(populationSource.name || populationSource.source)}</span>` : ''}
             </div>
           ` : ''}
           ${conservation.population_trend ? `
@@ -256,7 +274,7 @@ function renderScience(data) {
             <div class="sp-science__pop-item">
               <span class="sp-science__pop-label">IUCN Status</span>
               <span class="sp-science__pop-value">${escapeHtml(conservation.iucn_status)}</span>
-              ${iucnSource ? `<span class="citation">(Source: ${escapeHtml(iucnSource.source)}, assessed ${iucnSource.assessed})</span>` : ''}
+              ${iucnSource ? `<span class="citation">${iucnSource.url ? `<a href="${escapeHtml(iucnSource.url)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link">${escapeHtml(iucnSource.name || iucnSource.source)}</a>` : escapeHtml(iucnSource.name || iucnSource.source)}</span>` : ''}
             </div>
           ` : ''}
         </div>
@@ -348,12 +366,17 @@ function renderInterestingFacts(data) {
       <div class="sp-section__inner">
         <h2 class="sp-section__heading">Fascinating Facts</h2>
         <div class="sp-facts__grid">
-          ${data.interesting_facts.map(item => `
-            <div class="sp-fact-card">
-              <p class="sp-fact-card__text">${escapeHtml(item.fact)}</p>
-              <span class="sp-fact-card__citation">${escapeHtml(item.source)}</span>
-            </div>
-          `).join('')}
+          ${data.interesting_facts.map(item => {
+            const factText = item.fact || item.text || '';
+            const sourceText = item.source || 'View source';
+            const sourceUrl = item.source_url || '';
+            return `
+              <div class="sp-fact-card">
+                <p class="sp-fact-card__text">${escapeHtml(factText)}</p>
+                ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link sp-fact-card__citation">${escapeHtml(sourceText)}</a>` : (sourceText !== 'View source' ? `<span class="sp-fact-card__citation">${escapeHtml(sourceText)}</span>` : '')}
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
     </section>
@@ -450,7 +473,8 @@ function renderMediaCard(item) {
 // Section: Root Causes (COM-B)
 // ============================================================
 function renderRootCauses(data) {
-  const comb = data.root_causes_comb;
+  // Support new com_b format (objects with source links) or old root_causes_comb (string arrays)
+  const comb = data.com_b || data.root_causes_comb;
   if (!comb) return '';
 
   const hasContent = (comb.capability && comb.capability.length > 0) ||
@@ -466,7 +490,16 @@ function renderRootCauses(data) {
           <h3>${escapeHtml(title)}</h3>
         </div>
         <ul class="sp-comb__list">
-          ${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+          ${items.map(item => {
+            if (typeof item === 'string') {
+              return `<li>${escapeHtml(item)}</li>`;
+            }
+            // Object format with text, source, source_url
+            const text = item.text || '';
+            const source = item.source || '';
+            const sourceUrl = item.source_url || '';
+            return `<li>${escapeHtml(text)}${sourceUrl ? ` <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link">${escapeHtml(source)}</a>` : (source ? ` <span class="citation">${escapeHtml(source)}</span>` : '')}</li>`;
+          }).join('')}
         </ul>
       </div>
     `;
@@ -485,6 +518,110 @@ function renderRootCauses(data) {
       </div>
     </section>
   `;
+}
+
+// ============================================================
+// Section: Parallax Divider
+// ============================================================
+function renderParallaxDivider(imageUrl, text) {
+  if (!imageUrl) return '';
+  return `
+    <div class="sp-parallax-divider" style="background-image: url('${escapeHtml(imageUrl)}')">
+      <div class="sp-parallax-divider__overlay">
+        <p class="sp-parallax-divider__text">${escapeHtml(text)}</p>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// Section: Cultural Depth
+// ============================================================
+function renderCulturalDepth(data) {
+  if (!data.cultural_depth || Object.keys(data.cultural_depth).length === 0) return '';
+
+  const entries = Object.entries(data.cultural_depth);
+
+  const formatTitle = (key) => {
+    return key
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' - ')
+      .replace(/ - /, ' - ');
+  };
+
+  const cardsHtml = entries.map(([key, entry]) => {
+    const title = formatTitle(key);
+    const desc = entry.description || '';
+    const isLong = desc.length > 150;
+    const truncated = isLong ? desc.slice(0, 150) + '...' : desc;
+
+    return `
+      <div class="sp-cultural-card ${isLong ? 'sp-cultural-card--collapsed' : ''}">
+        <h3 class="sp-cultural-card__title">${escapeHtml(title)}</h3>
+        <div class="sp-cultural-card__body">
+          <p class="sp-cultural-card__text-full">${escapeHtml(desc)}</p>
+          <p class="sp-cultural-card__text-truncated">${escapeHtml(truncated)}</p>
+        </div>
+        ${entry.source_url ? `<a href="${escapeHtml(entry.source_url)}" target="_blank" rel="noopener noreferrer" class="sp-citation-link">${escapeHtml(entry.source || 'Source')}</a>` : (entry.source ? `<span class="citation">${escapeHtml(entry.source)}</span>` : '')}
+        ${isLong ? `<button class="sp-cultural-card__toggle" type="button">Read more</button>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <section class="sp-section sp-cultural-depth sp-section--alt">
+      <div class="sp-section__inner">
+        <h2 class="sp-section__heading">Cultural Significance</h2>
+        <div class="sp-cultural-depth__grid">
+          ${cardsHtml}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// ============================================================
+// Section: Protected Areas
+// ============================================================
+function renderProtectedAreas(data) {
+  if (!data.globe_layers || !data.globe_layers.protected_areas || data.globe_layers.protected_areas.length === 0) return '';
+
+  const areas = data.globe_layers.protected_areas;
+
+  return `
+    <section class="sp-section sp-protected-areas">
+      <div class="sp-section__inner">
+        <h2 class="sp-section__heading">Protected Areas</h2>
+        <div class="sp-protected-areas__grid">
+          ${areas.map(area => `
+            <div class="sp-protected-area-card">
+              <h3 class="sp-protected-area-card__name">${escapeHtml(area.name)}</h3>
+              <p class="sp-protected-area-card__country">${escapeHtml(area.country)}</p>
+              <p class="sp-protected-area-card__coords">${area.lat.toFixed(2)}, ${area.lng.toFixed(2)}</p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// ============================================================
+// Cultural Card Toggle Handlers
+// ============================================================
+function initCulturalCardToggles() {
+  const toggleButtons = document.querySelectorAll('.sp-cultural-card__toggle');
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.sp-cultural-card');
+      if (card) {
+        const isCollapsed = card.classList.contains('sp-cultural-card--collapsed');
+        card.classList.toggle('sp-cultural-card--collapsed');
+        btn.textContent = isCollapsed ? 'Read less' : 'Read more';
+      }
+    });
+  });
 }
 
 // ============================================================
@@ -661,6 +798,39 @@ function initAnimations() {
 
   // Parallax storytelling layers
   initParallax();
+
+  // Cultural depth cards
+  const culturalCards = document.querySelectorAll('.sp-cultural-card');
+  culturalCards.forEach((card, i) => {
+    gsap.fromTo(card,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, ease: 'back.out(1.4)', duration: 0.9, delay: i * 0.08,
+        scrollTrigger: { trigger: card, start: 'top 90%' }
+      }
+    );
+  });
+
+  // Protected area cards
+  const areaCards = document.querySelectorAll('.sp-protected-area-card');
+  areaCards.forEach((card, i) => {
+    gsap.fromTo(card,
+      { opacity: 0, y: 25 },
+      { opacity: 1, y: 0, ease: 'back.out(1.4)', duration: 0.8, delay: i * 0.05,
+        scrollTrigger: { trigger: card, start: 'top 90%' }
+      }
+    );
+  });
+
+  // Parallax dividers
+  const dividers = document.querySelectorAll('.sp-parallax-divider');
+  dividers.forEach(divider => {
+    gsap.fromTo(divider.querySelector('.sp-parallax-divider__text'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, ease: 'power2.out', duration: 1.0,
+        scrollTrigger: { trigger: divider, start: 'top 70%' }
+      }
+    );
+  });
 
   ScrollTrigger.refresh();
 }

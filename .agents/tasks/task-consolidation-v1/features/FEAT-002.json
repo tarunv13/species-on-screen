@@ -1,0 +1,40 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Rewrite src/species-page.js to render ALL data sections with full content visibility: hero image from photos array, photo gallery with parallax, comic strip panels with photo backgrounds, COM-B cards with clickable source links, TMDB media section with poster images linked to TMDB URLs, cultural depth expandable cards with clickable source links, facts cards with clickable citations, conservation stats with inline clickable source links, and parallax storytelling dividers between sections.",
+  "status": "completed",
+  "steps": [
+    "Step 1: Modify renderHero() to use the first photo from data.photos array as the full-width background image. Add a photo credit overlay at bottom-right of the hero section. Ensure the image URL is set directly (not via TMDB backdrop).",
+    "Step 2: Add a new renderCulturalDepth(data) function that reads data.cultural_depth and renders expandable cards per culture/region. Each card shows the region name, description text, and a clickable <a href='source_url' target='_blank' rel='noopener'>source</a> link. Cards should have a click-to-expand interaction (toggle a CSS class for overflow).",
+    "Step 3: Rewrite renderRootCauses(data) to read the new com_b format where each barrier is {text, source, source_url}. Each list item renders the text AND a clickable <a href='source_url' target='_blank' rel='noopener'>source</a> element styled as a citation link.",
+    "Step 4: Rewrite renderInterestingFacts(data) so each fact card includes a clickable <a href='source_url' target='_blank' rel='noopener'>source</a> link (not just text).",
+    "Step 5: Update renderScience(data) so that population/IUCN citations include clickable links: if data.data_sources.population has a url field, wrap the source text in an <a> tag. Same for iucn_status.",
+    "Step 6: Update renderOnScreen(data) to ensure TMDB poster images use https://image.tmdb.org/t/p/w500{poster_path} and the title links to tmdb_url. These already partially work but verify they render properly.",
+    "Step 7: Add a new renderParallaxDivider(imageUrl, text) helper that creates a full-bleed parallax photo section between major content sections. Insert parallax dividers between: hero and comic, comic and science, science and photos, photos and cultural depth. Use photos from data.photos array (indexes 1, 2, etc).",
+    "Step 8: Rewrite renderComicStrip(data) to use photos from data.photos as panel backgrounds (one photo per panel where available). Ensure panels are visible with proper contrast (dark overlay on photo bg, white text on top).",
+    "Step 9: Add renderGlobeLayers(data) section that shows the protected areas from data.globe_layers as a simple list/map reference section with name, country, and coordinates.",
+    "Step 10: Update the main renderSpeciesPage() function to include all new sections in order: hero, parallax divider 1, comic strip, parallax divider 2, science, photos (with parallax scroll), parallax divider 3, cultural depth, COM-B, TMDB media, facts, globe layers / protected areas, evidence, references, footer.",
+    "Step 11: Also support the OLD data format (root_causes_comb with string arrays) as a fallback in case some JSON files have the old format - check if items are strings or objects.",
+    "Step 12: Update src/species-page.css to add styles for: .sp-cultural-depth cards, .sp-parallax-divider full-bleed sections, expanded/collapsed states for cultural cards, citation links (.sp-citation-link class with underline and external icon), and ensure .comic-panel__bg has a dark overlay for text readability."
+  ],
+  "acceptance_criteria": [
+    "Hero section shows a full-width background photo from the species photos array with credit overlay",
+    "Comic strip panels have photo backgrounds with dark overlay for text contrast",
+    "COM-B section renders each barrier with both text and a clickable <a> link to the source URL",
+    "Cultural depth section renders expandable cards with clickable academic source links",
+    "Interesting facts section renders each fact with a clickable source link",
+    "Conservation/science section has inline clickable source links for population and IUCN data",
+    "TMDB media section shows poster images and title links to TMDB URLs",
+    "Parallax divider sections appear between major content sections with full-bleed background images",
+    "All links use target='_blank' rel='noopener' for external URLs",
+    "npx vite build succeeds"
+  ],
+  "verification": [
+    "Run: npx vite build and confirm success",
+    "Grep species-page.js for 'target=\"_blank\"' and confirm multiple occurrences (for clickable source links)",
+    "Grep species-page.js for 'cultural_depth' and confirm the section renders",
+    "Grep species-page.js for 'sp-parallax-divider' and confirm parallax dividers exist"
+  ],
+  "blocked_reason": null,
+  "findings": "All sections implemented successfully. TMDB image base changed from w300 to w500. The interesting_facts in data files have 'text' and 'source_url' fields (no separate 'source' field), so we use 'Source' as fallback link text. The com_b format uses objects with text/source/source_url while root_causes_comb uses strings - both are supported. data_sources is now an array (not object) so we find entries by type field. Build passes cleanly."
+}

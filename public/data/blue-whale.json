@@ -4,7 +4,9 @@
     "common_name": "Blue Whale",
     "family": "Balaenopteridae",
     "order": "Artiodactyla",
-    "class": "Mammalia"
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/2440172",
+    "iucn_url": "https://www.iucnredlist.org/species/2477/166756914"
   },
   "habitat": {
     "type": "Ocean",
@@ -90,6 +92,59 @@
       "Public disconnect from open-ocean conservation issues due to remoteness"
     ]
   },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Shipping industry lacks affordable speed-reduction technology for whale zones",
+        "source": "Laist et al. (2001)",
+        "source_url": "https://doi.org/10.1111/j.1748-7692.2001.tb00980.x"
+      },
+      {
+        "text": "Limited real-time whale detection systems for vessel operators",
+        "source": "Silber et al. (2012)",
+        "source_url": "https://doi.org/10.3354/esr00508"
+      },
+      {
+        "text": "Difficulty monitoring vast oceanic ranges",
+        "source": "Branch et al. (2004)",
+        "source_url": "https://doi.org/10.1111/j.1748-7692.2004.tb01190.x"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "International shipping lanes overlap with critical feeding areas",
+        "source": "Redfern et al. (2013)",
+        "source_url": "https://doi.org/10.1016/j.biocon.2013.05.005"
+      },
+      {
+        "text": "Climate change shifting krill distributions into busier waters",
+        "source": "Atkinson et al. (2004)",
+        "source_url": "https://doi.org/10.1038/nature02996"
+      },
+      {
+        "text": "Noise pollution regulations difficult to enforce in international waters",
+        "source": "Erbe et al. (2019)",
+        "source_url": "https://doi.org/10.3389/fmars.2019.00606"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Economic pressure to maintain shipping schedules over speed reductions",
+        "source": "Conn & Silber (2013)",
+        "source_url": "https://doi.org/10.1890/ES13-00106.1"
+      },
+      {
+        "text": "Whaling moratorium compliance varies by nation",
+        "source": "IWC",
+        "source_url": "https://iwc.int/management-and-conservation/whaling/moratorium"
+      },
+      {
+        "text": "Public disconnect from open-ocean conservation issues due to remoteness",
+        "source": "Jones et al. (2019)",
+        "source_url": "https://doi.org/10.1002/pan3.10053"
+      }
+    ]
+  },
   "evidence_summary": "Blue Planet broadcast events correlate with measurable increases in ocean conservation charity donations and public support for marine protected areas, with blue whale sequences among the most emotionally impactful (Jones et al., 2019).",
   "academic_references": [
     "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
@@ -101,6 +156,117 @@
     "Branch, T.A. et al. (2004). Evidence for increases in Antarctic blue whales based on Bayesian modelling. Marine Mammal Science, 20(4), pp.726-754.",
     "Attard, C.R.M. et al. (2012). Hybridization of Southern Hemisphere blue whale subspecies and implications for conservation. Conservation Genetics, 13(6), pp.1497-1507."
   ],
+  "interesting_facts": [
+    {
+      "text": "The blue whale is the largest animal ever known to have existed, reaching up to 30 metres long and 180 tonnes.",
+      "source_url": "https://doi.org/10.1111/j.1748-7692.2004.tb01190.x"
+    },
+    {
+      "text": "A blue whale's heart is roughly the size of a small car and beats just 2-8 times per minute during deep dives.",
+      "source_url": "https://doi.org/10.1073/pnas.1914273116"
+    },
+    {
+      "text": "Blue whale calls at 188 decibels are the loudest sounds produced by any animal, detectable hundreds of kilometres away.",
+      "source_url": "https://doi.org/10.3354/esr00508"
+    },
+    {
+      "text": "They can consume up to 4 tonnes of krill in a single day during peak feeding.",
+      "source_url": "https://doi.org/10.1038/s41586-021-03991-5"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Blue_Whale_001.jpg/1280px-Blue_Whale_001.jpg",
+      "alt": "Blue whale surfacing in open ocean",
+      "credit": "Wikimedia Commons, Public Domain",
+      "photographer": "NOAA"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Blue_whale_tail.jpg/1280px-Blue_whale_tail.jpg",
+      "alt": "Blue whale tail fluke",
+      "credit": "Wikimedia Commons, CC BY 2.0",
+      "photographer": "Mike Baird"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Blue_Whale_Breaching.jpg/1280px-Blue_Whale_Breaching.jpg",
+      "alt": "Blue whale breaching",
+      "credit": "Wikimedia Commons, Public Domain",
+      "photographer": "Merrill Gosho, NOAA"
+    }
+  ],
+  "cultural_depth": {
+    "maori_tangaroa": {
+      "description": "In Maori tradition, whales are descendants of Tangaroa, god of the sea, and are treated as sacred taonga (treasures). Whale strandings are viewed as gifts from the ocean requiring proper karakia (prayer) and respectful treatment of the remains.",
+      "source": "Te Papa Tongarewa Museum of New Zealand",
+      "source_url": "https://www.tepapa.govt.nz/discover-collections/read-watch-play/maori/whales-te-ao-maori"
+    },
+    "inuit_sea_spirits": {
+      "description": "Inuit cosmology connects whales to Sedna, goddess of sea creatures, who releases marine mammals to hunters who follow proper spiritual protocols. The bowhead whale hunt remains a central cultural practice for Arctic peoples, governed by elaborate spiritual preparation.",
+      "source": "Laugrand, F. & Oosten, J. (2015). Hunters, Predators and Prey. Berghahn Books.",
+      "source_url": "https://doi.org/10.3167/9781782384908"
+    },
+    "basque_whaling": {
+      "description": "Basque whalers were among the first to hunt large whales commercially from the 11th century, developing technologies later adopted worldwide. Their pursuit of right whales and eventual depletion of Atlantic stocks established the pattern of industrial overexploitation that nearly eliminated blue whales by the 20th century.",
+      "source": "Aguilar, A. (1986). A Review of Old Basque Whaling.",
+      "source_url": "https://doi.org/10.1017/S0030605300023049"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Monterey Bay National Marine Sanctuary",
+        "lat": 36.8,
+        "lng": -121.9,
+        "country": "United States"
+      },
+      {
+        "name": "Pelagos Sanctuary",
+        "lat": 43.5,
+        "lng": 8.5,
+        "country": "France/Italy/Monaco"
+      },
+      {
+        "name": "South Georgia and South Sandwich Islands MPA",
+        "lat": -54.25,
+        "lng": -36.75,
+        "country": "United Kingdom"
+      },
+      {
+        "name": "Great Australian Bight Marine Park",
+        "lat": -34,
+        "lng": 130,
+        "country": "Australia"
+      },
+      {
+        "name": "Ross Sea Marine Protected Area",
+        "lat": -72,
+        "lng": 175,
+        "country": "Antarctica"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/2477/166756914"
+    },
+    {
+      "name": "International Whaling Commission",
+      "type": "policy",
+      "url": "https://iwc.int/management-and-conservation/whaling/moratorium"
+    },
+    {
+      "name": "NOAA Fisheries",
+      "type": "government",
+      "url": "https://www.fisheries.noaa.gov/species/blue-whale"
+    },
+    {
+      "name": "WWF Whale Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/blue-whale"
+    }
+  ],
   "tmdb_media": [
     {
       "title": "Blue Whales: Return of the Giants",
@@ -109,7 +275,7 @@
       "tmdb_url": "https://www.themoviedb.org/movie/1147747",
       "poster_path": "/hM8yRTvPy7JUqOU1t9OHaaYJBY4.jpg",
       "backdrop_path": "/stXyO1gITPss9E3cMguPq3n4C1l.jpg",
-      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions\u2014one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico\u2019s stunning Gulf of California\u2014the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
+      "overview": "Blue Whales: Return of the Giants 3D takes viewers on a journey of a lifetime to explore the world of the magnificent blue whale, a species rebounding from the brink of extinction. Following two scientific expeditions—one to find a missing population of blues off the exotic Seychelles Islands, the other to chronicle whale families in Mexico’s stunning Gulf of California—the film is an inspirational story that transforms our understanding of the largest animal ever to have lived.",
       "classification": "documentary",
       "narrative_technique": "adventure-narrative",
       "relevance_score": 105,
@@ -166,55 +332,6 @@
       "query_source": "Blue Whale",
       "genre_ids": [],
       "vote_average": 0
-    }
-  ],
-  "data_sources": {
-    "population": {
-      "value": "10,000-25,000",
-      "source": "IWC / IUCN",
-      "year": 2018
-    },
-    "iucn_status": {
-      "status": "Endangered",
-      "source": "IUCN Red List",
-      "assessed": 2018
-    },
-    "historic_decline": {
-      "value": "99% reduction before whaling ban",
-      "source": "Branch et al., Marine Mammal Science",
-      "year": 2004
-    }
-  },
-  "interesting_facts": [
-    {
-      "fact": "A blue whale's heart is the size of a small car, and its aorta is large enough for a human to crawl through.",
-      "source": "Goldbogen et al., Proceedings of the Royal Society B, 2019"
-    },
-    {
-      "fact": "Blue whale calls at 188 decibels are the loudest sound produced by any animal, detectable across entire ocean basins.",
-      "source": "Cummings & Thompson, Journal of the Acoustical Society, 1971"
-    },
-    {
-      "fact": "They consume up to 4 tonnes of krill per day during feeding season - roughly 40 million individual krill.",
-      "source": "Savoca et al., Nature, 2021"
-    },
-    {
-      "fact": "A blue whale calf gains approximately 90 kg per day during its first year, drinking 380 litres of milk daily.",
-      "source": "Lockyer, Reports of the IWC, 1981"
-    }
-  ],
-  "photos": [
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Blue_whale_tail.jpg/1280px-Blue_whale_tail.jpg",
-      "alt": "Blue whale tail fluke above water",
-      "credit": "Wikimedia Commons",
-      "photographer": "Mike Baird"
-    },
-    {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Blue_Whale_001_body_bw.jpg/1280px-Blue_Whale_001_body_bw.jpg",
-      "alt": "Blue whale surfacing",
-      "credit": "Wikimedia Commons",
-      "photographer": "NOAA"
     }
   ]
 }
