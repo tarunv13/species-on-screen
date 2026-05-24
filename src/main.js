@@ -1,4 +1,5 @@
 import './style.css';
+import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CinematicEngine } from './cinematic-engine.js';
@@ -22,6 +23,18 @@ function init() {
 
   // Show loading screen
   const loadingScreen = document.getElementById('loading-screen');
+
+  // Initialize Lenis smooth scrolling
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  });
+
+  // Connect Lenis to GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
 
   // Initialize cinematic engine (Three.js scene)
   engine = new CinematicEngine(canvas);
@@ -72,7 +85,7 @@ function setupScrollTrigger() {
     trigger: scrollContainer,
     start: 'top top',
     end: 'bottom bottom',
-    scrub: 0.5,
+    scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
 

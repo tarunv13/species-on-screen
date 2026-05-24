@@ -2,48 +2,12 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 /**
- * Film grain shader for cinematic post-processing
- */
-const FilmGrainShader = {
-  uniforms: {
-    tDiffuse: { value: null },
-    time: { value: 0.0 },
-    intensity: { value: 0.08 },
-  },
-  vertexShader: `
-    varying vec2 vUv;
-    void main() {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `,
-  fragmentShader: `
-    uniform sampler2D tDiffuse;
-    uniform float time;
-    uniform float intensity;
-    varying vec2 vUv;
-
-    float random(vec2 co) {
-      return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
-    }
-
-    void main() {
-      vec4 color = texture2D(tDiffuse, vUv);
-      float noise = random(vUv + time) * 2.0 - 1.0;
-      color.rgb += noise * intensity;
-      gl_FragColor = color;
-    }
-  `,
-};
-
-/**
- * Ambient particle system - soft glowing motes floating in space
+ * Ambient particle system - soft golden/green motes floating in space
  */
 function createParticleSystem() {
-  const count = 2000;
+  const count = 1000;
   const positions = new Float32Array(count * 3);
   const sizes = new Float32Array(count);
   const opacities = new Float32Array(count);
@@ -53,7 +17,7 @@ function createParticleSystem() {
     positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
     positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
     sizes[i] = Math.random() * 3.0 + 1.0;
-    opacities[i] = Math.random() * 0.5 + 0.2;
+    opacities[i] = Math.random() * 0.3 + 0.1;
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -92,12 +56,12 @@ function createParticleSystem() {
         float dist = length(gl_PointCoord - vec2(0.5));
         if (dist > 0.5) discard;
         float alpha = smoothstep(0.5, 0.0, dist) * vOpacity;
-        gl_FragColor = vec4(0.6, 0.7, 0.9, alpha * 0.6);
+        gl_FragColor = vec4(0.6, 0.8, 0.4, alpha * 0.4);
       }
     `,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
   });
 
   return new THREE.Points(geometry, material);
@@ -107,18 +71,16 @@ function createParticleSystem() {
  * Camera keyframes - positions and lookAt targets for each chapter
  */
 const CAMERA_KEYFRAMES = [
-  // 0% - Hero: close-up, immersed in particles
-  { position: new THREE.Vector3(0, 0.5, 4), target: new THREE.Vector3(0, 0, 0) },
-  // 20% - Globe: pulled back, globe centered
-  { position: new THREE.Vector3(0, 0.3, 5), target: new THREE.Vector3(0, 0, 0) },
-  // 40% - Research: orbiting globe from side
-  { position: new THREE.Vector3(3.5, 1.5, 3.5), target: new THREE.Vector3(0, 0, 0) },
-  // 60% - Species: closer, slightly above
-  { position: new THREE.Vector3(-2, 2.5, 4), target: new THREE.Vector3(0, 0, 0) },
-  // 80% - Methodology: wide shot
-  { position: new THREE.Vector3(1, 1, 6.5), target: new THREE.Vector3(0, 0, 0) },
-  // 100% - Vision: far pull-back
-  { position: new THREE.Vector3(0, 0.5, 9), target: new THREE.Vector3(0, 0, 0) },
+  // 0% - Hero: close-up
+  { position: new THREE.Vector3(0, 0.5, 4.5), target: new THREE.Vector3(0, 0, 0) },
+  // 25% - Globe: centered
+  { position: new THREE.Vector3(0, 0.3, 5.5), target: new THREE.Vector3(0, 0, 0) },
+  // 50% - Orbital side view
+  { position: new THREE.Vector3(3, 2, 4), target: new THREE.Vector3(0, 0, 0) },
+  // 75% - Species gallery
+  { position: new THREE.Vector3(-2, 1.5, 5), target: new THREE.Vector3(0, 0, 0) },
+  // 100% - Far pullback
+  { position: new THREE.Vector3(0, 1, 8), target: new THREE.Vector3(0, 0, 0) },
 ];
 
 /**
@@ -170,7 +132,8 @@ export class CinematicEngine {
 
   _initScene() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x0a0a0f, 0.08);
+    this.scene.background = new THREE.Color(0xf5f5f0);
+    this.scene.fog = new THREE.FogExp2(0xf5f5f0, 0.04);
 
     this.camera = new THREE.PerspectiveCamera(
       60,
@@ -202,14 +165,11 @@ export class CinematicEngine {
 
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      0.3,  // strength
-      0.8,  // radius
-      0.85  // threshold
+      0.15,  // strength
+      0.4,   // radius
+      0.9    // threshold
     );
     this.composer.addPass(bloomPass);
-
-    this.grainPass = new ShaderPass(FilmGrainShader);
-    this.composer.addPass(this.grainPass);
   }
 
   _initParticles() {
@@ -218,11 +178,11 @@ export class CinematicEngine {
   }
 
   _initLighting() {
-    const ambient = new THREE.AmbientLight(0x222244, 0.5);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.8);
     this.scene.add(ambient);
 
-    const directional = new THREE.DirectionalLight(0xffffff, 0.8);
-    directional.position.set(5, 3, 5);
+    const directional = new THREE.DirectionalLight(0xfff5e6, 1.0);
+    directional.position.set(5, 5, 3);
     this.scene.add(directional);
   }
 
@@ -250,9 +210,6 @@ export class CinematicEngine {
       const now = performance.now();
       const delta = (now - this._lastTime) / 1000;
       this._lastTime = now;
-
-      // Update film grain time
-      this.grainPass.uniforms.time.value = elapsed;
 
       // Update particle drift
       this.particles.material.uniforms.time.value = elapsed;
