@@ -1,0 +1,7 @@
+{
+  "task_id": "task-globe-immersion",
+  "task_description": "Transform the species-on-screen website from a scroll-driven experience with a decorative globe into a globe-first immersive interface. The globe becomes the full-viewport app. Floating glass cards appear at species locations. Clicking a card triggers a cinematic zoom-into-habitat transition revealing a virtual safari scene with parallax storytelling and comic strip science communication. Architecture supports arbitrary species, not just 10.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}
