@@ -568,30 +568,7 @@ a:hover {
   font-weight: 500;
 }
 
-.sp-methodology__rqs {
-  background: #111118;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1rem;
-  padding: clamp(1.5rem, 3vw, 2rem);
-}
 
-.sp-methodology__rq-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sp-methodology__rq-list li {
-  color: #e8e4e0;
-  font-size: 0.92rem;
-  line-height: 1.6;
-  font-style: italic;
-  font-family: Georgia, 'Times New Roman', serif;
-  padding-left: 1rem;
-  border-left: 2px solid #4a7c59;
-}
 
 /* --------------------------------------------------------------------------
    Section 5: Root Causes (COM-B)
@@ -779,7 +756,6 @@ a:hover {
 .sp-loaded .sp-section:not(.sp-hero) .sp-evidence__content,
 .sp-loaded .sp-section:not(.sp-hero) .sp-methodology__framework,
 .sp-loaded .sp-section:not(.sp-hero) .sp-methodology__notes,
-.sp-loaded .sp-section:not(.sp-hero) .sp-methodology__rqs,
 .sp-loaded .sp-section:not(.sp-hero) .sp-references__list {
   opacity: 0;
   transform: translateY(25px);
@@ -839,7 +815,6 @@ a:hover {
   .sp-evidence__content,
   .sp-methodology__framework,
   .sp-methodology__notes,
-  .sp-methodology__rqs,
   .sp-references__list {
     opacity: 1 !important;
     transform: none !important;

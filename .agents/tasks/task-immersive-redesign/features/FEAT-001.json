@@ -1,0 +1,29 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Remove ALL research questions from every file, install lenis for smooth scrolling, and set up the new branch baseline. This includes removing RQ content from all 10 public/data/*.json files, removing the research-questions overlay from index.html, removing methodology section references to RQs, removing RQ references from src/overlay-ui.js, src/species-page.js, and scripts/fetch-tmdb-data.js. Also install lenis package.",
+  "status": "in_progress",
+  "steps": [
+    "Run npm install lenis in /projects/sandbox/species-on-screen to add smooth scrolling library",
+    "Edit all 10 files in public/data/*.json: remove the 'research_questions' array field entirely from each file. Also remove or redact the 'methodology_notes' field (it references RQ1-RQ4 explicitly). Keep all other fields intact.",
+    "Edit index.html: remove the entire overlay--research section (the div containing 'Research Framework' heading and all RQ1-RQ4 content). Also remove the overlay--methodology section entirely (it references the research framework).",
+    "Edit src/overlay-ui.js: remove the 'research' and 'methodology' entries from OVERLAY_RANGES and remove caching of overlay--research and overlay--methodology elements",
+    "Edit src/species-page.js: remove the renderMethodology function entirely (it renders research questions). Remove the call to renderMethodology(data) from renderSpeciesPage. Also remove the RQ2 reference in the renderOnScreen intro paragraph.",
+    "Edit scripts/fetch-tmdb-data.js: remove the RESEARCH_QUESTIONS constant array and any code that writes research_questions into the output JSON files. Remove methodology_notes from the species data objects.",
+    "Edit src/species-page.css: remove the .sp-methodology__rqs, .sp-methodology__rq-list, and related styles (they will never render now)",
+    "Run npm run build to verify the project still builds cleanly after these changes"
+  ],
+  "acceptance_criteria": [
+    "No file in the repository contains the text 'RQ1', 'RQ2', 'RQ3', or 'RQ4'",
+    "No file contains the text 'research_questions' or 'Research Framework'",
+    "No file contains the specific RQ text about 'digital content helping enhance awareness'",
+    "npm run build succeeds without errors",
+    "lenis package is listed in package.json dependencies"
+  ],
+  "verification": [
+    "Run: grep -r 'RQ1\\|RQ2\\|RQ3\\|RQ4\\|research_questions\\|Research Framework' --include='*.js' --include='*.json' --include='*.html' --include='*.css' /projects/sandbox/species-on-screen/src /projects/sandbox/species-on-screen/public /projects/sandbox/species-on-screen/species /projects/sandbox/species-on-screen/scripts /projects/sandbox/species-on-screen/index.html -- should return nothing",
+    "Run: npm run build in /projects/sandbox/species-on-screen -- should exit 0"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
