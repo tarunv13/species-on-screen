@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "feat",
   "description": "Transform the globe into a full-viewport interactive interface. Remove scroll-driven camera. Add drag-to-rotate interaction, cinematic landing fly-in, floating glass cards at species locations (positioned via Three.js world-to-screen projection), and geospatial layer toggle UI. The globe IS the app after the landing sequence.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "STEP 1 - Rewrite index.html: Remove the entire scroll-container, overlay-container, landing-sequence layers, and Barba wrapper. Replace with: (a) canvas#cinematic-canvas (full viewport, fixed), (b) a div#globe-ui-container for globe overlays (layer toggle pills, floating species cards container, back button), (c) a minimal loading screen, (d) a div#safari-container (hidden by default, used for species deep-dive). Keep the noscript fallback. Remove the old nav, progress bar, habitat-anim divs, species-grid, numbers-grid, vision section entirely.",
     "STEP 2 - Rewrite src/main.js: Remove Lenis, ScrollTrigger, Barba.js, OverlayUI, hover-3d imports and usage. The new main.js should: (a) Init CinematicEngine, (b) Init Globe with interactive mode (drag-to-rotate via pointer events), (c) Run a cinematic landing sequence (camera flies from far space to Earth over 3s using GSAP timeline, not scroll), (d) After landing completes, show the globe UI (layer toggles, floating cards), (e) Set up card click handler that triggers immersive zoom transition into safari scene, (f) Set up 'return to globe' handler. Remove all scroll-driven logic.",
@@ -27,5 +27,5 @@
     "Run `npm run build` in /projects/sandbox/species-on-screen and confirm exit code 0 and dist/ output"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Build succeeds cleanly. Chunk warning for main bundle (556KB) is expected due to Three.js. All acceptance criteria verified. Layer toggle maps 'species' to media columns and 'threats' to protected area markers."
 }
