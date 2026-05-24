@@ -6,7 +6,7 @@ import barba from '@barba/core';
 import { CinematicEngine } from './cinematic-engine.js';
 import { Globe } from './globe.js';
 import { OverlayUI } from './overlay-ui.js';
-import { init3DHover } from './hover-3d.js';
+import { init3DHover, destroy3DHover } from './hover-3d.js';
 import { animateCardZoom } from './transitions.js';
 
 // Register GSAP plugins
@@ -29,19 +29,7 @@ function init() {
   const loadingScreen = document.getElementById('loading-screen');
 
   // STEP 1 - Enhanced Lenis Config
-  lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    smoothWheel: true,
-    wheelMultiplier: 0.8,
-    touchMultiplier: 1.5,
-  });
-
-  // Connect Lenis to GSAP ScrollTrigger
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-  gsap.ticker.lagSmoothing(0);
+  lenis = createLenis();
 
   // Initialize cinematic engine (Three.js scene)
   engine = new CinematicEngine(canvas);
@@ -91,6 +79,27 @@ function init() {
       globe.update(delta);
     }
   });
+}
+
+/**
+ * Create a new Lenis instance with optimal cinematic settings
+ */
+function createLenis() {
+  const instance = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 0.8,
+    touchMultiplier: 1.5,
+  });
+
+  // Connect Lenis to GSAP ScrollTrigger
+  instance.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => { instance.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  return instance;
 }
 
 /**
@@ -188,6 +197,7 @@ function setupScrollTrigger() {
 
 /**
  * STEP 4 - Parallax storytelling with ScrollTrigger scrub
+ * Toggles will-change only while in active range for performance
  */
 function setupParallax() {
   const parallaxEls = document.querySelectorAll('[data-parallax-speed]');
@@ -204,13 +214,16 @@ function setupParallax() {
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
+        onToggle: (self) => {
+          el.style.willChange = self.isActive ? 'transform' : '';
+        },
       },
     });
   });
 }
 
 /**
- * STEP 7 - Navigation setup
+ * STEP 7 - Navigation setup with click-to-scroll
  */
 function setupNavigation() {
   const nav = document.querySelector('.site-nav');
@@ -223,6 +236,23 @@ function setupNavigation() {
   if (items.length > 0) {
     items[0].classList.add('site-nav__item--active');
   }
+
+  // Scroll progress targets for each nav item
+  const scrollTargets = [0, 0.20, 0.40, 0.52, 0.80];
+
+  items.forEach((item, i) => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const scrollContainer = document.getElementById('scroll-container');
+      if (!scrollContainer) return;
+      const targetY = scrollTargets[i] * (scrollContainer.scrollHeight - window.innerHeight);
+      if (lenis) {
+        lenis.scrollTo(targetY);
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      }
+    });
+  });
 
   // Store reference for scroll updates
   nav._indicator = indicator;
@@ -268,6 +298,22 @@ function initBarba() {
     transitions: [{
       name: 'zoom-transition',
       leave(data) {
+        // Kill all ScrollTrigger instances to prevent leaks (issue #2)
+        ScrollTrigger.getAll().forEach(t => t.kill());
+
+        // Destroy Lenis before page swap (issue #3)
+        if (lenis) {
+          lenis.destroy();
+          lenis = null;
+        }
+
+        // Check if a species card was clicked for zoom animation (issue #1)
+        const trigger = data.trigger;
+        if (trigger && trigger.closest && trigger.closest('.species-card')) {
+          const card = trigger.closest('.species-card');
+          return animateCardZoom(card);
+        }
+
         return gsap.to(data.current.container, {
           opacity: 0,
           scale: 1.1,
@@ -283,13 +329,34 @@ function initBarba() {
           ease: 'back.out(1.4)',
         });
       },
-      afterEnter() {
+      afterEnter(data) {
         window.scrollTo(0, 0);
-        // Re-initialize 3D hover for new content
+
+        // Destroy old hover listeners before re-init (issue #6)
+        destroy3DHover();
         init3DHover();
+
+        // If navigating back to home, re-setup scroll-driven features
+        const namespace = data.next.namespace;
+        if (namespace === 'home') {
+          // Recreate Lenis (issue #3)
+          lenis = createLenis();
+
+          // Re-register ScrollTrigger and parallax (issue #2)
+          setupScrollTrigger();
+          setupParallax();
+          setupNavigation();
+        }
       },
     }],
   });
+
+  // Wire globe clicks to use Barba for SPA transitions (issue #7)
+  if (globe) {
+    globe.setNavigationHandler((url) => {
+      barba.go(url);
+    });
+  }
 }
 
 // Initialize on DOM ready

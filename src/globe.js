@@ -293,6 +293,14 @@ export class Globe {
     });
   }
 
+  /**
+   * Set a custom navigation handler for globe clicks (e.g. to use Barba.go)
+   * @param {function} handler - receives the URL string
+   */
+  setNavigationHandler(handler) {
+    this._navigationHandler = handler;
+  }
+
   _setupInteraction() {
     const domElement = this.renderer.domElement;
 
@@ -304,7 +312,12 @@ export class Globe {
     this._onClick = () => {
       if (this.hoveredIndex >= 0) {
         const hotspot = HOTSPOTS[this.hoveredIndex];
-        window.location.href = `species/${hotspot.species}.html`;
+        const url = `species/${hotspot.species}.html`;
+        if (this._navigationHandler) {
+          this._navigationHandler(url);
+        } else {
+          window.location.href = url;
+        }
       }
     };
 
