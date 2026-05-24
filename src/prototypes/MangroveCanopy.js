@@ -1,26 +1,33 @@
 import * as THREE from 'three';
 
 // ----------------------------------------------------------------------------
-// Procedural canopy alpha texture (RGBA — dark green-brown leaf colour, with
-// alpha mask of leaf clusters and gaps). Generated once at startup with FBM.
+// Procedural canopy alpha texture (RGBA — leaf colour with leaf-cluster mask).
+// Generated once at startup from FBM. Tuned distinct from the alpine cumulus
+// generator:
 //
-// Tuned distinct from the alpine cumulus generator:
 //   - higher base frequency (smaller features → leaves, not clouds)
-//   - harder edge curve (a leaf-cluster has a sharper boundary than a cumulus)
-//   - target ~80% coverage (a closed canopy with occasional sky gaps), where
-//     the alpine cumulus targeted ~30% coverage
-//   - colour is dark green-brown, not white (the underside of a canopy in
-//     filtered late-afternoon light)
+//   - softer alpha edge (was 0.5 alphaTest cutoff producing hard edges;
+//     now grades from 0.35 with internal leaf-cluster brightening)
+//   - target ~75-85% coverage (closed canopy with occasional gaps)
+//   - leaf colour is darker green-brown with WARMER drift in lit zones
+//     and brighter LUMINOUS-TRANSMISSION near alpha edges, so the
+//     viewer reads "sunlight on the far side" rather than "leaf-shaped
+//     sticker."
+//
+// `seedOffset` lets two layered canopy planes use independent FBM
+// realisations of the same colour family, so they parallax against each
+// other instead of moving as one.
 // ----------------------------------------------------------------------------
-function generateCanopyTexture(size) {
+function generateCanopyTexture(size, seedOffset = 0) {
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
   const img = ctx.createImageData(size, size);
 
+  const seed = seedOffset;
   const hash = (x, y) => {
-    const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+    const s = Math.sin((x + seed) * 127.1 + (y + seed * 1.7) * 311.7) * 43758.5453;
     return s - Math.floor(s);
   };
   const smooth = (x, y) => {
@@ -47,9 +54,6 @@ function generateCanopyTexture(size) {
     return v / max;
   };
 
-  // Three sampled noise channels, then combined: large clumps + leaf detail
-  // + colour variance. The biome palette never leaves desaturated greens
-  // and warm umbers.
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
       const u = x / size;
@@ -57,29 +61,44 @@ function generateCanopyTexture(size) {
 
       const clumps = fbm(u * 5.0, v * 5.0);          // slow leaf masses
       const detail = fbm(u * 18.0, v * 18.0);        // leaf-cluster grain
-      const tint = fbm(u * 3.5 + 17, v * 3.5 + 9);  // colour drift
+      const tint   = fbm(u * 3.5 + 17, v * 3.5 + 9); // colour drift
 
-      // Coverage curve: bias toward closed canopy with occasional gaps.
-      // The (clumps - 0.18) term carves the gaps; the detail term roughens
-      // the cluster edges so they don't read as cut-out shapes.
+      // Coverage curve. Carved gaps + roughened edges.
       const mask = (clumps - 0.18) * 1.7 + (detail - 0.5) * 0.35;
       let alpha = Math.min(1.0, Math.max(0.0, mask + 0.15));
-      // Steepen the leaf-edge curve slightly so alphaTest=0.5 makes
-      // crisp-but-not-aliased leaf-pattern shadows.
       alpha = Math.pow(alpha, 0.85);
 
-      // Colour: dark, desaturated green with warm-umber drift. The under-
-      // side of a canopy in late filtered light is not a green tint; it
-      // is mostly dark with warm bleed-through where the light hits.
-      const warmth = tint;            // 0..1
-      const r = 0.06 + warmth * 0.10; // 0.06..0.16
-      const g = 0.08 + warmth * 0.08; // 0.08..0.16
-      const b = 0.05 + warmth * 0.05; // 0.05..0.10
+      // Distance-from-alpha-edge proxy: the closer to the cutoff, the
+      // more "edge" this texel is. We brighten the colour at edges to
+      // simulate luminous transmission of light through a leaf
+      // (light visible through a leaf from below is its translucent
+      // colour, not its opaque colour). This is the single most
+      // important fix to the canopy underside reading as black.
+      const edgeProximity = 1.0 - Math.abs(alpha - 0.4) / 0.4; // peaks at alpha≈0.4
+      const transmission = Math.max(0, edgeProximity);
+
+      // Base colour (opaque interior of leaf cluster): dark, desat green
+      // with warm drift. Lifted from the previous pass which maxed at
+      // ~0.16; now reaches ~0.34 in lit drift zones and ~0.11 in dark.
+      const warmth = tint;
+      const r = 0.115 + warmth * 0.165;  // 0.115 .. 0.280
+      const g = 0.150 + warmth * 0.155;  // 0.150 .. 0.305
+      const b = 0.075 + warmth * 0.075;  // 0.075 .. 0.150
+
+      // Transmission tint: warmer and brighter, pushed toward the
+      // golden-green of leaf translucency in late afternoon light.
+      const trR = 0.55;
+      const trG = 0.50;
+      const trB = 0.20;
+
+      const tR = r + (trR - r) * transmission * 0.55;
+      const tG = g + (trG - g) * transmission * 0.55;
+      const tB = b + (trB - b) * transmission * 0.55;
 
       const idx = (y * size + x) * 4;
-      img.data[idx]     = Math.floor(r * 255);
-      img.data[idx + 1] = Math.floor(g * 255);
-      img.data[idx + 2] = Math.floor(b * 255);
+      img.data[idx]     = Math.floor(Math.min(1, tR) * 255);
+      img.data[idx + 1] = Math.floor(Math.min(1, tG) * 255);
+      img.data[idx + 2] = Math.floor(Math.min(1, tB) * 255);
       img.data[idx + 3] = Math.floor(alpha * 255);
     }
   }
@@ -88,62 +107,94 @@ function generateCanopyTexture(size) {
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  texture.minFilter = THREE.LinearFilter;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
   texture.magFilter = THREE.LinearFilter;
-  // The texture is colour data, not linear data — let the renderer
-  // interpret it in sRGB so the dark greens don't crush.
+  texture.generateMipmaps = true;
   texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
 }
 
 /**
- * Overhead canopy plane.
+ * Two-layer overhead canopy.
  *
- * A single horizontal plane suspended ~12 units above the water, draped in a
- * procedural leaf-alpha texture. Two roles:
+ * Where the previous pass had a single plane, this is a Group of two
+ * planes at slightly different heights with independent FBM masks.
+ * Together they produce:
  *
- * 1. Visible enclosure. When the camera tilts up or the eye reads above the
- *    horizon line, the canopy reads as a dark green-brown ceiling — there
- *    is no sky in this biome.
+ *   - Visible enclosure with depth: the lower layer reads as the
+ *     foreground canopy, the upper layer reads as the canopy a few
+ *     metres further up. As the camera drifts forward through the
+ *     channel, the two layers parallax against each other, conveying
+ *     occlusion depth that one plane cannot.
  *
- * 2. Light filtering. The canopy casts shadow into the directional sun
- *    light's shadow map, with `alphaTest` enforced. The leaf gaps become
- *    real shadow holes on the water plane below — dappled patches of warm
- *    light without volumetric godrays (Article V forbids the latter).
+ *   - Layered shadow casting: both layers contribute to the
+ *     directional sun's shadow map. Where their alphas overlap, the
+ *     shadow is dense; where one layer has a gap and the other does
+ *     not, a softer dappling appears on the water — closer to the
+ *     way real canopy filters light.
  *
- * `castShadow` is honoured by Three's default depth material because the
- * material has `alphaTest > 0` and a `map`; the depth pass discards the
- * same fragments the colour pass does.
+ *   - Brighter under-canopy fill: the per-texel transmission
+ *     brightening (see generator above) turns the alpha-edge regions
+ *     into warm green-gold luminances, so the underside of the
+ *     canopy is no longer a uniform black ceiling.
  */
-export class MangroveCanopy extends THREE.Mesh {
+export class MangroveCanopy extends THREE.Group {
   constructor({ mobile = false } = {}) {
+    super();
+
     const size = 80;
-    const geometry = new THREE.PlaneGeometry(size, size, 4, 4);
-    geometry.rotateX(Math.PI / 2); // face down, normal pointing −y
+    const texSize = mobile ? 256 : 512;
 
-    const texture = generateCanopyTexture(mobile ? 256 : 512);
-    // Tile the texture across the plane so leaf clusters read at a
-    // believable angular size from a 1.4-unit eyeline.
-    texture.repeat.set(4, 4);
+    // Lower layer ----------------------------------------------------
+    const geo1 = new THREE.PlaneGeometry(size, size, 4, 4);
+    geo1.rotateX(Math.PI / 2); // face down
 
-    const material = new THREE.MeshStandardMaterial({
-      map: texture,
+    const tex1 = generateCanopyTexture(texSize, 0);
+    tex1.repeat.set(4, 4);
+
+    const mat1 = new THREE.MeshStandardMaterial({
+      map: tex1,
       transparent: true,
-      alphaTest: 0.5,
+      alphaTest: 0.35,
       side: THREE.DoubleSide,
       roughness: 0.95,
       metalness: 0.0,
-      // White colour multiplier so the canvas RGB shows through unmodified.
       color: 0xffffff,
-      // Fog applies normally — distant edges of the canopy fade into haze.
       fog: true
     });
 
-    super(geometry, material);
-    this.position.y = 12;
-    // The canopy itself does not need to receive its own shadow; only cast.
-    this.castShadow = !mobile;
-    this.receiveShadow = false;
-    this.renderOrder = 0;
+    const lower = new THREE.Mesh(geo1, mat1);
+    lower.position.y = 12;
+    lower.castShadow = !mobile;
+    lower.receiveShadow = false;
+    this.add(lower);
+
+    // Upper layer ----------------------------------------------------
+    // Same generator but seeded differently and rotated/repeated
+    // distinctly, so the two layers don't statistically coincide.
+    const geo2 = new THREE.PlaneGeometry(size, size, 4, 4);
+    geo2.rotateX(Math.PI / 2);
+    geo2.rotateY(0.42); // 24° rotation to break alignment with the lower layer
+
+    const tex2 = generateCanopyTexture(texSize, 113);
+    tex2.repeat.set(3.2, 3.2); // slightly larger feature size at the upper layer
+    tex2.offset.set(0.13, 0.27);
+
+    const mat2 = new THREE.MeshStandardMaterial({
+      map: tex2,
+      transparent: true,
+      alphaTest: 0.35,
+      side: THREE.DoubleSide,
+      roughness: 0.95,
+      metalness: 0.0,
+      color: 0xffffff,
+      fog: true
+    });
+
+    const upper = new THREE.Mesh(geo2, mat2);
+    upper.position.y = 14.2;
+    upper.castShadow = !mobile;
+    upper.receiveShadow = false;
+    this.add(upper);
   }
 }
