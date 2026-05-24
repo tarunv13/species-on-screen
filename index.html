@@ -32,147 +32,220 @@
     <!-- Three.js renders here -->
     <canvas id="cinematic-canvas"></canvas>
 
-    <!-- Creates scroll distance -->
-    <div id="scroll-container"></div>
-
-    <!-- HTML overlays positioned over the canvas -->
-    <div id="overlay-container">
-
-      <!-- Hero -->
-      <div class="overlay overlay--hero">
-        <h1 class="overlay__title">Eco-Cinema Observatory</h1>
-        <p class="overlay__subtitle">Where the species on our screens meet the living world beyond them.</p>
-        <p class="overlay__tagline">A scrollytelling journey into species, cinema, and conservation</p>
-        <div class="overlay__scroll-hint" aria-hidden="true">
-          <span class="overlay__scroll-arrow"></span>
-          <span class="overlay__scroll-text">Scroll to explore</span>
-        </div>
-      </div>
-
-      <!-- Globe info -->
-      <div class="overlay overlay--globe">
-        <div class="overlay__panel">
-          <h2 class="overlay__heading">Explore the Living World</h2>
-          <p class="overlay__text">Each glowing column represents media coverage of species in that region. Hover to discover, click to explore.</p>
-          <p class="overlay__text overlay__text--secondary">31 habitat locations across 5 continents, each telling a story of species and cinema.</p>
-        </div>
-      </div>
-
-      <!-- By the Numbers -->
-      <div class="overlay overlay--numbers">
-        <div class="overlay__panel overlay__panel--wide">
-          <h2 class="overlay__heading">By the Numbers</h2>
-          <div class="numbers-grid">
-            <div class="numbers-grid__item">
-              <div class="numbers-grid__value">10</div>
-              <div class="numbers-grid__label">Flagship Species</div>
-            </div>
-            <div class="numbers-grid__item">
-              <div class="numbers-grid__value">5</div>
-              <div class="numbers-grid__label">Continents</div>
-            </div>
-            <div class="numbers-grid__item">
-              <div class="numbers-grid__value">50+</div>
-              <div class="numbers-grid__label">Films Catalogued</div>
-            </div>
-            <div class="numbers-grid__item">
-              <div class="numbers-grid__value">Decades</div>
-              <div class="numbers-grid__label">Of Data</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Species Gallery -->
-      <div class="overlay overlay--species">
-        <div class="overlay__panel overlay__panel--full">
-          <h2 class="overlay__heading">Species Observatory</h2>
-          <p class="overlay__text">Each species has a story. Scroll their pages to uncover the connection between screen and survival.</p>
-          <div class="species-grid">
-            <a href="species/tiger.html" class="species-card" data-ecosystem="tropical-forest" aria-label="Tiger (Panthera tigris) - Endangered, Tropical Forest habitat">
-              <span class="species-card__ecosystem">Tropical Forest</span>
-              <h3 class="species-card__name">Tiger</h3>
-              <p class="species-card__scientific">Panthera tigris</p>
-              <span class="species-card__status species-card__status--endangered">Endangered</span>
-            </a>
-            <a href="species/snow-leopard.html" class="species-card" data-ecosystem="mountain" aria-label="Snow Leopard (Panthera uncia) - Vulnerable, Mountain habitat">
-              <span class="species-card__ecosystem">Mountain</span>
-              <h3 class="species-card__name">Snow Leopard</h3>
-              <p class="species-card__scientific">Panthera uncia</p>
-              <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
-            </a>
-            <a href="species/bornean-orangutan.html" class="species-card" data-ecosystem="tropical-forest" aria-label="Bornean Orangutan (Pongo pygmaeus) - Critically Endangered, Tropical Forest habitat">
-              <span class="species-card__ecosystem">Tropical Forest</span>
-              <h3 class="species-card__name">Bornean Orangutan</h3>
-              <p class="species-card__scientific">Pongo pygmaeus</p>
-              <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
-            </a>
-            <a href="species/hawksbill-turtle.html" class="species-card" data-ecosystem="coral-reef" aria-label="Hawksbill Turtle (Eretmochelys imbricata) - Critically Endangered, Coral Reef habitat">
-              <span class="species-card__ecosystem">Coral Reef</span>
-              <h3 class="species-card__name">Hawksbill Turtle</h3>
-              <p class="species-card__scientific">Eretmochelys imbricata</p>
-              <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
-            </a>
-            <a href="species/blue-whale.html" class="species-card" data-ecosystem="ocean" aria-label="Blue Whale (Balaenoptera musculus) - Endangered, Ocean habitat">
-              <span class="species-card__ecosystem">Ocean</span>
-              <h3 class="species-card__name">Blue Whale</h3>
-              <p class="species-card__scientific">Balaenoptera musculus</p>
-              <span class="species-card__status species-card__status--endangered">Endangered</span>
-            </a>
-            <a href="species/african-elephant.html" class="species-card" data-ecosystem="savanna" aria-label="African Elephant (Loxodonta africana) - Endangered, Savanna habitat">
-              <span class="species-card__ecosystem">Savanna</span>
-              <h3 class="species-card__name">African Elephant</h3>
-              <p class="species-card__scientific">Loxodonta africana</p>
-              <span class="species-card__status species-card__status--endangered">Endangered</span>
-            </a>
-            <a href="species/polar-bear.html" class="species-card" data-ecosystem="arctic" aria-label="Polar Bear (Ursus maritimus) - Vulnerable, Arctic habitat">
-              <span class="species-card__ecosystem">Arctic</span>
-              <h3 class="species-card__name">Polar Bear</h3>
-              <p class="species-card__scientific">Ursus maritimus</p>
-              <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
-            </a>
-            <a href="species/giant-panda.html" class="species-card" data-ecosystem="temperate-forest" aria-label="Giant Panda (Ailuropoda melanoleuca) - Vulnerable, Temperate Forest habitat">
-              <span class="species-card__ecosystem">Temperate Forest</span>
-              <h3 class="species-card__name">Giant Panda</h3>
-              <p class="species-card__scientific">Ailuropoda melanoleuca</p>
-              <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
-            </a>
-            <a href="species/staghorn-coral.html" class="species-card" data-ecosystem="coral-reef" aria-label="Staghorn Coral (Acropora cervicornis) - Critically Endangered, Coral Reef habitat">
-              <span class="species-card__ecosystem">Coral Reef</span>
-              <h3 class="species-card__name">Staghorn Coral</h3>
-              <p class="species-card__scientific">Acropora cervicornis</p>
-              <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
-            </a>
-            <a href="species/amazon-river-dolphin.html" class="species-card" data-ecosystem="freshwater" aria-label="Amazon River Dolphin (Inia geoffrensis) - Endangered, Freshwater habitat">
-              <span class="species-card__ecosystem">Freshwater</span>
-              <h3 class="species-card__name">Amazon River Dolphin</h3>
-              <p class="species-card__scientific">Inia geoffrensis</p>
-              <span class="species-card__status species-card__status--endangered">Endangered</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vision / End -->
-      <div class="overlay overlay--vision">
-        <div class="overlay__panel">
-          <h2 class="overlay__heading">Every Species Has a Story</h2>
-          <p class="overlay__text overlay__text--large">Every story shapes our response.</p>
-          <p class="overlay__text">The Eco-Cinema Observatory connects the cultural record of how species appear on our screens with the ecological record of how they fare in the wild. By mapping these connections, we begin to understand how human attention relates to species fate.</p>
-          <footer class="overlay__footer">
-            <p>Eco-Cinema Observatory - An open exploration project</p>
-          </footer>
-        </div>
-      </div>
-
-    </div>
-
     <!-- Loading screen -->
     <div id="loading-screen">
       <div class="loading__content">
         <p class="loading__text">Loading experience</p>
         <div class="loading__dots"><span></span><span></span><span></span></div>
       </div>
+    </div>
+
+    <!-- STEP 2: Landing Sequence -->
+    <div class="landing-sequence">
+      <div class="landing-layer landing-layer--bg-gradient"></div>
+      <div class="landing-layer landing-layer--atmosphere"></div>
+      <div class="landing-layer landing-layer--mist"></div>
+      <div class="landing-layer landing-layer--rays"></div>
+      <div class="landing-layer landing-layer--mid-glow"></div>
+      <div class="landing-layer landing-layer--particles"></div>
+      <div class="landing-layer landing-layer--title">
+        <h1 class="landing-title">Eco-Cinema Observatory</h1>
+      </div>
+      <div class="landing-layer landing-layer--subtitle">
+        <p class="landing-subtitle">Species on Screen, Stories in the Wild</p>
+      </div>
+      <div class="landing-layer landing-layer--ui">
+        <span class="landing-scroll-hint">Scroll to begin</span>
+      </div>
+    </div>
+
+    <!-- STEP 7: Navigation Bar -->
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="site-nav__inner">
+        <a href="/species-on-screen/" class="site-nav__brand">ECO</a>
+        <ul class="site-nav__list">
+          <li><a href="#" class="site-nav__item" data-section="hero">Home</a></li>
+          <li><a href="#" class="site-nav__item" data-section="globe">Globe</a></li>
+          <li><a href="#" class="site-nav__item" data-section="numbers">Numbers</a></li>
+          <li><a href="#" class="site-nav__item" data-section="species">Species</a></li>
+          <li><a href="#" class="site-nav__item" data-section="vision">Vision</a></li>
+        </ul>
+        <div class="site-nav__indicator"></div>
+      </div>
+    </nav>
+
+    <!-- Barba.js wrapper -->
+    <div data-barba="wrapper">
+      <main data-barba="container" data-barba-namespace="home">
+
+        <!-- Creates scroll distance -->
+        <div id="scroll-container"></div>
+
+        <!-- HTML overlays positioned over the canvas -->
+        <div id="overlay-container">
+
+          <!-- Hero -->
+          <div class="overlay overlay--hero" data-parallax-speed="1">
+            <h1 class="overlay__title">Eco-Cinema Observatory</h1>
+            <p class="overlay__subtitle">Where the species on our screens meet the living world beyond them.</p>
+            <p class="overlay__tagline">A scrollytelling journey into species, cinema, and conservation</p>
+            <div class="overlay__scroll-hint" aria-hidden="true">
+              <span class="overlay__scroll-arrow"></span>
+              <span class="overlay__scroll-text">Scroll to explore</span>
+            </div>
+          </div>
+
+          <!-- STEP 8: Habitat animation - water -->
+          <div class="habitat-anim habitat-anim--water" aria-hidden="true"></div>
+
+          <!-- Globe info -->
+          <div class="overlay overlay--globe" data-parallax-speed="0.6">
+            <div class="overlay__panel" data-parallax-speed="0.8">
+              <h2 class="overlay__heading">Explore the Living World</h2>
+              <p class="overlay__text">Each glowing column represents media coverage of species in that region. Hover to discover, click to explore.</p>
+              <p class="overlay__text overlay__text--secondary">31 habitat locations across 5 continents, each telling a story of species and cinema.</p>
+            </div>
+          </div>
+
+          <!-- STEP 8: Habitat animation - mist -->
+          <div class="habitat-anim habitat-anim--mist" aria-hidden="true"></div>
+
+          <!-- By the Numbers -->
+          <div class="overlay overlay--numbers" data-parallax-speed="0.6">
+            <div class="overlay__panel overlay__panel--wide" data-parallax-speed="0.8">
+              <h2 class="overlay__heading">By the Numbers</h2>
+              <div class="numbers-grid">
+                <div class="numbers-grid__item">
+                  <div class="numbers-grid__value">10</div>
+                  <div class="numbers-grid__label">Flagship Species</div>
+                </div>
+                <div class="numbers-grid__item">
+                  <div class="numbers-grid__value">5</div>
+                  <div class="numbers-grid__label">Continents</div>
+                </div>
+                <div class="numbers-grid__item">
+                  <div class="numbers-grid__value">50+</div>
+                  <div class="numbers-grid__label">Films Catalogued</div>
+                </div>
+                <div class="numbers-grid__item">
+                  <div class="numbers-grid__value">Decades</div>
+                  <div class="numbers-grid__label">Of Data</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 8: Habitat animation - grass -->
+          <div class="habitat-anim habitat-anim--grass" aria-hidden="true"></div>
+
+          <!-- Species Gallery -->
+          <div class="overlay overlay--species" data-parallax-speed="0.6">
+            <div class="overlay__panel overlay__panel--full" data-parallax-speed="0.8">
+              <h2 class="overlay__heading">Species Observatory</h2>
+              <p class="overlay__text">Each species has a story. Scroll their pages to uncover the connection between screen and survival.</p>
+              <div class="species-grid">
+                <a href="species/tiger.html" class="species-card hover-3d" data-ecosystem="tropical-forest" aria-label="Tiger (Panthera tigris) - Endangered, Tropical Forest habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Tropical Forest</span>
+                    <h3 class="species-card__name">Tiger</h3>
+                    <p class="species-card__scientific">Panthera tigris</p>
+                    <span class="species-card__status species-card__status--endangered">Endangered</span>
+                  </div>
+                </a>
+                <a href="species/snow-leopard.html" class="species-card hover-3d" data-ecosystem="mountain" aria-label="Snow Leopard (Panthera uncia) - Vulnerable, Mountain habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Mountain</span>
+                    <h3 class="species-card__name">Snow Leopard</h3>
+                    <p class="species-card__scientific">Panthera uncia</p>
+                    <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
+                  </div>
+                </a>
+                <a href="species/bornean-orangutan.html" class="species-card hover-3d" data-ecosystem="tropical-forest" aria-label="Bornean Orangutan (Pongo pygmaeus) - Critically Endangered, Tropical Forest habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Tropical Forest</span>
+                    <h3 class="species-card__name">Bornean Orangutan</h3>
+                    <p class="species-card__scientific">Pongo pygmaeus</p>
+                    <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
+                  </div>
+                </a>
+                <a href="species/hawksbill-turtle.html" class="species-card hover-3d" data-ecosystem="coral-reef" aria-label="Hawksbill Turtle (Eretmochelys imbricata) - Critically Endangered, Coral Reef habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Coral Reef</span>
+                    <h3 class="species-card__name">Hawksbill Turtle</h3>
+                    <p class="species-card__scientific">Eretmochelys imbricata</p>
+                    <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
+                  </div>
+                </a>
+                <a href="species/blue-whale.html" class="species-card hover-3d" data-ecosystem="ocean" aria-label="Blue Whale (Balaenoptera musculus) - Endangered, Ocean habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Ocean</span>
+                    <h3 class="species-card__name">Blue Whale</h3>
+                    <p class="species-card__scientific">Balaenoptera musculus</p>
+                    <span class="species-card__status species-card__status--endangered">Endangered</span>
+                  </div>
+                </a>
+                <a href="species/african-elephant.html" class="species-card hover-3d" data-ecosystem="savanna" aria-label="African Elephant (Loxodonta africana) - Endangered, Savanna habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Savanna</span>
+                    <h3 class="species-card__name">African Elephant</h3>
+                    <p class="species-card__scientific">Loxodonta africana</p>
+                    <span class="species-card__status species-card__status--endangered">Endangered</span>
+                  </div>
+                </a>
+                <a href="species/polar-bear.html" class="species-card hover-3d" data-ecosystem="arctic" aria-label="Polar Bear (Ursus maritimus) - Vulnerable, Arctic habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Arctic</span>
+                    <h3 class="species-card__name">Polar Bear</h3>
+                    <p class="species-card__scientific">Ursus maritimus</p>
+                    <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
+                  </div>
+                </a>
+                <a href="species/giant-panda.html" class="species-card hover-3d" data-ecosystem="temperate-forest" aria-label="Giant Panda (Ailuropoda melanoleuca) - Vulnerable, Temperate Forest habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Temperate Forest</span>
+                    <h3 class="species-card__name">Giant Panda</h3>
+                    <p class="species-card__scientific">Ailuropoda melanoleuca</p>
+                    <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
+                  </div>
+                </a>
+                <a href="species/staghorn-coral.html" class="species-card hover-3d" data-ecosystem="coral-reef" aria-label="Staghorn Coral (Acropora cervicornis) - Critically Endangered, Coral Reef habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Coral Reef</span>
+                    <h3 class="species-card__name">Staghorn Coral</h3>
+                    <p class="species-card__scientific">Acropora cervicornis</p>
+                    <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
+                  </div>
+                </a>
+                <a href="species/amazon-river-dolphin.html" class="species-card hover-3d" data-ecosystem="freshwater" aria-label="Amazon River Dolphin (Inia geoffrensis) - Endangered, Freshwater habitat">
+                  <div class="hover-3d__content">
+                    <span class="species-card__ecosystem">Freshwater</span>
+                    <h3 class="species-card__name">Amazon River Dolphin</h3>
+                    <p class="species-card__scientific">Inia geoffrensis</p>
+                    <span class="species-card__status species-card__status--endangered">Endangered</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 8: Habitat animation - clouds -->
+          <div class="habitat-anim habitat-anim--clouds" aria-hidden="true"></div>
+
+          <!-- Vision / End -->
+          <div class="overlay overlay--vision" data-parallax-speed="1">
+            <div class="overlay__panel" data-parallax-speed="0.8">
+              <h2 class="overlay__heading">Every Species Has a Story</h2>
+              <p class="overlay__text overlay__text--large">Every story shapes our response.</p>
+              <p class="overlay__text">The Eco-Cinema Observatory connects the cultural record of how species appear on our screens with the ecological record of how they fare in the wild. By mapping these connections, we begin to understand how human attention relates to species fate.</p>
+              <footer class="overlay__footer">
+                <p>Eco-Cinema Observatory - An open exploration project</p>
+              </footer>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
     </div>
 
     <!-- Scroll progress bar -->

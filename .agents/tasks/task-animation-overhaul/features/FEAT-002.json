@@ -2,7 +2,7 @@
   "id": "FEAT-002",
   "type": "feat",
   "description": "Implement the timed landing sequence (hero phase system), enhanced Lenis configuration, 3D hover animations on species cards, parallax storytelling layers, immersive zoom-in animations, Barba.js page transitions, and smooth navigation with themed experiences. This is the main homepage animation overhaul.",
-  "status": "pending",
+  "status": "in_progress",
   "steps": [
     "STEP 1 - Enhanced Lenis Config: In src/main.js, update Lenis initialization with optimal cinematic settings: duration 1.2, custom easing function, orientation vertical, smoothWheel true, wheelMultiplier 0.8, touchMultiplier 1.5. Connect to GSAP ScrollTrigger ticker properly.",
     "STEP 2 - Landing Sequence: In src/main.js, create a GSAP timeline-based landing sequence with two phases: Phase 1 (0-2200ms) fades in 9 parallax layers (background blurred environment, mid atmospheric elements like mist/light rays, foreground text/UI), each with different opacity/scale/position timing to create depth-of-field cinematic entrance. Phase 2 (2200-3200ms) separates layers with increasing parallax depth, virtual camera push-through, and smooth handoff to scroll-driven content. Add the corresponding layer elements to index.html inside a new .landing-sequence container.",

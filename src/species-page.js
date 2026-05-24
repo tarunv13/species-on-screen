@@ -591,7 +591,7 @@ function initAnimations() {
     if (heading) {
       gsap.fromTo(heading,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, ease: 'back.out(1.4)', duration: 0.9,
+        { opacity: 1, y: 0, ease: 'back.out(1.7)', duration: 0.9,
           scrollTrigger: { trigger: heading, start: 'top 85%' }
         }
       );
@@ -600,7 +600,7 @@ function initAnimations() {
     panels.forEach((panel, j) => {
       gsap.fromTo(panel,
         { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, ease: 'back.out(1.2)', duration: 0.7, delay: j * 0.1,
+        { opacity: 1, y: 0, ease: 'elastic.out(1, 0.5)', duration: 0.9, delay: j * 0.06,
           scrollTrigger: { trigger: panel, start: 'top 90%' }
         }
       );
