@@ -1,0 +1,7 @@
+{
+  "task_id": "task-animation-overhaul",
+  "task_description": "Implement immersive animation overhaul including Barba.js page transitions, timed landing sequence, globe flora/fauna system, 3D hover animations, parallax storytelling, smooth navigation theming, and spring physics throughout the site.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

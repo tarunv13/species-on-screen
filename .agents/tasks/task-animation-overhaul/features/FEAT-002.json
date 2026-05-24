@@ -1,0 +1,34 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Implement the timed landing sequence (hero phase system), enhanced Lenis configuration, 3D hover animations on species cards, parallax storytelling layers, immersive zoom-in animations, Barba.js page transitions, and smooth navigation with themed experiences. This is the main homepage animation overhaul.",
+  "status": "pending",
+  "steps": [
+    "STEP 1 - Enhanced Lenis Config: In src/main.js, update Lenis initialization with optimal cinematic settings: duration 1.2, custom easing function, orientation vertical, smoothWheel true, wheelMultiplier 0.8, touchMultiplier 1.5. Connect to GSAP ScrollTrigger ticker properly.",
+    "STEP 2 - Landing Sequence: In src/main.js, create a GSAP timeline-based landing sequence with two phases: Phase 1 (0-2200ms) fades in 9 parallax layers (background blurred environment, mid atmospheric elements like mist/light rays, foreground text/UI), each with different opacity/scale/position timing to create depth-of-field cinematic entrance. Phase 2 (2200-3200ms) separates layers with increasing parallax depth, virtual camera push-through, and smooth handoff to scroll-driven content. Add the corresponding layer elements to index.html inside a new .landing-sequence container.",
+    "STEP 3 - 3D Hover Animations: In src/style.css, implement CSS perspective + transform: rotateX() rotateY() driven by mousemove for species cards, globe markers, and navigation items. Cards should tilt toward cursor, depth shadow increases on hover, slight scale increase with spring physics (use GSAP elastic.out(1, 0.5) for overshoot on hover-in), and inner content has opposing parallax. Add a new JS module src/hover-3d.js that attaches mousemove listeners to .species-card elements and calculates tilt angles based on cursor position within the card bounds.",
+    "STEP 4 - Parallax Storytelling: In src/style.css and src/main.js, implement multiple depth layers throughout the scrolling experience. Background moves at 0.3x scroll speed, midground at 0.6x, foreground/content at 1x. Use GSAP ScrollTrigger scrub for all parallax elements. Add parallax wrapper divs in index.html around existing overlay content with data-parallax-speed attributes.",
+    "STEP 5 - Immersive Zoom-In Animations: When clicking a species card on the homepage, the card expands to fill viewport (FLIP animation concept using GSAP Flip or manual getBoundingClientRect), background blurs and darkens slightly, card content morphs into the species page hero. When clicking a globe marker, camera zooms toward the marker position, globe fades/scales away, species content emerges from the zoom point. Use cubic-bezier easing for cinematic feel.",
+    "STEP 6 - Barba.js Page Transitions: In src/main.js, initialize Barba.js with transitions between index and species pages. Wrap main content in both index.html and all species/*.html with data-barba='wrapper' and data-barba='container' attributes. The transition animation uses the immersive zoom-in effect from Step 5. Transition out uses reverse zoom or fade-to-white when going back. Configure Barba to work with Vite's multi-page setup by fetching and swapping page content. The 3D canvas should persist across transitions. Add prefetch on hover for performance.",
+    "STEP 7 - Smooth Navigation with Themed Experiences: Add a translucent navigation bar with backdrop-filter blur that morphs its color/style based on active section. Each species page should have a distinct color accent derived from its ecosystem (tiger: warm amber/green, polar bear: ice blue/white, blue whale: deep ocean blue, etc). Transitions between pages should shift the entire color mood smoothly via CSS custom properties. Add CSS custom properties per ecosystem in src/species-page.css.",
+    "STEP 8 - WebP Placeholder System: Create CSS-animated equivalents for habitat transition moments (flowing water via gradient animation, swaying grass via transform, drifting clouds via translateX keyframes). Place these as background elements between content sections. Structure the code so real WebP animations can be swapped in later from public/assets/ folder. Add placeholder elements in index.html.",
+    "STEP 9 - Spring Physics Throughout: Ensure all UI transitions use spring physics (GSAP back.out(1.7) for overshoot, elastic.out(1, 0.3) for bounce, power4.out for snappy deceleration). Stagger all grid/list items with 50-80ms delay. Apply to section entrances, card reveals, text fade-ins in both src/main.js and src/species-page.js."
+  ],
+  "acceptance_criteria": [
+    "npm run build passes with no errors",
+    "Landing sequence with 9 parallax layers is implemented with GSAP timeline",
+    "Barba.js is initialized and wraps content in both index.html and species HTML pages",
+    "3D hover effect module exists at src/hover-3d.js with perspective tilt on mousemove",
+    "Species cards have CSS perspective and transform properties for 3D tilt",
+    "Parallax scrolling uses ScrollTrigger scrub with multiple speed layers",
+    "Navigation bar with backdrop-filter blur and ecosystem-based color theming exists",
+    "CSS custom properties for ecosystem colors are defined in species-page.css",
+    "Spring physics easing (back.out, elastic.out) is used throughout animations",
+    "WebP placeholder CSS animations exist for habitat transitions"
+  ],
+  "verification": [
+    "npm run build"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
