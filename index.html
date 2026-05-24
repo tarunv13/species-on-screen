@@ -9,271 +9,54 @@
 </head>
 <body>
   <noscript>
-    <div style="background:#fafaf8;color:#1a1a1a;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
+    <div style="background:#0a0a1a;color:#ffffff;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
       <h1>Eco-Cinema Observatory</h1>
-      <p style="margin:1rem 0;">The Eco-Cinema Observatory explores the relationship between species representation in film and real-world conservation outcomes. The full interactive experience requires JavaScript to render the 3D globe and scroll-driven interface.</p>
+      <p style="margin:1rem 0;">The Eco-Cinema Observatory explores the relationship between species representation in film and real-world conservation outcomes. The full interactive experience requires JavaScript to render the 3D globe and interactive interface.</p>
       <h2 style="margin-top:1.5rem;">Species Pages</h2>
       <ul style="margin:1rem 0;line-height:2;">
-        <li><a href="species/tiger.html" style="color:#4a7c59;">Tiger</a></li>
-        <li><a href="species/snow-leopard.html" style="color:#4a7c59;">Snow Leopard</a></li>
-        <li><a href="species/bornean-orangutan.html" style="color:#4a7c59;">Bornean Orangutan</a></li>
-        <li><a href="species/hawksbill-turtle.html" style="color:#4a7c59;">Hawksbill Turtle</a></li>
-        <li><a href="species/blue-whale.html" style="color:#4a7c59;">Blue Whale</a></li>
-        <li><a href="species/african-elephant.html" style="color:#4a7c59;">African Elephant</a></li>
-        <li><a href="species/polar-bear.html" style="color:#4a7c59;">Polar Bear</a></li>
-        <li><a href="species/giant-panda.html" style="color:#4a7c59;">Giant Panda</a></li>
-        <li><a href="species/staghorn-coral.html" style="color:#4a7c59;">Staghorn Coral</a></li>
-        <li><a href="species/amazon-river-dolphin.html" style="color:#4a7c59;">Amazon River Dolphin</a></li>
+        <li><a href="species/tiger.html" style="color:#4ade80;">Tiger</a></li>
+        <li><a href="species/snow-leopard.html" style="color:#4ade80;">Snow Leopard</a></li>
+        <li><a href="species/bornean-orangutan.html" style="color:#4ade80;">Bornean Orangutan</a></li>
+        <li><a href="species/hawksbill-turtle.html" style="color:#4ade80;">Hawksbill Turtle</a></li>
+        <li><a href="species/blue-whale.html" style="color:#4ade80;">Blue Whale</a></li>
+        <li><a href="species/african-elephant.html" style="color:#4ade80;">African Elephant</a></li>
+        <li><a href="species/polar-bear.html" style="color:#4ade80;">Polar Bear</a></li>
+        <li><a href="species/giant-panda.html" style="color:#4ade80;">Giant Panda</a></li>
+        <li><a href="species/staghorn-coral.html" style="color:#4ade80;">Staghorn Coral</a></li>
+        <li><a href="species/amazon-river-dolphin.html" style="color:#4ade80;">Amazon River Dolphin</a></li>
       </ul>
-      <p style="font-size:0.9rem;color:#666;">Please enable JavaScript for the full 3D cinematic experience.</p>
+      <p style="font-size:0.9rem;color:#999;">Please enable JavaScript for the full 3D interactive experience.</p>
     </div>
   </noscript>
-  <div id="app-container">
-    <!-- Three.js renders here -->
-    <canvas id="cinematic-canvas"></canvas>
 
-    <!-- Loading screen -->
-    <div id="loading-screen">
-      <div class="loading__content">
-        <p class="loading__text">Loading experience</p>
-        <div class="loading__dots"><span></span><span></span><span></span></div>
-      </div>
+  <canvas id="cinematic-canvas"></canvas>
+
+  <div id="loading-screen">
+    <div class="loading__content">
+      <p class="loading__text">Loading experience</p>
+      <div class="loading__dots"><span></span><span></span><span></span></div>
     </div>
+  </div>
 
-    <!-- STEP 2: Landing Sequence -->
-    <div class="landing-sequence">
-      <div class="landing-layer landing-layer--bg-gradient"></div>
-      <div class="landing-layer landing-layer--atmosphere"></div>
-      <div class="landing-layer landing-layer--mist"></div>
-      <div class="landing-layer landing-layer--rays"></div>
-      <div class="landing-layer landing-layer--mid-glow"></div>
-      <div class="landing-layer landing-layer--particles"></div>
-      <div class="landing-layer landing-layer--title">
-        <h1 class="landing-title">Eco-Cinema Observatory</h1>
-      </div>
-      <div class="landing-layer landing-layer--subtitle">
-        <p class="landing-subtitle">Species on Screen, Stories in the Wild</p>
-      </div>
-      <div class="landing-layer landing-layer--ui">
-        <span class="landing-scroll-hint">Scroll to begin</span>
-      </div>
+  <div id="globe-ui-container">
+    <div class="layer-toggle-bar">
+      <button class="layer-toggle-btn active" data-layer="species">Species</button>
+      <button class="layer-toggle-btn" data-layer="habitat">Habitats</button>
+      <button class="layer-toggle-btn" data-layer="threats">Threats</button>
     </div>
+    <div id="floating-cards-container"></div>
+  </div>
 
-    <!-- STEP 7: Navigation Bar -->
-    <nav class="site-nav" aria-label="Main navigation">
-      <div class="site-nav__inner">
-        <a href="/species-on-screen/" class="site-nav__brand">ECO</a>
-        <ul class="site-nav__list">
-          <li><a href="#" class="site-nav__item" data-section="hero">Home</a></li>
-          <li><a href="#" class="site-nav__item" data-section="globe">Globe</a></li>
-          <li><a href="#" class="site-nav__item" data-section="numbers">Numbers</a></li>
-          <li><a href="#" class="site-nav__item" data-section="species">Species</a></li>
-          <li><a href="#" class="site-nav__item" data-section="vision">Vision</a></li>
-        </ul>
-        <div class="site-nav__indicator"></div>
-      </div>
-    </nav>
+  <div id="safari-container"></div>
 
-    <!-- Barba.js wrapper -->
-    <div data-barba="wrapper">
-      <main data-barba="container" data-barba-namespace="home">
+  <button class="return-to-globe" style="display:none;">Return to Globe</button>
 
-        <!-- Creates scroll distance -->
-        <div id="scroll-container"></div>
+  <!-- Globe tooltip (for raycasting hover) -->
+  <div id="globe-tooltip" class="globe-tooltip"></div>
 
-        <!-- HTML overlays positioned over the canvas -->
-        <div id="overlay-container">
-
-          <!-- Hero -->
-          <div class="overlay overlay--hero" data-parallax-speed="1">
-            <h1 class="overlay__title">Eco-Cinema Observatory</h1>
-            <p class="overlay__subtitle">Where the species on our screens meet the living world beyond them.</p>
-            <p class="overlay__tagline">A scrollytelling journey into species, cinema, and conservation</p>
-            <div class="overlay__scroll-hint" aria-hidden="true">
-              <span class="overlay__scroll-arrow"></span>
-              <span class="overlay__scroll-text">Scroll to explore</span>
-            </div>
-          </div>
-
-          <!-- STEP 8: Habitat animation - water -->
-          <div class="habitat-anim habitat-anim--water" aria-hidden="true"></div>
-
-          <!-- Globe info -->
-          <div class="overlay overlay--globe" data-parallax-speed="0.6">
-            <div class="overlay__panel" data-parallax-speed="0.8">
-              <h2 class="overlay__heading">Explore the Living World</h2>
-              <p class="overlay__text">Each glowing column represents media coverage of species in that region. Hover to discover, click to explore.</p>
-              <p class="overlay__text overlay__text--secondary">31 habitat locations across 5 continents, each telling a story of species and cinema.</p>
-            </div>
-          </div>
-
-          <!-- STEP 8: Habitat animation - mist -->
-          <div class="habitat-anim habitat-anim--mist" aria-hidden="true"></div>
-
-          <!-- By the Numbers -->
-          <div class="overlay overlay--numbers" data-parallax-speed="0.6">
-            <div class="overlay__panel overlay__panel--wide" data-parallax-speed="0.8">
-              <h2 class="overlay__heading">By the Numbers</h2>
-              <div class="numbers-grid">
-                <div class="numbers-grid__item">
-                  <div class="numbers-grid__value">10</div>
-                  <div class="numbers-grid__label">Flagship Species</div>
-                </div>
-                <div class="numbers-grid__item">
-                  <div class="numbers-grid__value">5</div>
-                  <div class="numbers-grid__label">Continents</div>
-                </div>
-                <div class="numbers-grid__item">
-                  <div class="numbers-grid__value">50+</div>
-                  <div class="numbers-grid__label">Films Catalogued</div>
-                </div>
-                <div class="numbers-grid__item">
-                  <div class="numbers-grid__value">Decades</div>
-                  <div class="numbers-grid__label">Of Data</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- STEP 8: Habitat animation - grass -->
-          <div class="habitat-anim habitat-anim--grass" aria-hidden="true"></div>
-
-          <!-- Species Gallery -->
-          <div class="overlay overlay--species" data-parallax-speed="0.6">
-            <div class="overlay__panel overlay__panel--full" data-parallax-speed="0.8">
-              <h2 class="overlay__heading">Species Observatory</h2>
-              <p class="overlay__text">Each species has a story. Scroll their pages to uncover the connection between screen and survival.</p>
-              <div class="species-grid">
-                <a href="species/tiger.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="tropical-forest" aria-label="Tiger (Panthera tigris) - Endangered, Tropical Forest habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Tropical Forest</span>
-                    <h3 class="species-card__name">Tiger</h3>
-                    <p class="species-card__scientific">Panthera tigris</p>
-                    <span class="species-card__status species-card__status--endangered">Endangered</span>
-                  </div>
-                </a>
-                <a href="species/snow-leopard.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="mountain" aria-label="Snow Leopard (Panthera uncia) - Vulnerable, Mountain habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Mountain</span>
-                    <h3 class="species-card__name">Snow Leopard</h3>
-                    <p class="species-card__scientific">Panthera uncia</p>
-                    <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
-                  </div>
-                </a>
-                <a href="species/bornean-orangutan.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="tropical-forest" aria-label="Bornean Orangutan (Pongo pygmaeus) - Critically Endangered, Tropical Forest habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Tropical Forest</span>
-                    <h3 class="species-card__name">Bornean Orangutan</h3>
-                    <p class="species-card__scientific">Pongo pygmaeus</p>
-                    <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
-                  </div>
-                </a>
-                <a href="species/hawksbill-turtle.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="coral-reef" aria-label="Hawksbill Turtle (Eretmochelys imbricata) - Critically Endangered, Coral Reef habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Coral Reef</span>
-                    <h3 class="species-card__name">Hawksbill Turtle</h3>
-                    <p class="species-card__scientific">Eretmochelys imbricata</p>
-                    <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
-                  </div>
-                </a>
-                <a href="species/blue-whale.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="ocean" aria-label="Blue Whale (Balaenoptera musculus) - Endangered, Ocean habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Ocean</span>
-                    <h3 class="species-card__name">Blue Whale</h3>
-                    <p class="species-card__scientific">Balaenoptera musculus</p>
-                    <span class="species-card__status species-card__status--endangered">Endangered</span>
-                  </div>
-                </a>
-                <a href="species/african-elephant.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="savanna" aria-label="African Elephant (Loxodonta africana) - Endangered, Savanna habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Savanna</span>
-                    <h3 class="species-card__name">African Elephant</h3>
-                    <p class="species-card__scientific">Loxodonta africana</p>
-                    <span class="species-card__status species-card__status--endangered">Endangered</span>
-                  </div>
-                </a>
-                <a href="species/polar-bear.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="arctic" aria-label="Polar Bear (Ursus maritimus) - Vulnerable, Arctic habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Arctic</span>
-                    <h3 class="species-card__name">Polar Bear</h3>
-                    <p class="species-card__scientific">Ursus maritimus</p>
-                    <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
-                  </div>
-                </a>
-                <a href="species/giant-panda.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="temperate-forest" aria-label="Giant Panda (Ailuropoda melanoleuca) - Vulnerable, Temperate Forest habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Temperate Forest</span>
-                    <h3 class="species-card__name">Giant Panda</h3>
-                    <p class="species-card__scientific">Ailuropoda melanoleuca</p>
-                    <span class="species-card__status species-card__status--vulnerable">Vulnerable</span>
-                  </div>
-                </a>
-                <a href="species/staghorn-coral.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="coral-reef" aria-label="Staghorn Coral (Acropora cervicornis) - Critically Endangered, Coral Reef habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Coral Reef</span>
-                    <h3 class="species-card__name">Staghorn Coral</h3>
-                    <p class="species-card__scientific">Acropora cervicornis</p>
-                    <span class="species-card__status species-card__status--critically-endangered">Critically Endangered</span>
-                  </div>
-                </a>
-                <a href="species/amazon-river-dolphin.html" class="species-card hover-3d" data-barba-prevent="self" data-ecosystem="freshwater" aria-label="Amazon River Dolphin (Inia geoffrensis) - Endangered, Freshwater habitat">
-                  <div class="hover-3d__content">
-                    <span class="species-card__ecosystem">Freshwater</span>
-                    <h3 class="species-card__name">Amazon River Dolphin</h3>
-                    <p class="species-card__scientific">Inia geoffrensis</p>
-                    <span class="species-card__status species-card__status--endangered">Endangered</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- STEP 8: Habitat animation - clouds -->
-          <div class="habitat-anim habitat-anim--clouds" aria-hidden="true"></div>
-
-          <!-- Vision / End -->
-          <div class="overlay overlay--vision" data-parallax-speed="1">
-            <div class="overlay__panel" data-parallax-speed="0.8">
-              <h2 class="overlay__heading">Every Species Has a Story</h2>
-              <p class="overlay__text overlay__text--large">Every story shapes our response.</p>
-              <p class="overlay__text">The Eco-Cinema Observatory connects the cultural record of how species appear on our screens with the ecological record of how they fare in the wild. By mapping these connections, we begin to understand how human attention relates to species fate.</p>
-              <footer class="overlay__footer">
-                <p>Eco-Cinema Observatory - An open exploration project</p>
-              </footer>
-            </div>
-          </div>
-
-        </div>
-
-      </main>
-    </div>
-
-    <!-- Scroll progress bar -->
-    <div class="scroll-progress-bar" role="navigation" aria-label="Scroll progress indicator"></div>
-
-    <!-- Screen reader description -->
-    <div class="sr-only">
-      This page presents an interactive 3D cinematic experience exploring the relationship between species in film and conservation. The experience includes a rotating globe with data visualization columns, a species gallery with ten flagship species, and a closing vision section. Use the scroll to navigate through sections, or access individual species pages via the links below.
-    </div>
-
-    <!-- Globe Layer Toggles -->
-    <div class="globe-layer-toggles" id="globe-layer-toggles">
-      <button class="globe-layer-btn active" data-layer="media">Media Coverage</button>
-      <button class="globe-layer-btn" data-layer="habitat">Habitat Range</button>
-      <button class="globe-layer-btn" data-layer="protected_areas">Protected Areas</button>
-    </div>
-
-    <!-- Globe Info Panel -->
-    <div id="globe-info-panel" class="globe-info-panel" style="display:none;">
-      <button class="globe-info-panel__close" aria-label="Close">&times;</button>
-      <img class="globe-info-panel__img" src="" alt="" />
-      <h3 class="globe-info-panel__name"></h3>
-      <span class="globe-info-panel__status"></span>
-      <a class="globe-info-panel__explore" href="#">Explore Species</a>
-    </div>
-
-    <!-- Globe tooltip (for raycasting hover) -->
-    <div id="globe-tooltip" class="globe-tooltip"></div>
+  <!-- Screen reader description -->
+  <div class="sr-only">
+    This page presents an interactive 3D globe experience exploring the relationship between species in film and conservation. Interact with the globe by dragging to rotate, and click on species cards to explore individual species.
   </div>
 </body>
 </html>

@@ -266,5 +266,63 @@
       "url": "https://www.mamiraua.org.br/"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Freshwater",
+    "sky_gradient": ["#0a1a28", "#1a4a5c"],
+    "silhouette_color": "#0a2a38",
+    "mid_color": "#1a5a4a",
+    "foreground_color": "#0a3a3a",
+    "atmosphere": "neutral"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "River Spirits",
+      "narrative_text": "The Amazon river dolphin navigates murky, tannin-stained waters of the Amazon and Orinoco basins, threading between submerged tree trunks in flooded forests. Their flexible necks and echolocation allow them to thrive where visibility drops to zero in one of Earth's most complex freshwater environments.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "The Enchanted Boto",
+      "narrative_text": "In Amazonian folklore, the boto encantado transforms into a handsome young man dressed in white who seduces women at riverside festivals. This shapeshifting mythology historically provided protection for river dolphins, as killing one was believed to bring terrible misfortune.",
+      "source": "Slater, C. (1994). Dance of the Dolphin. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226761954.001.0001"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Dammed Rivers",
+      "narrative_text": "Hydroelectric dams fragment river systems, isolating dolphin populations and altering water flow, sediment, and fish migration patterns. As dam construction accelerates across Amazon tributaries, populations become increasingly cut off from each other.",
+      "source": "Latrubesse et al. (2017)",
+      "source_url": "https://doi.org/10.1038/nature21763"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Guardian of Waters",
+      "narrative_text": "The Tupi-Guarani peoples regard the boto as a guardian of rivers and fish, a spiritual intermediary between the underwater and human worlds. Fishers believe dolphins guide fish toward their nets when treated with respect, and harming a dolphin brings poor catches.",
+      "source": "da Silva, V.M.F. & Best, R.C. (1996)",
+      "source_url": "https://doi.org/10.1017/S0952836996000456"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "River Dolphin Initiative",
+      "narrative_text": "The South American River Dolphin Initiative coordinates research and protection across multiple countries. Working alongside the WWF Amazon Programme and the Mamiraua Sustainable Development Reserve, these efforts seek to maintain river connectivity and reduce harmful fishing practices.",
+      "source": "South American River Dolphin Initiative",
+      "source_url": "https://www.riverdolphins.org/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Unknown Numbers",
+      "narrative_text": "With an estimated population of tens of thousands but an Endangered status and decreasing trend, the Amazon river dolphin faces a future clouded by uncertainty. A 65% decline over 20 years signals urgent need for action, but the remoteness of their habitat makes conservation uniquely challenging.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": []
 }

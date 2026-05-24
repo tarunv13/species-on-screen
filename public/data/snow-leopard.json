@@ -271,6 +271,64 @@
       "url": "https://www.panthera.org/cat/snow-leopard"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Mountain",
+    "sky_gradient": ["#1a1a2a", "#3a4a5a"],
+    "silhouette_color": "#2a2a3a",
+    "mid_color": "#4a5a6a",
+    "foreground_color": "#3a3a4a",
+    "atmosphere": "cool"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Ghost of the Mountains",
+      "narrative_text": "The snow leopard inhabits the highest and most rugged mountain terrain on the planet, threading between rocky outcrops and scree slopes at altitudes of 3,000 to 5,500 metres. These ghost cats move through a world of thin air, extreme cold, and breathtaking vertical landscapes.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Mountain Spirit",
+      "narrative_text": "Across Central Asian pastoral communities, the snow leopard is considered a sacred mountain spirit whose presence indicates the health of alpine ecosystems. Killing one is believed to bring misfortune upon the herder and their family for generations.",
+      "source": "Snow Leopard Trust Research",
+      "source_url": "https://snowleopard.org/research/"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Caught in Conflict",
+      "narrative_text": "Herders kill snow leopards in retaliation for livestock predation, which can represent a significant economic loss for mountain communities. In remote areas with few alternative income sources, the loss of even a single animal can drive families to lethal action against these cats.",
+      "source": "Jackson et al. (2010)",
+      "source_url": "https://doi.org/10.1017/S0030605310000190"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Buddhist Protector",
+      "narrative_text": "In Tibetan Buddhist iconography, the snow leopard appears as a symbol of meditation and solitary contemplation. Monasteries in snow leopard range have become important conservation allies, with monks monitoring populations and discouraging poaching among local communities.",
+      "source": "Li, J. et al. (2016)",
+      "source_url": "https://doi.org/10.1111/cobi.12612"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "Snow Leopard Trust",
+      "narrative_text": "The Snow Leopard Trust and the Global Snow Leopard & Ecosystem Protection Program work with local communities to develop predator-proof corrals, livestock insurance schemes, and alternative livelihoods that reduce the economic pressure driving retaliatory killing.",
+      "source": "Snow Leopard Trust",
+      "source_url": "https://snowleopard.org/what-we-do/community-programs/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Shadows Persist",
+      "narrative_text": "An estimated 4,000 to 6,500 snow leopards remain in the wild, listed as Vulnerable. As climate change pushes tree lines upward and shrinks alpine habitat, these elusive cats face growing pressure on their high-altitude realm from both above and below.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": [
     {
       "title": "Snow Leopard of Afghanistan",

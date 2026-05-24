@@ -1,0 +1,31 @@
+{
+  "project_type": "Vite-bundled Three.js immersive web experience with GSAP animations",
+  "language": "JavaScript (ES modules)",
+  "build_system": "Vite 8 with multi-page rollup input (index.html + species/*.html)",
+  "test_framework": "No test framework. Validation is via vite build success.",
+  "build_command": "npm run build",
+  "test_command": "npm run build (no unit tests exist)",
+  "verification_instructions": "1. Run npm run build to confirm no compilation/bundling errors. 2. Check that dist/ is produced with all entry points.",
+  "snapshot_or_generated_files": "dist/ is the build output deployed to GitHub Pages. Not checked into git.",
+  "setup_instructions": "npm install (node_modules already present)",
+  "environment_constraints": "No Docker daemon available. Use npm run build for validation. External texture URLs (unpkg three-globe) used at runtime, not needed for build. No test suite exists.",
+  "contribution_requirements": "Branch from feat/consolidated-v1 (done - now on feat/globe-immersion). Deploy via GitHub Pages from main. No linting or testing gates beyond build success.",
+  "key_patterns": "- Three.js scene managed by CinematicEngine class (src/cinematic-engine.js) with EffectComposer for post-processing. Globe class (src/globe.js) handles Earth sphere, hotspot columns, raycasting, and layer system. GSAP ScrollTrigger drives camera keyframes via scroll progress 0-1. Overlay sections rendered as fixed HTML divs shown/hidden by OverlayUI based on progress. Species pages are separate HTML files loading species-page.js which fetches JSON from public/data/. Barba.js for SPA transitions. Lenis for smooth scrolling. Species data in public/data/*.json with rich fields (taxonomy, habitat, threats, conservation, cultural_depth, tmdb_media, globe_layers, photos, com_b, interesting_facts). 31 HOTSPOTS defined in globe.js with lat/lng for 10 species.",
+  "relevant_files": [
+    "index.html",
+    "src/main.js",
+    "src/cinematic-engine.js",
+    "src/globe.js",
+    "src/overlay-ui.js",
+    "src/transitions.js",
+    "src/style.css",
+    "src/species-page.js",
+    "src/species-page.css",
+    "src/hover-3d.js",
+    "vite.config.js",
+    "public/data/tiger.json",
+    "public/data/african-elephant.json",
+    "species/tiger.html"
+  ],
+  "directory_structure": "Root: index.html (main entry), vite.config.js, package.json. src/: main.js (init), cinematic-engine.js (Three.js scene), globe.js (Earth + data viz), overlay-ui.js (scroll-driven HTML overlays), transitions.js (card zoom), hover-3d.js (3D tilt), style.css, species-page.js (species detail renderer), species-page.css. public/data/: 10 species JSON files. species/: 10 HTML entry points for species detail pages."
+}

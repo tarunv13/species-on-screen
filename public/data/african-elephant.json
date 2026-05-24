@@ -270,6 +270,64 @@
       "url": "https://www.worldwildlife.org/species/african-elephant"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Savanna",
+    "sky_gradient": ["#1a1008", "#4a3a1a"],
+    "silhouette_color": "#2a1a08",
+    "mid_color": "#5c4a1a",
+    "foreground_color": "#3a2a0a",
+    "atmosphere": "warm"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Giants of the Savanna",
+      "narrative_text": "The African elephant moves across sweeping grasslands and scattered woodlands of sub-Saharan Africa, a keystone species whose presence shapes the very landscape it inhabits. Family groups led by experienced matriarchs follow ancient migration routes between water sources, their collective memory spanning generations.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Ganesh's Wisdom",
+      "narrative_text": "Ganesha, the elephant-headed Hindu deity, is worshipped as the remover of obstacles and god of beginnings. Representing wisdom, learning, and auspiciousness, Ganesha is invoked at the start of new ventures and is among the most widely worshipped deities across South and Southeast Asia.",
+      "source": "Brown, R.L. (1991). Ganesh: Studies of an Asian God. SUNY Press.",
+      "source_url": "https://sunypress.edu/Books/G/Ganesh"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Blood Ivory",
+      "narrative_text": "Despite international trade bans, demand for ivory continues to fuel industrial-scale poaching, with tens of thousands of elephants killed annually. Sophisticated criminal networks smuggle tusks across continents, driving populations toward collapse in many regions.",
+      "source": "Wittemyer et al. (2014)",
+      "source_url": "https://doi.org/10.1073/pnas.1403984111"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Living with Giants",
+      "narrative_text": "Maasai pastoralists have coexisted with elephants for centuries, developing cultural practices that minimize conflict. Elephants are respected as intelligent beings, and Maasai traditional knowledge of elephant behavior and movement patterns now informs modern conservation corridor planning.",
+      "source": "Western, D. (2019). The Amboseli Elephants. University of Chicago Press.",
+      "source_url": "https://doi.org/10.7208/chicago/9780226001708.001.0001"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "CITES Protection",
+      "narrative_text": "The CITES ivory trade ban, supported by the MIKE monitoring programme and the Great Elephant Census, forms a multilateral shield against poaching. The African Elephant Fund and Elephant Protection Initiative channel resources toward range-state enforcement and community engagement.",
+      "source": "CITES",
+      "source_url": "https://www.cites.org/eng/prog/etis"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "415,000 Remaining",
+      "narrative_text": "An estimated 415,000 African elephants remain, but populations continue to decrease across much of the continent. While some southern African populations are stable, the species as a whole faces an uncertain future without sustained global commitment to ending the ivory trade.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": [
     {
       "title": "The African Elephant",

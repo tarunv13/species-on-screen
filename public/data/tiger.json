@@ -278,6 +278,64 @@
       "url": "https://www.traffic.org/publications/reports/reduced-to-skin-and-bones-revisited/"
     }
   ],
+  "safari_scene": {
+    "biome_type": "Tropical Forest",
+    "sky_gradient": ["#0a1e0a", "#1a4a2e"],
+    "silhouette_color": "#0d2b0d",
+    "mid_color": "#1a5c2e",
+    "foreground_color": "#0f3a14",
+    "atmosphere": "warm"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Lord of the Forest",
+      "narrative_text": "The tiger prowls through some of the most biodiverse landscapes on Earth, from steaming mangrove swamps to dense sal forests. These apex predators require vast territories of unbroken forest, each individual commanding hundreds of square kilometres of tangled undergrowth, river corridors, and grassland margins.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "Sacred Guardian",
+      "narrative_text": "The Warli tribe of Maharashtra worship Waghoba, a tiger deity believed to protect villages from harm. Shrines at forest edges mark the boundary between human and tiger territory, and rituals ensure peaceful coexistence between communities and the great cats.",
+      "source": "Karanth, K.K. et al. (2016)",
+      "source_url": "https://doi.org/10.1017/S0030605316001101"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Habitat Under Siege",
+      "narrative_text": "Deforestation for agriculture, palm oil plantations, and urban expansion has reduced tiger habitat by over 95% in the last century. The relentless conversion of forest to farmland continues to fragment the remaining territories into ever-smaller patches.",
+      "source": "Joshi et al. (2016)",
+      "source_url": "https://doi.org/10.1016/j.biocon.2016.07.032"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "The Sundarbans Pact",
+      "narrative_text": "In the Sundarbans mangrove forest, the goddess Bonbibi is worshipped as protector of forest-goers against tiger attacks. Honey collectors and fishers recite her legend before entering the forest, seeking divine protection from the man-eating tigers of the delta.",
+      "source": "Jalais, A. (2010). Forest of Tigers. Routledge.",
+      "source_url": "https://doi.org/10.4324/9780203847275"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "Project Tiger",
+      "narrative_text": "India's Project Tiger, launched in 1973, established a network of protected reserves and anti-poaching patrols across the subcontinent. Combined with the TX2 Goal and Global Tiger Initiative, these programs have helped reverse decades of decline.",
+      "source": "Global Tiger Initiative",
+      "source_url": "https://www.worldbank.org/en/topic/environment/brief/the-global-tiger-initiative"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "A Fragile Recovery",
+      "narrative_text": "With an estimated population of 4,500 and an increasing trend, tigers represent a rare conservation success. However, this recovery remains fragile as habitat loss continues and the majority of the population depends on just a handful of well-protected reserves.",
+      "source": null,
+      "source_url": null
+    }
+  ],
   "tmdb_media": [
     {
       "title": "The Conservation Game",
