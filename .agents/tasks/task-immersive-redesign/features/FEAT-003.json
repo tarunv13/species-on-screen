@@ -2,7 +2,7 @@
   "id": "FEAT-003",
   "type": "feat",
   "description": "Complete redesign of species detail pages (src/species-page.js + src/species-page.css + all species/*.html) with light aesthetic, comic-strip animated storyline, cited data with sources, species photographs, scrollytelling essence, and smooth animations. Also update all 10 public/data/*.json files to add data_sources citations and photo URLs.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "STEP 1 - Update all 10 public/data/*.json files: (a) Add 'data_sources' field with structured citations for every statistic: population estimate source, IUCN assessment year, habitat loss figures with source and year. (b) Add 'interesting_facts' array with 3-5 cited fascinating facts per species. (c) Add 'photos' array with Wikimedia Commons or Unsplash URLs for each species (use direct URLs to free high-quality wildlife images - at least 2-3 per species). For photos, use URLs like: https://upload.wikimedia.org/wikipedia/commons/... for known free images of each species. Include attribution info. (d) Remove 'methodology_notes' field if still present after FEAT-001. Tiger data example structure for data_sources: {\"population\": {\"value\": \"~4,500\", \"source\": \"Global Tiger Initiative\", \"year\": 2023, \"url\": \"https://globaltigerinitiative.org\"}, \"iucn_status\": {\"status\": \"Endangered\", \"source\": \"IUCN Red List\", \"assessed\": 2022}, \"habitat_loss\": {\"value\": \"95% of historical range lost\", \"source\": \"WWF\", \"year\": 2023}}",
     "STEP 2 - Rewrite src/species-page.css completely: Change from dark to light dreamy aesthetic. Background: #fafaf8. Text: #1a1a1a. Cards/panels: white with soft shadows and rounded corners. Frosted glass nav bar (light). Remove film grain overlay. Add comic-strip panel styles: .comic-panel with clip-path reveals, border-radius, shadow, sequential layout. Add parallax image styles. Add smooth spring animation keyframes. Add full-bleed photo section styles. Keep responsive breakpoints. Add styles for cited data display (small source text below stats).",
@@ -29,5 +29,5 @@
     "Run: grep -c 'RQ1\\|RQ2\\|RQ3\\|RQ4\\|research_questions' src/species-page.js -- should output 0"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "All verification checks pass. Build succeeds with no errors. All 10 JSON files have data_sources, interesting_facts, and photos fields. species-page.css uses light theme (#fafaf8 background, no dark colors). species-page.js imports Lenis, has renderComicStrip function, and includes inline citations. No RQ references remain. The chunk size warning for main.js (548KB) is pre-existing from Three.js and unrelated to this feature."
 }
