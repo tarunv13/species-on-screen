@@ -99,7 +99,7 @@ function renderHero(data) {
 
   let bgStyle = '';
   if (bgImage) {
-    bgStyle = `style="background-image: linear-gradient(to bottom, rgba(250,250,248,0.3) 0%, rgba(250,250,248,0.6) 50%, rgba(250,250,248,0.9) 100%), url('${bgImage}')"`;
+    bgStyle = `style="background-image: linear-gradient(to bottom, rgba(250,250,248,0.3) 0%, rgba(250,250,248,0.6) 50%, rgba(250,250,248,0.9) 100%), url('${escapeHtml(bgImage)}')"`;
   }
 
   return `
@@ -153,7 +153,7 @@ function renderComicStrip(data) {
         <h2 class="sp-section__heading">The Story of the ${escapeHtml(speciesName)}</h2>
         <div class="comic-panels">
           <div class="comic-panel">
-            ${heroPhoto ? `<div class="comic-panel__bg" style="background-image: url('${heroPhoto}')"></div>` : ''}
+            ${heroPhoto ? `<div class="comic-panel__bg" style="background-image: url('${escapeHtml(heroPhoto)}')"></div>` : ''}
             <div class="comic-panel__content">
               <span class="comic-panel__label">In the Wild</span>
               <h3 class="comic-panel__title">${escapeHtml(habitat ? habitat.type : 'Natural Habitat')}</h3>
@@ -165,14 +165,11 @@ function renderComicStrip(data) {
               <span class="comic-panel__label">Under Threat</span>
               <h3 class="comic-panel__title">${escapeHtml(threatName)}</h3>
               <p class="comic-panel__text">${escapeHtml(threatDesc)}</p>
-              ${data.data_sources && data.data_sources.habitat_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.habitat_loss.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.range_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.range_loss.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.decline ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.decline.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.historic_decline ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.historic_decline.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.poaching ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.poaching.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.sea_ice_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.sea_ice_loss.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.reef_loss ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.reef_loss.value)}</p>` : ''}
-              ${data.data_sources && data.data_sources.recovery ? `<p class="comic-panel__stat">${escapeHtml(data.data_sources.recovery.value)}</p>` : ''}
+              ${data.data_sources ? Object.entries(data.data_sources)
+                .filter(([key]) => key !== 'population' && key !== 'iucn_status')
+                .filter(([, entry]) => entry && entry.value)
+                .map(([, entry]) => `<p class="comic-panel__stat">${escapeHtml(entry.value)}</p>`)
+                .join('') : ''}
             </div>
           </div>
           <div class="comic-panel">
@@ -180,7 +177,7 @@ function renderComicStrip(data) {
               <span class="comic-panel__label">On Screen</span>
               <h3 class="comic-panel__title">${mediaCount} Films & Documentaries</h3>
               <p class="comic-panel__text">Explored in cinema as a symbol of ${escapeHtml(speciesName ? speciesName.toLowerCase() : 'wildlife')} conservation.</p>
-              ${posterThumb ? `<img src="${posterThumb}" alt="Film poster" style="width:60px;border-radius:8px;margin-top:0.5rem;" loading="lazy" onerror="this.style.display='none'" />` : ''}
+              ${posterThumb ? `<img src="${escapeHtml(posterThumb)}" alt="Film poster" style="width:60px;border-radius:8px;margin-top:0.5rem;" loading="lazy" onerror="this.style.display='none'" />` : ''}
             </div>
           </div>
           <div class="comic-panel">

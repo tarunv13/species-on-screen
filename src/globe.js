@@ -93,17 +93,27 @@ export class Globe {
     // Main sphere with real Earth texture
     const geometry = new THREE.SphereGeometry(1.5, 128, 128);
     const textureLoader = new THREE.TextureLoader();
-    const earthTexture = textureLoader.load(
-      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'
-    );
 
     const material = new THREE.MeshStandardMaterial({
-      map: earthTexture,
       roughness: 0.8,
       metalness: 0.1,
     });
     this.sphere = new THREE.Mesh(geometry, material);
     this.group.add(this.sphere);
+
+    textureLoader.load(
+      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+      (texture) => {
+        material.map = texture;
+        material.needsUpdate = true;
+      },
+      undefined,
+      (err) => {
+        console.warn('Globe texture failed to load, using fallback color:', err);
+        material.color = new THREE.Color(0x4488aa);
+        material.needsUpdate = true;
+      }
+    );
 
     // Atmosphere glow (soft light halo)
     const atmosGeometry = new THREE.SphereGeometry(1.58, 64, 64);
