@@ -95,6 +95,14 @@ function onCardClick(speciesSlug) {
   // Defensive: any leftover transition (should be null in normal flow).
   killActiveTransition();
 
+  // Isolate globe-only UI for the duration of the safari. Inerting
+  // #globe-ui-container removes the layer-toggle buttons from the tab
+  // order and the a11y tree (silent state mutation via Enter/Space is
+  // no longer possible) and blocks pointer events through the subtree
+  // even if future z-index changes ever expose them. Synchronous DOM
+  // property assignment — no animation, no choreography impact.
+  freezeGlobeUI();
+
   // Zero out globe inertia to prevent drift during safari
   globe._velocity.x = 0;
   globe._velocity.y = 0;
@@ -216,6 +224,32 @@ function killActiveTransition() {
   }
 }
 
+/**
+ * Make every globe-only UI element inert for the duration of the safari:
+ *   - #globe-ui-container subtree: removed from tab order, a11y tree,
+ *     and pointer events via the HTML `inert` property. Reverts on thaw.
+ *   - #globe-tooltip: explicitly hidden once at safari entry; the Globe's
+ *     per-frame tooltip writes are stable because canvas mouse events
+ *     stop firing once the safari overlays the canvas, so the last write
+ *     before freeze remains the active value.
+ *
+ * Synchronous, idempotent. On browsers without `inert` support (pre-2022
+ * Safari/Firefox) the assignment is a no-op — current behaviour preserved,
+ * no regression.
+ */
+function freezeGlobeUI() {
+  const globeUI = document.getElementById('globe-ui-container');
+  if (globeUI) globeUI.inert = true;
+  const tooltip = document.getElementById('globe-tooltip');
+  if (tooltip) tooltip.style.opacity = '0';
+}
+
+/** Inverse of freezeGlobeUI. Synchronous, idempotent. */
+function thawGlobeUI() {
+  const globeUI = document.getElementById('globe-ui-container');
+  if (globeUI) globeUI.inert = false;
+}
+
 function returnToGlobe() {
   executeReturnToGlobe({ force: false });
 }
@@ -232,6 +266,12 @@ function executeReturnToGlobe({ force = false } = {}) {
   // we're about to reset. GSAP v3: tl.kill() does not fire onComplete and
   // propagates to nested child timelines added via tl.add().
   killActiveTransition();
+
+  // Restore globe-only UI to interactive state at the very start of the
+  // rollback (whether user-initiated or force-rollback). Mirrors the
+  // freezeGlobeUI() call in onCardClick. Idempotent: safe to run even
+  // if the globe UI is already interactive (no in-flight safari).
+  thawGlobeUI();
 
   // Defensively tear down safari state. exit() is idempotent in current
   // SafariScene; the try/catch shields the rollback if a half-initialised
