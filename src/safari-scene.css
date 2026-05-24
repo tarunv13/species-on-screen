@@ -1,0 +1,322 @@
+/* ===== SAFARI SCENE ===== */
+.safari-scene {
+  min-height: 100vh;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+/* Parallax Hero */
+.safari-hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4rem;
+}
+
+.safari-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.safari-layer--sky {
+  background: linear-gradient(to bottom, var(--sky-top, #0a1628), var(--sky-bottom, #1a3a5c));
+}
+
+.safari-layer--far {
+  bottom: 0;
+  top: auto;
+  height: 40%;
+}
+
+.safari-layer--mid {
+  bottom: 0;
+  top: auto;
+  height: 30%;
+}
+
+.safari-layer--subject {
+  bottom: 10%;
+  top: auto;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.safari-layer--subject img {
+  max-height: 100%;
+  max-width: 80%;
+  object-fit: contain;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.safari-layer--near {
+  bottom: 0;
+  top: auto;
+  height: 20%;
+}
+
+.safari-hero__title {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.safari-hero__title h1 {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 200;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.safari-hero__title p {
+  font-style: italic;
+  opacity: 0.7;
+  font-size: 1.2rem;
+}
+
+/* Safari Content Sections */
+.safari-intro, .safari-comic, .safari-threats,
+.safari-media, .safari-culture, .safari-facts, .safari-footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.safari-intro {
+  text-align: center;
+  padding-top: 6rem;
+}
+
+.safari-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(255, 107, 53, 0.2);
+  color: #ff6b35;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.safari-stat {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 1.5rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.safari-pop {
+  font-size: 1.1rem;
+  margin-top: 0.75rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Comic Panels */
+.safari-comic h2, .safari-threats h2, .safari-media h2,
+.safari-culture h2, .safari-facts h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 200;
+  letter-spacing: 0.06em;
+  margin-bottom: 2rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.comic-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.comic-panel {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.comic-panel__number {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+}
+
+.comic-panel__label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #4ade80;
+  margin: 0.5rem 0;
+}
+
+.comic-panel__title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.comic-panel__text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+}
+
+.comic-panel__source {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+}
+.comic-panel__source a {
+  color: #4ade80;
+  text-decoration: none;
+}
+
+/* Threats grid */
+.safari-threats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.safari-threat-card {
+  background: rgba(255, 107, 53, 0.08);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.safari-threat-card h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ff6b35;
+  margin-bottom: 0.5rem;
+}
+
+.safari-threat-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Media grid */
+.safari-media__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.safari-media-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.safari-media-card__poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+}
+
+.safari-media-card__info {
+  padding: 1rem;
+}
+
+.safari-media-card__title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.safari-media-card__year {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Culture section */
+.safari-culture__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.safari-culture-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.safari-culture-card__title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #4ade80;
+}
+
+.safari-culture-card__text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Facts */
+.safari-facts__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.safari-fact-card {
+  background: rgba(74, 222, 128, 0.05);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.safari-fact-card__text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+}
+
+.safari-fact-card__source {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+.safari-fact-card__source a {
+  color: #4ade80;
+  text-decoration: none;
+}
+
+/* Footer */
+.safari-footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.3);
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .safari-intro, .safari-comic, .safari-threats,
+  .safari-media, .safari-culture, .safari-facts {
+    padding: 3rem 1rem;
+  }
+  .safari-hero__title h1 { font-size: 2.5rem; }
+}
