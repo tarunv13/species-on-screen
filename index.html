@@ -5,31 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eco-Cinema Observatory</title>
   <meta name="description" content="A cinematic exploration of species on screen and in the wild." />
-  <script type="module" crossorigin src="/species-on-screen/assets/main-JQCQDRfG.js"></script>
+  <script type="module" crossorigin src="/species-on-screen/assets/main-CwSAbDBc.js"></script>
   <link rel="modulepreload" crossorigin href="/species-on-screen/assets/gsap-C81z-gCV.js">
   <link rel="modulepreload" crossorigin href="/species-on-screen/assets/lenis-DZ3MJKTi.js">
   <link rel="modulepreload" crossorigin href="/species-on-screen/assets/cinematic-engine-DRBFx0qO.js">
-  <link rel="stylesheet" crossorigin href="/species-on-screen/assets/main-D7g0YJcU.css">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/assets/main-tsQyhWwF.css">
 </head>
 <body>
   <noscript>
     <div style="background:#0a0a1a;color:#ffffff;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
       <h1>Eco-Cinema Observatory</h1>
-      <p style="margin:1rem 0;">The Eco-Cinema Observatory explores the relationship between species representation in film and real-world conservation outcomes. The full interactive experience requires JavaScript to render the 3D globe and interactive interface.</p>
-      <h2 style="margin-top:1.5rem;">Species Pages</h2>
-      <ul style="margin:1rem 0;line-height:2;">
-        <li><a href="species/tiger.html" style="color:#ffffff;">Tiger</a></li>
-        <li><a href="species/snow-leopard.html" style="color:#ffffff;">Snow Leopard</a></li>
-        <li><a href="species/bornean-orangutan.html" style="color:#ffffff;">Bornean Orangutan</a></li>
-        <li><a href="species/hawksbill-turtle.html" style="color:#ffffff;">Hawksbill Turtle</a></li>
-        <li><a href="species/blue-whale.html" style="color:#ffffff;">Blue Whale</a></li>
-        <li><a href="species/african-elephant.html" style="color:#ffffff;">African Elephant</a></li>
-        <li><a href="species/polar-bear.html" style="color:#ffffff;">Polar Bear</a></li>
-        <li><a href="species/giant-panda.html" style="color:#ffffff;">Giant Panda</a></li>
-        <li><a href="species/staghorn-coral.html" style="color:#ffffff;">Staghorn Coral</a></li>
-        <li><a href="species/amazon-river-dolphin.html" style="color:#ffffff;">Amazon River Dolphin</a></li>
-      </ul>
-      <p style="font-size:0.9rem;color:#999;">Please enable JavaScript for the full experience.</p>
+      <p style="margin:1rem 0;">Sundarbans &middot; Bengal tiger.</p>
+      <p style="margin:1rem 0;"><a href="species/tiger.html" style="color:#ffffff;">Read the Bengal tiger entry &rarr;</a></p>
+      <p style="font-size:0.9rem;color:#999;">JavaScript is required to render the planetary view.</p>
     </div>
   </noscript>
 
@@ -38,7 +26,15 @@
   <div id="loading-screen"></div>
 
   <div id="globe-ui-container">
-    <div id="floating-cards-container"></div>
+    <!-- Final reduction: the homepage carries one editorial caption,
+         fixed in the lower-right of the frame. It is a static <a> — not
+         a screen-projected, position-tracking floating element. The
+         caption does not follow its subject around the page; it sits
+         where editorial typesetting puts it. main.js intercepts the
+         click to drive the existing cinematic transition into the
+         species page; the href is the unenhanced fallback. -->
+    <a id="page-caption" class="page-caption" href="species/tiger.html"
+       data-species="tiger">Sundarbans &middot; Bengal tiger</a>
   </div>
 
   <div id="safari-container"></div>
@@ -47,7 +43,9 @@
 
   <!-- Screen reader description -->
   <div class="sr-only">
-    A planetary observation surface. Ten species are anchored to their habitat regions on a slowly drifting Earth. Each species name links to its dedicated page.
+    A planetary observation surface. One species is anchored to its
+    habitat region: a Bengal tiger in the Sundarbans. The link below
+    leads to the Bengal tiger's dedicated page.
   </div>
 </body>
 </html>
