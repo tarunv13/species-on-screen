@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sundarbans &middot; Descent</title>
+  <meta name="description" id="docDesc" content="" />
+  <script type="module" crossorigin src="/species-on-screen/preview/45/assets/prototype-sundarbans-descent-BFRslCoO.js"></script>
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/45/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/45/assets/ecological-narrative.example-CoKC1jXI.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/45/assets/gsap-D_956-p2.js">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/preview/45/assets/prototype-sundarbans-descent-CjusbHeI.css">
+</head>
+<body>
+  <!--
+    Layered scene scaffolding, back-to-front. The atmosphere is a stack
+    of DOM layers that share a single continuous parallax field. The
+    threshold UI lives inside this stack so it can be occluded by the
+    world rather than swapped out by the system.
+  -->
+  <div class="stage" id="stage">
+
+    <!-- Atmospheric back layers (always present, idle parallax) -->
+    <div class="sky" data-layer="sky"></div>
+    <div class="haze-distant" data-layer="haze-distant"></div>
+
+    <!-- Far canopy: organic silhouette, slow horizontal drift -->
+    <div class="canopy canopy-far" data-layer="canopy-far">
+      <svg class="canopy-svg" viewBox="0 0 1600 220" preserveAspectRatio="none" aria-hidden="true">
+        <path id="canopy-far-path" d=""></path>
+      </svg>
+    </div>
+
+    <!-- Mid canopy: closer silhouette, medium parallax -->
+    <div class="canopy canopy-mid" data-layer="canopy-mid">
+      <svg class="canopy-svg" viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true">
+        <path id="canopy-mid-path" d=""></path>
+      </svg>
+    </div>
+
+    <!-- Light shafts: revealed during Movement 4 -->
+    <div class="lightshafts" data-layer="lightshafts" aria-hidden="true"></div>
+
+    <!--
+      Threshold UI. Sits between sky/canopy and the foreground world,
+      so when foreground mist, water, and roots advance, they pass
+      OVER this content. Occlusion-by-environment, not fade-out.
+    -->
+    <div class="frame-content" id="frameContent">
+      <p class="framing-question" id="framingQuestion">
+        <span class="line">The same disappearance</span>
+        <span class="line">looks different depending on where you stand.</span>
+      </p>
+
+      <div class="lenses" id="lenses" role="group" aria-label="Choose a perspective">
+        <button class="lens lens--live" data-lens="habitat" id="lensHabitat" type="button">
+          <span class="lens-name">Habitat</span>
+          <span class="lens-stance">enter through the place</span>
+        </button>
+        <button class="lens lens--quiet" data-lens="ecosystem" type="button" disabled aria-disabled="true">
+          <span class="lens-name">Ecosystem</span>
+          <span class="lens-stance">enter through what holds it</span>
+        </button>
+        <button class="lens lens--quiet" data-lens="species" type="button" disabled aria-disabled="true">
+          <span class="lens-name">Species</span>
+          <span class="lens-stance">enter through what lives in it</span>
+        </button>
+      </div>
+    </div>
+
+    <!--
+      Mist-rising: the agent of Movement 2. It rises from below and
+      passes over the threshold UI, consuming framing rather than
+      removing it.
+    -->
+    <div class="mist-rising" data-layer="mist-rising" aria-hidden="true"></div>
+
+    <!-- Water surface: revealed during Movement 3-4 -->
+    <div class="water" data-layer="water" aria-hidden="true">
+      <div class="water-sheen"></div>
+    </div>
+
+    <!-- Mid pneumatophore field: rises during Movement 3 -->
+    <div class="roots roots-mid" data-layer="roots-mid" aria-hidden="true">
+      <svg class="roots-svg" viewBox="0 0 1600 320" preserveAspectRatio="none">
+        <g id="roots-mid-group"></g>
+      </svg>
+    </div>
+
+    <!-- Foreground pneumatophore field: dominates frame in Movement 4-5 -->
+    <div class="roots roots-fore" data-layer="roots-fore">
+      <svg class="roots-svg" viewBox="0 0 1600 520" preserveAspectRatio="none" aria-hidden="true">
+        <g id="roots-fore-group"></g>
+      </svg>
+      <!--
+        One annotation interaction. A single editorial fragment that lives
+        inside the foreground roots layer (rides its parallax + descent
+        transforms automatically). Default opacity is barely visible. A
+        proximity check in the rAF loop nudges opacity up to a still-subtle
+        maximum when the cursor is near. There is no popup, no tooltip, no
+        hover highlight, no UI chrome. Easy to miss.
+
+        Text content is populated at init from the canonical narrative
+        object (see src/prototypes/sundarbans-descent.js). The cinematic
+        surface extracts only editorial.fragment from that object.
+      -->
+      <p class="scene-inscription" id="sceneInscription"></p>
+    </div>
+
+    <!-- Foreground humidity wisps: faint, ambient -->
+    <div class="fog-fore" data-layer="fog-fore" aria-hidden="true"></div>
+
+    <!-- Vignette: subtle frame darkening to deepen embeddedness -->
+    <div class="vignette" aria-hidden="true"></div>
+  </div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;background:#0f1418;color:#cdd3d0;display:grid;place-items:center;font-family:Georgia,serif;padding:2rem;text-align:center;">
+      The same disappearance looks different depending on where you stand.
+    </div>
+  </noscript>
+</body>
+</html>
