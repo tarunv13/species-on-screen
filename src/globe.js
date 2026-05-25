@@ -125,8 +125,14 @@ export class Globe {
     // single low-alpha luminance. The variable name `columnMeshes` is kept
     // to preserve the engine integration contract (raycast targets, hover
     // index, dispose iteration) without a wider rename.
+    //
+    // Audit §9.x supplement: the bright RingGeometry halo (opacity 0.7)
+    // that previously surrounded each disc is retired. With the disc
+    // dropped to additive low-alpha in §9.4, the halo became visually
+    // dominant — the disc read as the halo's interior, the halo read as
+    // the marker. The hierarchy was inverted. The halo is gone; the disc
+    // alone is the marker.
     const discGeometry = new THREE.CircleGeometry(0.025, 24);
-    const ringGeometry = new THREE.RingGeometry(0.02, 0.04, 16);
     HOTSPOTS.forEach((hotspot, i) => {
       const basePos = latLngToVector3(hotspot.lat, hotspot.lng, 1.502);
       const normal = basePos.clone().normalize();
@@ -151,10 +157,6 @@ export class Globe {
         restColor: baseColor.clone(),
       };
       this.group.add(column); this.columnMeshes.push(column);
-      const ringMaterial = new THREE.MeshBasicMaterial({ color: baseColor.clone(), transparent: true, opacity: 0.7, side: THREE.DoubleSide });
-      const ring = new THREE.Mesh(ringGeometry.clone(), ringMaterial);
-      ring.position.copy(basePos); ring.lookAt(basePos.clone().add(normal));
-      this.group.add(ring);
     });
   }
 
@@ -211,16 +213,19 @@ export class Globe {
   }
 
   _createComingSoonMarkers() {
-    const sphereGeometry = new THREE.SphereGeometry(0.012, 10, 10);
-    const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x888888, transparent: true, opacity: 0.35 });
-    COMING_SOON_HOTSPOTS.forEach((hotspot) => {
-      const pos = latLngToVector3(hotspot.lat, hotspot.lng, 1.51);
-      const marker = new THREE.Mesh(sphereGeometry.clone(), markerMaterial.clone());
-      marker.position.copy(pos);
-      marker.userData = { comingSoon: true, name: hotspot.name };
-      this.group.add(marker);
-      this.comingSoonMeshes.push(marker);
-    });
+    // Audit §9.x supplement: the seven grey spheres marking
+    // "coming soon" biomes (Galapagos, Madagascar, Yellowstone,
+    // Congo, Himalayas, Great Barrier Reef, Barents Sea) are
+    // retired. They were a roadmap signal — a marketing register
+    // ("more product is being built") in editorial space. The
+    // homepage now shows what exists; absence is not advertised.
+    //
+    // The comingSoonMeshes field is preserved as an empty array so
+    // update()'s allTargets concatenation and dispose()'s iteration
+    // stay unchanged. The COMING_SOON_HOTSPOTS module-level array
+    // is left in place as data; this method simply does not consume
+    // it. If the doctrine ever shifts to advertise upcoming biomes,
+    // restoring the markers is a one-line change.
   }
 
   _setupDragRotate() {
