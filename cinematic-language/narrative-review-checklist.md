@@ -72,8 +72,9 @@ Skim `editorial.body`:
       attested in `sources[]`, not introduced as editorial framing.
 
 **Fail cue:** the body argues for action, mourns, or appeals.
-Cinematic-principles §6 (restraint) and editorial-voice are
-upstream; this check enforces them at narrative scale.
+Editorial-voice (Canons I–II on the documentary narrator and the
+present-tense register) is upstream; this check enforces it at
+narrative scale.
 
 ## 5. Coordinate plausibility
 
