@@ -3,12 +3,11 @@ import { gsap } from 'gsap';
 import * as THREE from 'three';
 import { CinematicEngine } from './cinematic-engine.js';
 import { Globe } from './globe.js';
-import { FloatingCards } from './floating-cards.js';
 import { SafariScene } from './safari-scene.js';
 
 let engine = null;
 let globe = null;
-let floatingCards = null;
+let pageCaption = null;
 let safariScene = null;
 let isTransitioning = false;
 // Single authoritative reference to the currently-playing transition timeline
@@ -38,10 +37,12 @@ function init() {
   // Handle resize
   window.addEventListener('resize', onResize);
 
-  // Register globe update in the engine render loop
+  // Register globe update in the engine render loop.
+  // Final reduction: the floating-cards.update() call is gone — the
+  // page-caption is a static element, not a screen-projected overlay,
+  // so no per-frame positioning is needed.
   engine.onUpdate((delta) => {
     if (globe) globe.update(delta);
-    if (floatingCards) floatingCards.update(engine.getCamera(), globe);
   });
 
   // Audit §9.3: extended landing pacing. The page now holds darkness
@@ -69,37 +70,26 @@ function init() {
   // Set up return-to-globe button
   setupReturnButton();
 
-  // Wait for species data to load, then create floating cards
-  waitForSpeciesData();
+  // Wire up the static page caption (Sundarbans · Bengal tiger).
+  // The caption is the only navigable surface on the homepage; clicking
+  // it intercepts the anchor and drives the cinematic transition into
+  // the species page. The href remains as the unenhanced fallback.
+  setupPageCaption();
 }
 
-function waitForSpeciesData() {
-  if (!globe || typeof globe.whenDataLoaded !== 'function') return;
+function setupPageCaption() {
+  pageCaption = document.getElementById('page-caption');
+  if (!pageCaption) return;
 
-  globe.whenDataLoaded().then(({ loaded, failed }) => {
-    if (failed.length > 0) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `[main] ${failed.length}/${failed.length + loaded.length} species failed to load — continuing with ${loaded.length}.`
-      );
+  pageCaption.addEventListener('click', (e) => {
+    // Anchor href is the unenhanced fallback; the canonical path on
+    // the homepage is the cinematic descent into the species page.
+    const slug = pageCaption.dataset.species;
+    if (slug) {
+      e.preventDefault();
+      onCardClick(slug);
     }
-    if (loaded.length === 0) {
-      // eslint-disable-next-line no-console
-      console.warn('[main] No species data loaded — floating cards will not render. Globe remains interactive.');
-      return;
-    }
-    initFloatingCards();
-  }).catch((err) => {
-    // eslint-disable-next-line no-console
-    console.warn('[main] Species data load pipeline error:', err);
   });
-}
-
-function initFloatingCards() {
-  const container = document.getElementById('floating-cards-container');
-  if (!container) return;
-
-  floatingCards = new FloatingCards(container, globe.speciesDataCache, onCardClick);
 }
 
 function onCardClick(speciesSlug) {
@@ -125,9 +115,9 @@ function onCardClick(speciesSlug) {
   const tl = gsap.timeline();
   activeTransition = tl;
 
-  // Phase 1 (0-600ms): Cards fade out
+  // Phase 1 (0-600ms): Caption fades out
   tl.add(() => {
-    if (floatingCards) floatingCards.hide();
+    if (pageCaption) pageCaption.classList.remove('is-visible');
   }, 0);
 
   // Phase 2 (600-1400ms): Camera flies toward species point
@@ -212,9 +202,9 @@ function executeReturnToGlobe({ force = false } = {}) {
   const defaultTarget = new THREE.Vector3(0, 0, 0);
   tl.add(engine.flyCamera(defaultPos, defaultTarget, 1.0, 'power3.inOut'), 0.3);
 
-  // Show floating cards again, release the transition lock.
+  // Show page caption again, release the transition lock.
   tl.add(() => {
-    if (floatingCards) floatingCards.show();
+    if (pageCaption) pageCaption.classList.add('is-visible');
     isTransitioning = false;
     activeTransition = null;
   }, 1.3);
@@ -248,8 +238,8 @@ function runLandingSequence() {
       if (globeUI) {
         globeUI.classList.add('active');
       }
-      if (floatingCards) {
-        floatingCards.show();
+      if (pageCaption) {
+        pageCaption.classList.add('is-visible');
       }
     });
   });
