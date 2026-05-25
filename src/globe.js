@@ -113,7 +113,7 @@ export class Globe {
     const atmosGeometry = new THREE.SphereGeometry(1.58, 64, 64);
     const atmosMaterial = new THREE.ShaderMaterial({
       vertexShader: `varying vec3 vNormal; void main() { vNormal = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-      fragmentShader: `varying vec3 vNormal; void main() { float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0); gl_FragColor = vec4(0.4, 0.6, 1.0, intensity * 0.4); }`,
+      fragmentShader: `varying vec3 vNormal; void main() { float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0); gl_FragColor = vec4(0.55, 0.50, 0.42, intensity * 0.35); }`,
       blending: THREE.NormalBlending, side: THREE.BackSide, transparent: true, depthWrite: false,
     });
     this.atmosphere = new THREE.Mesh(atmosGeometry, atmosMaterial);
@@ -121,22 +121,37 @@ export class Globe {
   }
 
   _createColumns() {
-    const columnGeometry = new THREE.CylinderGeometry(0.015, 0.015, 1, 8);
-    columnGeometry.translate(0, 0.5, 0);
+    // Audit §9.4: marker is a small disc at the surface, no height encoding,
+    // single low-alpha luminance. The variable name `columnMeshes` is kept
+    // to preserve the engine integration contract (raycast targets, hover
+    // index, dispose iteration) without a wider rename.
+    const discGeometry = new THREE.CircleGeometry(0.025, 24);
     const ringGeometry = new THREE.RingGeometry(0.02, 0.04, 16);
     HOTSPOTS.forEach((hotspot, i) => {
-      const basePos = latLngToVector3(hotspot.lat, hotspot.lng, 1.5);
+      const basePos = latLngToVector3(hotspot.lat, hotspot.lng, 1.502);
       const normal = basePos.clone().normalize();
-      const columnMaterial = new THREE.MeshStandardMaterial({
-        color: new THREE.Color(hotspot.color), emissive: new THREE.Color(hotspot.color),
-        emissiveIntensity: 0.5, metalness: 0.2, roughness: 0.5, transparent: true, opacity: 0.85,
+      const baseColor = new THREE.Color(hotspot.color);
+      const discMaterial = new THREE.MeshBasicMaterial({
+        color: baseColor.clone(),
+        transparent: true,
+        opacity: 0.5,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
       });
-      const column = new THREE.Mesh(columnGeometry.clone(), columnMaterial);
-      column.position.copy(basePos); column.scale.y = 0.1;
-      column.lookAt(basePos.clone().add(normal)); column.rotateX(Math.PI / 2);
-      column.userData = { hotspotIndex: i, species: hotspot.species, name: hotspot.name };
+      const column = new THREE.Mesh(discGeometry.clone(), discMaterial);
+      column.position.copy(basePos);
+      column.lookAt(basePos.clone().add(normal));
+      column.userData = {
+        hotspotIndex: i,
+        species: hotspot.species,
+        name: hotspot.name,
+        // Hover lift target stored alongside rest colour so update() can
+        // restore on exit without recomputing.
+        restColor: baseColor.clone(),
+      };
       this.group.add(column); this.columnMeshes.push(column);
-      const ringMaterial = new THREE.MeshBasicMaterial({ color: new THREE.Color(hotspot.color), transparent: true, opacity: 0.7, side: THREE.DoubleSide });
+      const ringMaterial = new THREE.MeshBasicMaterial({ color: baseColor.clone(), transparent: true, opacity: 0.7, side: THREE.DoubleSide });
       const ring = new THREE.Mesh(ringGeometry.clone(), ringMaterial);
       ring.position.copy(basePos); ring.lookAt(basePos.clone().add(normal));
       this.group.add(ring);
@@ -345,26 +360,35 @@ export class Globe {
   }
 
   _updateColumnHeights() {
-    const maxCount = Math.max(1, ...Object.values(this.mediaCounts));
-    this.columnMeshes.forEach((column, i) => {
-      const hotspot = HOTSPOTS[i];
-      const count = this.mediaCounts[hotspot.species] || 0;
-      column.scale.y = 0.05 + (count / maxCount) * 0.35;
-    });
+    // Audit §9.4: column-as-bar-chart removed. Markers are uniform discs;
+    // height-encoding the media count is the doctrinal violation we're
+    // retiring (Article XI). Method retained as a no-op so the data-load
+    // pipeline call site does not need a coordinated change.
   }
 
   update(delta) {
+    // Audit §9.4: drag release no longer damps to zero. A slow ambient
+    // drift floor (~one revolution / 6 minutes) sustains the "this place
+    // exists whether you are watching" property without becoming a
+    // turntable. Drag still authoritatively writes the velocity each
+    // pointermove, so user input dominates as before.
+    const AMBIENT_DRIFT = 0.0003;
     if (!this._isDragging) {
       this._velocity.x *= this._damping; this._velocity.y *= this._damping;
+      if (Math.abs(this._velocity.x) < AMBIENT_DRIFT) {
+        this._velocity.x = AMBIENT_DRIFT;
+      }
       this.group.rotation.y += this._velocity.x; this.group.rotation.x += this._velocity.y;
       this.group.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, this.group.rotation.x));
     }
     this.floraFaunaTime += delta;
     this.floraFaunaMeshes.forEach(mesh => { mesh.material.uniforms.time.value = this.floraFaunaTime; });
-    if (this.activeLayer === 'protected_areas' || this.activeLayer === 'threats') {
-      this.protectedAreaMeshes.forEach((marker, i) => { marker.scale.setScalar(1.0 + Math.sin(this.floraFaunaTime * 3 + i) * 0.3); });
-    }
-    this.comingSoonMeshes.forEach((marker, i) => { marker.scale.setScalar(1.0 + Math.sin(this.floraFaunaTime * 2 + i * 1.5) * 0.2); });
+    // Audit §9.4: protected-area marker pulse removed (Article 3 forbids
+    // continuous attention-grabbing animation). Markers are persistent and
+    // quiet at their layer-default scale.
+    // Audit §9.4: coming-soon marker pulse removed for the same reason.
+    // The dim sphere persists at scale 1.0; the absence is the editorial
+    // statement, not the animation.
     this.raycaster.setFromCamera(this.mouse, this.camera);
     let raycastTargets = [];
     if (this.activeLayer === 'media' || this.activeLayer === 'species') raycastTargets = this.columnMeshes;
@@ -372,19 +396,31 @@ export class Globe {
     else if (this.activeLayer === 'protected_areas' || this.activeLayer === 'threats') raycastTargets = this.protectedAreaMeshes;
     const allTargets = raycastTargets.concat(this.comingSoonMeshes);
     const intersects = this.raycaster.intersectObjects(allTargets);
-    const tooltip = document.getElementById('globe-tooltip');
+    // Audit §9.4: cursor-following #globe-tooltip is removed (Article 3).
+    // The label lives as the anchored floating-card element; this branch
+    // is retained as the canonical hover-state machine but no longer
+    // touches the DOM.
     const prevHovered = this.hoveredIndex;
     if (intersects.length > 0) {
       const hit = intersects[0].object;
       this.hoveredIndex = hit.userData.hotspotIndex !== undefined ? hit.userData.hotspotIndex : -1;
-      if (tooltip) { const label = hit.userData.comingSoon ? `${hit.userData.name} - Coming Soon` : (hit.userData.name || ''); tooltip.textContent = label; tooltip.style.opacity = '1'; const rect = this.renderer.domElement.getBoundingClientRect(); const x = ((this.mouse.x + 1) / 2) * rect.width; const y = ((1 - this.mouse.y) / 2) * rect.height; tooltip.style.left = `${x + 15}px`; tooltip.style.top = `${y - 10}px`; }
-      if (prevHovered !== this.hoveredIndex && prevHovered >= 0 && this.columnMeshes[prevHovered]) { this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5; }
-      if (hit.material && hit.material.emissiveIntensity !== undefined) hit.material.emissiveIntensity = 1.0;
+      if (prevHovered !== this.hoveredIndex && prevHovered >= 0 && this.columnMeshes[prevHovered]) {
+        const prev = this.columnMeshes[prevHovered];
+        if (prev.userData.restColor && prev.material.color) prev.material.color.copy(prev.userData.restColor);
+      }
+      // Hover treatment: 15% luminance lift via colour interpolation toward
+      // white, never an emissive flash. Article XV: elements acknowledge,
+      // they do not pop.
+      if (hit.userData.restColor && hit.material && hit.material.color) {
+        hit.material.color.copy(hit.userData.restColor).lerp(new THREE.Color(0xffffff), 0.15);
+      }
       this.renderer.domElement.style.cursor = hit.userData.comingSoon ? 'default' : 'pointer';
     } else {
       this.hoveredIndex = -1;
-      if (tooltip) tooltip.style.opacity = '0';
-      if (prevHovered >= 0 && this.columnMeshes[prevHovered]) this.columnMeshes[prevHovered].material.emissiveIntensity = 0.5;
+      if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
+        const prev = this.columnMeshes[prevHovered];
+        if (prev.userData.restColor && prev.material.color) prev.material.color.copy(prev.userData.restColor);
+      }
       this.renderer.domElement.style.cursor = 'grab';
     }
   }
