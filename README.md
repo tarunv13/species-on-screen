@@ -35,3 +35,21 @@ The schema is in
 [`cinematic-language/ecological-narrative.example.ts`](./cinematic-language/ecological-narrative.example.ts).
 Editorial rules, evidence threshold, and rejection criteria are in
 [`cinematic-language/narrative-ingestion-workflow.md`](./cinematic-language/narrative-ingestion-workflow.md).
+
+## Checking narrative integrity
+
+Run a build-time integrity check over every narrative file under
+`cinematic-language/narratives/`:
+
+```sh
+npm run check-narratives
+```
+
+It fails on any of: id-filename mismatch, duplicate ids,
+schemaVersion drift, missing or invalid `metadata.status`, empty
+`sources`, missing `export default`, or a missing matching research
+shell at `notes/<id>.html`. Output names the file and the exact rule
+violated.
+
+The check runs automatically before `npm run build` (via the
+`prebuild` hook), so a build cannot ship narrative drift.
