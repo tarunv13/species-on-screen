@@ -295,32 +295,47 @@ button {
 
 /* ---------- Water surface (Movement 3–4) ---------- */
 
+/*
+  Specificity-pass palette (Sundarbans):
+  Brackish tidal water in this delta is tea-stained by tannins
+  leached from mangrove leaf decomposition; suspended silt from the
+  Ganges-Brahmaputra carries warm browns rather than the cool teal
+  of an inland forest pool. The gradient is shifted toward warm
+  umbers so the water reads as the actual brackish-tannin character
+  of this place rather than a generic dark forest pool. Saturation
+  and luminance are unchanged; only hue moves.
+*/
 .water {
   z-index: 8;
   inset: auto 0 0 0;
   height: 32%;
   background:
     linear-gradient(180deg,
-      rgba(40, 56, 50, 0.0) 0%,
-      rgba(28, 42, 38, 0.55) 18%,
-      rgba(18, 30, 28, 0.85) 60%,
-      rgba(10, 18, 18, 0.95) 100%);
+      rgba(48, 42, 32, 0.0) 0%,
+      rgba(34, 28, 22, 0.55) 18%,
+      rgba(20, 16, 12, 0.85) 60%,
+      rgba(8, 6, 4, 0.95) 100%);
   opacity: 0;
   transform: translate3d(0, 30%, 0);
 }
 
+/*
+  Specificity-pass palette: water-surface highlights warmed from
+  cream (220,210,190) toward cream-ochre (220,198,158) to match the
+  tannin-tea reflectivity of the water gradient above.
+*/
 .water-sheen {
   position: absolute;
   inset: 0 0 auto 0;
   height: 22%;
   background:
     repeating-linear-gradient(180deg,
-      rgba(220, 210, 190, 0.04) 0px,
-      rgba(220, 210, 190, 0.04) 1px,
+      rgba(220, 198, 158, 0.04) 0px,
+      rgba(220, 198, 158, 0.04) 1px,
       rgba(0,0,0,0) 1px,
       rgba(0,0,0,0) 4px),
     linear-gradient(180deg,
-      rgba(220, 210, 190, 0.18) 0%,
+      rgba(220, 198, 158, 0.18) 0%,
       rgba(0, 0, 0, 0) 100%);
   mix-blend-mode: screen;
   opacity: 0.7;
@@ -404,16 +419,22 @@ button {
 
 /* ---------- Foreground fog (faint, ambient) ---------- */
 
+/*
+  Specificity-pass palette: foreground humidity wisps warmed slightly
+  toward brackish-tannin tones (218,192,152 vs 210,198,178 prior) so
+  the air layer reads as humid air over tannin water rather than a
+  generic forest mist.
+*/
 .fog-fore {
   z-index: 11;
   inset: auto 0 0 0;
   height: 55%;
   background:
     radial-gradient(ellipse 70% 40% at 30% 95%,
-      rgba(210, 198, 178, 0.18) 0%,
+      rgba(218, 192, 152, 0.18) 0%,
       rgba(0,0,0,0) 60%),
     radial-gradient(ellipse 80% 35% at 75% 100%,
-      rgba(200, 188, 168, 0.14) 0%,
+      rgba(208, 184, 148, 0.14) 0%,
       rgba(0,0,0,0) 60%);
   opacity: 0;
   mix-blend-mode: screen;

@@ -181,7 +181,12 @@ function startAmbientAudio() {
   droneFilter.connect(droneGain); droneGain.connect(master);
   o1.start(); o2.start();
 
-  const breath = audioCtx.createOscillator(); breath.type = 'sine'; breath.frequency.value = 0.08;
+  // Specificity pass (Sundarbans):
+  // The breath LFO runs at 0.04 Hz (period ~25s), halved from its
+  // generic-humid-forest default of 0.08 Hz. The slower swell reads
+  // as the atmospheric breathing of a tidal landscape rather than a
+  // denser insect-band pulse.
+  const breath = audioCtx.createOscillator(); breath.type = 'sine'; breath.frequency.value = 0.04;
   const breathAmp = audioCtx.createGain(); breathAmp.gain.value = 0.025;
   breath.connect(breathAmp); breathAmp.connect(droneGain.gain);
   breath.start();
@@ -200,10 +205,25 @@ function startAmbientAudio() {
   noise.connect(nf); nf.connect(ng); ng.connect(master);
   noise.start();
 
-  const fLfo = audioCtx.createOscillator(); fLfo.type = 'sine'; fLfo.frequency.value = 0.05;
+  // Filter LFO at 0.03 Hz (period ~33s) — also halved from the prior
+  // 0.05 Hz default, for the same reason as the breath above.
+  const fLfo = audioCtx.createOscillator(); fLfo.type = 'sine'; fLfo.frequency.value = 0.03;
   const fLfoAmp = audioCtx.createGain(); fLfoAmp.gain.value = 220;
   fLfo.connect(fLfoAmp); fLfoAmp.connect(nf.frequency);
   fLfo.start();
+
+  // Tidal LFO: a third oscillator on the bed's filter, much slower
+  // than the breath or filter LFO, on a period (~91s) chosen to
+  // suggest the rhythm of the tide perceptually. Real Sundarbans
+  // tides are semi-diurnal at ~12.4 hours; this is the rhythm felt
+  // at a human scale of dwelling, not literal. Modulation depth is
+  // small (80 Hz vs the filter LFO's 220) so the tide is a colour
+  // beneath the breath, not a competing pulse. The two LFOs sum on
+  // the filter frequency and never align, so the bed never repeats.
+  const tideLfo = audioCtx.createOscillator(); tideLfo.type = 'sine'; tideLfo.frequency.value = 0.011;
+  const tideLfoAmp = audioCtx.createGain(); tideLfoAmp.gain.value = 80;
+  tideLfo.connect(tideLfoAmp); tideLfoAmp.connect(nf.frequency);
+  tideLfo.start();
 
   // Distant shimmer
   const noise2 = audioCtx.createBufferSource(); noise2.buffer = buf; noise2.loop = true;
@@ -430,6 +450,33 @@ function startAmbientMist() {
   });
 }
 
+/* ---------- Ambient tide (post-M5 specificity) ---------- */
+
+/*
+  Specificity pass (Sundarbans): the inhabited place's water layer
+  drifts vertically on a slow non-repeating cycle. Real Sundarbans
+  tides are semi-diurnal at roughly 12.4 hours; this is the rhythm
+  felt at the human scale of dwelling in the place, perceptually
+  compressed to a 70-110s swell. The amplitude is small enough to be
+  sub-perceptual at a glance and present-but-felt over a minute of
+  attention, which is the right register for ecological rhythm
+  rather than for animation. The water layer's rest position (set
+  by Movement 3 to yPercent: 0) is the centre of the swell; the
+  drift is asymmetric (random(-4, 2)) so the tide more often rises
+  than falls — the brackish forest is always at least somewhat
+  flooded.
+*/
+function startAmbientTide() {
+  gsap.to('.water', {
+    yPercent: 'random(-4, 2)',
+    duration: 'random(70, 110)',
+    ease: 'sine.inOut',
+    repeat: -1,
+    yoyo: true,
+    repeatRefresh: true
+  });
+}
+
 /* ---------- Initial scene assembly ---------- */
 
 function paintCanopies() {
@@ -615,6 +662,7 @@ function buildDescent() {
   // separate ambient loop.
   tl.add(() => {
       startAmbientMist();
+      startAmbientTide();
     }, 4.50 * k)
     .add(() => {
       // Hand transform ownership back to parallax. The descent's
