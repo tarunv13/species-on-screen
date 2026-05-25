@@ -130,25 +130,33 @@ body {
 }
 
 /* ===== RETURN TO GLOBE BUTTON ===== */
+/* Audit §9.2: this button surfaces during the species (safari)
+ * navigation, not on the homepage. Its glassmorphic frosted-pill
+ * styling is retired for doctrinal consistency — the page does not
+ * have two visual languages, one editorial and one product. The
+ * control becomes a plain text link with a subtle underline on
+ * hover. */
 .return-to-globe {
   position: fixed;
   top: 1.5rem;
   left: 1.5rem;
   z-index: 25;
-  padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #ffffff;
-  font-size: 0.85rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .return-to-globe:hover {
-  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 1);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
 /* ===== GLOBE TOOLTIP ===== */
