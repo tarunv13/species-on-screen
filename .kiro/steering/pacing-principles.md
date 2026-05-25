@@ -6,18 +6,15 @@ inclusion: always
 
 > Doctrine for time, rhythm, and cadence in Species on Screen.
 > This document defines when things happen, for how long, and in what
-> order. Future PRs are evaluated against the Principles below.
-> Reviewers may cite them by name (e.g. "Principle IV: The Hold")
-> in feedback.
+> order. PRs are evaluated against the Principles below. Reviewers
+> cite them by name (e.g. "Principle IV: The Hold") in feedback.
 >
-> **Status:** provisional constitutional guidance pending the first
-> milestone review walks. The temporal worldview (Principles I–II, V,
-> XIX–XX) is intended to be stable. The specific millisecond envelopes
+> **Status:** canonical doctrine. Principles are stable identifiers
+> and are cited in PR review. The specific millisecond envelopes
 > (Principle III's Descent table, the Hold minimums, the reading-time
-> calibration, the cadence-per-scene-type table) are explicitly
-> expected to be revisited after the first terrain-descent prototype.
-> See the introducing PR for the list of Principles flagged as
-> flex-pending.
+> calibration, the cadence-per-scene-type table) remain editable
+> through the standard amendment path; the temporal worldview
+> (Principles I–II, V, XIX–XX) does not.
 
 ## 0. What this document governs
 

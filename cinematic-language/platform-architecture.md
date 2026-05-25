@@ -2,7 +2,7 @@
 
 **Status:** canonical, operational
 **Authority:** binding on all routing, layout, runtime, and deployment decisions
-**Companion document:** `cinematic-principles.md` (governs the inside of the cinematic surface)
+**Companion layer:** the canonical doctrine at `.kiro/steering/` (governs the inside of the cinematic surface)
 
 This document defines the only three surfaces the platform is allowed to have, what each contains, and how a user moves between them. Its purpose is to prevent the cinematic surface from being eroded into a dashboard, and to prevent the research surface from being denied its conventional reading affordances. Both losses kill the project.
 
@@ -10,7 +10,7 @@ This document defines the only three surfaces the platform is allowed to have, w
 
 ## 1. The Three Surfaces
 
-1. **Cinematic ecology surface.** Thresholds, descents, inhabited places. Atmosphere is the layout. No chrome, no dashboards. Governed by `cinematic-principles.md`.
+1. **Cinematic ecology surface.** Thresholds, descents, inhabited places. Atmosphere is the layout. No chrome, no dashboards. Governed by the canonical doctrine at `.kiro/steering/`.
 2. **Research / archive surface.** Articles, citations, methodology, taxonomic references, datasets, attribution, indices. Conventional reading interface. Library grammar.
 3. **Bridge layer.** The asymmetric, restrained passage between the two. *Not a UI element.* See §6.
 
@@ -164,9 +164,12 @@ Each of these would be a step toward dashboard/archive sludge. None is recoverab
 
 ---
 
-## 9. Final Authority
+## 9. Operational authority
 
-These three surfaces, and only these three, exist. The cinematic principles canon governs the inside of surface 1. Conventional web governance covers surface 2. This document governs the boundary between them.
+These three surfaces, and only these three, exist. The canonical
+doctrine at `.kiro/steering/` governs the inside of surface 1.
+Conventional web governance covers surface 2. This document governs
+the boundary between them.
 
 When a feature proposal or design change is unclear about which surface it belongs to, the answer is almost always research, and the burden is on the proposer to demonstrate cinematic compatibility against §5.
 

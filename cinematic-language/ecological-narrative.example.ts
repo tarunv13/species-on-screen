@@ -7,7 +7,8 @@
   the research surface renders the whole thing.
 
   Cinematic extraction (only these fields may surface inside cinematic
-  space, governed by `cinematic-principles.md` and `platform-architecture.md`):
+  space, governed by the canonical doctrine at `.kiro/steering/` and by
+  `platform-architecture.md`):
 
     place.name                 — only after sustained inhabitation
     place.editorialPlaceLine   — may be used as threshold framing copy

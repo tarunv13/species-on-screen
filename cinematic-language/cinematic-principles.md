@@ -1,10 +1,23 @@
 # Cinematic Principles
 
-**Status:** canonical governance
-**Scope:** every threshold, descent, place, lens, transition, and arrival in this project
-**Authority:** binding on all future agents — human and AI — until explicitly revised by the project lead
+**Status:** archival.
+**Superseded by:** `.kiro/steering/cinematic-vocabulary.md`,
+`.kiro/steering/editorial-voice.md`,
+`.kiro/steering/pacing-principles.md`,
+`.kiro/steering/experiential-references.md`.
 
-This document is not a style guide. It is the project's perceptual constitution. Style guides describe surface; this document describes what the system is allowed to *be.*
+This document is preserved as record. It is no longer load-bearing
+and must not be cited in PR review or used as a basis for new code.
+The canonical perceptual / editorial / temporal / intuitional
+doctrine layer is the four steering files listed above. The
+operational architecture is `platform-architecture.md`.
+
+The §3 *Atmospheric Hierarchy* material below was folded into
+`cinematic-vocabulary.md` as Article XVII. The remaining sections
+duplicate material now held by the canonical layer and are not
+re-asserted here. The body that follows is the document as it stood
+before consolidation; it is preserved for historical continuity and
+for prior PR-review citations that may follow links into it.
 
 ---
 
@@ -187,14 +200,9 @@ If any of these begin to appear, the system has reverted to catalog logic and mu
 
 ## 12. Final Authority
 
-These principles supersede aesthetic preference, engagement metric, accessibility convenience, framework idiom, and prior art from adjacent industries. They do not supersede:
-
-- Ecological accuracy
-- User safety and accessibility (which they explicitly preserve via §2 and §9)
-- Editorial judgment by the project lead
-
-When a conflict appears between these principles and a proposed feature, the principles win until explicitly revised in writing.
-
----
-
-*Versioned governance. Revisions require an entry in `prototypes/reviews/` documenting what changed, why, and what was tested against the change.*
+This section is preserved as a section anchor for prior citations.
+The authority claim it once carried has been retired. Perceptual,
+editorial, temporal, and intuitional authority now lives in the
+four canonical steering files; operational authority over surfaces
+and routing lives in `platform-architecture.md`. Nothing else
+carries authority.

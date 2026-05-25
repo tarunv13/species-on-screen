@@ -7,15 +7,14 @@ inclusion: always
 > Editorial law for Species on Screen.
 > This document governs every word that appears in the experience —
 > headings, body copy, captions, labels, error states, alt text, and the
-> hidden text in metadata. Future PRs are evaluated against the Canons
-> below. Reviewers may cite them by name (e.g. "Canon V: Quantitative
-> restraint") in feedback.
+> hidden text in metadata. PRs are evaluated against the Canons below.
+> Reviewers cite them by name (e.g. "Canon V: Quantitative restraint")
+> in feedback.
 >
-> **Status:** provisional constitutional guidance pending the first
-> milestone review walks. The voice and register are intended to be
-> stable; the prohibited-word lists are expected to evolve as new
-> editorial surfaces appear. See the introducing PR for the list of
-> Canons flagged as flex-pending.
+> **Status:** canonical doctrine. Canons are stable identifiers and are
+> cited in PR review. The prohibited-word lists are editable through
+> the standard amendment path as new editorial surfaces appear; the
+> register does not.
 
 ## 0. What this document governs
 
