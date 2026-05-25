@@ -1,13 +1,17 @@
 /*
   Salt Flat Exposure — Counter-test prototype to Sundarbans
   ----------------------------------------------------------
-  M1 (acknowledgement) + M2 (bleach-out) only. The remaining movements
-  are not built. The point of this prototype is to test whether the
-  UI-burial grammar holds when its agent is glare instead of mist.
+  M1 (acknowledgement) + M2 (bleach-out) + ONE of three experimental
+  M3 strategies, selectable via URL hash:
 
-  No audio, no parallax, no heat shimmer animation, no descent past M2.
-  Procedural salt cracks are minimal — enough to make the foreground
-  read as salt crust rather than featureless tan.
+    #horizon-pull            (default) — horizon line dissolves
+    #atmospheric-recession              — distance markers thin
+    #heat-distance                      — depth estimation destabilized
+    #none                               — M1 + M2 only
+
+  M4 and M5 are deliberately unimplemented. Audio, parallax, mineral
+  glints, and shimmer-on-foreground are deliberately unimplemented.
+  This file is a perception experiment, not a finished prototype.
 */
 
 import { gsap } from 'gsap';
@@ -60,10 +64,6 @@ function paintCracks() {
 
 /* ---------- Threshold reveal (page load) ---------- */
 
-/*
-  Same pacing as Sundarbans threshold reveal — the grammar test is in M2,
-  not in the threshold reveal. Comparable timing keeps variables controlled.
-*/
 function revealThreshold() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -85,26 +85,101 @@ function revealThreshold() {
     }, '-=0.3');
 }
 
-/* ---------- M1 + M2 timeline ---------- */
+/* ---------- M3 variants ---------- */
 
 /*
-  M1 — Acknowledgement (0.00 – 0.45s)
-    Identical structure to Sundarbans. The click is internal to the
-    threshold; no environmental mutation is needed at this stage. The
-    grammar of acknowledgement is medium-independent.
+  Each variant adds tweens to the existing timeline at `t0`. They are
+  intentionally minimal (2–3 tweens each) and never add new layers or
+  geometry. The grammar test is whether vantage shift on a flat plane
+  can be carried by atmospheric or perceptual change alone.
 
-  M2 — Surrender of Frame, mutated (0.30 – 1.70s)
-    Mist → glare. Mechanism inverted but grammar preserved: an
-    environmental layer (z-index 7) covers the threshold UI (z-index 6).
-    The system does NOT tween frame-content opacity. The glare layer's
-    own opacity and scale tween are what occludes the typography. UI
-    burial via light, not via fog.
-
-    Sky and ground filters brighten subtly during M2 to support the
-    bleach — the world becomes too bright to read text in. This is the
-    inverse of Sundarbans M2's `brightness(0.82)` darkening.
+  Total M3 duration is ~1.6s, slightly overlapping the tail of M2 (which
+  ends near 1.7s). The overlap is required by the cinematic principle:
+  movements bleed into each other so no boundary is perceptible.
 */
-function buildDescentM1M2() {
+
+/** A — Horizon Pull. The horizon dissolves into ambiguous bright haze. */
+function buildM3HorizonPull(tl, k, t0) {
+  tl.to('.horizon-haze', {
+      height: '24%',
+      opacity: 0.85,
+      duration: 1.60 * k,
+      ease: 'sine.inOut'
+    }, t0)
+    .to('.distant-flat', {
+      opacity: 0.42,
+      filter: 'blur(2px) saturate(0.85)',
+      duration: 1.60 * k,
+      ease: 'sine.inOut'
+    }, t0);
+}
+
+/** B — Atmospheric Recession. Distance markers thin; air takes over. */
+function buildM3AtmosphericRecession(tl, k, t0) {
+  tl.to('.distant-flat', {
+      opacity: 0.32,
+      filter: 'saturate(0.55) brightness(1.06)',
+      duration: 1.60 * k,
+      ease: 'sine.inOut'
+    }, t0)
+    .to('.near-flat', {
+      filter: 'contrast(0.88) saturate(0.85)',
+      duration: 1.60 * k,
+      ease: 'sine.inOut'
+    }, t0);
+}
+
+/** C — Heat-Distance Ambiguity. Depth estimation destabilized via wobble. */
+function buildM3HeatDistance(tl, k, t0) {
+  tl.to('.horizon-haze', {
+      opacity: 0.78,
+      filter: 'blur(3px)',
+      duration: 1.40 * k,
+      ease: 'sine.inOut'
+    }, t0)
+    .add(() => {
+      // Subliminal non-repeating wobble — never aligns to perception.
+      // Amplitude is intentionally tiny (~3px / ~2px). Larger amplitudes
+      // cross from "heat shimmer" into "the screen is moving," which is
+      // a software gesture, not an atmospheric one.
+      gsap.to('.horizon-haze', {
+        x: 'random(-3, 3)',
+        duration: 'random(2.5, 4.5)',
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        repeatRefresh: true
+      });
+      gsap.to('.distant-flat', {
+        x: 'random(-2, 2)',
+        duration: 'random(3, 5)',
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        repeatRefresh: true
+      });
+    }, t0);
+}
+
+const M3_VARIANTS = {
+  'horizon-pull': buildM3HorizonPull,
+  'atmospheric-recession': buildM3AtmosphericRecession,
+  'heat-distance': buildM3HeatDistance,
+  'none': null
+};
+
+/** Read the URL hash and pick a variant. Default: horizon-pull. */
+function selectVariant() {
+  const raw = (window.location.hash || '').replace('#', '').toLowerCase().trim();
+  if (raw && Object.prototype.hasOwnProperty.call(M3_VARIANTS, raw)) {
+    return raw;
+  }
+  return 'horizon-pull';
+}
+
+/* ---------- M1 + M2 + (selected M3) timeline ---------- */
+
+function buildDescent(variant) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const k = reduce ? 0.45 : 1.0;
 
@@ -136,10 +211,6 @@ function buildDescentM1M2() {
     }, 0.05 * k);
 
   /* ----- Movement 2 — Surrender of Frame via Glare (0.30 – 1.70s) ----- */
-  // The glare overlay rises in opacity and expands outward from the horizon.
-  // At end of M2 the inner bright zone of the radial gradient has scaled
-  // beyond the viewport, so the entire frame is bleached and the UI below
-  // is fully occluded.
   tl.to('.glare-overlay', {
       opacity: 1,
       scale: 1.4,
@@ -165,7 +236,13 @@ function buildDescentM1M2() {
       ease: 'sine.inOut'
     }, 0.40 * k);
 
-  // M3-M5 not implemented in this build.
+  /* ----- Movement 3 — selected variant (1.50 – 3.10s) ----- */
+  const builder = M3_VARIANTS[variant];
+  if (builder) {
+    builder(tl, k, 1.50 * k);
+  }
+
+  // M4 + M5 not implemented in this build.
   return tl;
 }
 
@@ -174,8 +251,12 @@ function buildDescentM1M2() {
 function init() {
   paintCracks();
 
+  const variant = selectVariant();
+  // Expose for review/inspection. Nothing in the page reads this.
+  document.body.dataset.m3 = variant;
+
   revealThreshold();
-  const m1m2 = buildDescentM1M2();
+  const descent = buildDescent(variant);
 
   const lensHabitat = document.getElementById('lensHabitat');
   if (!lensHabitat) return;
@@ -189,7 +270,7 @@ function init() {
       b.setAttribute('disabled', 'true');
       b.setAttribute('aria-disabled', 'true');
     });
-    m1m2.play(0);
+    descent.play(0);
   };
 
   lensHabitat.addEventListener('click', begin);
