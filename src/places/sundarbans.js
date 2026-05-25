@@ -57,6 +57,33 @@ const PLACE_NAME = NARRATIVE.place.name;
 const PLACE_LINE = NARRATIVE.place.editorialPlaceLine;
 const FRAGMENT   = NARRATIVE.editorial.fragment;
 
+/* ---------- Editorial place-line layout ---------- */
+
+/**
+ * Split the verified narrative's place.editorialPlaceLine into two
+ * parts at a natural conjunction (where, that, and, when), producing
+ * a typographically balanced two-line stagger reveal at the threshold.
+ *
+ * If no conjunction is present, the whole line is returned as one
+ * part; the second .line span populates empty and the stagger
+ * collapses to a single reveal. The threshold remains legible either
+ * way.
+ */
+function splitPlaceLine(text) {
+  if (!text) return [text];
+  const breakWords = ['where', 'that', 'and', 'when'];
+  const words = text.split(' ');
+  for (let i = 1; i < words.length - 1; i++) {
+    if (breakWords.includes(words[i].toLowerCase())) {
+      return [
+        words.slice(0, i).join(' '),
+        words.slice(i).join(' ')
+      ];
+    }
+  }
+  return [text];
+}
+
 /* ---------- Procedural SVG: canopy silhouettes ---------- */
 
 /**
@@ -431,17 +458,17 @@ function paintRoots() {
 
 /*
   The threshold doesn't appear; it surfaces. A quiet beat, then the
-  framing question resolves line-by-line, then the lenses settle in
-  beneath it. This is not Movement 0 of the descent — it's the
-  pre-descent inhabitation of the threshold itself.
+  editorial place line resolves line-by-line, then the entry verb
+  settles in beneath it. This is not Movement 0 of the descent — it's
+  the pre-descent inhabitation of the threshold itself.
 */
 function revealThreshold() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   return gsap.timeline()
-    .set('.framing-question .line', { opacity: 0, y: 8 })
-    .set('#framingQuestion', { opacity: 1 })
-    .to('.framing-question .line', {
+    .set('.place-line .line', { opacity: 0, y: 8 })
+    .set('#placeLine', { opacity: 1 })
+    .to('.place-line .line', {
       opacity: 1,
       y: 0,
       duration: reduce ? 0.6 : 1.6,
@@ -449,7 +476,7 @@ function revealThreshold() {
       ease: 'sine.out',
       delay: reduce ? 0.2 : 0.9
     })
-    .to('#lenses', {
+    .to('#enterButton', {
       opacity: 1,
       duration: reduce ? 0.5 : 1.2,
       ease: 'sine.out'
@@ -470,28 +497,21 @@ function buildDescent() {
   const tl = gsap.timeline({ paused: true, defaults: { ease: 'sine.inOut' } });
 
   /* ----- Movement 1 — Acknowledgement (0.00 – 0.45s) ----- */
-  // Unchosen lenses recede (not fade — recede). The chosen lens settles:
-  // a small inward scale that reads as weight finding its center.
-  // The framing question quiets but is still visible.
-  tl.to('.lens--quiet', {
-      opacity: 0,
-      yPercent: 6,
-      filter: 'blur(2px)',
-      duration: 0.45 * k,
-      ease: 'power2.out'
-    }, 0)
-    .to('#lensHabitat', {
+  // The chosen verb settles: a small inward scale that reads as
+  // weight finding its center. The place line quiets but stays
+  // visible.
+  tl.to('#enterButton', {
       scale: 0.97,
       duration: 0.18 * k,
       ease: 'power2.out',
       transformOrigin: '50% 50%'
     }, 0)
-    .to('#lensHabitat', {
+    .to('#enterButton', {
       scale: 1.0,
       duration: 0.28 * k,
       ease: 'power2.inOut'
     }, 0.18 * k)
-    .to('#framingQuestion', {
+    .to('#placeLine', {
       opacity: 0.42,
       duration: 0.4 * k,
       ease: 'sine.out'
@@ -620,6 +640,19 @@ function init() {
   document.title = `${PLACE_NAME} \u00b7 Descent`;
   const desc = document.getElementById('docDesc');
   if (desc) desc.setAttribute('content', PLACE_LINE);
+
+  // Populate the threshold's editorial place line from the canonical
+  // narrative. The line is split at a natural conjunction so the
+  // staggered reveal in revealThreshold() can fade it in two beats.
+  const placeLineEl = document.getElementById('placeLine');
+  if (placeLineEl) {
+    const spans = placeLineEl.querySelectorAll('.line');
+    const parts = splitPlaceLine(PLACE_LINE);
+    spans.forEach((span, i) => {
+      span.textContent = parts[i] || '';
+    });
+  }
+
   const inscription = document.getElementById('sceneInscription');
   if (inscription) inscription.textContent = FRAGMENT;
 
@@ -631,8 +664,8 @@ function init() {
   revealThreshold();
   const descent = buildDescent();
 
-  const lensHabitat = document.getElementById('lensHabitat');
-  if (!lensHabitat) return;
+  const enterButton = document.getElementById('enterButton');
+  if (!enterButton) return;
 
   // The descent is one-way. Once committed, the homepage is gone —
   // not by routing constraint but by perceptual position.
@@ -646,11 +679,10 @@ function init() {
     // if audio is blocked or unavailable.
     try { startAmbientAudio(); } catch (_) { /* silent */ }
 
-    // Stop further input without yanking visible affordances mid-recede.
-    document.querySelectorAll('.lens').forEach(b => {
-      b.setAttribute('disabled', 'true');
-      b.setAttribute('aria-disabled', 'true');
-    });
+    // Stop further input without yanking the visible affordance
+    // mid-recede.
+    enterButton.setAttribute('disabled', 'true');
+    enterButton.setAttribute('aria-disabled', 'true');
 
     // Hand transform ownership to the descent timeline. The rAF loop
     // keeps running but suspends its writes while in 'descending'.
@@ -660,8 +692,8 @@ function init() {
     descent.play(0);
   };
 
-  lensHabitat.addEventListener('click', beginDescent);
-  lensHabitat.addEventListener('keydown', (e) => {
+  enterButton.addEventListener('click', beginDescent);
+  enterButton.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') beginDescent(e);
   });
 }

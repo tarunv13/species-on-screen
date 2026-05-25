@@ -197,7 +197,7 @@ button {
   pointer-events: auto;
 }
 
-.framing-question {
+.place-line {
   grid-row: 2 / 3;
   align-self: end;
   margin: 0 0 clamp(3rem, 8vh, 6rem);
@@ -213,69 +213,36 @@ button {
   opacity: 0;            /* JS reveals on load */
 }
 
-.framing-question .line {
+.place-line .line {
   display: block;
   opacity: 0;
   transform: translateY(8px);
 }
 
-.lenses {
+.enter {
   grid-row: 3 / 4;
   align-self: start;
   margin-top: clamp(2.5rem, 6vh, 5rem);
-  display: flex;
-  gap: clamp(1.5rem, 5vw, 4rem);
-  flex-wrap: wrap;
-  justify-content: center;
-  opacity: 0;            /* JS reveals after the framing question */
-}
-
-.lens {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
   padding: 0.6rem 0.9rem;
-  text-align: center;
-  color: #ece6d8;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  background: transparent;
-  transition: color 600ms ease, transform 600ms ease, opacity 600ms ease;
-  position: relative;
-}
-
-.lens-name {
   font-family: "Iowan Old Style", Georgia, serif;
   font-size: 1.15rem;
-  letter-spacing: 0.22em;
   font-weight: 400;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: #f1ece0;
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
-}
-
-.lens-stance {
-  font-style: italic;
-  font-size: 0.82rem;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  color: rgba(236, 230, 216, 0.62);
-  font-family: "Iowan Old Style", Georgia, serif;
-  max-width: 18ch;
-  line-height: 1.35;
-}
-
-.lens--live {
+  background: transparent;
   cursor: pointer;
+  position: relative;
+  opacity: 0;            /* JS reveals after the place line */
+  transition: color 600ms ease, transform 600ms ease, opacity 600ms ease;
 }
 
-.lens--live::after {
-  /* a single thin underline that lights when ready */
+.enter::after {
+  /* a single thin underline that lights on hover/focus */
   content: "";
   display: block;
-  margin-top: 0.55rem;
+  margin: 0.55rem auto 0;
   width: 28px;
   height: 1px;
   background: rgba(236, 230, 216, 0.7);
@@ -285,26 +252,20 @@ button {
   transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 700ms ease;
 }
 
-.lens--live:hover::after,
-.lens--live:focus-visible::after {
+.enter:hover::after,
+.enter:focus-visible::after {
   transform: scaleX(1);
   opacity: 1;
 }
 
-.lens--live:focus-visible {
+.enter:focus-visible {
   outline: none;
 }
 
-.lens--live:hover .lens-name,
-.lens--live:focus-visible .lens-name {
+.enter:hover,
+.enter:focus-visible {
   color: #fff5e0;
 }
-
-.lens--quiet {
-  opacity: 0.42;
-  cursor: default;
-}
-.lens--quiet .lens-name { color: rgba(236, 230, 216, 0.65); }
 
 /* ---------- Mist-rising (Movement 2 agent) ---------- */
 

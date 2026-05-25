@@ -58,27 +58,20 @@
       Threshold UI. Sits between sky/canopy and the foreground world,
       so when foreground mist, water, and roots advance, they pass
       OVER this content. Occlusion-by-environment, not fade-out.
+
+      The threshold carries one editorial line and one verb. The line
+      is the verified record's place.editorialPlaceLine, populated
+      from the canonical narrative at init; the verb is the canonical
+      Article III act. There are no perspective lenses. There is no
+      framing question.
     -->
     <div class="frame-content" id="frameContent">
-      <p class="framing-question" id="framingQuestion">
-        <span class="line">The same disappearance</span>
-        <span class="line">looks different depending on where you stand.</span>
+      <p class="place-line" id="placeLine">
+        <span class="line"></span>
+        <span class="line"></span>
       </p>
 
-      <div class="lenses" id="lenses" role="group" aria-label="Choose a perspective">
-        <button class="lens lens--live" data-lens="habitat" id="lensHabitat" type="button">
-          <span class="lens-name">Habitat</span>
-          <span class="lens-stance">enter through the place</span>
-        </button>
-        <button class="lens lens--quiet" data-lens="ecosystem" type="button" disabled aria-disabled="true">
-          <span class="lens-name">Ecosystem</span>
-          <span class="lens-stance">enter through what holds it</span>
-        </button>
-        <button class="lens lens--quiet" data-lens="species" type="button" disabled aria-disabled="true">
-          <span class="lens-name">Species</span>
-          <span class="lens-stance">enter through what lives in it</span>
-        </button>
-      </div>
+      <button class="enter" id="enterButton" type="button">Descend</button>
     </div>
 
     <!--
@@ -129,7 +122,7 @@
 
   <noscript>
     <div style="position:fixed;inset:0;background:#0f1418;color:#cdd3d0;display:grid;place-items:center;font-family:Georgia,serif;padding:2rem;text-align:center;">
-      The same disappearance looks different depending on where you stand.
+      A tidal forest where the salt enters every root twice a day.
     </div>
   </noscript>
 </body>
