@@ -181,15 +181,23 @@ const CURSOR_SMOOTH = 0.045;
    A test of whether ecological information can appear without breaking
    the cinematic grammar. Active only in 'inhabited' state. Slowly fades
    from 0 to a barely-visible base opacity over ~5s after entering
-   inhabited; cursor proximity then nudges opacity up to a still-subtle
-   maximum. The inscription element lives inside .roots-fore in the DOM
-   so it inherits descent + parallax transforms automatically. */
+   inhabited; sustained cursor stillness then gradually nudges opacity
+   up to a still-subtle maximum. No cursor proximity, no hover logic,
+   no interaction trigger — the inscription rewards attention measured
+   as duration, not pointing.
+
+   The element lives inside .roots-fore in the DOM so it inherits the
+   foreground's descent + parallax transforms automatically. */
 const INSCRIPTION_BASE_OPACITY = 0.10;
 const INSCRIPTION_MAX_OPACITY = 0.45;
-const INSCRIPTION_PROXIMITY_RADIUS = 280;  // px; below this, opacity nudges up
-const INSCRIPTION_REVEAL_MS = 5000;        // first-fade-in duration after inhabited
+const INSCRIPTION_REVEAL_MS = 5000;          // first-fade-in duration after inhabited
+const STILLNESS_THRESHOLD_PX = 1.5;          // sub-pixel cursor jitter counts as still
+const STILLNESS_BUILDUP_PER_FRAME = 1 / 720; // fills 0 → 1 in ~12s at 60fps
+const STILLNESS_DECAY_PER_PX = 0.04;         // ~25 px of movement zeros the accumulator
 let inscriptionOpacity = 0;
 let inscriptionRevealStart = 0;
+let stillnessAccum = 0;                      // 0..1, sustained-stillness measure
+const prevCursorTarget = { x: 0, y: 0 };
 
 /** State machine for transform ownership.
  *  threshold  — parallax owns transforms; descent timeline is paused
@@ -275,33 +283,40 @@ function rafLoop(t) {
   // Scene inscription: active only after the descent settles. The element
   // inherits its position via DOM placement (inside .roots-fore); we only
   // animate its opacity here, as a function of (a) time-since-inhabited
-  // for the first-pass reveal, and (b) cursor proximity for legibility.
+  // for the first-pass reveal, and (b) sustained cursor stillness. No
+  // hover logic, no proximity coupling. The inscription rewards duration,
+  // not pointing.
   const inscription = document.getElementById('sceneInscription');
   if (inscription) {
     if (descentState !== 'inhabited') {
       inscriptionOpacity = 0;
+      stillnessAccum = 0;
       inscription.style.opacity = '0';
     } else {
       if (!inscriptionRevealStart) inscriptionRevealStart = t;
       const revealAge = Math.min(1, (t - inscriptionRevealStart) / INSCRIPTION_REVEAL_MS);
       const baseOpacity = revealAge * INSCRIPTION_BASE_OPACITY;
 
-      const rect = inscription.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const cursorPxX = (cursorTarget.x + 1) * window.innerWidth / 2;
-      const cursorPxY = (cursorTarget.y + 1) * window.innerHeight / 2;
-      const distance = Math.hypot(cursorPxX - cx, cursorPxY - cy);
-
-      let proximityNudge = 0;
-      if (distance < INSCRIPTION_PROXIMITY_RADIUS) {
-        proximityNudge =
-          (1 - distance / INSCRIPTION_PROXIMITY_RADIUS) *
-          (INSCRIPTION_MAX_OPACITY - INSCRIPTION_BASE_OPACITY);
+      // Stillness accumulator: builds slowly when cursor is essentially
+      // still, decays with any meaningful motion. The asymmetry is
+      // intentional — many seconds of stillness are required to surface
+      // what a single small movement returns to barely-visible base.
+      const dx = (cursorTarget.x - prevCursorTarget.x) * window.innerWidth / 2;
+      const dy = (cursorTarget.y - prevCursorTarget.y) * window.innerHeight / 2;
+      const movementPx = Math.hypot(dx, dy);
+      if (movementPx < STILLNESS_THRESHOLD_PX) {
+        stillnessAccum = Math.min(1, stillnessAccum + STILLNESS_BUILDUP_PER_FRAME);
+      } else {
+        stillnessAccum = Math.max(0, stillnessAccum - movementPx * STILLNESS_DECAY_PER_PX);
       }
+      prevCursorTarget.x = cursorTarget.x;
+      prevCursorTarget.y = cursorTarget.y;
 
-      const target = baseOpacity + proximityNudge;
-      inscriptionOpacity += (target - inscriptionOpacity) * 0.055;
+      const stillnessNudge =
+        stillnessAccum * (INSCRIPTION_MAX_OPACITY - INSCRIPTION_BASE_OPACITY);
+
+      const target = baseOpacity + stillnessNudge;
+      inscriptionOpacity += (target - inscriptionOpacity) * 0.04;
       inscription.style.opacity = inscriptionOpacity.toFixed(3);
     }
   }
