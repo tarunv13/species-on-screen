@@ -11,6 +11,27 @@
 import { gsap } from 'gsap';
 import './sundarbans-descent.css';
 
+/* ---------- Canonical narrative extraction ---------- */
+
+/*
+  The cinematic surface reads from the same canonical narrative object
+  the research surface uses, but extracts only three fields. Per
+  platform-architecture §5, the rest (species name, taxonomy, IUCN,
+  observation, sources, full editorial body, methodology) is forbidden
+  inside cinematic space.
+
+  The narrative is imported as static data; no runtime service connects
+  this page to the research-surface page. Each page bundles the data it
+  needs from the same source file (single source of place truth).
+*/
+import { sundarbansBengalTigerSwimmer } from
+  '../../cinematic-language/ecological-narrative.example.ts';
+
+const NARRATIVE = sundarbansBengalTigerSwimmer;
+const PLACE_NAME = NARRATIVE.place.name;
+const PLACE_LINE = NARRATIVE.place.editorialPlaceLine;
+const FRAGMENT   = NARRATIVE.editorial.fragment;
+
 /* ---------- Procedural SVG: canopy silhouettes ---------- */
 
 /**
@@ -177,6 +198,28 @@ const AMP_Y = 18;
 const BREATH_GAIN = 0.28;
 const CURSOR_SMOOTH = 0.045;
 
+/* ---------- Scene inscription (single annotation interaction) ----------
+   A test of whether ecological information can appear without breaking
+   the cinematic grammar. Active only in 'inhabited' state. Slowly fades
+   from 0 to a barely-visible base opacity over ~5s after entering
+   inhabited; sustained cursor stillness then gradually nudges opacity
+   up to a still-subtle maximum. No cursor proximity, no hover logic,
+   no interaction trigger — the inscription rewards attention measured
+   as duration, not pointing.
+
+   The element lives inside .roots-fore in the DOM so it inherits the
+   foreground's descent + parallax transforms automatically. */
+const INSCRIPTION_BASE_OPACITY = 0.10;
+const INSCRIPTION_MAX_OPACITY = 0.45;
+const INSCRIPTION_REVEAL_MS = 5000;          // first-fade-in duration after inhabited
+const STILLNESS_THRESHOLD_PX = 1.5;          // sub-pixel cursor jitter counts as still
+const STILLNESS_BUILDUP_PER_FRAME = 1 / 720; // fills 0 → 1 in ~12s at 60fps
+const STILLNESS_DECAY_PER_PX = 0.04;         // ~25 px of movement zeros the accumulator
+let inscriptionOpacity = 0;
+let inscriptionRevealStart = 0;
+let stillnessAccum = 0;                      // 0..1, sustained-stillness measure
+const prevCursorTarget = { x: 0, y: 0 };
+
 /** State machine for transform ownership.
  *  threshold  — parallax owns transforms; descent timeline is paused
  *  descending — descent timeline owns transforms; parallax suspends writes
@@ -255,6 +298,47 @@ function rafLoop(t) {
       const dx = -coef * offX * AMP_X;
       const dy = -coef * offY * AMP_Y;
       gsap.set(el, { x: rest.x + dx, y: rest.y + dy });
+    }
+  }
+
+  // Scene inscription: active only after the descent settles. The element
+  // inherits its position via DOM placement (inside .roots-fore); we only
+  // animate its opacity here, as a function of (a) time-since-inhabited
+  // for the first-pass reveal, and (b) sustained cursor stillness. No
+  // hover logic, no proximity coupling. The inscription rewards duration,
+  // not pointing.
+  const inscription = document.getElementById('sceneInscription');
+  if (inscription) {
+    if (descentState !== 'inhabited') {
+      inscriptionOpacity = 0;
+      stillnessAccum = 0;
+      inscription.style.opacity = '0';
+    } else {
+      if (!inscriptionRevealStart) inscriptionRevealStart = t;
+      const revealAge = Math.min(1, (t - inscriptionRevealStart) / INSCRIPTION_REVEAL_MS);
+      const baseOpacity = revealAge * INSCRIPTION_BASE_OPACITY;
+
+      // Stillness accumulator: builds slowly when cursor is essentially
+      // still, decays with any meaningful motion. The asymmetry is
+      // intentional — many seconds of stillness are required to surface
+      // what a single small movement returns to barely-visible base.
+      const dx = (cursorTarget.x - prevCursorTarget.x) * window.innerWidth / 2;
+      const dy = (cursorTarget.y - prevCursorTarget.y) * window.innerHeight / 2;
+      const movementPx = Math.hypot(dx, dy);
+      if (movementPx < STILLNESS_THRESHOLD_PX) {
+        stillnessAccum = Math.min(1, stillnessAccum + STILLNESS_BUILDUP_PER_FRAME);
+      } else {
+        stillnessAccum = Math.max(0, stillnessAccum - movementPx * STILLNESS_DECAY_PER_PX);
+      }
+      prevCursorTarget.x = cursorTarget.x;
+      prevCursorTarget.y = cursorTarget.y;
+
+      const stillnessNudge =
+        stillnessAccum * (INSCRIPTION_MAX_OPACITY - INSCRIPTION_BASE_OPACITY);
+
+      const target = baseOpacity + stillnessNudge;
+      inscriptionOpacity += (target - inscriptionOpacity) * 0.04;
+      inscription.style.opacity = inscriptionOpacity.toFixed(3);
     }
   }
 
@@ -503,6 +587,16 @@ function buildDescent() {
 function init() {
   paintCanopies();
   paintRoots();
+
+  // Apply the three cinematic-extracted fields from the canonical narrative.
+  // No species name, no observation, no sources are rendered on this surface.
+  // Per platform-architecture §5: cinematic extracts place.name,
+  // place.editorialPlaceLine, and editorial.fragment — nothing else.
+  document.title = `${PLACE_NAME} \u00b7 Descent`;
+  const desc = document.getElementById('docDesc');
+  if (desc) desc.setAttribute('content', PLACE_LINE);
+  const inscription = document.getElementById('sceneInscription');
+  if (inscription) inscription.textContent = FRAGMENT;
 
   // Subjective parallax begins immediately, in 'threshold' state.
   // The threshold is no longer a still scene — it has perceptual
