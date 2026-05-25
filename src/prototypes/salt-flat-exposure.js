@@ -1,13 +1,20 @@
 /*
   Salt Flat Exposure — Counter-test prototype to Sundarbans
   ----------------------------------------------------------
-  M1 (acknowledgement) + M2 (bleach-out) only. The remaining movements
-  are not built. The point of this prototype is to test whether the
-  UI-burial grammar holds when its agent is glare instead of mist.
+  M1 (acknowledgement) + M2 (bleach-out) + a converged M3 grammar:
+  atmospheric recession with a small horizon-edge softening borrowed
+  from the earlier horizon-pull experiment.
 
-  No audio, no parallax, no heat shimmer animation, no descent past M2.
-  Procedural salt cracks are minimal — enough to make the foreground
-  read as salt crust rather than featureless tan.
+    (default)   — converged hybrid plays after M2
+    #none       — M1 + M2 only (control)
+
+  Three earlier M3 candidates (horizon-pull, atmospheric-recession,
+  heat-distance) were evaluated as standalones. The first two are
+  collapsed into the single grammar below; heat-distance is deferred
+  pending SVG-turbulence substrate work.
+
+  M4 and M5 are deliberately unimplemented. Audio, parallax, mineral
+  glints, and shimmer-on-foreground are deliberately unimplemented.
 */
 
 import { gsap } from 'gsap';
@@ -60,10 +67,6 @@ function paintCracks() {
 
 /* ---------- Threshold reveal (page load) ---------- */
 
-/*
-  Same pacing as Sundarbans threshold reveal — the grammar test is in M2,
-  not in the threshold reveal. Comparable timing keeps variables controlled.
-*/
 function revealThreshold() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -85,26 +88,60 @@ function revealThreshold() {
     }, '-=0.3');
 }
 
-/* ---------- M1 + M2 timeline ---------- */
+/* ---------- M3: converged grammar ---------- */
 
-/*
-  M1 — Acknowledgement (0.00 – 0.45s)
-    Identical structure to Sundarbans. The click is internal to the
-    threshold; no environmental mutation is needed at this stage. The
-    grammar of acknowledgement is medium-independent.
+/**
+ * Converged M3 — atmospheric recession with horizon-edge softening.
+ *
+ * Primary mechanism (atmospheric recession): distant-flat fades toward
+ * sky-color and desaturates; near-flat loses local contrast. The eye
+ * registers depth thinning beyond a point it cannot reach. No motion.
+ *
+ * Borrowed minimum from horizon-pull: a 1.2px blur on distant-flat
+ * softens its top edge — which IS the horizon line. The horizon loses
+ * fixed identity not because we added haze on top of it (that was
+ * horizon-pull's dishonest, additive move), but because we removed
+ * contrast at the boundary. Subtractive grammar, not additive. The
+ * .horizon-haze layer is left untouched.
+ *
+ * Heat-distance ambiguity is intentionally absent. Wobble via
+ * x-translate is too fake; honest implementation requires SVG
+ * <feTurbulence> + <feDisplacementMap>, which is a substrate
+ * escalation outside surgical scope. This M3 is production-viable
+ * without it.
+ */
+function buildM3Recession(tl, k, t0) {
+  tl.to('.distant-flat', {
+      opacity: 0.32,
+      filter: 'saturate(0.55) brightness(1.06) blur(1.2px)',
+      duration: 1.60 * k,
+      ease: 'sine.inOut'
+    }, t0)
+    .to('.near-flat', {
+      filter: 'contrast(0.88) saturate(0.85)',
+      duration: 1.60 * k,
+      ease: 'sine.inOut'
+    }, t0);
+}
 
-  M2 — Surrender of Frame, mutated (0.30 – 1.70s)
-    Mist → glare. Mechanism inverted but grammar preserved: an
-    environmental layer (z-index 7) covers the threshold UI (z-index 6).
-    The system does NOT tween frame-content opacity. The glare layer's
-    own opacity and scale tween are what occludes the typography. UI
-    burial via light, not via fog.
+const M3_VARIANTS = {
+  'recession': buildM3Recession,
+  'none': null
+};
 
-    Sky and ground filters brighten subtly during M2 to support the
-    bleach — the world becomes too bright to read text in. This is the
-    inverse of Sundarbans M2's `brightness(0.82)` darkening.
-*/
-function buildDescentM1M2() {
+/**
+ * Read the URL hash. The converged grammar plays by default; only
+ * `#none` is honored as a debug-control to skip M3 entirely.
+ */
+function selectVariant() {
+  const raw = (window.location.hash || '').replace('#', '').toLowerCase().trim();
+  if (raw === 'none') return 'none';
+  return 'recession';
+}
+
+/* ---------- M1 + M2 + (selected M3) timeline ---------- */
+
+function buildDescent(variant) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const k = reduce ? 0.45 : 1.0;
 
@@ -136,10 +173,6 @@ function buildDescentM1M2() {
     }, 0.05 * k);
 
   /* ----- Movement 2 — Surrender of Frame via Glare (0.30 – 1.70s) ----- */
-  // The glare overlay rises in opacity and expands outward from the horizon.
-  // At end of M2 the inner bright zone of the radial gradient has scaled
-  // beyond the viewport, so the entire frame is bleached and the UI below
-  // is fully occluded.
   tl.to('.glare-overlay', {
       opacity: 1,
       scale: 1.4,
@@ -165,7 +198,13 @@ function buildDescentM1M2() {
       ease: 'sine.inOut'
     }, 0.40 * k);
 
-  // M3-M5 not implemented in this build.
+  /* ----- Movement 3 — selected variant (1.50 – 3.10s) ----- */
+  const builder = M3_VARIANTS[variant];
+  if (builder) {
+    builder(tl, k, 1.50 * k);
+  }
+
+  // M4 + M5 not implemented in this build.
   return tl;
 }
 
@@ -174,8 +213,12 @@ function buildDescentM1M2() {
 function init() {
   paintCracks();
 
+  const variant = selectVariant();
+  // Expose for review/inspection. Nothing in the page reads this.
+  document.body.dataset.m3 = variant;
+
   revealThreshold();
-  const m1m2 = buildDescentM1M2();
+  const descent = buildDescent(variant);
 
   const lensHabitat = document.getElementById('lensHabitat');
   if (!lensHabitat) return;
@@ -189,7 +232,7 @@ function init() {
       b.setAttribute('disabled', 'true');
       b.setAttribute('aria-disabled', 'true');
     });
-    m1m2.play(0);
+    descent.play(0);
   };
 
   lensHabitat.addEventListener('click', begin);
