@@ -61,7 +61,6 @@ export class Globe {
     this._createFloraFauna();
     this._createComingSoonMarkers();
     this._setupInteraction();
-    this._setupDragRotate();
     this._dataLoadPromise = this._loadMediaCounts();
   }
 
@@ -204,21 +203,22 @@ export class Globe {
   }
 
   _setupDragRotate() {
-    const canvas = this.renderer.domElement;
-    this._onPointerDown = (e) => { this._isDragging = true; this._prevPointer.x = e.clientX; this._prevPointer.y = e.clientY; this._velocity.x = 0; this._velocity.y = 0; };
-    this._onPointerMove = (e) => {
-      if (!this._isDragging) return;
-      const dx = e.clientX - this._prevPointer.x; const dy = e.clientY - this._prevPointer.y;
-      this._velocity.x = dx * 0.005; this._velocity.y = dy * 0.003;
-      this.group.rotation.y += this._velocity.x; this.group.rotation.x += this._velocity.y;
-      this.group.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, this.group.rotation.x));
-      this._prevPointer.x = e.clientX; this._prevPointer.y = e.clientY;
-    };
-    this._onPointerUp = () => { this._isDragging = false; };
-    canvas.addEventListener('pointerdown', this._onPointerDown);
-    canvas.addEventListener('pointermove', this._onPointerMove);
-    canvas.addEventListener('pointerup', this._onPointerUp);
-    canvas.addEventListener('pointerleave', this._onPointerUp);
+    // Final reduction: drag-to-rotate is retired. The page presents; it
+    // does not offer manipulation. The visitor's only verb is `enter` —
+    // a single click on the page-caption into the species page.
+    //
+    // The contemplative middle ground replaces drag with a cursor-
+    // presence drift bias in update() below: the planet's slow rotation
+    // is faintly biased by where the cursor sits horizontally in the
+    // frame, when the cursor is over the canvas. Discoverable, not
+    // operable. The visitor's gaze is acknowledged; the planet is not
+    // grabbable.
+    //
+    // The four pointer event listeners (pointerdown/move/up/leave) are
+    // gone. The cursor never changes from the browser default. The
+    // method is preserved as a no-op so any external lookup against it
+    // does not throw; nothing in the engine integration contract calls
+    // it post-construction.
   }
 
   _setupInteraction() {
@@ -316,63 +316,39 @@ export class Globe {
     // pipeline call site does not need a coordinated change.
   }
 
-  update(delta) {
-    // Audit §9.4: drag release no longer damps to zero. A slow ambient
-    // drift floor (~one revolution / 6 minutes) sustains the "this place
-    // exists whether you are watching" property without becoming a
-    // turntable. Drag still authoritatively writes the velocity each
-    // pointermove, so user input dominates as before.
+  update(/* delta */) {
+    // Final reduction: the planet has one motion source — ambient drift —
+    // and one acknowledgement of the visitor — a small bias on that drift,
+    // proportional to the cursor's horizontal position in the frame, when
+    // the cursor is over the canvas.
+    //
+    // At rest (no cursor present), drift is AMBIENT_DRIFT (~one revolution
+    // per ~6 minutes). When the cursor is over the canvas at the right
+    // edge, the planet drifts about 7x faster eastward; at the left edge,
+    // it drifts the same amount westward, briefly reversing direction.
+    // There is no flick, no inertia, no velocity tracked from input. The
+    // cursor's position is read each frame; it does not write velocity
+    // state. Release the cursor, leave the canvas, and the bias decays to
+    // zero on the next frame — the planet returns to ambient drift with
+    // no easing, because there is no momentum to ease.
+    //
+    // This is the editorial middle: the page is observational, but the
+    // planet acknowledges that you are present.
     const AMBIENT_DRIFT = 0.0003;
-    if (!this._isDragging) {
-      this._velocity.x *= this._damping; this._velocity.y *= this._damping;
-      if (Math.abs(this._velocity.x) < AMBIENT_DRIFT) {
-        this._velocity.x = AMBIENT_DRIFT;
-      }
-      this.group.rotation.y += this._velocity.x; this.group.rotation.x += this._velocity.y;
-      this.group.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, this.group.rotation.x));
-    }
-    this.floraFaunaTime += delta;
-    this.floraFaunaMeshes.forEach(mesh => { mesh.material.uniforms.time.value = this.floraFaunaTime; });
-    // Audit §9.4: protected-area marker pulse removed (Article 3 forbids
-    // continuous attention-grabbing animation). Markers are persistent and
-    // quiet at their layer-default scale.
-    // Audit §9.4: coming-soon marker pulse removed for the same reason.
-    // The dim sphere persists at scale 1.0; the absence is the editorial
-    // statement, not the animation.
-    this.raycaster.setFromCamera(this.mouse, this.camera);
-    let raycastTargets = [];
-    if (this.activeLayer === 'media' || this.activeLayer === 'species') raycastTargets = this.columnMeshes;
-    else if (this.activeLayer === 'habitat') raycastTargets = this.habitatMeshes;
-    else if (this.activeLayer === 'protected_areas' || this.activeLayer === 'threats') raycastTargets = this.protectedAreaMeshes;
-    const allTargets = raycastTargets.concat(this.comingSoonMeshes);
-    const intersects = this.raycaster.intersectObjects(allTargets);
-    // Audit §9.4: cursor-following #globe-tooltip is removed (Article 3).
-    // The label lives as the anchored floating-card element; this branch
-    // is retained as the canonical hover-state machine but no longer
-    // touches the DOM.
-    const prevHovered = this.hoveredIndex;
-    if (intersects.length > 0) {
-      const hit = intersects[0].object;
-      this.hoveredIndex = hit.userData.hotspotIndex !== undefined ? hit.userData.hotspotIndex : -1;
-      if (prevHovered !== this.hoveredIndex && prevHovered >= 0 && this.columnMeshes[prevHovered]) {
-        const prev = this.columnMeshes[prevHovered];
-        if (prev.userData.restColor && prev.material.color) prev.material.color.copy(prev.userData.restColor);
-      }
-      // Hover treatment: 15% luminance lift via colour interpolation toward
-      // white, never an emissive flash. Article XV: elements acknowledge,
-      // they do not pop.
-      if (hit.userData.restColor && hit.material && hit.material.color) {
-        hit.material.color.copy(hit.userData.restColor).lerp(new THREE.Color(0xffffff), 0.15);
-      }
-      this.renderer.domElement.style.cursor = hit.userData.comingSoon ? 'default' : 'pointer';
-    } else {
-      this.hoveredIndex = -1;
-      if (prevHovered >= 0 && this.columnMeshes[prevHovered]) {
-        const prev = this.columnMeshes[prevHovered];
-        if (prev.userData.restColor && prev.material.color) prev.material.color.copy(prev.userData.restColor);
-      }
-      this.renderer.domElement.style.cursor = 'grab';
-    }
+    const CURSOR_BIAS = 0.0018; // ±6x ambient at full pointer offset.
+    const bias = this.isHovered ? this.mouse.x * CURSOR_BIAS : 0;
+    this.group.rotation.y += AMBIENT_DRIFT + bias;
+
+    // Latitude is locked at 0. The planet does not tilt with cursor Y;
+    // doctrine calls for horizon, not roll. The post-§9.3 camera framing
+    // (1.0, 0.3, 5.5) gives a slight downward gaze that already places the
+    // northern hemisphere — including the Sundarbans — in the visible
+    // half. No vertical interaction is needed or offered.
+    //
+    // The raycast / hover-acknowledgement / cursor-pointer machinery from
+    // pre-final-reduction is retired. The disc on the planet is not the
+    // navigation target — the page-caption (HTML, fixed position) is. The
+    // canvas does not announce affordance; cursor stays at browser default.
   }
 
   dispose() {
@@ -380,10 +356,9 @@ export class Globe {
     domElement.removeEventListener('mousemove', this._onMouseMove);
     domElement.removeEventListener('mouseenter', this._onMouseEnter);
     domElement.removeEventListener('mouseleave', this._onMouseLeave);
-    domElement.removeEventListener('pointerdown', this._onPointerDown);
-    domElement.removeEventListener('pointermove', this._onPointerMove);
-    domElement.removeEventListener('pointerup', this._onPointerUp);
-    domElement.removeEventListener('pointerleave', this._onPointerUp);
+    // Final reduction: drag-to-rotate's four pointer listeners
+    // (pointerdown/move/up/leave) were retired with _setupDragRotate.
+    // No removeEventListener is needed; the listeners were never added.
     this.columnMeshes.forEach((c) => { c.geometry.dispose(); c.material.dispose(); });
     this.habitatMeshes.forEach((d) => { d.geometry.dispose(); d.material.dispose(); });
     this.protectedAreaMeshes.forEach((m) => { m.geometry.dispose(); m.material.dispose(); });
