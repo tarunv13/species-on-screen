@@ -1,0 +1,459 @@
+/*
+  Sundarbans Descent — Threshold to Habitat
+  ------------------------------------------
+  A perspective threshold that becomes a place. Atmosphere is layered
+  DOM; the threshold UI lives inside that stack so the world can
+  occlude it rather than the system removing it. Movements 1–5 of the
+  transition grammar are choreographed in JS via GSAP; this file
+  defines the stable visual ground (palette, geometry, idle ambient
+  drift, typography) on top of which that timeline runs.
+*/
+
+/* ---------- Reset & root ---------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0a1014;
+  color: #d6d2c8;
+  font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ---------- Stage ---------- */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  /* The stage is a containing block for all layers. Layers absolute-position
+     within it. Slight 3D context lets us nudge depth feel without WebGL. */
+  perspective: 1400px;
+  perspective-origin: 50% 60%;
+  isolation: isolate;
+}
+
+/* All layers fill the stage; specific layers override height/position. */
+[data-layer] {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+}
+
+/* ---------- Sky ---------- */
+
+/*
+  Pre-monsoon Sundarbans sky: low silver-teal, warm haze near horizon.
+  A subtle slow gradient drift gives the sense of weather, not animation.
+*/
+.sky {
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 105%,
+      rgba(160, 138, 102, 0.18) 0%,
+      rgba(120, 100, 80, 0.08) 28%,
+      rgba(0, 0, 0, 0) 55%),
+    linear-gradient(180deg,
+      #1a2730 0%,
+      #25333b 35%,
+      #364349 62%,
+      #4a4d49 88%,
+      #5a554a 100%);
+  z-index: 1;
+  animation: sky-breath 38s ease-in-out infinite alternate;
+}
+
+@keyframes sky-breath {
+  0%   { filter: hue-rotate(0deg)   brightness(1.00) saturate(1.00); }
+  100% { filter: hue-rotate(-4deg)  brightness(0.94) saturate(0.92); }
+}
+
+/* ---------- Distant haze ---------- */
+
+.haze-distant {
+  background:
+    radial-gradient(ellipse 90% 28% at 50% 64%,
+      rgba(220, 205, 180, 0.32) 0%,
+      rgba(200, 185, 160, 0.18) 28%,
+      rgba(180, 165, 140, 0.06) 52%,
+      rgba(0, 0, 0, 0) 70%);
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  animation: haze-drift 42s ease-in-out infinite alternate;
+}
+
+@keyframes haze-drift {
+  0%   { transform: translate3d(-1.5%, 0.3%, 0) scale(1.02); opacity: 0.75; }
+  100% { transform: translate3d( 1.5%,-0.4%, 0) scale(1.06); opacity: 0.92; }
+}
+
+/* ---------- Canopy silhouettes ---------- */
+
+.canopy {
+  pointer-events: none;
+}
+
+.canopy-svg {
+  position: absolute;
+  width: 110%;
+  display: block;
+}
+
+.canopy-far {
+  z-index: 3;
+  height: 38%;
+  top: 26%;
+  opacity: 0.78;
+  filter: blur(0.6px);
+}
+.canopy-far .canopy-svg {
+  height: 100%;
+  left: -5%;
+}
+.canopy-far .canopy-svg path {
+  fill: #1c2620;
+}
+
+.canopy-mid {
+  z-index: 4;
+  height: 44%;
+  top: 22%;
+  opacity: 0.88;
+}
+.canopy-mid .canopy-svg {
+  height: 100%;
+  left: -5%;
+}
+.canopy-mid .canopy-svg path {
+  fill: #131a16;
+}
+
+/* idle parallax drift — gentle, weather-paced */
+.canopy-far  { animation: canopy-drift-far  64s ease-in-out infinite alternate; }
+.canopy-mid  { animation: canopy-drift-mid  48s ease-in-out infinite alternate; }
+
+@keyframes canopy-drift-far {
+  0%   { transform: translate3d(-0.8%, 0, 0); }
+  100% { transform: translate3d( 0.8%, 0, 0); }
+}
+@keyframes canopy-drift-mid {
+  0%   { transform: translate3d( 1.0%, 0, 0); }
+  100% { transform: translate3d(-1.0%, 0, 0); }
+}
+
+/* ---------- Light shafts (revealed during Movement 4) ---------- */
+
+.lightshafts {
+  z-index: 5;
+  background:
+    linear-gradient(105deg,
+      rgba(0,0,0,0) 35%,
+      rgba(220, 200, 160, 0.05) 42%,
+      rgba(220, 200, 160, 0.10) 46%,
+      rgba(0,0,0,0) 53%),
+    linear-gradient(98deg,
+      rgba(0,0,0,0) 58%,
+      rgba(220, 200, 160, 0.07) 64%,
+      rgba(220, 200, 160, 0.04) 68%,
+      rgba(0,0,0,0) 74%),
+    linear-gradient(112deg,
+      rgba(0,0,0,0) 12%,
+      rgba(220, 200, 160, 0.04) 18%,
+      rgba(0,0,0,0) 24%);
+  mix-blend-mode: screen;
+  opacity: 0;            /* hidden until Movement 4 */
+  pointer-events: none;
+}
+
+/* ---------- Threshold UI (occludable by world) ---------- */
+
+.frame-content {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: clamp(2rem, 6vh, 6rem) clamp(1.5rem, 6vw, 6rem);
+  pointer-events: auto;
+}
+
+.framing-question {
+  grid-row: 2 / 3;
+  align-self: end;
+  margin: 0 0 clamp(3rem, 8vh, 6rem);
+  max-width: 36ch;
+  text-align: center;
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.005em;
+  line-height: 1.4;
+  color: #ece6d8;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+  opacity: 0;            /* JS reveals on load */
+}
+
+.framing-question .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.lenses {
+  grid-row: 3 / 4;
+  align-self: start;
+  margin-top: clamp(2.5rem, 6vh, 5rem);
+  display: flex;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;            /* JS reveals after the framing question */
+}
+
+.lens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.9rem;
+  text-align: center;
+  color: #ece6d8;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  background: transparent;
+  transition: color 600ms ease, transform 600ms ease, opacity 600ms ease;
+  position: relative;
+}
+
+.lens-name {
+  font-family: "Iowan Old Style", Georgia, serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.22em;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #f1ece0;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+}
+
+.lens-stance {
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgba(236, 230, 216, 0.62);
+  font-family: "Iowan Old Style", Georgia, serif;
+  max-width: 18ch;
+  line-height: 1.35;
+}
+
+.lens--live {
+  cursor: pointer;
+}
+
+.lens--live::after {
+  /* a single thin underline that lights when ready */
+  content: "";
+  display: block;
+  margin-top: 0.55rem;
+  width: 28px;
+  height: 1px;
+  background: rgba(236, 230, 216, 0.7);
+  transform-origin: 50% 50%;
+  transform: scaleX(0.4);
+  opacity: 0.55;
+  transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 700ms ease;
+}
+
+.lens--live:hover::after,
+.lens--live:focus-visible::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.lens--live:focus-visible {
+  outline: none;
+}
+
+.lens--live:hover .lens-name,
+.lens--live:focus-visible .lens-name {
+  color: #fff5e0;
+}
+
+.lens--quiet {
+  opacity: 0.42;
+  cursor: default;
+}
+.lens--quiet .lens-name { color: rgba(236, 230, 216, 0.65); }
+
+/* ---------- Mist-rising (Movement 2 agent) ---------- */
+
+.mist-rising {
+  z-index: 7;
+  /* Spans the full stage, but starts translated 100% below it.
+     During Movement 2, GSAP rises it from translateY(100%) to translateY(0%),
+     so the gradient (densest near its bottom) climbs up over the threshold UI. */
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 95%,
+      rgba(212, 200, 178, 0.62) 0%,
+      rgba(196, 184, 162, 0.46) 22%,
+      rgba(180, 168, 146, 0.30) 45%,
+      rgba(160, 150, 130, 0.12) 75%,
+      rgba(0, 0, 0, 0) 100%),
+    linear-gradient(0deg,
+      rgba(190, 178, 156, 0.50) 0%,
+      rgba(180, 168, 146, 0.28) 28%,
+      rgba(170, 160, 140, 0.10) 55%,
+      rgba(0, 0, 0, 0) 80%);
+  filter: blur(8px);
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+  mix-blend-mode: screen;
+}
+
+/* ---------- Water surface (Movement 3–4) ---------- */
+
+.water {
+  z-index: 8;
+  inset: auto 0 0 0;
+  height: 32%;
+  background:
+    linear-gradient(180deg,
+      rgba(40, 56, 50, 0.0) 0%,
+      rgba(28, 42, 38, 0.55) 18%,
+      rgba(18, 30, 28, 0.85) 60%,
+      rgba(10, 18, 18, 0.95) 100%);
+  opacity: 0;
+  transform: translate3d(0, 30%, 0);
+}
+
+.water-sheen {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 22%;
+  background:
+    repeating-linear-gradient(180deg,
+      rgba(220, 210, 190, 0.04) 0px,
+      rgba(220, 210, 190, 0.04) 1px,
+      rgba(0,0,0,0) 1px,
+      rgba(0,0,0,0) 4px),
+    linear-gradient(180deg,
+      rgba(220, 210, 190, 0.18) 0%,
+      rgba(0, 0, 0, 0) 100%);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  animation: water-sheen-drift 11s ease-in-out infinite alternate;
+}
+
+@keyframes water-sheen-drift {
+  0%   { transform: translate3d(-1.5%, 0, 0); opacity: 0.55; }
+  100% { transform: translate3d( 1.5%, 0, 0); opacity: 0.85; }
+}
+
+/* ---------- Roots: mid and foreground pneumatophore fields ---------- */
+
+.roots {
+  pointer-events: none;
+}
+
+.roots-svg {
+  position: absolute;
+  width: 110%;
+  left: -5%;
+  display: block;
+}
+
+.roots-mid {
+  z-index: 9;
+  inset: auto 0 0 0;
+  height: 38%;
+  opacity: 0;
+  transform: translate3d(0, 30%, 0);
+}
+.roots-mid .roots-svg {
+  height: 100%;
+  bottom: 0;
+}
+.roots-mid line { stroke: #0d1411; stroke-linecap: round; }
+.roots-mid ellipse { fill: #0d1411; }
+
+.roots-fore {
+  z-index: 10;
+  inset: auto 0 0 0;
+  height: 62%;
+  opacity: 0;
+  transform: translate3d(0, 40%, 0) scale(1.04);
+  transform-origin: 50% 100%;
+}
+.roots-fore .roots-svg {
+  height: 100%;
+  bottom: 0;
+}
+.roots-fore line { stroke: #050908; stroke-linecap: round; }
+.roots-fore ellipse { fill: #050908; }
+
+/* ---------- Foreground fog (faint, ambient) ---------- */
+
+.fog-fore {
+  z-index: 11;
+  inset: auto 0 0 0;
+  height: 55%;
+  background:
+    radial-gradient(ellipse 70% 40% at 30% 95%,
+      rgba(210, 198, 178, 0.18) 0%,
+      rgba(0,0,0,0) 60%),
+    radial-gradient(ellipse 80% 35% at 75% 100%,
+      rgba(200, 188, 168, 0.14) 0%,
+      rgba(0,0,0,0) 60%);
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: blur(6px);
+}
+
+/* ---------- Vignette ---------- */
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 55%,
+      rgba(0,0,0,0) 55%,
+      rgba(0,0,0,0.35) 88%,
+      rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .sky,
+  .haze-distant,
+  .canopy-far,
+  .canopy-mid,
+  .water-sheen {
+    animation: none !important;
+  }
+}
