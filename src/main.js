@@ -65,8 +65,9 @@ function init() {
   // Wire up the static page caption (Sundarbans \u00b7 Bengal tiger).
   // Clicking it intercepts the anchor and drives the canonical arrival
   // into the published Sundarbans place. The href remains as the
-  // unenhanced fallback to species/tiger.html for a JS-disabled
-  // visitor who needs the static research page.
+  // unenhanced fallback to the canonical research narrative at
+  // notes/sundarbans-bengal-tiger-saline-swimmer.html for a JS-disabled
+  // visitor; that page reads without 3D and stays in research register.
   setupPageCaption();
 }
 

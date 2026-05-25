@@ -28,6 +28,13 @@
                       matching `notes/<id>.html`. The narrative would
                       load into the registry but be unreachable.
 
+    5. archive-index drift — `notes/index.html` out of sync with the
+                      registry: a non-draft record missing a link, a
+                      link pointing at an unregistered slug, or a
+                      link pointing at a record whose status is
+                      `draft` (drafts are not surfaced on the public
+                      archive per narrative-lifecycle.md §1).
+
   Why source-text validation, not import:
 
   The narrative files are TypeScript and would require compilation
@@ -55,6 +62,7 @@ const NARRATIVES_DIR = path.join(
   REPO_ROOT, 'cinematic-language', 'narratives'
 );
 const NOTES_DIR = path.join(REPO_ROOT, 'notes');
+const NOTES_INDEX = path.join(NOTES_DIR, 'index.html');
 
 /* ---------- Schema constraints ---------- */
 
@@ -112,7 +120,7 @@ function checkNarrativeFile({ file, filename, content, htmlExists }) {
     errors.push(
       'no id field at the top of the EcologicalNarrative literal'
     );
-    return { id: null, errors };
+    return { id: null, status: null, errors };
   }
 
   // 2. id must be a valid kebab-case slug.
@@ -181,7 +189,84 @@ function checkNarrativeFile({ file, filename, content, htmlExists }) {
     );
   }
 
-  return { id, errors };
+  return { id, status, errors };
+}
+
+/* ---------- Cross-file: archive index drift ---------- */
+
+/**
+ * Reconcile `notes/index.html` against the registry. Three drift
+ * conditions are caught:
+ *
+ *   - a non-draft record (verified, in_review, published) with no
+ *     link in the index — silent omission
+ *   - a link in the index pointing at a slug not in the registry —
+ *     orphaned link, will 404 on click
+ *   - a link in the index pointing at a record whose registry status
+ *     is `draft` — public archive must not surface drafts
+ *     (narrative-lifecycle.md §1)
+ *
+ * The check parses the index as text (regex over `<a href="<slug>.html">`)
+ * to keep the script dependency-free; the index is small and the
+ * link form is stable. Missing index file is treated as 'nothing to
+ * reconcile', not an error — the archive is optional.
+ */
+async function checkArchiveIndexDrift(narratives) {
+  let indexContent;
+  try {
+    indexContent = await readFile(NOTES_INDEX, 'utf8');
+  } catch (err) {
+    if (err.code === 'ENOENT') return [];
+    throw err;
+  }
+
+  const linkRe = /<a\s+href="([a-z][a-z0-9]*(?:-[a-z0-9]+)*)\.html"/g;
+  const indexedSlugs = new Set();
+  let m;
+  while ((m = linkRe.exec(indexContent)) !== null) {
+    indexedSlugs.add(m[1]);
+  }
+
+  const statusById = new Map(
+    narratives
+      .filter(n => n.id !== null && n.status !== null)
+      .map(n => [n.id, n.status])
+  );
+
+  const errors = [];
+
+  // Non-draft records must appear in the index.
+  for (const { id, status } of narratives) {
+    if (id === null || status === null) continue;
+    if (status === 'draft') continue;
+    if (!indexedSlugs.has(id)) {
+      errors.push(
+        `notes/index.html is missing a link to "${id}.html" ` +
+        `(registry status: ${status}; non-draft records must be ` +
+        `listed in the public archive)`
+      );
+    }
+  }
+
+  // Indexed slugs must correspond to registered non-draft records.
+  for (const slug of indexedSlugs) {
+    if (!statusById.has(slug)) {
+      errors.push(
+        `notes/index.html links to "${slug}.html" which has no ` +
+        `matching narrative in the registry ` +
+        `(orphaned archive link)`
+      );
+    } else if (statusById.get(slug) === 'draft') {
+      errors.push(
+        `notes/index.html links to "${slug}.html" but its registry ` +
+        `status is "draft" ` +
+        `(drafts must not appear in the public archive per ` +
+        `narrative-lifecycle.md \u00a71)`
+      );
+    }
+  }
+
+  return errors;
 }
 
 /* ---------- Output ---------- */
@@ -228,6 +313,7 @@ async function main() {
 
   const idToFile = new Map();
   const perFileErrors = [];
+  const allRecords = [];
 
   for (const file of files) {
     const filename = file.replace(/\.ts$/, '');
@@ -235,15 +321,17 @@ async function main() {
     const content = await readFile(filePath, 'utf8');
     const htmlExists = existsSync(path.join(NOTES_DIR, `${filename}.html`));
 
-    const { id, errors } = checkNarrativeFile({
+    const { id, status, errors } = checkNarrativeFile({
       file, filename, content, htmlExists
     });
+
+    allRecords.push({ id, status });
 
     // Cross-file duplicate-id detection. Only meaningful for files
     // whose id parsed cleanly.
     if (id && idToFile.has(id)) {
       errors.push(
-        `duplicate id "${id}" — also declared in ` +
+        `duplicate id "${id}" \u2014 also declared in ` +
         `${idToFile.get(id)} ` +
         '(the registry would silently drop one of these at load time)'
       );
@@ -254,6 +342,17 @@ async function main() {
     if (errors.length > 0) {
       perFileErrors.push({ file, errors });
     }
+  }
+
+  // Cross-file: archive index ↔ registry reconciliation.
+  // Run unconditionally — drift can exist even when every per-file
+  // check passes.
+  const driftErrors = await checkArchiveIndexDrift(allRecords);
+  if (driftErrors.length > 0) {
+    perFileErrors.push({
+      file: 'notes/index.html',
+      errors: driftErrors
+    });
   }
 
   if (perFileErrors.length > 0) {
