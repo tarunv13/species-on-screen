@@ -3,8 +3,7 @@
  *
  * Mangrove tidal forest in the Ganges–Brahmaputra delta. Panthera
  * tigris tigris regularly swims between forested islands across
- * brackish tidal channels in pursuit of prey and territory — a
- * frequency unrecorded in any other tiger population.
+ * brackish tidal channels in pursuit of prey and territory.
  *
  * This file is one record. The schema is in
  * `../ecological-narrative.example.ts`. The runtime registry that
@@ -35,9 +34,8 @@ const narrative: EcologicalNarrative = {
   observation: {
     summary:
       'The Bengal tigers of the Sundarbans cross brackish tidal channels ' +
-      'by swimming between forested islands — a regular behavior in pursuit ' +
-      'of prey and territory, unrecorded at this frequency in any other ' +
-      'tiger population.',
+      'by swimming between forested islands — a regular behavior in ' +
+      'pursuit of prey and territory.',
     type: 'behavioral_adaptation',
     year: [1973, 2024]
   },
@@ -72,10 +70,8 @@ const narrative: EcologicalNarrative = {
     body:
       'In the Sundarbans, the tide rises twice a day. Mangroves breathe ' +
       'through pneumatophores — vertical aerial roots that protrude from ' +
-      'the mud — because the saline silt of the delta admits no air. The ' +
-      'forest is a community of organisms that have learned to live, daily, ' +
-      'with what would kill almost any other terrestrial life. Among them, ' +
-      'a tiger that swims.',
+      'the mud — because the saline silt of the delta admits no air. ' +
+      'Among them, a tiger that swims.',
     voice: 'editorial team'
   },
   metadata: {
@@ -83,7 +79,7 @@ const narrative: EcologicalNarrative = {
     contributor: 'tarunv13',
     created: '2026-05-25',
     updated: '2026-05-25',
-    status: 'draft'
+    status: 'verified'
   }
 };
 

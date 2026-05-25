@@ -14,6 +14,23 @@ try {
   // species/ directory may not exist yet during initial setup
 }
 
+// Collect canonical cinematic place pages.
+// Platform architecture §7: cinematic and research live under distinct
+// route groups. Places are the published canonical cinematic surface;
+// each entry is bound to one verified narrative record. Prototypes
+// live separately (see prototypePages) and are not promoted into this
+// group without an explicit canonicalization pass.
+const placePages = {};
+try {
+  const files = readdirSync(resolve(__dirname, 'places'));
+  files.filter(f => f.endsWith('.html')).forEach(f => {
+    const name = f.replace('.html', '');
+    placePages[`places-${name}`] = resolve(__dirname, 'places', f);
+  });
+} catch (e) {
+  // places/ directory may not exist yet
+}
+
 // Collect prototype HTML pages
 const prototypePages = {};
 try {
@@ -49,6 +66,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         ...speciesPages,
+        ...placePages,
         ...prototypePages,
         ...notesPages
       }

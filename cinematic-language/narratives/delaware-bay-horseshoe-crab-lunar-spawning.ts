@@ -26,8 +26,7 @@ const narrative: EcologicalNarrative = {
     countries: ['United States'],
     coordinates: { latitude: 39.0, longitude: -75.1 },
     editorialPlaceLine:
-      'An estuary where the same animal has come ashore for four ' +
-      'hundred million years.'
+      'A bay where the spring tides bring the spawning ashore.'
   },
   species: {
     id: 'limulus-polyphemus',
@@ -41,8 +40,8 @@ const narrative: EcologicalNarrative = {
       'Atlantic horseshoe crabs in Delaware Bay aggregate to spawn ' +
       'on the upper-shore sand on the high-tide nights of the new ' +
       'and full moons across roughly six weeks each spring — a ' +
-      'lunar-tide synchrony at this scale recorded in no other ' +
-      'arthropod.',
+      'spawning rhythm phased to both the lunar cycle and the ' +
+      'semidiurnal tide.',
     type: 'seasonal_pattern',
     year: [1989, 2019]
   },
@@ -83,11 +82,6 @@ const narrative: EcologicalNarrative = {
       'beaches; females dig shallow nests and release eggs in ' +
       'clutches of around four thousand; clasping males release ' +
       'sperm over the surface as the tide retreats.\n\n' +
-      'The synchrony has been recorded in scientific literature ' +
-      'since at least the early twentieth century, and far longer ' +
-      'by Lenape and later European observers. The genus Limulus ' +
-      'has been recognisable in the fossil record for over four ' +
-      'hundred million years.\n\n' +
       'Bay-wide population indices declined through the 1990s and ' +
       'early 2000s; attributed causes include harvest pressure for ' +
       'whelk-fishery bait and biomedical bleeding for endotoxin ' +
@@ -100,7 +94,7 @@ const narrative: EcologicalNarrative = {
     contributor: 'tarunv13',
     created: '2026-05-25',
     updated: '2026-05-25',
-    status: 'draft'
+    status: 'in_review'
   }
 };
 

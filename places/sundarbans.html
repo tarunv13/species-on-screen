@@ -5,7 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Sundarbans &middot; Descent</title>
   <meta name="description" id="docDesc" content="" />
-  <script type="module" src="/src/prototypes/sundarbans-descent.js"></script>
+  <!--
+    First-paint darkness. The script below is a module and therefore
+    deferred; its imported CSS arrives a moment later. This inline
+    rule guarantees that the very first paint of the destination is
+    near-black, so a viewer arriving from the homepage's canonical
+    arrival sequence (Article III, Crossing) sees the luminance dip
+    continue uninterrupted across the navigation rather than a flash
+    of unstyled white.
+  -->
+  <style>html,body{margin:0;padding:0;background:#0a1014;}</style>
+  <script type="module" src="/src/places/sundarbans.js"></script>
 </head>
 <body>
   <!--
@@ -13,6 +23,13 @@
     of DOM layers that share a single continuous parallax field. The
     threshold UI lives inside this stack so it can be occluded by the
     world rather than swapped out by the system.
+
+    This is the first canonical cinematic place surface in the system.
+    Wired to the verified narrative record
+    cinematic-language/narratives/sundarbans-bengal-tiger-saline-swimmer.ts.
+    The corresponding research surface lives independently at
+    notes/sundarbans-bengal-tiger-saline-swimmer.html and is not
+    referenced from here.
   -->
   <div class="stage" id="stage">
 
@@ -97,8 +114,8 @@
         hover highlight, no UI chrome. Easy to miss.
 
         Text content is populated at init from the canonical narrative
-        object (see src/prototypes/sundarbans-descent.js). The cinematic
-        surface extracts only editorial.fragment from that object.
+        object (see src/places/sundarbans.js). The cinematic surface
+        extracts only editorial.fragment from that object.
       -->
       <p class="scene-inscription" id="sceneInscription"></p>
     </div>

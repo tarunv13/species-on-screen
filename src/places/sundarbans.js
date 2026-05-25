@@ -1,15 +1,31 @@
 /*
-  Sundarbans Descent — Threshold to Habitat
-  ------------------------------------------
-  Implements Movements 1–5 of the transition grammar as a single
-  continuous GSAP timeline. The threshold is composed of layered
-  DOM elements; the descent does not navigate, it dissolves the
-  framing while the world advances over it. No species, no labels,
-  no UI returns on arrival.
+  Sundarbans — Canonical Cinematic Place Surface
+  ----------------------------------------------
+  The first published cinematic place in the system. Implements
+  Movements 1–5 of the transition grammar as a single continuous
+  GSAP timeline. The threshold is composed of layered DOM elements;
+  the descent does not navigate, it dissolves the framing while the
+  world advances over it. No species, no labels, no UI returns on
+  arrival.
+
+  Wired to the verified narrative record at
+  cinematic-language/narratives/sundarbans-bengal-tiger-saline-swimmer.ts
+  via the canonical narrative registry. Per platform architecture
+  §5, this surface extracts only place.name,
+  place.editorialPlaceLine, and editorial.fragment from that record.
+  Everything else (species identity, taxonomy, IUCN status,
+  observation summary, sources, full editorial body) is
+  research-surface and is rendered at
+  notes/sundarbans-bengal-tiger-saline-swimmer.html, which this file
+  does not reference.
+
+  Cinematic grammar locked at v2 of the prototype review series; see
+  prototypes/reviews/sundarbans-descent-review-v1.md and v2.md for
+  the authored history of this surface's perceptual decisions.
 */
 
 import { gsap } from 'gsap';
-import './sundarbans-descent.css';
+import './sundarbans.css';
 
 /* ---------- Canonical narrative extraction ---------- */
 
