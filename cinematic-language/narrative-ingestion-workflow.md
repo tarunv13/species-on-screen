@@ -61,7 +61,8 @@ one `peer_reviewed` source regardless of how many other sources exist.
 ## 3. Editorial fragments
 
 The `editorial.fragment` is the only editorial element that may surface in
-cinematic space (see [`cinematic-principles.md`](./cinematic-principles.md)).
+cinematic space (see [`editorial-voice.md`](../.kiro/steering/editorial-voice.md)
+and [`cinematic-vocabulary.md`](../.kiro/steering/cinematic-vocabulary.md)).
 Treat it as the most expensive sentence in the project.
 
 **Length.** Under twelve words. Not a sentence. Not a slogan.

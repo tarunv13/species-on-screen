@@ -6,15 +6,13 @@ inclusion: always
 
 > Production doctrine for camera, light, motion, and composition.
 > This document defines what *cinematic* means inside Species on Screen.
-> Future PRs are evaluated against the Articles below. Reviewers may cite
-> them by name (e.g. "Article III: The Descent") in feedback.
+> PRs are evaluated against the Articles below. Reviewers cite them by
+> name (e.g. "Article III: The Descent") in feedback.
 >
-> **Status:** provisional constitutional guidance pending the first
-> milestone review walks. The grammar is intended to be stable; specific
-> parameter values (timings, particle ceilings, hover thresholds) are
-> expected to be revisited after the first terrain-descent prototype
-> ships and is reviewed against this doctrine in practice. See the
-> introducing PR for the list of Articles flagged as flex-pending.
+> **Status:** canonical doctrine. Articles are stable identifiers and
+> are cited in PR review. Specific parameter values (timings, particle
+> ceilings, hover thresholds) remain editable through the standard
+> amendment path; the grammar does not.
 
 ## 0. What this document governs
 
@@ -201,6 +199,29 @@ is doing something is out of voice.
 
 This Article is the most often violated under pressure to "use the
 space." The space is not unused; it is composed.
+
+### Article XVII — Atmospheric hierarchy
+
+A place is not assembled at once. The order in which its layers
+arrive is fixed:
+
+1. Sound bed (humidity, water, wind, distance).
+2. Atmospheric light (colour temperature, haze, time of day).
+3. Mass (canopy, root architecture, water surface, terrain).
+4. Place-specificity — the cues that make this place this place.
+5. Inhabitants (creatures, signs of presence).
+
+Inhabitants are the last layer to arrive — often well after the
+transition itself ends. A species visible *during* a transition,
+ahead of its place, is a system failure. Periphery fills before
+centre commits: the edges of the frame become inhabited before the
+centre of the composition does.
+
+Body-relative cues precede geographic cues. The viewer feels low,
+surrounded, humid, dim before they read *Sundarbans*. This Article
+is the cinematic-grammar reason for the first hold of any safari
+scene (Article XIII, Principle III) and for the held darkness around
+photographs (Article VI).
 
 ## 5. Colour
 
