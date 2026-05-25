@@ -25,21 +25,16 @@ export class FloatingCards {
       card.dataset.species = slug;
 
       const name = data.taxonomy?.common_name || slug.replace(/-/g, ' ');
-      const status = data.conservation?.iucn_status || '';
-      const photo = data.photos && data.photos.length > 0 ? data.photos[0].url : '';
 
-      let thumbHtml = '';
-      if (photo) {
-        thumbHtml = `<img class="floating-card__thumb" src="${photo}" alt="${name}" />`;
-      }
-
-      card.innerHTML = `
-        ${thumbHtml}
-        <div class="floating-card__info">
-          <span class="floating-card__name">${name}</span>
-          <span class="floating-card__status">${status}</span>
-        </div>
-      `;
+      // Audit §9.5: render only the species name. The frosted-glass
+      // backplate, 40px round thumbnail, and lime-green uppercase status
+      // pill are all retired (Article X — the cards were the most
+      // identifiable template fingerprint on the page; Canon XI —
+      // conservation status belongs as a sentence on the species page,
+      // not as a coloured pill on the planetary view).
+      // The card is now a single anchored text node. textContent (not
+      // innerHTML) avoids any markup-injection surface from the data file.
+      card.textContent = name;
 
       card.addEventListener('click', () => {
         if (this.onCardClick) {
