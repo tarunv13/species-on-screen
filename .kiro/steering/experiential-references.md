@@ -12,10 +12,10 @@ inclusion: always
 > project that this is how the experience of a species in habitat is meant
 > to register.
 >
-> **Status:** provisional. The reference set is expected to be refined as
-> the project meets its first audiences. The synthesis sections (§3) are
-> intended to be stable; the reference list (§2) is editable as we learn
-> which works actually held up under review.
+> **Status:** canonical intuition layer. The synthesis sections (§3) are
+> stable identifiers. The reference list (§2) is editable through the
+> standard amendment path as we learn which works actually held up under
+> review.
 
 ## 0. What this document governs
 
