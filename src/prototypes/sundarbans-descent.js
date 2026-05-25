@@ -145,6 +145,155 @@ function startAmbientAudio() {
   master.gain.linearRampToValueAtTime(0.55, now + 5);
 }
 
+/* ---------- Subjective parallax (depth-honest perception) ---------- */
+
+/*
+  The medium is still 2D layered DOM. The depth illusion in the v1 prototype
+  was *stacking*: z-ordered planes whose perceived depth dies the moment the
+  eye stops moving, because the visual system estimates depth from parallax
+  *disparity*, not from z-index. This module replaces that with subjective
+  parallax: every depth-cueing layer translates as a function of two inputs:
+
+    1. cursor position (smoothed, low-pass filtered) — represents *where*
+       the viewer is looking from, not what they are commanding;
+    2. ambient breath — three pairs of sin/cos on incommensurable prime
+       periods (17/19/23/29/37/41 s), summed, never aligning to perception.
+
+  Layers move proportional to a depth coefficient. This is the cue real
+  vision uses. Amplitude is intentionally tiny (max ~5% viewport at the
+  closest layer); above that the wallpaper effect appears, since each
+  layer is still a flat silhouette. See cinematic-language/depth-medium-findings.md.
+*/
+
+const PARALLAX_LAYERS = ['.canopy-far', '.canopy-mid', '.roots-mid', '.roots-fore'];
+const DEPTH_COEF = {
+  '.canopy-far':  0.15,  // farther → moves less
+  '.canopy-mid':  0.30,
+  '.roots-mid':   0.55,
+  '.roots-fore':  0.95   // closest → moves most
+};
+const AMP_X = 32;        // px at extreme cursor / max breath, scaled by depth
+const AMP_Y = 18;
+const BREATH_GAIN = 0.28;
+const CURSOR_SMOOTH = 0.045;
+
+/** State machine for transform ownership.
+ *  threshold  — parallax owns transforms; descent timeline is paused
+ *  descending — descent timeline owns transforms; parallax suspends writes
+ *  inhabited  — parallax owns transforms again, with rest poses captured
+ *               from the descent's final state so post-descent motion is
+ *               additive on top of the inhabited geometry.
+ */
+let descentState = 'threshold';
+
+const cursorTarget   = { x: 0, y: 0 };
+const cursorSmoothed = { x: 0, y: 0 };
+const restPose = Object.create(null);   // selector → { x, y } in px
+
+function updateCursorFromEvent(clientX, clientY) {
+  cursorTarget.x = (clientX / window.innerWidth)  * 2 - 1;
+  cursorTarget.y = (clientY / window.innerHeight) * 2 - 1;
+}
+
+function bindParallaxInput() {
+  window.addEventListener('mousemove', (e) => {
+    updateCursorFromEvent(e.clientX, e.clientY);
+  }, { passive: true });
+  // Touch users get breath-only by default. Single-finger tracking would
+  // conflict with scroll/zoom intent; device orientation is the natural
+  // input here and is intentionally out of this surgical pass's scope.
+}
+
+function captureRestPoses() {
+  for (const sel of PARALLAX_LAYERS) {
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    restPose[sel] = {
+      x: Number(gsap.getProperty(el, 'x')) || 0,
+      y: Number(gsap.getProperty(el, 'y')) || 0
+    };
+  }
+}
+
+function resetParallaxOffsets() {
+  // Called on entering 'descending' so the descent's tweens start from a
+  // clean transform baseline (no stray parallax-induced x/y).
+  for (const sel of PARALLAX_LAYERS) {
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    gsap.set(el, { x: 0, y: 0 });
+  }
+}
+
+function rafLoop(t) {
+  // Smooth cursor toward target.
+  cursorSmoothed.x += (cursorTarget.x - cursorSmoothed.x) * CURSOR_SMOOTH;
+  cursorSmoothed.y += (cursorTarget.y - cursorSmoothed.y) * CURSOR_SMOOTH;
+
+  // Breath: three sin/cos pairs on prime-incommensurable periods.
+  // Amplitude bounded to roughly [-1, 1] like cursorSmoothed.
+  const breathX =
+    0.5 * Math.sin(t / 17000) +
+    0.3 * Math.sin(t / 23000 + 1.7) +
+    0.2 * Math.sin(t / 41000 + 0.4);
+  const breathY =
+    0.5 * Math.cos(t / 19000) +
+    0.3 * Math.sin(t / 29000 + 0.9) +
+    0.2 * Math.cos(t / 37000 + 0.2);
+
+  if (descentState === 'threshold' || descentState === 'inhabited') {
+    const offX = cursorSmoothed.x + breathX * BREATH_GAIN;
+    const offY = cursorSmoothed.y + breathY * BREATH_GAIN;
+
+    for (const sel of PARALLAX_LAYERS) {
+      const el = document.querySelector(sel);
+      if (!el) continue;
+      const coef = DEPTH_COEF[sel];
+      const rest = restPose[sel] || { x: 0, y: 0 };
+      // Negative sign produces correct parallax: cursor right → near layers
+      // shift left more than far layers, simulating a leftward perspective shift.
+      const dx = -coef * offX * AMP_X;
+      const dy = -coef * offY * AMP_Y;
+      gsap.set(el, { x: rest.x + dx, y: rest.y + dy });
+    }
+  }
+
+  requestAnimationFrame(rafLoop);
+}
+
+function startParallax() {
+  bindParallaxInput();
+  requestAnimationFrame(rafLoop);
+}
+
+/* ---------- Ambient mist (post-M5 continuance) ---------- */
+
+/*
+  Replaces the v1 "settle" tweens that brought fog-fore and mist-rising to
+  fixed final opacities (closure: a movie ending). These tweens use
+  random() targets and durations with repeatRefresh, so each cycle picks
+  new values and the motion never repeats to perception. Asymptotic
+  continuance, not resolution.
+*/
+function startAmbientMist() {
+  gsap.to('.mist-rising', {
+    opacity: 'random(0.28, 0.52)',
+    duration: 'random(9, 15)',
+    ease: 'sine.inOut',
+    repeat: -1,
+    yoyo: true,
+    repeatRefresh: true
+  });
+  gsap.to('.fog-fore', {
+    opacity: 'random(0.48, 0.78)',
+    duration: 'random(7, 12)',
+    ease: 'sine.inOut',
+    repeat: -1,
+    yoyo: true,
+    repeatRefresh: true
+  });
+}
+
 /* ---------- Initial scene assembly ---------- */
 
 function paintCanopies() {
@@ -326,29 +475,24 @@ function buildDescent() {
       ease: 'sine.inOut'
     }, 3.00 * k);
 
-  /* ----- Movement 5 — Settling (4.5 – 6.0s) ----- */
-  // Motion decelerates into ambient life. The vignette deepens just
-  // enough to feel surrounded. No UI returns; no title card lands.
-  // The body class flips to `inhabited-state` purely as a hook for
-  // any future atmospheric tweaks; nothing currently keys off it.
-  tl.to('.vignette', {
-      opacity: 1.0,
-      duration: 1.00 * k,
-      ease: 'sine.inOut'
+  /* ----- Movement 5 — Settling (4.5 – ∞) ----- */
+  // The world does not conclude. Vignette does not deepen — that was a
+  // film gesture and read as scene-end. The fog-fore and mist-rising
+  // "settle" tweens are replaced with non-looping random tweens that
+  // never resolve, so opacity drifts asymptotically. At the close of
+  // M5 the parallax system takes ownership of transforms with rest
+  // poses captured from the descent's final state, so post-descent
+  // motion is additive on top of inhabited geometry rather than a
+  // separate ambient loop.
+  tl.add(() => {
+      startAmbientMist();
     }, 4.50 * k)
-    .to('.fog-fore', {
-      opacity: 0.65,
-      duration: 1.20 * k,
-      ease: 'sine.inOut'
-    }, 4.80 * k)
-    .to('.mist-rising', {
-      opacity: 0.40,
-      duration: 1.00 * k,
-      ease: 'sine.inOut'
-    }, 5.00 * k)
     .add(() => {
-      document.body.classList.remove('threshold-state');
-      document.body.classList.add('inhabited-state');
+      // Hand transform ownership back to parallax. The descent's
+      // yPercent/scale on each layer remain in GSAP's tracked state;
+      // parallax only modifies x/y on top of those values.
+      captureRestPoses();
+      descentState = 'inhabited';
     }, 5.20 * k);
 
   return tl;
@@ -359,6 +503,11 @@ function buildDescent() {
 function init() {
   paintCanopies();
   paintRoots();
+
+  // Subjective parallax begins immediately, in 'threshold' state.
+  // The threshold is no longer a still scene — it has perceptual
+  // presence relative to the viewer the moment the page loads.
+  startParallax();
 
   revealThreshold();
   const descent = buildDescent();
@@ -383,6 +532,11 @@ function init() {
       b.setAttribute('disabled', 'true');
       b.setAttribute('aria-disabled', 'true');
     });
+
+    // Hand transform ownership to the descent timeline. The rAF loop
+    // keeps running but suspends its writes while in 'descending'.
+    descentState = 'descending';
+    resetParallaxOffsets();
 
     descent.play(0);
   };
