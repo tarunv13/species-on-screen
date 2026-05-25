@@ -68,63 +68,42 @@ body {
 }
 
 /* ===== FLOATING CARDS ===== */
+/* Audit §9.2: the glassmorphic backplate (white-rgba background,
+ * 16px backdrop-blur, 1px border, drop-shadow, brightening hover)
+ * is retired. The element is now a caption — a plain text node that
+ * floats anchored to its species, in the typographic register of an
+ * editorial caption rather than a SaaS pricing tile.
+ *
+ * Hover does not lift the substrate. The cursor changes to pointer
+ * to signal navigability (the only remaining click affordance on
+ * the page); colour and weight are otherwise unchanged.
+ *
+ * The four orphan child selectors (.floating-card__thumb / __info /
+ * __name / __status) are removed: §9.5 collapsed the rendered card
+ * to a single text node, so those rules describe DOM that no longer
+ * exists.
+ */
 .floating-card {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 0.8rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   pointer-events: auto;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.1s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease, transform 0.1s ease, color 0.3s ease;
   white-space: nowrap;
   will-change: transform, opacity;
 }
 
 .floating-card:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-.floating-card__thumb {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.floating-card__info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.floating-card__name {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.floating-card__status {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.15rem 0.5rem;
-  border-radius: 10px;
-  background: rgba(74, 222, 128, 0.2);
-  color: #4ade80;
-  width: fit-content;
+  color: rgba(255, 255, 255, 1);
 }
 
 /* ===== LAYER TOGGLE BAR ===== */
@@ -179,25 +158,12 @@ body {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .floating-card {
-    padding: 0.6rem 0.8rem;
-  }
-  .floating-card__thumb {
-    width: 32px; height: 32px;
-  }
-  .floating-card__name {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
   }
 }
 
 @media (max-width: 480px) {
-  .floating-card__info {
-    display: none;
-  }
   .floating-card {
-    padding: 0.4rem;
-    border-radius: 50%;
-  }
-  .floating-card__thumb {
-    width: 36px; height: 36px;
+    font-size: 0.7rem;
   }
 }
