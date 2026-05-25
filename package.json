@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "fetch-data": "node scripts/fetch-tmdb-data.js"
+    "fetch-data": "node scripts/fetch-tmdb-data.js",
+    "new-narrative": "node scripts/new-narrative.js"
   },
   "dependencies": {
     "@barba/core": "^2.10.3",
