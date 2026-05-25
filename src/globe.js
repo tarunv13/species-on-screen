@@ -125,8 +125,14 @@ export class Globe {
     // single low-alpha luminance. The variable name `columnMeshes` is kept
     // to preserve the engine integration contract (raycast targets, hover
     // index, dispose iteration) without a wider rename.
+    //
+    // Audit §9.x supplement: the bright RingGeometry halo (opacity 0.7)
+    // that previously surrounded each disc is retired. With the disc
+    // dropped to additive low-alpha in §9.4, the halo became visually
+    // dominant — the disc read as the halo's interior, the halo read as
+    // the marker. The hierarchy was inverted. The halo is gone; the disc
+    // alone is the marker.
     const discGeometry = new THREE.CircleGeometry(0.025, 24);
-    const ringGeometry = new THREE.RingGeometry(0.02, 0.04, 16);
     HOTSPOTS.forEach((hotspot, i) => {
       const basePos = latLngToVector3(hotspot.lat, hotspot.lng, 1.502);
       const normal = basePos.clone().normalize();
@@ -151,10 +157,6 @@ export class Globe {
         restColor: baseColor.clone(),
       };
       this.group.add(column); this.columnMeshes.push(column);
-      const ringMaterial = new THREE.MeshBasicMaterial({ color: baseColor.clone(), transparent: true, opacity: 0.7, side: THREE.DoubleSide });
-      const ring = new THREE.Mesh(ringGeometry.clone(), ringMaterial);
-      ring.position.copy(basePos); ring.lookAt(basePos.clone().add(normal));
-      this.group.add(ring);
     });
   }
 
@@ -195,62 +197,35 @@ export class Globe {
   }
 
   _createFloraFauna() {
+    // Audit §6.4 deferral expired (perceptual review after §9.4):
+    // with pulses, tooltips, and count-encoded columns gone, the
+    // ~200 shimmering ecosystem sprites became the loudest motion
+    // on the page. Continuous shimmer is exactly the attention-
+    // extraction pattern Article 3 forbids.
+    //
+    // The method body is retired. The two fields it formerly set
+    // (floraFaunaTime, floraFaunaMeshes) are kept as initialised
+    // defaults so update() and dispose() iterate over an empty
+    // array without further conditionals — preserving the engine
+    // integration contract without restoring the noise.
     this.floraFaunaTime = 0;
     this.floraFaunaMeshes = [];
-    const ecosystems = {};
-    HOTSPOTS.forEach(h => { if (!ecosystems[h.ecosystem]) ecosystems[h.ecosystem] = []; ecosystems[h.ecosystem].push(h); });
-    const spriteConfigs = {
-      'tropical-forest': { count: 30, color: [0.3, 0.7, 0.35], size: 4.0, speed: 0.5 },
-      'mountain': { count: 25, color: [0.9, 0.92, 0.95], size: 3.0, speed: 0.4 },
-      'coral-reef': { count: 25, color: [0.9, 0.45, 0.4], size: 3.5, speed: 0.6 },
-      'ocean': { count: 25, color: [0.2, 0.5, 0.8], size: 3.0, speed: 0.3 },
-      'savanna': { count: 25, color: [0.8, 0.7, 0.3], size: 3.0, speed: 0.5 },
-      'arctic': { count: 25, color: [0.85, 0.9, 1.0], size: 2.5, speed: 0.3 },
-      'temperate-forest': { count: 25, color: [0.35, 0.65, 0.3], size: 3.5, speed: 0.5 },
-      'freshwater': { count: 20, color: [0.3, 0.6, 0.8], size: 3.0, speed: 0.6 },
-    };
-    Object.entries(ecosystems).forEach(([type, hotspots]) => {
-      const config = spriteConfigs[type];
-      if (!config) return;
-      const count = config.count;
-      const positions = new Float32Array(count * 3);
-      const seeds = new Float32Array(count);
-      const sizes = new Float32Array(count);
-      for (let i = 0; i < count; i++) {
-        const hotspot = hotspots[i % hotspots.length];
-        const latOffset = (Math.random() - 0.5) * 10;
-        const lngOffset = (Math.random() - 0.5) * 10;
-        const radius = 1.55 + Math.random() * 0.1;
-        const pos = latLngToVector3(hotspot.lat + latOffset, hotspot.lng + lngOffset, radius);
-        positions[i * 3] = pos.x; positions[i * 3 + 1] = pos.y; positions[i * 3 + 2] = pos.z;
-        seeds[i] = Math.random(); sizes[i] = config.size * (0.7 + Math.random() * 0.6);
-      }
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('seed', new THREE.BufferAttribute(seeds, 1));
-      geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-      const material = new THREE.ShaderMaterial({
-        uniforms: { time: { value: 0 }, color: { value: new THREE.Vector3(...config.color) }, speed: { value: config.speed } },
-        vertexShader: `uniform float time; uniform float speed; attribute float seed; attribute float size; varying float vAlpha; void main() { vec3 pos = position; float offset = seed * 6.2831; pos.x += sin(time * speed + offset) * 0.03; pos.y += cos(time * 0.3 + offset * 1.5) * 0.02; pos.z += sin(time * 0.4 + offset * 0.7) * 0.02; vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0); gl_PointSize = size * (200.0 / -mvPosition.z); gl_Position = projectionMatrix * mvPosition; vAlpha = 0.4 + 0.3 * sin(time * 0.2 + seed * 4.0); }`,
-        fragmentShader: `uniform vec3 color; varying float vAlpha; void main() { float dist = length(gl_PointCoord - vec2(0.5)) * 2.0; float alpha = smoothstep(1.0, 0.3, dist) * vAlpha; if (alpha < 0.01) discard; gl_FragColor = vec4(color, alpha); }`,
-        transparent: true, depthWrite: false, blending: THREE.NormalBlending,
-      });
-      const points = new THREE.Points(geometry, material);
-      this.group.add(points); this.floraFaunaMeshes.push(points);
-    });
   }
 
   _createComingSoonMarkers() {
-    const sphereGeometry = new THREE.SphereGeometry(0.012, 10, 10);
-    const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x888888, transparent: true, opacity: 0.35 });
-    COMING_SOON_HOTSPOTS.forEach((hotspot) => {
-      const pos = latLngToVector3(hotspot.lat, hotspot.lng, 1.51);
-      const marker = new THREE.Mesh(sphereGeometry.clone(), markerMaterial.clone());
-      marker.position.copy(pos);
-      marker.userData = { comingSoon: true, name: hotspot.name };
-      this.group.add(marker);
-      this.comingSoonMeshes.push(marker);
-    });
+    // Audit §9.x supplement: the seven grey spheres marking
+    // "coming soon" biomes (Galapagos, Madagascar, Yellowstone,
+    // Congo, Himalayas, Great Barrier Reef, Barents Sea) are
+    // retired. They were a roadmap signal — a marketing register
+    // ("more product is being built") in editorial space. The
+    // homepage now shows what exists; absence is not advertised.
+    //
+    // The comingSoonMeshes field is preserved as an empty array so
+    // update()'s allTargets concatenation and dispose()'s iteration
+    // stay unchanged. The COMING_SOON_HOTSPOTS module-level array
+    // is left in place as data; this method simply does not consume
+    // it. If the doctrine ever shifts to advertise upcoming biomes,
+    // restoring the markers is a one-line change.
   }
 
   _setupDragRotate() {

@@ -1,6 +1,43 @@
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ===== EDITORIAL TOKENS =====
+ * Audit §9.2: minimum-viable visual system. These are the only
+ * canonical values the homepage palette uses. The page does not
+ * carry a brand-accent colour (no conservation green, no alert
+ * orange); the editorial register is white text at three weights
+ * against held darkness, with the dawn-rim hue reserved for the
+ * planetary atmosphere shader and nothing else.
+ *
+ * If a new rule is tempted to introduce a saturated colour, that
+ * is the moment to consult the audit before adding the variable.
+ */
+:root {
+  /* Surface */
+  --colour-night: #0a0a1a;          /* held darkness; page background */
+  --colour-night-deep: #050510;     /* deeper recess; reserved */
+
+  /* Editorial text on dark */
+  --colour-ink-high: rgba(255, 255, 255, 1);     /* heading, hover, emphasis */
+  --colour-ink-mid: rgba(255, 255, 255, 0.78);   /* body caption, default */
+  --colour-ink-low: rgba(255, 255, 255, 0.50);   /* recedes; metadata */
+
+  /* Dawn rim — used only by the atmosphere shader, declared here
+   * so the value has a single canonical home. */
+  --colour-dawn-rim: rgb(140, 128, 107);          /* 0.55, 0.50, 0.42 */
+
+  /* Typography */
+  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-caption: 0.78rem;          /* anchored species labels */
+  --font-body: 1rem;
+  --tracking-caption: 0.04em;
+  --weight-light: 300;
+
+  /* Cinematic timing */
+  --ease-editorial: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-fade: 0.6s;
+}
+
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
@@ -30,36 +67,16 @@ body {
 }
 
 /* ===== LOADING SCREEN ===== */
+/* Audit §9.1/§9.2: held darkness only. The product-onboarding label
+ * ("Loading experience") and the three-bouncing-dots animation have
+ * been removed. The scrim is a solid dark rectangle that fades out in
+ * runLandingSequence; no progress chrome, no editorial sentence, no
+ * motion. Held darkness is the editorial substitute for a spinner. */
 #loading-screen {
   position: fixed;
   inset: 0;
   background: #0a0a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
-}
-
-.loading__content { text-align: center; }
-
-.loading__text {
-  font-size: 1rem; font-weight: 300; letter-spacing: 0.15em;
-  text-transform: uppercase; color: rgba(255, 255, 255, 0.5); margin-bottom: 1rem;
-}
-
-.loading__dots { display: flex; justify-content: center; gap: 0.5rem; }
-
-.loading__dots span {
-  width: 4px; height: 4px; border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  animation: loadingDot 1.4s ease-in-out infinite;
-}
-.loading__dots span:nth-child(2) { animation-delay: 0.2s; }
-.loading__dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes loadingDot {
-  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-  40% { opacity: 1; transform: scale(1.2); }
 }
 
 /* ===== GLOBE UI CONTAINER ===== */
@@ -88,102 +105,49 @@ body {
 }
 
 /* ===== FLOATING CARDS ===== */
+/* Audit §9.2: the glassmorphic backplate (white-rgba background,
+ * 16px backdrop-blur, 1px border, drop-shadow, brightening hover)
+ * is retired. The element is now a caption — a plain text node that
+ * floats anchored to its species, in the typographic register of an
+ * editorial caption rather than a SaaS pricing tile.
+ *
+ * Hover does not lift the substrate. The cursor changes to pointer
+ * to signal navigability (the only remaining click affordance on
+ * the page); colour and weight are otherwise unchanged.
+ *
+ * The four orphan child selectors (.floating-card__thumb / __info /
+ * __name / __status) are removed: §9.5 collapsed the rendered card
+ * to a single text node, so those rules describe DOM that no longer
+ * exists.
+ */
 .floating-card {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 0.8rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   pointer-events: auto;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.1s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease, transform 0.1s ease, color 0.3s ease;
   white-space: nowrap;
   will-change: transform, opacity;
 }
 
 .floating-card:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-.floating-card__thumb {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.floating-card__info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.floating-card__name {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.floating-card__status {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.15rem 0.5rem;
-  border-radius: 10px;
-  background: rgba(74, 222, 128, 0.2);
-  color: #4ade80;
-  width: fit-content;
+  color: rgba(255, 255, 255, 1);
 }
 
 /* ===== LAYER TOGGLE BAR ===== */
-.layer-toggle-bar {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-  z-index: 30;
-  pointer-events: auto;
-}
-
-.layer-toggle-btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.8rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 0.03em;
-}
-
-.layer-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-}
-
-.layer-toggle-btn.active {
-  background: rgba(74, 222, 128, 0.25);
-  border-color: rgba(74, 222, 128, 0.5);
-  color: #4ade80;
-}
+/* Audit §9.1/§9.2: removed entirely. The three-button settings panel
+ * (Species/Habitats/Threats) was the loudest remaining product UI
+ * signal. Its CSS rules are gone with its DOM; the page no longer has
+ * a doctrine of operating modes. */
 
 /* ===== SAFARI CONTAINER ===== */
 #safari-container {
@@ -203,76 +167,48 @@ body {
 }
 
 /* ===== RETURN TO GLOBE BUTTON ===== */
+/* Audit §9.2: this button surfaces during the species (safari)
+ * navigation, not on the homepage. Its glassmorphic frosted-pill
+ * styling is retired for doctrinal consistency — the page does not
+ * have two visual languages, one editorial and one product. The
+ * control becomes a plain text link with a subtle underline on
+ * hover. */
 .return-to-globe {
   position: fixed;
   top: 1.5rem;
   left: 1.5rem;
   z-index: 25;
-  padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #ffffff;
-  font-size: 0.85rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .return-to-globe:hover {
-  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 1);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
 /* ===== GLOBE TOOLTIP ===== */
-.globe-tooltip {
-  position: fixed;
-  z-index: 50;
-  background: rgba(10, 10, 26, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
+/* Audit §9.1/§9.2: removed entirely. The cursor-following label was
+ * dashboard grammar; the page does not annotate the cursor. */
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .floating-card {
-    padding: 0.6rem 0.8rem;
-  }
-  .floating-card__thumb {
-    width: 32px; height: 32px;
-  }
-  .floating-card__name {
-    font-size: 0.8rem;
-  }
-  .layer-toggle-bar {
-    bottom: 1rem;
-    gap: 0.3rem;
-  }
-  .layer-toggle-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
 }
 
 @media (max-width: 480px) {
-  .floating-card__info {
-    display: none;
-  }
   .floating-card {
-    padding: 0.4rem;
-    border-radius: 50%;
-  }
-  .floating-card__thumb {
-    width: 36px; height: 36px;
+    font-size: 0.7rem;
   }
 }
