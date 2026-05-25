@@ -102,7 +102,7 @@ const narrative: EcologicalNarrative = {
     contributor: 'tarunv13',
     created: '2026-05-25',
     updated: '2026-05-25',
-    status: 'draft'
+    status: 'in_review'
   }
 };
 

@@ -1,12 +1,18 @@
 /*
-  Sundarbans Descent — Threshold to Habitat
-  ------------------------------------------
-  A perspective threshold that becomes a place. Atmosphere is layered
+  Sundarbans — Canonical Cinematic Place Surface
+  ----------------------------------------------
+  The first published cinematic place surface in the system. A
+  perspective threshold that becomes a place. Atmosphere is layered
   DOM; the threshold UI lives inside that stack so the world can
-  occlude it rather than the system removing it. Movements 1–5 of the
-  transition grammar are choreographed in JS via GSAP; this file
+  occlude it rather than the system removing it. Movements 1–5 of
+  the transition grammar are choreographed in JS via GSAP; this file
   defines the stable visual ground (palette, geometry, idle ambient
   drift, typography) on top of which that timeline runs.
+
+  Wired to the verified narrative record at
+  cinematic-language/narratives/sundarbans-bengal-tiger-saline-swimmer.ts;
+  see src/places/sundarbans.js for the canonical-data extraction
+  contract.
 */
 
 /* ---------- Reset & root ---------- */
@@ -149,8 +155,8 @@ button {
 /*
   Idle drift on canopy layers is no longer a CSS keyframe loop. Subjective
   parallax (cursor + non-repeating breath) drives canopy-far and canopy-mid
-  at runtime; see src/prototypes/sundarbans-descent.js. CSS keyframe loops
-  are detectable on long sessions and were retired here for that reason.
+  at runtime; see src/places/sundarbans.js. CSS keyframe loops are
+  detectable on long sessions and were retired here for that reason.
 */
 
 /* ---------- Light shafts (revealed during Movement 4) ---------- */
