@@ -26,6 +26,21 @@ try {
   // prototypes/ directory may not exist yet
 }
 
+// Collect research-surface notes pages.
+// Platform architecture §7: cinematic and research live under distinct
+// route groups. Notes are the research surface; their pages are bundled
+// independently of the prototypes' pages.
+const notesPages = {};
+try {
+  const files = readdirSync(resolve(__dirname, 'notes'));
+  files.filter(f => f.endsWith('.html')).forEach(f => {
+    const name = f.replace('.html', '');
+    notesPages[`notes-${name}`] = resolve(__dirname, 'notes', f);
+  });
+} catch (e) {
+  // notes/ directory may not exist yet
+}
+
 export default defineConfig({
   base: '/species-on-screen/',
   build: {
@@ -34,7 +49,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         ...speciesPages,
-        ...prototypePages
+        ...prototypePages,
+        ...notesPages
       }
     }
   }
