@@ -14,20 +14,29 @@ import './sundarbans-descent.css';
 /* ---------- Canonical narrative extraction ---------- */
 
 /*
-  The cinematic surface reads from the same canonical narrative object
-  the research surface uses, but extracts only three fields. Per
-  platform-architecture §5, the rest (species name, taxonomy, IUCN,
-  observation, sources, full editorial body, methodology) is forbidden
-  inside cinematic space.
+  The cinematic surface reads from the same canonical narrative
+  registry the research surface uses, but extracts only three
+  fields. Per platform-architecture §5, the rest (species name,
+  taxonomy, IUCN, observation, sources, full editorial body,
+  methodology) is forbidden inside cinematic space.
 
-  The narrative is imported as static data; no runtime service connects
-  this page to the research-surface page. Each page bundles the data it
-  needs from the same source file (single source of place truth).
+  The narrative is fetched by id at module load. A missing narrative
+  is a programming error for this hard-coded surface (the page is
+  bound to one specific narrative), so we throw clearly rather than
+  rendering a placeholder. The registry itself never throws; that
+  contract is unaffected.
 */
-import { sundarbansBengalTigerSwimmer } from
-  '../../cinematic-language/ecological-narrative.example.ts';
+import { getNarrativeById } from
+  '../../cinematic-language/narrative-registry.ts';
 
-const NARRATIVE = sundarbansBengalTigerSwimmer;
+const NARRATIVE = getNarrativeById('sundarbans-bengal-tiger-saline-swimmer');
+if (!NARRATIVE) {
+  throw new Error(
+    'sundarbans-bengal-tiger-saline-swimmer narrative is missing from the ' +
+    'registry. Verify cinematic-language/narratives/ contains the file ' +
+    'and that it default-exports a structurally valid EcologicalNarrative.'
+  );
+}
 const PLACE_NAME = NARRATIVE.place.name;
 const PLACE_LINE = NARRATIVE.place.editorialPlaceLine;
 const FRAGMENT   = NARRATIVE.editorial.fragment;
