@@ -3,17 +3,25 @@ import { gsap } from 'gsap';
 import * as THREE from 'three';
 import { CinematicEngine } from './cinematic-engine.js';
 import { Globe } from './globe.js';
-import { SafariScene } from './safari-scene.js';
+
+/*
+  Homepage entry. Wires the planet, the editorial caption, and the
+  canonical arrival path into the published Sundarbans place.
+
+  Arrival is governed by Article III of the cinematic vocabulary
+  (Departure -> Approach -> Crossing -> Settle). The previous
+  `safari-scene` arrival is retired here; nothing on the homepage
+  references SafariScene any longer.
+*/
 
 let engine = null;
 let globe = null;
 let pageCaption = null;
-let safariScene = null;
 let isTransitioning = false;
-// Single authoritative reference to the currently-playing transition timeline
-// (forward into safari OR rollback to globe). Any new transition must kill the
-// previous one before constructing its own, so two timelines never tween the
-// same DOM property simultaneously.
+// Single authoritative reference to the currently-playing transition
+// timeline. Any new transition kills the previous one before
+// constructing its own, so two timelines never tween the same DOM
+// property simultaneously.
 let activeTransition = null;
 
 function init() {
@@ -25,33 +33,20 @@ function init() {
   engine = new CinematicEngine(canvas);
   globe = new Globe(engine.getScene(), engine.getCamera(), engine.renderer);
 
-  // Create safari scene instance
-  const safariContainer = document.getElementById('safari-container');
-  if (safariContainer) {
-    safariScene = new SafariScene(safariContainer);
-  }
-
-  // Set initial layer to species (media)
+  // Keep the species marker layer active.
   globe.setLayer('species');
 
-  // Handle resize
   window.addEventListener('resize', onResize);
 
   // Register globe update in the engine render loop.
-  // Final reduction: the floating-cards.update() call is gone — the
-  // page-caption is a static element, not a screen-projected overlay,
-  // so no per-frame positioning is needed.
   engine.onUpdate((delta) => {
     if (globe) globe.update(delta);
   });
 
-  // Audit §9.3: extended landing pacing. The page now holds darkness
-  // for 1.5s before the scrim begins to fade, takes 1.4s to fade
-  // through, and lets the camera approach take 6s instead of 3s.
-  // Total landing time roughly doubles (≈ 8.9s vs ≈ 4.3s). The
-  // doctrine: patience is one thing at a time, in order. The visitor
-  // sees darkness, then a planet, then captions — never all three
-  // at once.
+  // Audit \u00a79.3: extended landing pacing. The page holds darkness
+  // for 1.5s, takes 1.4s to fade through, and lets the camera
+  // approach take 6s. The visitor sees darkness, then a planet, then
+  // captions \u2014 never all three at once.
   if (loadingScreen) {
     gsap.to(loadingScreen, {
       opacity: 0,
@@ -67,13 +62,11 @@ function init() {
     runLandingSequence();
   }
 
-  // Set up return-to-globe button
-  setupReturnButton();
-
-  // Wire up the static page caption (Sundarbans · Bengal tiger).
-  // The caption is the only navigable surface on the homepage; clicking
-  // it intercepts the anchor and drives the cinematic transition into
-  // the species page. The href remains as the unenhanced fallback.
+  // Wire up the static page caption (Sundarbans \u00b7 Bengal tiger).
+  // Clicking it intercepts the anchor and drives the canonical arrival
+  // into the published Sundarbans place. The href remains as the
+  // unenhanced fallback to species/tiger.html for a JS-disabled
+  // visitor who needs the static research page.
   setupPageCaption();
 }
 
@@ -82,70 +75,131 @@ function setupPageCaption() {
   if (!pageCaption) return;
 
   pageCaption.addEventListener('click', (e) => {
-    // Anchor href is the unenhanced fallback; the canonical path on
-    // the homepage is the cinematic descent into the species page.
-    const slug = pageCaption.dataset.species;
-    if (slug) {
-      e.preventDefault();
-      onCardClick(slug);
-    }
+    // The page-caption is the only navigable surface on the homepage.
+    // Its canonical destination on a JS-enabled visit is the cinematic
+    // place, not the species static page; intercept the anchor.
+    e.preventDefault();
+    arriveAtSundarbans();
   });
 }
 
-function onCardClick(speciesSlug) {
+/**
+ * Canonical arrival into the published Sundarbans place.
+ *
+ * Implements Article III's four-phase transition. The five timing
+ * marks below are scaled by `k` (1.0 normal, 0.5 reduced-motion) so
+ * the sequence compresses without losing its grammar.
+ *
+ *   Departure (0.0 - 0.8s * k)
+ *     The page-caption and the surrounding chrome recede. The camera
+ *     begins to lean toward the Sundarbans hotspot. World drift is
+ *     zeroed so the planet does not slide while we move past it.
+ *
+ *   Approach (0.4 - 2.4s * k)
+ *     The camera arcs along the surface normal to a near-tangent
+ *     over the Sundarbans hotspot, ending ~3 units off the surface.
+ *     The planet occupies more frame.
+ *
+ *   Crossing (1.9 - 3.0s * k)
+ *     The cinematic canvas dims to opacity 0 while the loading-screen
+ *     scrim returns to opaque black, producing a luminance dip on
+ *     top of the canvas. Article III \u00a73 mandates that the cut to
+ *     the destination occur INSIDE this dip, never on a clear frame.
+ *     At peak darkness (3.0s * k) we navigate to
+ *     places/sundarbans.html.
+ *
+ *   Settle (post-navigation)
+ *     The destination paints from a near-black inline-styled body, so
+ *     the dark frame continues uninterrupted across the cut. The
+ *     destination's own threshold reveal (~0.9s delay, then 1.6s
+ *     ease) brings the framing question up out of the dark. The
+ *     viewer never sees an unstyled flash, never sees a navigation
+ *     gesture, and never sees a clear frame between source and
+ *     destination.
+ */
+function arriveAtSundarbans() {
   if (isTransitioning) return;
   isTransitioning = true;
 
-  // Defensive: any leftover transition (should be null in normal flow).
   killActiveTransition();
 
-  // Zero out globe inertia to prevent drift during safari
-  globe._velocity.x = 0;
-  globe._velocity.y = 0;
+  // Zero the cursor-bias drift so the planet does not slide during
+  // the approach. globe.update() reads `isHovered` and `mouse.x` each
+  // frame; setting isHovered=false drops the bias to zero on the next
+  // frame. The planet finishes its motion on AMBIENT_DRIFT alone.
+  globe.isHovered = false;
 
-  const speciesWorldPos = globe.getSpeciesPosition(speciesSlug);
-  // Transform to world coordinates
+  // Camera target: a near-tangent position over the Sundarbans
+  // hotspot.
   globe.group.updateMatrixWorld();
-  const worldPos = speciesWorldPos.clone().applyMatrix4(globe.group.matrixWorld);
+  const speciesPos = globe.getSpeciesPosition('tiger');
+  const worldPos = speciesPos.clone().applyMatrix4(globe.group.matrixWorld);
   const normal = worldPos.clone().normalize();
-  // Camera target: slightly above the species point, looking at it
-  const cameraTo = worldPos.clone().add(normal.clone().multiplyScalar(2));
+  const cameraTo = worldPos.clone().add(normal.clone().multiplyScalar(3.0));
   const targetTo = worldPos.clone();
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const k = reduce ? 0.5 : 1.0;
 
   const tl = gsap.timeline();
   activeTransition = tl;
 
-  // Phase 1 (0-600ms): Caption fades out
-  tl.add(() => {
-    if (pageCaption) pageCaption.classList.remove('is-visible');
+  /* ----- Departure (0 - 0.8s * k) ----- */
+  tl.to('#page-caption', {
+    opacity: 0,
+    duration: 0.7 * k,
+    ease: 'sine.inOut'
+  }, 0);
+  tl.to('#globe-ui-container', {
+    opacity: 0,
+    duration: 0.7 * k,
+    ease: 'sine.inOut'
   }, 0);
 
-  // Phase 2 (600-1400ms): Camera flies toward species point
-  tl.add(engine.flyCamera(cameraTo, targetTo, 0.8, 'power3.inOut'), 0.6);
+  /* ----- Approach (0.4 - 2.4s * k) ----- */
+  tl.add(
+    engine.flyCamera(cameraTo, targetTo, 2.0 * k, 'power3.inOut'),
+    0.4 * k
+  );
 
-  // Phase 3 (1400-2000ms): Globe fades, safari appears
-  tl.to('#cinematic-canvas', { opacity: 0.3, duration: 0.6, ease: 'power2.inOut' }, 1.4);
+  /* ----- Crossing (1.9 - 3.0s * k) - the luminance dip -----
+     The loading-screen scrim returns to opaque black underneath the
+     canvas, then the canvas dims through it. The dip closes on true
+     black, not on a transparent canvas over the body background. */
   tl.add(() => {
-    const safariContainer = document.getElementById('safari-container');
-    const returnBtn = document.querySelector('.return-to-globe');
-    if (safariContainer) safariContainer.classList.add('active');
-    if (returnBtn) returnBtn.style.display = 'block';
-  }, 1.6);
-  tl.to('#safari-container', { opacity: 1, duration: 0.4, ease: 'power2.out' }, 1.6);
-
-  // Phase 4: Enter safari scene after transition completes
-  tl.eventCallback('onComplete', async () => {
-    try {
-      const cachedData = globe.speciesDataCache[speciesSlug];
-      await safariScene.enter(speciesSlug, cachedData);
-      isTransitioning = false;
-      activeTransition = null;
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn(`[main] Safari enter failed for "${speciesSlug}", rolling back transition state:`, err);
-      executeReturnToGlobe({ force: true });
+    const ls = document.getElementById('loading-screen');
+    if (ls) {
+      ls.style.display = 'block';
+      ls.style.opacity = '0';
     }
-  });
+  }, 1.9 * k);
+  tl.to('#loading-screen', {
+    opacity: 1,
+    duration: 1.0 * k,
+    ease: 'power2.inOut'
+  }, 1.9 * k);
+  tl.to('#cinematic-canvas', {
+    opacity: 0,
+    duration: 0.9 * k,
+    ease: 'power2.inOut'
+  }, 2.0 * k);
+
+  /* ----- Cut at peak black (3.0s * k) -----
+     The destination begins on a near-black inline-styled body
+     (places/sundarbans.html <head> ensures first-paint darkness),
+     so the dark frame continues across the navigation. Article III
+     \u00a73 observed: the cut is hidden inside the luminance dip from
+     both sides. Continuity is ecological: dark to dark. */
+  tl.add(() => {
+    const base = import.meta.env.BASE_URL || '/';
+    // The browser fully tears down this page on navigation; the
+    // engine animation loop, particle drift, and globe rotation stop
+    // with it. No explicit teardown is required. activeTransition
+    // stays referenced because it is the timeline currently in
+    // flight; on navigation the reference is discarded with the
+    // document.
+    window.location.assign(`${base}places/sundarbans.html`);
+  }, 3.0 * k);
 }
 
 function killActiveTransition() {
@@ -155,85 +209,23 @@ function killActiveTransition() {
   }
 }
 
-function returnToGlobe() {
-  executeReturnToGlobe({ force: false });
-}
-
-// Authoritative rollback. Used by both the user-initiated back button
-// (force=false, respects in-flight transitions) and the onCardClick failure
-// path (force=true, bypasses the guard because we ARE the in-flight
-// transition that needs unwinding).
-function executeReturnToGlobe({ force = false } = {}) {
-  if (isTransitioning && !force) return;
-  isTransitioning = true;
-
-  // Kill any in-flight forward timeline so it can no longer tween properties
-  // we're about to reset. GSAP v3: tl.kill() does not fire onComplete and
-  // propagates to nested child timelines added via tl.add().
-  killActiveTransition();
-
-  // Defensively tear down safari state. exit() is idempotent in current
-  // SafariScene; the try/catch shields the rollback if a half-initialised
-  // safari throws on cleanup.
-  if (safariScene && typeof safariScene.exit === 'function') {
-    try { safariScene.exit(); } catch { /* tolerate cleanup errors */ }
-  }
-
-  const tl = gsap.timeline();
-  activeTransition = tl;
-
-  // Fade safari out
-  tl.to('#safari-container', { opacity: 0, duration: 0.4, ease: 'power2.inOut' }, 0);
-  tl.add(() => {
-    const safariContainer = document.getElementById('safari-container');
-    const returnBtn = document.querySelector('.return-to-globe');
-    if (safariContainer) safariContainer.classList.remove('active');
-    if (returnBtn) returnBtn.style.display = 'none';
-  }, 0.4);
-
-  // Restore canvas and fly camera back
-  tl.to('#cinematic-canvas', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3);
-
-  // Audit §9.3: re-entry uses the same off-centre composition target
-  // as runLandingSequence (X = +1.0). The visitor returns to the
-  // same framing they left from; the planet does not leap to centre
-  // when the species page exits.
-  const defaultPos = new THREE.Vector3(1.0, 0.3, 5.5);
-  const defaultTarget = new THREE.Vector3(0, 0, 0);
-  tl.add(engine.flyCamera(defaultPos, defaultTarget, 1.0, 'power3.inOut'), 0.3);
-
-  // Show page caption again, release the transition lock.
-  tl.add(() => {
-    if (pageCaption) pageCaption.classList.add('is-visible');
-    isTransitioning = false;
-    activeTransition = null;
-  }, 1.3);
-}
-
 function runLandingSequence() {
   const globeUI = document.getElementById('globe-ui-container');
 
-  // Audit §9.3: off-centre composition target. The camera arrives
-  // shifted +1.0 unit on X relative to the previous centred framing.
-  // With the camera looking at world-origin, this places the planet
-  // slightly LEFT of frame centre (≈18% off-axis at z=5.5), giving
-  // breathing space to the right. Editorial documentary framing,
-  // not centred product-shot framing. The same off-axis position is
-  // used by executeReturnToGlobe so re-entry preserves composition.
+  // Audit \u00a79.3: off-centre composition target. The camera arrives
+  // shifted +1.0 unit on X relative to a centred framing, placing
+  // the planet slightly LEFT of frame centre. Editorial documentary
+  // framing, not centred product-shot framing.
   const targetPos = new THREE.Vector3(1.0, 0.3, 5.5);
   const targetLookAt = new THREE.Vector3(0, 0, 0);
 
-  // Fly-in extended from 3.0s to 6.0s. The planet emerges as a slow
-  // approach, not a swoop. power3.inOut keeps the start and end
-  // hesitant rather than spring-loaded.
+  // Fly-in is 6.0s \u2014 a slow approach, not a swoop.
   const tl = engine.flyCamera(targetPos, targetLookAt, 6, 'power3.inOut');
 
   tl.eventCallback('onComplete', () => {
-    // Audit §9.3: post-arrival hold. The planet sits in silence for
-    // 0.9s after the camera stops — the 'this place exists' beat —
-    // before the species captions begin to fade in. Without this
-    // hold, the captions read as "labels appearing" (interactive);
-    // with it, they read as "captions arriving" (editorial).
+    // Audit \u00a79.3: post-arrival hold. The planet sits in silence
+    // for 0.9s after the camera stops \u2014 the 'this place exists'
+    // beat \u2014 before the caption fades in.
     gsap.delayedCall(0.9, () => {
       if (globeUI) {
         globeUI.classList.add('active');
@@ -243,12 +235,6 @@ function runLandingSequence() {
       }
     });
   });
-}
-
-function setupReturnButton() {
-  const returnBtn = document.querySelector('.return-to-globe');
-  if (!returnBtn) return;
-  returnBtn.addEventListener('click', returnToGlobe);
 }
 
 function onResize() {
