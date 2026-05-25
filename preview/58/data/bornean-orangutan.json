@@ -1,0 +1,323 @@
+{
+  "taxonomy": {
+    "scientific_name": "Pongo pygmaeus",
+    "common_name": "Bornean Orangutan",
+    "family": "Hominidae",
+    "order": "Primates",
+    "class": "Mammalia",
+    "gbif_url": "https://www.gbif.org/species/5219159",
+    "iucn_url": "https://www.iucnredlist.org/species/17975/123809220"
+  },
+  "habitat": {
+    "type": "Tropical Forest",
+    "description": "The Bornean orangutan dwells in the ancient dipterocarp rainforests of Borneo, spending nearly all its life in the canopy, moving through a three-dimensional world of branches, lianas, and fruiting trees. These forests, among the oldest on Earth, provide an aerial highway system that orangutans navigate with extraordinary spatial memory.\n\nIn the peat swamp forests of the lowlands, orangutans build nightly nests high in the trees, bending and weaving branches into platforms with the skill of practiced architects. The swamp forests, waterlogged and rich in fruit trees, support some of the densest orangutan populations remaining.\n\nHigher on the volcanic slopes of Borneo, montane forests offer a different menu of fruits, bark, and leaves. Here orangutans range more widely, their movements dictated by the irregular fruiting patterns of tropical trees, carrying a mental map of hundreds of food sources across their home ranges.",
+    "range_countries": [
+      "Malaysia",
+      "Indonesia"
+    ],
+    "key_locations": [
+      "Danum Valley",
+      "Kinabatangan River",
+      "Tanjung Puting",
+      "Gunung Palung",
+      "Kutai National Park"
+    ]
+  },
+  "threats": [
+    {
+      "name": "Palm Oil Deforestation",
+      "description": "Industrial palm oil plantations have destroyed millions of hectares of orangutan habitat, fragmenting populations into isolated patches."
+    },
+    {
+      "name": "Illegal Pet Trade",
+      "description": "Infant orangutans are captured for the pet trade, with mothers typically killed in the process."
+    },
+    {
+      "name": "Forest Fires",
+      "description": "Peat fires, often set to clear land for agriculture, devastate orangutan habitat and can burn for months underground."
+    },
+    {
+      "name": "Logging",
+      "description": "Both legal and illegal timber extraction removes the large fruiting trees that orangutans depend upon for food and nesting."
+    },
+    {
+      "name": "Hunting",
+      "description": "In some areas orangutans are hunted for bushmeat or killed as crop pests when they venture into plantations."
+    }
+  ],
+  "conservation": {
+    "iucn_status": "Critically Endangered",
+    "population_estimate": "104,700",
+    "population_trend": "Decreasing",
+    "key_programs": [
+      "Borneo Orangutan Survival Foundation",
+      "Orangutan Foundation International",
+      "HUTAN-KOCP",
+      "Roundtable on Sustainable Palm Oil"
+    ]
+  },
+  "cultural_significance": {
+    "cinema": "Orangutans feature prominently in documentaries about deforestation, becoming the poster species for the palm oil crisis.",
+    "literature": "From Edgar Allan Poe's \"Murders in the Rue Morgue\" to Terry Pratchett's Librarian, orangutans occupy a unique space in fiction.",
+    "mythology": "The name \"orangutan\" derives from Malay \"orang hutan\" meaning \"person of the forest,\" reflecting indigenous recognition of their near-human qualities.",
+    "media_presence": "David Attenborough's emotional encounters with orangutans have become some of the most shared wildlife television moments.",
+    "cultural_paradox": "Our closest relatives in Asia face extinction primarily so that processed foods can contain cheap vegetable oil."
+  },
+  "hero_stat": "100 orangutans lost every week due to habitat destruction",
+  "hero_image": {
+    "url": null,
+    "credit": null,
+    "source": null
+  },
+  "root_causes_comb": {
+    "capability": [
+      "Consumers unable to identify palm oil in products",
+      "Smallholder farmers lack alternative livelihood training",
+      "Rescue centres overwhelmed with displaced orphan orangutans"
+    ],
+    "opportunity": [
+      "Global palm oil demand creates irresistible economic pressure on forests",
+      "Weak enforcement of forestry laws in remote Borneo",
+      "Fire as cheap land-clearing method remains accessible"
+    ],
+    "motivation": [
+      "Palm oil highly profitable compared to sustainable alternatives",
+      "Consumer disconnect between products and deforestation",
+      "Short election cycles discourage long-term forest protection policies"
+    ]
+  },
+  "com_b": {
+    "capability": [
+      {
+        "text": "Consumers unable to identify palm oil in products",
+        "source": "Ostfeld et al. (2019)",
+        "source_url": "https://doi.org/10.1016/j.scitotenv.2019.02.266"
+      },
+      {
+        "text": "Smallholder farmers lack alternative livelihood training",
+        "source": "Wich et al. (2012)",
+        "source_url": "https://doi.org/10.1371/journal.pone.0049525"
+      },
+      {
+        "text": "Rescue centres overwhelmed with displaced orphan orangutans",
+        "source": "Borneo Orangutan Survival Foundation",
+        "source_url": "https://www.orangutan.or.id/"
+      }
+    ],
+    "opportunity": [
+      {
+        "text": "Global palm oil demand creates irresistible economic pressure on forests",
+        "source": "Meijaard et al. (2020)",
+        "source_url": "https://doi.org/10.1016/j.oneear.2020.10.009"
+      },
+      {
+        "text": "Weak enforcement of forestry laws in remote Borneo",
+        "source": "Wich et al. (2012)",
+        "source_url": "https://doi.org/10.1371/journal.pone.0049525"
+      },
+      {
+        "text": "Fire as cheap land-clearing method remains accessible",
+        "source": "Cattau et al. (2016)",
+        "source_url": "https://doi.org/10.1073/pnas.1523785113"
+      }
+    ],
+    "motivation": [
+      {
+        "text": "Palm oil highly profitable compared to sustainable alternatives",
+        "source": "Meijaard et al. (2020)",
+        "source_url": "https://doi.org/10.1016/j.oneear.2020.10.009"
+      },
+      {
+        "text": "Consumer disconnect between products and deforestation",
+        "source": "Ostfeld et al. (2019)",
+        "source_url": "https://doi.org/10.1016/j.scitotenv.2019.02.266"
+      },
+      {
+        "text": "Short election cycles discourage long-term forest protection policies",
+        "source": "Abood et al. (2015)",
+        "source_url": "https://doi.org/10.1371/journal.pone.0101654"
+      }
+    ]
+  },
+  "evidence_summary": "Documentaries linking orangutan decline to palm oil consumption have measurably shifted consumer purchasing behaviour and supported growth of RSPO-certified products, though industry-wide change remains slow (Silk et al., 2018).",
+  "academic_references": [
+    "Rose, G. (2016). Visual Methodologies: An Introduction to Researching with Visual Materials. 4th ed. London: Sage.",
+    "Balmford, A. et al. (2002). Why Conservationists Should Heed Pokemon. Science, 295(5564), pp.2367.",
+    "Silk, M.J. et al. (2018). The implications of digital visual media for human-nature relationships. People and Nature, 1(1), pp.1-12.",
+    "Jones, J.P.G. et al. (2019). Nature documentaries and saving nature. People and Nature, 1(4), pp.479-491.",
+    "Macdonald, E.A. et al. (2016). Conservation inequality and the charismatic cat. Global Ecology and Biogeography, 25(12), pp.1459-1469.",
+    "Michie, S. et al. (2011). The behaviour change wheel. Implementation Science, 6(42).",
+    "Wich, S.A. et al. (2012). Understanding the impacts of land-use policies on a threatened species. PLoS ONE, 7(11), e49525.",
+    "Meijaard, E. et al. (2011). Quantifying killing of orangutans and human-orangutan conflict in Kalimantan. PLoS ONE, 6(11), e27491."
+  ],
+  "interesting_facts": [
+    {
+      "text": "Orangutans share approximately 97% of their DNA with humans, making them one of our closest living relatives.",
+      "source_url": "https://doi.org/10.1038/nature09687"
+    },
+    {
+      "text": "They construct a new sleeping nest every night from branches and leaves, sometimes adding a roof for rain protection.",
+      "source_url": "https://doi.org/10.1073/pnas.1200473109"
+    },
+    {
+      "text": "Orangutans have been observed using tools including sticks to extract honey and leaves as makeshift gloves.",
+      "source_url": "https://doi.org/10.1007/s10764-006-9006-9"
+    },
+    {
+      "text": "A mother orangutan nurses her young for up to 8 years, one of the longest dependency periods in the animal kingdom.",
+      "source_url": "https://doi.org/10.1126/sciadv.1601517"
+    }
+  ],
+  "photos": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bornean_Orangutan_%28Pongo_pygmaeus%29_-_young.jpg/1280px-Bornean_Orangutan_%28Pongo_pygmaeus%29_-_young.jpg",
+      "alt": "Young Bornean orangutan in canopy",
+      "credit": "Wikimedia Commons, CC BY-SA 4.0",
+      "photographer": "Eleifert"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Pongo_pygmaeus_%28orangutang%29.jpg/1280px-Pongo_pygmaeus_%28orangutang%29.jpg",
+      "alt": "Bornean orangutan portrait",
+      "credit": "Wikimedia Commons, Public Domain",
+      "photographer": "Mikael Haggstrom"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Orang_Utan%2C_Pair.jpg/1280px-Orang_Utan%2C_Pair.jpg",
+      "alt": "Pair of orangutans in Borneo",
+      "credit": "Wikimedia Commons, CC BY-SA 3.0",
+      "photographer": "Malene Thyssen"
+    }
+  ],
+  "cultural_depth": {
+    "dayak_forest_people": {
+      "description": "The Dayak peoples of Borneo hold orangutans as forest guardians with near-human intelligence. Traditional stories describe orangutans as humans who retreated into the forest to avoid work or conflict, and some communities maintain taboos against hunting them.",
+      "source": "Meijaard, E. et al. (2011)",
+      "source_url": "https://doi.org/10.1371/journal.pone.0027491"
+    },
+    "malay_etymology": {
+      "description": "The name \"orangutan\" derives from Malay \"orang hutan\" meaning \"person of the forest,\" reflecting the deep cultural recognition of their humanlike qualities. This linguistic connection reveals centuries of coexistence and the perception of orangutans as almost-human forest dwellers.",
+      "source": "Rijksen, H.D. & Meijaard, E. (1999). Our Vanishing Relative. Kluwer Academic.",
+      "source_url": "https://doi.org/10.1007/978-94-011-4521-1"
+    },
+    "western_science": {
+      "description": "Western scientific encounters with orangutans from the 17th century onward challenged European notions of human uniqueness. Alfred Russel Wallace observed orangutans in Borneo during his development of natural selection theory, describing their tool use and problem-solving with astonishment.",
+      "source": "Wallace, A.R. (1869). The Malay Archipelago.",
+      "source_url": "https://www.gutenberg.org/ebooks/2530"
+    }
+  },
+  "globe_layers": {
+    "protected_areas": [
+      {
+        "name": "Tanjung Puting National Park",
+        "lat": -2.8333,
+        "lng": 111.8333,
+        "country": "Indonesia"
+      },
+      {
+        "name": "Danum Valley Conservation Area",
+        "lat": 4.9667,
+        "lng": 117.8,
+        "country": "Malaysia"
+      },
+      {
+        "name": "Gunung Palung National Park",
+        "lat": -1.2167,
+        "lng": 109.9167,
+        "country": "Indonesia"
+      },
+      {
+        "name": "Kutai National Park",
+        "lat": 0.3333,
+        "lng": 117.1667,
+        "country": "Indonesia"
+      },
+      {
+        "name": "Kinabatangan Wildlife Sanctuary",
+        "lat": 5.5,
+        "lng": 118,
+        "country": "Malaysia"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "IUCN Red List",
+      "type": "assessment",
+      "url": "https://www.iucnredlist.org/species/17975/123809220"
+    },
+    {
+      "name": "WWF Borneo Programme",
+      "type": "conservation",
+      "url": "https://www.worldwildlife.org/species/bornean-orangutan"
+    },
+    {
+      "name": "Borneo Orangutan Survival Foundation",
+      "type": "conservation",
+      "url": "https://www.orangutan.or.id/"
+    },
+    {
+      "name": "Roundtable on Sustainable Palm Oil",
+      "type": "industry",
+      "url": "https://rspo.org/"
+    }
+  ],
+  "safari_scene": {
+    "biome_type": "Tropical Forest",
+    "sky_gradient": ["#0a1e0a", "#1a4a2e"],
+    "silhouette_color": "#0d2b0d",
+    "mid_color": "#1a5c2e",
+    "foreground_color": "#0f3a14",
+    "atmosphere": "warm"
+  },
+  "comic_strip": [
+    {
+      "panel_number": 1,
+      "label": "In the Wild",
+      "title": "Canopy World",
+      "narrative_text": "The Bornean orangutan dwells in ancient dipterocarp rainforests, spending nearly all its life in the canopy. Moving through a three-dimensional world of branches, lianas, and fruiting trees, these great apes navigate with extraordinary spatial memory across one of Earth's oldest forest ecosystems.",
+      "source": null,
+      "source_url": null
+    },
+    {
+      "panel_number": 2,
+      "label": "Ancient Bonds",
+      "title": "People of the Forest",
+      "narrative_text": "The name 'orangutan' derives from Malay 'orang hutan' meaning 'person of the forest,' reflecting deep cultural recognition of their humanlike qualities. This linguistic connection reveals centuries of coexistence and the perception of orangutans as almost-human forest dwellers.",
+      "source": "Rijksen, H.D. & Meijaard, E. (1999). Our Vanishing Relative. Kluwer Academic.",
+      "source_url": "https://doi.org/10.1007/978-94-011-4521-1"
+    },
+    {
+      "panel_number": 3,
+      "label": "Under Threat",
+      "title": "Palm Oil's Price",
+      "narrative_text": "Industrial palm oil plantations have destroyed millions of hectares of orangutan habitat, fragmenting populations into isolated patches. The global appetite for this cheap vegetable oil drives continuous forest clearing across Borneo and Sumatra.",
+      "source": "Meijaard et al. (2020)",
+      "source_url": "https://doi.org/10.1016/j.oneear.2020.10.009"
+    },
+    {
+      "panel_number": 4,
+      "label": "The Human Story",
+      "title": "Dayak Forest Wisdom",
+      "narrative_text": "The Dayak peoples of Borneo hold orangutans as forest guardians with near-human intelligence. Traditional stories describe orangutans as humans who retreated into the forest to avoid conflict, and some communities maintain taboos against hunting them.",
+      "source": "Meijaard, E. et al. (2011)",
+      "source_url": "https://doi.org/10.1371/journal.pone.0027491"
+    },
+    {
+      "panel_number": 5,
+      "label": "Fighting Back",
+      "title": "Survival Foundation",
+      "narrative_text": "The Borneo Orangutan Survival Foundation rescues displaced and orphaned orangutans, rehabilitating them for release back into protected forests. Together with HUTAN-KOCP and the Roundtable on Sustainable Palm Oil, these programs work to secure remaining habitat.",
+      "source": "Borneo Orangutan Survival Foundation",
+      "source_url": "https://www.orangutan.or.id/"
+    },
+    {
+      "panel_number": 6,
+      "label": "The Future",
+      "title": "Critically Endangered",
+      "narrative_text": "With approximately 104,700 individuals remaining and populations still decreasing, the Bornean orangutan is Critically Endangered. At current rates of habitat loss, scientists estimate significant further decline without immediate and sustained intervention.",
+      "source": null,
+      "source_url": null
+    }
+  ],
+  "tmdb_media": []
+}
