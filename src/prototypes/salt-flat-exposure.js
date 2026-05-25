@@ -1,17 +1,20 @@
 /*
   Salt Flat Exposure — Counter-test prototype to Sundarbans
   ----------------------------------------------------------
-  M1 (acknowledgement) + M2 (bleach-out) + ONE of three experimental
-  M3 strategies, selectable via URL hash:
+  M1 (acknowledgement) + M2 (bleach-out) + a converged M3 grammar:
+  atmospheric recession with a small horizon-edge softening borrowed
+  from the earlier horizon-pull experiment.
 
-    #horizon-pull            (default) — horizon line dissolves
-    #atmospheric-recession              — distance markers thin
-    #heat-distance                      — depth estimation destabilized
-    #none                               — M1 + M2 only
+    (default)   — converged hybrid plays after M2
+    #none       — M1 + M2 only (control)
+
+  Three earlier M3 candidates (horizon-pull, atmospheric-recession,
+  heat-distance) were evaluated as standalones. The first two are
+  collapsed into the single grammar below; heat-distance is deferred
+  pending SVG-turbulence substrate work.
 
   M4 and M5 are deliberately unimplemented. Audio, parallax, mineral
   glints, and shimmer-on-foreground are deliberately unimplemented.
-  This file is a perception experiment, not a finished prototype.
 */
 
 import { gsap } from 'gsap';
@@ -85,40 +88,32 @@ function revealThreshold() {
     }, '-=0.3');
 }
 
-/* ---------- M3 variants ---------- */
+/* ---------- M3: converged grammar ---------- */
 
-/*
-  Each variant adds tweens to the existing timeline at `t0`. They are
-  intentionally minimal (2–3 tweens each) and never add new layers or
-  geometry. The grammar test is whether vantage shift on a flat plane
-  can be carried by atmospheric or perceptual change alone.
-
-  Total M3 duration is ~1.6s, slightly overlapping the tail of M2 (which
-  ends near 1.7s). The overlap is required by the cinematic principle:
-  movements bleed into each other so no boundary is perceptible.
-*/
-
-/** A — Horizon Pull. The horizon dissolves into ambiguous bright haze. */
-function buildM3HorizonPull(tl, k, t0) {
-  tl.to('.horizon-haze', {
-      height: '24%',
-      opacity: 0.85,
-      duration: 1.60 * k,
-      ease: 'sine.inOut'
-    }, t0)
-    .to('.distant-flat', {
-      opacity: 0.42,
-      filter: 'blur(2px) saturate(0.85)',
-      duration: 1.60 * k,
-      ease: 'sine.inOut'
-    }, t0);
-}
-
-/** B — Atmospheric Recession. Distance markers thin; air takes over. */
-function buildM3AtmosphericRecession(tl, k, t0) {
+/**
+ * Converged M3 — atmospheric recession with horizon-edge softening.
+ *
+ * Primary mechanism (atmospheric recession): distant-flat fades toward
+ * sky-color and desaturates; near-flat loses local contrast. The eye
+ * registers depth thinning beyond a point it cannot reach. No motion.
+ *
+ * Borrowed minimum from horizon-pull: a 1.2px blur on distant-flat
+ * softens its top edge — which IS the horizon line. The horizon loses
+ * fixed identity not because we added haze on top of it (that was
+ * horizon-pull's dishonest, additive move), but because we removed
+ * contrast at the boundary. Subtractive grammar, not additive. The
+ * .horizon-haze layer is left untouched.
+ *
+ * Heat-distance ambiguity is intentionally absent. Wobble via
+ * x-translate is too fake; honest implementation requires SVG
+ * <feTurbulence> + <feDisplacementMap>, which is a substrate
+ * escalation outside surgical scope. This M3 is production-viable
+ * without it.
+ */
+function buildM3Recession(tl, k, t0) {
   tl.to('.distant-flat', {
       opacity: 0.32,
-      filter: 'saturate(0.55) brightness(1.06)',
+      filter: 'saturate(0.55) brightness(1.06) blur(1.2px)',
       duration: 1.60 * k,
       ease: 'sine.inOut'
     }, t0)
@@ -129,52 +124,19 @@ function buildM3AtmosphericRecession(tl, k, t0) {
     }, t0);
 }
 
-/** C — Heat-Distance Ambiguity. Depth estimation destabilized via wobble. */
-function buildM3HeatDistance(tl, k, t0) {
-  tl.to('.horizon-haze', {
-      opacity: 0.78,
-      filter: 'blur(3px)',
-      duration: 1.40 * k,
-      ease: 'sine.inOut'
-    }, t0)
-    .add(() => {
-      // Subliminal non-repeating wobble — never aligns to perception.
-      // Amplitude is intentionally tiny (~3px / ~2px). Larger amplitudes
-      // cross from "heat shimmer" into "the screen is moving," which is
-      // a software gesture, not an atmospheric one.
-      gsap.to('.horizon-haze', {
-        x: 'random(-3, 3)',
-        duration: 'random(2.5, 4.5)',
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        repeatRefresh: true
-      });
-      gsap.to('.distant-flat', {
-        x: 'random(-2, 2)',
-        duration: 'random(3, 5)',
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        repeatRefresh: true
-      });
-    }, t0);
-}
-
 const M3_VARIANTS = {
-  'horizon-pull': buildM3HorizonPull,
-  'atmospheric-recession': buildM3AtmosphericRecession,
-  'heat-distance': buildM3HeatDistance,
+  'recession': buildM3Recession,
   'none': null
 };
 
-/** Read the URL hash and pick a variant. Default: horizon-pull. */
+/**
+ * Read the URL hash. The converged grammar plays by default; only
+ * `#none` is honored as a debug-control to skip M3 entirely.
+ */
 function selectVariant() {
   const raw = (window.location.hash || '').replace('#', '').toLowerCase().trim();
-  if (raw && Object.prototype.hasOwnProperty.call(M3_VARIANTS, raw)) {
-    return raw;
-  }
-  return 'horizon-pull';
+  if (raw === 'none') return 'none';
+  return 'recession';
 }
 
 /* ---------- M1 + M2 + (selected M3) timeline ---------- */
