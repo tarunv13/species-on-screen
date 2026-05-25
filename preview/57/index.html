@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco-Cinema Observatory</title>
+  <meta name="description" content="A cinematic exploration of species on screen and in the wild." />
+  <script type="module" crossorigin src="/species-on-screen/preview/57/assets/main-BIWcBZ7k.js"></script>
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/57/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/57/assets/gsap-D_956-p2.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/57/assets/lenis-DZ3MJKTi.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/57/assets/cinematic-engine-DEkVDWpt.js">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/preview/57/assets/main-tsQyhWwF.css">
+</head>
+<body>
+  <noscript>
+    <div style="background:#0a0a1a;color:#ffffff;padding:2rem;font-family:sans-serif;max-width:700px;margin:0 auto;">
+      <h1>Eco-Cinema Observatory</h1>
+      <p style="margin:1rem 0;">Sundarbans &middot; Bengal tiger.</p>
+      <p style="margin:1rem 0;"><a href="species/tiger.html" style="color:#ffffff;">Read the Bengal tiger entry &rarr;</a></p>
+      <p style="font-size:0.9rem;color:#999;">JavaScript is required to render the planetary view.</p>
+    </div>
+  </noscript>
+
+  <canvas id="cinematic-canvas"></canvas>
+
+  <div id="loading-screen"></div>
+
+  <div id="globe-ui-container">
+    <!-- Final reduction: the homepage carries one editorial caption,
+         fixed in the lower-right of the frame. It is a static <a> — not
+         a screen-projected, position-tracking floating element. The
+         caption does not follow its subject around the page; it sits
+         where editorial typesetting puts it. main.js intercepts the
+         click to drive the existing cinematic transition into the
+         species page; the href is the unenhanced fallback. -->
+    <a id="page-caption" class="page-caption" href="species/tiger.html"
+       data-species="tiger">Sundarbans &middot; Bengal tiger</a>
+  </div>
+
+  <div id="safari-container"></div>
+
+  <button class="return-to-globe" style="display:none;">Return to Globe</button>
+
+  <!-- Screen reader description -->
+  <div class="sr-only">
+    A planetary observation surface. One species is anchored to its
+    habitat region: a Bengal tiger in the Sundarbans. The link below
+    leads to the Bengal tiger's dedicated page.
+  </div>
+</body>
+</html>
