@@ -11,6 +11,27 @@
 import { gsap } from 'gsap';
 import './sundarbans-descent.css';
 
+/* ---------- Canonical narrative extraction ---------- */
+
+/*
+  The cinematic surface reads from the same canonical narrative object
+  the research surface uses, but extracts only three fields. Per
+  platform-architecture §5, the rest (species name, taxonomy, IUCN,
+  observation, sources, full editorial body, methodology) is forbidden
+  inside cinematic space.
+
+  The narrative is imported as static data; no runtime service connects
+  this page to the research-surface page. Each page bundles the data it
+  needs from the same source file (single source of place truth).
+*/
+import { sundarbansBengalTigerSwimmer } from
+  '../../cinematic-language/ecological-narrative.example.ts';
+
+const NARRATIVE = sundarbansBengalTigerSwimmer;
+const PLACE_NAME = NARRATIVE.place.name;
+const PLACE_LINE = NARRATIVE.place.editorialPlaceLine;
+const FRAGMENT   = NARRATIVE.editorial.fragment;
+
 /* ---------- Procedural SVG: canopy silhouettes ---------- */
 
 /**
@@ -566,6 +587,16 @@ function buildDescent() {
 function init() {
   paintCanopies();
   paintRoots();
+
+  // Apply the three cinematic-extracted fields from the canonical narrative.
+  // No species name, no observation, no sources are rendered on this surface.
+  // Per platform-architecture §5: cinematic extracts place.name,
+  // place.editorialPlaceLine, and editorial.fragment — nothing else.
+  document.title = `${PLACE_NAME} \u00b7 Descent`;
+  const desc = document.getElementById('docDesc');
+  if (desc) desc.setAttribute('content', PLACE_LINE);
+  const inscription = document.getElementById('sceneInscription');
+  if (inscription) inscription.textContent = FRAGMENT;
 
   // Subjective parallax begins immediately, in 'threshold' state.
   // The threshold is no longer a still scene — it has perceptual
