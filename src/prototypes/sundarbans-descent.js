@@ -177,6 +177,20 @@ const AMP_Y = 18;
 const BREATH_GAIN = 0.28;
 const CURSOR_SMOOTH = 0.045;
 
+/* ---------- Scene inscription (single annotation interaction) ----------
+   A test of whether ecological information can appear without breaking
+   the cinematic grammar. Active only in 'inhabited' state. Slowly fades
+   from 0 to a barely-visible base opacity over ~5s after entering
+   inhabited; cursor proximity then nudges opacity up to a still-subtle
+   maximum. The inscription element lives inside .roots-fore in the DOM
+   so it inherits descent + parallax transforms automatically. */
+const INSCRIPTION_BASE_OPACITY = 0.10;
+const INSCRIPTION_MAX_OPACITY = 0.45;
+const INSCRIPTION_PROXIMITY_RADIUS = 280;  // px; below this, opacity nudges up
+const INSCRIPTION_REVEAL_MS = 5000;        // first-fade-in duration after inhabited
+let inscriptionOpacity = 0;
+let inscriptionRevealStart = 0;
+
 /** State machine for transform ownership.
  *  threshold  — parallax owns transforms; descent timeline is paused
  *  descending — descent timeline owns transforms; parallax suspends writes
@@ -255,6 +269,40 @@ function rafLoop(t) {
       const dx = -coef * offX * AMP_X;
       const dy = -coef * offY * AMP_Y;
       gsap.set(el, { x: rest.x + dx, y: rest.y + dy });
+    }
+  }
+
+  // Scene inscription: active only after the descent settles. The element
+  // inherits its position via DOM placement (inside .roots-fore); we only
+  // animate its opacity here, as a function of (a) time-since-inhabited
+  // for the first-pass reveal, and (b) cursor proximity for legibility.
+  const inscription = document.getElementById('sceneInscription');
+  if (inscription) {
+    if (descentState !== 'inhabited') {
+      inscriptionOpacity = 0;
+      inscription.style.opacity = '0';
+    } else {
+      if (!inscriptionRevealStart) inscriptionRevealStart = t;
+      const revealAge = Math.min(1, (t - inscriptionRevealStart) / INSCRIPTION_REVEAL_MS);
+      const baseOpacity = revealAge * INSCRIPTION_BASE_OPACITY;
+
+      const rect = inscription.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const cursorPxX = (cursorTarget.x + 1) * window.innerWidth / 2;
+      const cursorPxY = (cursorTarget.y + 1) * window.innerHeight / 2;
+      const distance = Math.hypot(cursorPxX - cx, cursorPxY - cy);
+
+      let proximityNudge = 0;
+      if (distance < INSCRIPTION_PROXIMITY_RADIUS) {
+        proximityNudge =
+          (1 - distance / INSCRIPTION_PROXIMITY_RADIUS) *
+          (INSCRIPTION_MAX_OPACITY - INSCRIPTION_BASE_OPACITY);
+      }
+
+      const target = baseOpacity + proximityNudge;
+      inscriptionOpacity += (target - inscriptionOpacity) * 0.055;
+      inscription.style.opacity = inscriptionOpacity.toFixed(3);
     }
   }
 

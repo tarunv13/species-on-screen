@@ -84,10 +84,19 @@
     </div>
 
     <!-- Foreground pneumatophore field: dominates frame in Movement 4-5 -->
-    <div class="roots roots-fore" data-layer="roots-fore" aria-hidden="true">
-      <svg class="roots-svg" viewBox="0 0 1600 520" preserveAspectRatio="none">
+    <div class="roots roots-fore" data-layer="roots-fore">
+      <svg class="roots-svg" viewBox="0 0 1600 520" preserveAspectRatio="none" aria-hidden="true">
         <g id="roots-fore-group"></g>
       </svg>
+      <!--
+        One annotation interaction. A single editorial fragment that lives
+        inside the foreground roots layer (rides its parallax + descent
+        transforms automatically). Default opacity is barely visible. A
+        proximity check in the rAF loop nudges opacity up to a still-subtle
+        maximum when the cursor is near. There is no popup, no tooltip, no
+        hover highlight, no UI chrome. Easy to miss. Placeholder content.
+      -->
+      <p class="scene-inscription" id="sceneInscription">every root is also a lung</p>
     </div>
 
     <!-- Foreground humidity wisps: faint, ambient -->
