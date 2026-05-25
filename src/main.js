@@ -35,9 +35,6 @@ function init() {
   // Set initial layer to species (media)
   globe.setLayer('species');
 
-  // Set up layer toggle buttons
-  setupLayerToggles();
-
   // Handle resize
   window.addEventListener('resize', onResize);
 
@@ -47,12 +44,19 @@ function init() {
     if (floatingCards) floatingCards.update(engine.getCamera(), globe);
   });
 
-  // Hide loading screen then run landing sequence
+  // Audit §9.3: extended landing pacing. The page now holds darkness
+  // for 1.5s before the scrim begins to fade, takes 1.4s to fade
+  // through, and lets the camera approach take 6s instead of 3s.
+  // Total landing time roughly doubles (≈ 8.9s vs ≈ 4.3s). The
+  // doctrine: patience is one thing at a time, in order. The visitor
+  // sees darkness, then a planet, then captions — never all three
+  // at once.
   if (loadingScreen) {
     gsap.to(loadingScreen, {
       opacity: 0,
-      duration: 0.8,
-      delay: 0.5,
+      duration: 1.4,
+      delay: 1.5,
+      ease: 'power2.inOut',
       onComplete: () => {
         loadingScreen.style.display = 'none';
         runLandingSequence();
@@ -200,7 +204,11 @@ function executeReturnToGlobe({ force = false } = {}) {
   // Restore canvas and fly camera back
   tl.to('#cinematic-canvas', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3);
 
-  const defaultPos = new THREE.Vector3(0, 0.3, 5.5);
+  // Audit §9.3: re-entry uses the same off-centre composition target
+  // as runLandingSequence (X = +1.0). The visitor returns to the
+  // same framing they left from; the planet does not leap to centre
+  // when the species page exits.
+  const defaultPos = new THREE.Vector3(1.0, 0.3, 5.5);
   const defaultTarget = new THREE.Vector3(0, 0, 0);
   tl.add(engine.flyCamera(defaultPos, defaultTarget, 1.0, 'power3.inOut'), 0.3);
 
@@ -215,32 +223,34 @@ function executeReturnToGlobe({ force = false } = {}) {
 function runLandingSequence() {
   const globeUI = document.getElementById('globe-ui-container');
 
-  // Camera starts far away, flies in to globe view position
-  const targetPos = new THREE.Vector3(0, 0.3, 5.5);
+  // Audit §9.3: off-centre composition target. The camera arrives
+  // shifted +1.0 unit on X relative to the previous centred framing.
+  // With the camera looking at world-origin, this places the planet
+  // slightly LEFT of frame centre (≈18% off-axis at z=5.5), giving
+  // breathing space to the right. Editorial documentary framing,
+  // not centred product-shot framing. The same off-axis position is
+  // used by executeReturnToGlobe so re-entry preserves composition.
+  const targetPos = new THREE.Vector3(1.0, 0.3, 5.5);
   const targetLookAt = new THREE.Vector3(0, 0, 0);
 
-  const tl = engine.flyCamera(targetPos, targetLookAt, 3, 'power3.inOut');
+  // Fly-in extended from 3.0s to 6.0s. The planet emerges as a slow
+  // approach, not a swoop. power3.inOut keeps the start and end
+  // hesitant rather than spring-loaded.
+  const tl = engine.flyCamera(targetPos, targetLookAt, 6, 'power3.inOut');
 
   tl.eventCallback('onComplete', () => {
-    // Show globe UI after landing completes
-    if (globeUI) {
-      globeUI.classList.add('active');
-    }
-    if (floatingCards) {
-      floatingCards.show();
-    }
-  });
-}
-
-function setupLayerToggles() {
-  const buttons = document.querySelectorAll('.layer-toggle-btn');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const layer = btn.dataset.layer;
-      if (globe) globe.setLayer(layer);
-      if (floatingCards) floatingCards.setLayerVisibility(layer);
+    // Audit §9.3: post-arrival hold. The planet sits in silence for
+    // 0.9s after the camera stops — the 'this place exists' beat —
+    // before the species captions begin to fade in. Without this
+    // hold, the captions read as "labels appearing" (interactive);
+    // with it, they read as "captions arriving" (editorial).
+    gsap.delayedCall(0.9, () => {
+      if (globeUI) {
+        globeUI.classList.add('active');
+      }
+      if (floatingCards) {
+        floatingCards.show();
+      }
     });
   });
 }
