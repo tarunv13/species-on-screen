@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run check-narratives",
     "build": "vite build",
     "preview": "vite preview",
     "fetch-data": "node scripts/fetch-tmdb-data.js",
-    "new-narrative": "node scripts/new-narrative.js"
+    "new-narrative": "node scripts/new-narrative.js",
+    "check-narratives": "node scripts/check-narratives.js"
   },
   "dependencies": {
     "@barba/core": "^2.10.3",
