@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Sundarbans &middot; Descent</title>
-  <meta name="description" content="A perspective threshold. The same disappearance looks different depending on where you stand." />
+  <meta name="description" id="docDesc" content="" />
   <script type="module" src="/src/prototypes/sundarbans-descent.js"></script>
 </head>
 <body>
@@ -84,10 +84,23 @@
     </div>
 
     <!-- Foreground pneumatophore field: dominates frame in Movement 4-5 -->
-    <div class="roots roots-fore" data-layer="roots-fore" aria-hidden="true">
-      <svg class="roots-svg" viewBox="0 0 1600 520" preserveAspectRatio="none">
+    <div class="roots roots-fore" data-layer="roots-fore">
+      <svg class="roots-svg" viewBox="0 0 1600 520" preserveAspectRatio="none" aria-hidden="true">
         <g id="roots-fore-group"></g>
       </svg>
+      <!--
+        One annotation interaction. A single editorial fragment that lives
+        inside the foreground roots layer (rides its parallax + descent
+        transforms automatically). Default opacity is barely visible. A
+        proximity check in the rAF loop nudges opacity up to a still-subtle
+        maximum when the cursor is near. There is no popup, no tooltip, no
+        hover highlight, no UI chrome. Easy to miss.
+
+        Text content is populated at init from the canonical narrative
+        object (see src/prototypes/sundarbans-descent.js). The cinematic
+        surface extracts only editorial.fragment from that object.
+      -->
+      <p class="scene-inscription" id="sceneInscription"></p>
     </div>
 
     <!-- Foreground humidity wisps: faint, ambient -->

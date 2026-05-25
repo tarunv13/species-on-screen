@@ -1,0 +1,156 @@
+/*
+  Research-surface article styling.
+  ---------------------------------
+  Conventional reading layout. Library grammar. No cinematic primitives,
+  no atmospheric layers, no parallax, no audio, no chrome ambitions.
+  Designed to be ignorable — the typography carries the page.
+*/
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #f7f5ef;
+  color: #1f1d1a;
+  font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.narrative {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 5rem) 1.25rem 6rem;
+}
+
+.narrative > header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(31, 29, 26, 0.15);
+  padding-bottom: 1.25rem;
+}
+
+.narrative h1 {
+  font-size: 2.1rem;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  margin: 0 0 0.4rem;
+}
+
+.narrative .subtitle {
+  margin: 0 0 1.2rem;
+  color: #4a4640;
+  font-size: 1rem;
+}
+
+.narrative .subtitle em {
+  font-style: italic;
+}
+
+.narrative dl.identifiers {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1.25rem;
+  row-gap: 0.25rem;
+  margin: 0;
+  font-size: 0.92rem;
+  color: #4a4640;
+}
+
+.narrative dl.identifiers dt {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  color: #6a655c;
+}
+
+.narrative dl.identifiers dd {
+  margin: 0;
+}
+
+.narrative .claim {
+  margin: 2rem 0;
+  padding: 1rem 1.2rem;
+  border-left: 2px solid rgba(31, 29, 26, 0.35);
+  background: rgba(31, 29, 26, 0.03);
+}
+
+.narrative .claim .observation {
+  margin: 0;
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.narrative .body {
+  margin: 2.5rem 0;
+}
+
+.narrative .body p {
+  margin: 0 0 1.1rem;
+}
+
+.narrative .place-line {
+  margin: 0 0 2rem;
+  font-style: italic;
+  color: #4a4640;
+  font-size: 1.05rem;
+}
+
+.narrative .fragment {
+  margin: 2rem 0 0;
+  font-style: italic;
+  color: #4a4640;
+  text-align: right;
+}
+
+.narrative h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 3rem 0 1rem;
+  color: #6a655c;
+}
+
+.narrative .sources ol {
+  padding-left: 1.4rem;
+  margin: 0;
+}
+
+.narrative .sources li {
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.narrative .sources .source-kind {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  color: #8a857c;
+  margin-right: 0.4em;
+}
+
+.narrative .sources cite {
+  font-style: italic;
+}
+
+.narrative footer.metadata {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(31, 29, 26, 0.15);
+  font-size: 0.84rem;
+  color: #6a655c;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1.25rem;
+  row-gap: 0.2rem;
+}
+
+.narrative footer.metadata dt {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+}
+
+.narrative footer.metadata dd {
+  margin: 0;
+}
