@@ -1,6 +1,6 @@
 /*
-  Ecological Narrative — canonical example object
-  ------------------------------------------------
+  Ecological Narrative — schema (v1).
+  -----------------------------------
   ONE attested ecological story unit. Knits a place, a species, an
   observation, archival sources, and an editorial framing into a
   single durable record. The cinematic surface extracts a tiny subset;
@@ -16,9 +16,15 @@
   Every other field belongs to the research surface and never appears
   in cinematic space.
 
-  This file is illustrative. It is not a build artifact, not imported
-  by any module, and not part of any runtime. It defines the canonical
-  shape; persistence and CMS concerns are deliberately out of scope.
+  This file defines the schema only. Individual narrative records live
+  in `./narratives/`, one per file. The runtime registry that
+  discovers them is `./narrative-registry.ts`. Do not add narrative
+  consts to this file.
+
+  The filename retains the `.example.ts` suffix for historical reasons
+  (the schema and a canonical example were once co-located here). The
+  rename to `ecological-narrative.schema.ts` is listed as a future
+  cleanup item in `.agents/tasks/task-repo-consolidation/`.
 */
 
 type ID = string;
@@ -129,6 +135,12 @@ interface NarrativeMetadata {
  * binds a place, a species, an observation, sources, and an editorial
  * framing. Cinematic and research surfaces read from the same record
  * and render disjoint subsets.
+ *
+ * To add a new narrative: create a new `.ts` file under `./narratives/`
+ * named `<id>.ts`, default-export an `EcologicalNarrative` object, and
+ * the registry in `./narrative-registry.ts` will discover it at build
+ * time. Validation rules and rejection criteria are in
+ * `./narrative-ingestion-workflow.md`.
  */
 export interface EcologicalNarrative {
   id: ID;
@@ -141,79 +153,3 @@ export interface EcologicalNarrative {
   editorial: Editorial;
   metadata: NarrativeMetadata;
 }
-
-/* ---------- Canonical example ---------- */
-
-export const sundarbansBengalTigerSwimmer: EcologicalNarrative = {
-  id: 'sundarbans-bengal-tiger-saline-swimmer',
-  place: {
-    id: 'sundarbans',
-    name: 'Sundarbans',
-    type: 'mangrove tidal forest',
-    countries: ['Bangladesh', 'India'],
-    protectedArea: 'Sundarbans Reserved Forest / Sundarbans National Park',
-    coordinates: { latitude: 21.95, longitude: 89.18 },
-    editorialPlaceLine:
-      'A tidal forest where the salt enters every root twice a day.'
-  },
-  species: {
-    id: 'panthera-tigris-tigris',
-    commonName: 'Bengal tiger',
-    scientificName: 'Panthera tigris tigris',
-    taxonomy: { family: 'Felidae', order: 'Carnivora', class: 'Mammalia' },
-    iucnStatus: 'endangered'
-  },
-  observation: {
-    summary:
-      'The Bengal tigers of the Sundarbans cross brackish tidal channels ' +
-      'by swimming between forested islands — a regular behavior in pursuit ' +
-      'of prey and territory, unrecorded at this frequency in any other ' +
-      'tiger population.',
-    type: 'behavioral_adaptation',
-    year: [1973, 2024]
-  },
-  sources: [
-    {
-      kind: 'peer_reviewed',
-      title:
-        'Distribution and abundance of tigers and their prey in the ' +
-        'Sundarbans mangrove ecosystem',
-      authors: ['Khan, M. M. H.'],
-      journal: 'Bangladesh Journal of Zoology',
-      year: 2012
-    },
-    {
-      kind: 'field_report',
-      title: 'Status of Tigers, Co-predators and Prey in India 2018',
-      authors: ['Jhala, Y. V.', 'Qureshi, Q.', 'Nayak, A. K.'],
-      organization:
-        'National Tiger Conservation Authority & Wildlife Institute of India',
-      year: 2020
-    },
-    {
-      kind: 'camera_trap',
-      label: 'STR-2018-C4',
-      operator: 'West Bengal Forest Department',
-      year: 2018,
-      location: 'compartment 4, Sundarban Tiger Reserve'
-    }
-  ],
-  editorial: {
-    fragment: 'every root is also a lung',
-    body:
-      'In the Sundarbans, the tide rises twice a day. Mangroves breathe ' +
-      'through pneumatophores — vertical aerial roots that protrude from ' +
-      'the mud — because the saline silt of the delta admits no air. The ' +
-      'forest is a community of organisms that have learned to live, daily, ' +
-      'with what would kill almost any other terrestrial life. Among them, ' +
-      'a tiger that swims.',
-    voice: 'editorial team'
-  },
-  metadata: {
-    schemaVersion: '1',
-    contributor: 'tarunv13',
-    created: '2026-05-25',
-    updated: '2026-05-25',
-    status: 'draft'
-  }
-};
