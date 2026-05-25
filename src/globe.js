@@ -1,41 +1,16 @@
 import * as THREE from 'three';
 
+// Final homepage reduction (post-§9.x): the planetary view carries one
+// canonical anchor — Sundarbans, Bengal tiger — per the mangrove canonical
+// spec (2026-05-25). The other nine species remain reachable as their own
+// pages and as data files on disk; they are simply no longer the homepage's
+// concern. A magazine cover shows one story.
 const HOTSPOTS = [
   { lat: 21.9, lng: 89.2, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
-  { lat: 26.0, lng: 76.5, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
-  { lat: -0.5, lng: 101.5, name: 'Tiger', species: 'tiger', ecosystem: 'tropical-forest', color: '#4a7c59' },
-  { lat: 28.0, lng: 84.0, name: 'Snow Leopard', species: 'snow-leopard', ecosystem: 'mountain', color: '#e8e4f0' },
-  { lat: 49.0, lng: 88.0, name: 'Snow Leopard', species: 'snow-leopard', ecosystem: 'mountain', color: '#e8e4f0' },
-  { lat: 42.0, lng: 75.0, name: 'Snow Leopard', species: 'snow-leopard', ecosystem: 'mountain', color: '#e8e4f0' },
-  { lat: 1.0, lng: 114.0, name: 'Bornean Orangutan', species: 'bornean-orangutan', ecosystem: 'tropical-forest', color: '#4a7c59' },
-  { lat: 2.5, lng: 98.5, name: 'Bornean Orangutan', species: 'bornean-orangutan', ecosystem: 'tropical-forest', color: '#4a7c59' },
-  { lat: 18.0, lng: -64.0, name: 'Hawksbill Turtle', species: 'hawksbill-turtle', ecosystem: 'coral-reef', color: '#1a4f6e' },
-  { lat: -18.3, lng: 147.7, name: 'Hawksbill Turtle', species: 'hawksbill-turtle', ecosystem: 'coral-reef', color: '#1a4f6e' },
-  { lat: 22.0, lng: 38.0, name: 'Hawksbill Turtle', species: 'hawksbill-turtle', ecosystem: 'coral-reef', color: '#1a4f6e' },
-  { lat: -65.0, lng: -60.0, name: 'Blue Whale', species: 'blue-whale', ecosystem: 'ocean', color: '#1a4f6e' },
-  { lat: 34.0, lng: -120.0, name: 'Blue Whale', species: 'blue-whale', ecosystem: 'ocean', color: '#1a4f6e' },
-  { lat: 7.0, lng: 80.0, name: 'Blue Whale', species: 'blue-whale', ecosystem: 'ocean', color: '#1a4f6e' },
-  { lat: -2.5, lng: 34.8, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
-  { lat: -24.0, lng: 31.5, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
-  { lat: 0.5, lng: 22.0, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
-  { lat: -2.6, lng: 37.2, name: 'African Elephant', species: 'african-elephant', ecosystem: 'savanna', color: '#c4842c' },
-  { lat: 78.0, lng: 16.0, name: 'Polar Bear', species: 'polar-bear', ecosystem: 'arctic', color: '#e8e4f0' },
-  { lat: 58.7, lng: -94.2, name: 'Polar Bear', species: 'polar-bear', ecosystem: 'arctic', color: '#e8e4f0' },
-  { lat: 71.0, lng: -179.5, name: 'Polar Bear', species: 'polar-bear', ecosystem: 'arctic', color: '#e8e4f0' },
-  { lat: 31.0, lng: 103.5, name: 'Giant Panda', species: 'giant-panda', ecosystem: 'temperate-forest', color: '#4a7c59' },
-  { lat: 33.5, lng: 107.5, name: 'Giant Panda', species: 'giant-panda', ecosystem: 'temperate-forest', color: '#4a7c59' },
-  { lat: 24.5, lng: -81.5, name: 'Staghorn Coral', species: 'staghorn-coral', ecosystem: 'coral-reef', color: '#1a4f6e' },
-  { lat: 16.8, lng: -88.0, name: 'Staghorn Coral', species: 'staghorn-coral', ecosystem: 'coral-reef', color: '#1a4f6e' },
-  { lat: 24.0, lng: -76.0, name: 'Staghorn Coral', species: 'staghorn-coral', ecosystem: 'coral-reef', color: '#1a4f6e' },
-  { lat: -3.4, lng: -60.0, name: 'Amazon River Dolphin', species: 'amazon-river-dolphin', ecosystem: 'freshwater', color: '#1a4f6e' },
-  { lat: 6.0, lng: -67.0, name: 'Amazon River Dolphin', species: 'amazon-river-dolphin', ecosystem: 'freshwater', color: '#1a4f6e' },
-  { lat: -3.0, lng: -49.5, name: 'Amazon River Dolphin', species: 'amazon-river-dolphin', ecosystem: 'freshwater', color: '#1a4f6e' },
 ];
 
 const SPECIES_FILES = [
-  'tiger', 'snow-leopard', 'bornean-orangutan', 'hawksbill-turtle',
-  'blue-whale', 'african-elephant', 'polar-bear', 'giant-panda',
-  'staghorn-coral', 'amazon-river-dolphin',
+  'tiger',
 ];
 
 const COMING_SOON_HOTSPOTS = [
