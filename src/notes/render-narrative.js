@@ -11,10 +11,16 @@
   parallax, no audio, no atmosphere, no descent timeline. Per
   platform-architecture §7: zero shared JavaScript at runtime
   between cinematic and research surfaces.
+
+  The narrative to render is selected by URL pathname: each notes/*.html
+  is an empty shell whose basename (without `.html`) is the narrative
+  id. Adding a narrative to the research surface is creating one new
+  HTML file under notes/ and one new narrative file under
+  cinematic-language/narratives/. No router, no server, no fetch.
 */
 
-import { sundarbansBengalTigerSwimmer } from
-  '../../cinematic-language/ecological-narrative.example.ts';
+import { getNarrativeById } from
+  '../../cinematic-language/narrative-registry.ts';
 import './research-article.css';
 
 const IUCN_LABEL = {
@@ -188,4 +194,50 @@ function renderArticle(n) {
   document.title = `${n.place.name} \u00b7 ${n.species.commonName} \u2014 Notes`;
 }
 
-renderArticle(sundarbansBengalTigerSwimmer);
+/* ---------- Not-found state ---------- */
+
+/*
+  The research surface is keyed off the URL pathname. Each notes/*.html
+  page is an empty shell whose basename (without `.html`) is the
+  narrative id. Visiting a page whose id is not in the registry
+  produces a clean, low-authority message — no errors thrown, no
+  console noise, no styling drift.
+*/
+function renderNotFound(id) {
+  const root = document.getElementById('narrative');
+  if (!root) return;
+  root.innerHTML = `
+    <header>
+      <h1>Narrative not found</h1>
+      <p class="subtitle">
+        No narrative is registered with id <code>${escape(id)}</code>.
+      </p>
+    </header>
+  `;
+  document.title = 'Notes \u2014 not found';
+}
+
+/* ---------- Entry point: id from URL pathname ---------- */
+
+/*
+  The page URL is `/[base]/notes/<id>.html`. The basename without the
+  extension is the narrative id. This ties slug to filename, which is
+  intentional: filename collisions are the same kind of error as id
+  collisions, and the OS already prevents both.
+*/
+function getNarrativeIdFromUrl() {
+  const last = location.pathname
+    .replace(/\/$/, '')
+    .split('/')
+    .pop() || '';
+  return last.replace(/\.html$/, '');
+}
+
+const id = getNarrativeIdFromUrl();
+const narrative = getNarrativeById(id);
+
+if (narrative) {
+  renderArticle(narrative);
+} else {
+  renderNotFound(id);
+}
