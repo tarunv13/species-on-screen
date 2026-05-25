@@ -146,18 +146,12 @@ button {
   fill: #131a16;
 }
 
-/* idle parallax drift — gentle, weather-paced */
-.canopy-far  { animation: canopy-drift-far  64s ease-in-out infinite alternate; }
-.canopy-mid  { animation: canopy-drift-mid  48s ease-in-out infinite alternate; }
-
-@keyframes canopy-drift-far {
-  0%   { transform: translate3d(-0.8%, 0, 0); }
-  100% { transform: translate3d( 0.8%, 0, 0); }
-}
-@keyframes canopy-drift-mid {
-  0%   { transform: translate3d( 1.0%, 0, 0); }
-  100% { transform: translate3d(-1.0%, 0, 0); }
-}
+/*
+  Idle drift on canopy layers is no longer a CSS keyframe loop. Subjective
+  parallax (cursor + non-repeating breath) drives canopy-far and canopy-mid
+  at runtime; see src/prototypes/sundarbans-descent.js. CSS keyframe loops
+  are detectable on long sessions and were retired here for that reason.
+*/
 
 /* ---------- Light shafts (revealed during Movement 4) ---------- */
 
@@ -437,13 +431,19 @@ button {
   position: absolute;
   inset: 0;
   z-index: 12;
+  /*
+    Vignette is intentionally subtle: edge attenuation, not a film vignette.
+    Higher opacities or a late-stage tween toward 1.0 read as cinematic
+    closure (an iris darkening as a scene ends). This vignette only does
+    the work of softening the frame's hardest corners.
+  */
   background:
-    radial-gradient(ellipse 90% 80% at 50% 55%,
-      rgba(0,0,0,0) 55%,
-      rgba(0,0,0,0.35) 88%,
-      rgba(0,0,0,0.55) 100%);
+    radial-gradient(ellipse 95% 85% at 50% 55%,
+      rgba(0,0,0,0) 60%,
+      rgba(0,0,0,0.20) 88%,
+      rgba(0,0,0,0.36) 100%);
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.55;
 }
 
 /* ---------- Reduced motion ---------- */
