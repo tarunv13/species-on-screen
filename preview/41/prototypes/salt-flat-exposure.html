@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Salt Flat &middot; Exposure</title>
+  <meta name="description" content="The most exposed places are still places." />
+  <script type="module" crossorigin src="/species-on-screen/preview/41/assets/prototype-salt-flat-exposure-DXHxRJDR.js"></script>
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/41/assets/gsap-C81z-gCV.js">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/preview/41/assets/prototype-salt-flat-exposure-BFfknbY1.css">
+</head>
+<body>
+  <!--
+    Counter-test prototype to Sundarbans. M1 + M2 only.
+    Grammar question: does UI-burial generalize from mist (consumes from below)
+    to glare (consumes from horizon outward)? UI lives inside the atmosphere
+    stack so the world can occlude it; the world's mechanism here is light,
+    not fog.
+  -->
+  <div class="stage" id="stage">
+
+    <!-- Sky: pale, top-cool to horizon-warm-pale. -->
+    <div class="sky" data-layer="sky"></div>
+
+    <!-- Horizon haze: thin band where sky meets ground; future home of heat shimmer. -->
+    <div class="horizon-haze" data-layer="horizon-haze"></div>
+
+    <!-- Distant flat: pale band, low contrast against sky. -->
+    <div class="distant-flat" data-layer="distant-flat"></div>
+
+    <!-- Near flat: foreground salt surface with crack pattern. -->
+    <div class="near-flat" data-layer="near-flat">
+      <svg class="cracks-svg" viewBox="0 0 1600 600" preserveAspectRatio="none" aria-hidden="true">
+        <g id="cracks-group"></g>
+      </svg>
+    </div>
+
+    <!--
+      Threshold UI. Same grid layout as Sundarbans. Sits at z-index 6 so the
+      glare overlay (z-index 7) can pass over it during M2.
+    -->
+    <div class="frame-content" id="frameContent">
+      <p class="framing-question" id="framingQuestion">
+        <span class="line">The most exposed places</span>
+        <span class="line">are still places.</span>
+      </p>
+
+      <div class="lenses" id="lenses" role="group" aria-label="Choose a perspective">
+        <button class="lens lens--live" data-lens="habitat" id="lensHabitat" type="button">
+          <span class="lens-name">Habitat</span>
+          <span class="lens-stance">enter through the place</span>
+        </button>
+        <button class="lens lens--quiet" data-lens="ecosystem" type="button" disabled aria-disabled="true">
+          <span class="lens-name">Ecosystem</span>
+          <span class="lens-stance">enter through what holds it</span>
+        </button>
+        <button class="lens lens--quiet" data-lens="species" type="button" disabled aria-disabled="true">
+          <span class="lens-name">Species</span>
+          <span class="lens-stance">enter through what lives in it</span>
+        </button>
+      </div>
+    </div>
+
+    <!--
+      Glare overlay: M2 agent. Inverted twin of Sundarbans' mist-rising.
+      Begins invisible and at modest scale; expands and brightens during M2,
+      bleaching the threshold UI without the system fading it.
+    -->
+    <div class="glare-overlay" data-layer="glare-overlay" aria-hidden="true"></div>
+
+    <!--
+      Vignette: present but minimal by default. Will dissolve to 0 during
+      M3-M4 in the full prototype. M1 + M2 do not touch it yet.
+    -->
+    <div class="vignette" aria-hidden="true"></div>
+  </div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;background:#e8d4c4;color:#5a4838;display:grid;place-items:center;font-family:Georgia,serif;padding:2rem;text-align:center;">
+      The most exposed places are still places.
+    </div>
+  </noscript>
+</body>
+</html>
