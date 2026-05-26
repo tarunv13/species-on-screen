@@ -1,8 +1,0 @@
-# Reserved for future private-book chapter drafts.
-#
-# Naming: kebab-case, one chapter per file, basename matches the
-# slug used in book/INDEX.md.
-#
-# Drafting is out of scope for the preservation pass that created
-# this directory. See book/INDEX.md for the canonical mapping of
-# chapter slots to existing on-disk source material.
