@@ -234,7 +234,7 @@ const CURSOR_SMOOTH = 0.045;
 
    The element lives inside .roots-fore in the DOM so it inherits the
    foreground's descent + parallax transforms automatically. */
-const INSCRIPTION_BASE_OPACITY = 0.10;
+const INSCRIPTION_BASE_OPACITY = 0.18;
 const INSCRIPTION_MAX_OPACITY = 0.45;
 const INSCRIPTION_REVEAL_MS = 5000;          // first-fade-in duration after inhabited
 const STILLNESS_THRESHOLD_PX = 1.5;          // sub-pixel cursor jitter counts as still
