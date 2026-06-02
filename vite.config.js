@@ -51,6 +51,23 @@ try {
   // notes/ directory may not exist yet
 }
 
+// Collect the Living Atlas pages.
+// The atlas is an additive, reversible research-surface experience
+// (see .kiro/steering/atlas-living-glass.md): a glassmorphic, seasonal
+// globe of every documented habitat. It is bundled independently and
+// does not modify the cinematic homepage or the canonical place pages.
+// Removing the surface is deleting atlas/ + src/atlas/ and this block.
+const atlasPages = {};
+try {
+  const files = readdirSync(resolve(__dirname, 'atlas'));
+  files.filter(f => f.endsWith('.html')).forEach(f => {
+    const name = f.replace('.html', '');
+    atlasPages[`atlas-${name}`] = resolve(__dirname, 'atlas', f);
+  });
+} catch (e) {
+  // atlas/ directory may not exist yet
+}
+
 export default defineConfig({
   base: '/species-on-screen/',
   build: {
@@ -59,7 +76,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         ...placePages,
-        ...notesPages
+        ...notesPages,
+        ...atlasPages
       }
     }
   }
