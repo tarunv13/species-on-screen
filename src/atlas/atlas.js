@@ -17,8 +17,11 @@
   controls atmosphere and framing only and asserts no ecology.
 */
 
+// Liquid Glass material first, so atlas.css layout rules win on cascade.
+import './liquid-glass.css';
 import './atlas.css';
 import { gsap } from 'gsap';
+import { initLiquidGlass } from './liquid-glass.js';
 import { listNarratives } from '../../cinematic-language/narrative-registry.ts';
 import { describeSeason, overviewPalette } from './season.js';
 
@@ -92,7 +95,7 @@ function buildSpeciesCard(n, onBack) {
   const lat = n.place.coordinates ? n.place.coordinates.latitude : 0;
   const season = describeSeason(lat, n.place.name);
 
-  const card = el('article', 'species-card glass');
+  const card = el('article', 'species-card glass glass--card');
 
   card.appendChild(el('div', 'place-name', n.place.name));
   card.appendChild(el('div', 'place-kind', n.place.type || ''));
@@ -157,6 +160,10 @@ async function init() {
 
   applyVars(root, overviewPalette());
 
+  // Liquid Glass: ambient key-light drift + pointer lensing on .glass
+  // surfaces. No-op under reduced-motion / coarse pointers.
+  initLiquidGlass(root);
+
   const narratives = listNarratives()
     .slice()
     .sort((a, b) => a.place.name.localeCompare(b.place.name));
@@ -173,7 +180,7 @@ async function init() {
   const chipById = new Map();
 
   function makeChip(n) {
-    const chip = el('button', 'habitat-chip glass');
+    const chip = el('button', 'habitat-chip glass glass--chip');
     chip.type = 'button';
     chip.appendChild(el('span', 'place', n.place.name));
     chip.appendChild(el('span', 'kind', n.place.type || ''));

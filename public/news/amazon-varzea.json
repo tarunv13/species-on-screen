@@ -1,0 +1,11 @@
+{
+  "id": "amazon-varzea",
+  "name": "Amazon várzea",
+  "region": "South America",
+  "biome": "Seasonally flooded forest",
+  "protectedArea": "Mamirauá Reserve",
+  "query": "\"Amazon rainforest\" (deforestation OR fire OR Indigenous) sourcelang:eng",
+  "fetched": "2026-06-21T03:47:51.245Z",
+  "source": "GDELT 2.0 DOC API",
+  "articles": []
+}

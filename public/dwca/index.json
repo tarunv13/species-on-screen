@@ -1,0 +1,16 @@
+[
+  {
+    "id": "sundarbans",
+    "name": "Sundarbans",
+    "type": "Mangrove tidal forest",
+    "actors": 9,
+    "interactions": 10
+  },
+  {
+    "id": "amazon-varzea",
+    "name": "Amazon várzea",
+    "type": "Seasonally flooded forest",
+    "actors": 8,
+    "interactions": 8
+  }
+]

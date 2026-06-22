@@ -1,0 +1,436 @@
+{
+  "_comment": "Global registry of priority landscapes the observatory intends to cover — spread across IUCN Global Ecosystem Typology realms (terrestrial, freshwater, marine, polar, transitional). Drives the news layer (GDELT per newsQuery) and, as field records are authored, the scrollytelling. hasFieldRecord=true means a Darwin Core Archive exists at public/dwca/<id>/. newsQuery is tuned for English-language environmental coverage.",
+  "landscapes": [
+    {
+      "id": "sundarbans",
+      "name": "Sundarbans",
+      "region": "South Asia",
+      "countries": [
+        "BD",
+        "IN"
+      ],
+      "realm": "Transitional (mangrove)",
+      "biome": "Mangrove tidal forest",
+      "center": {
+        "lat": 21.95,
+        "lng": 89.18
+      },
+      "protectedArea": "Sundarban Tiger Reserve",
+      "newsQuery": "Sundarbans (mangrove OR tiger OR cyclone OR embankment)",
+      "hasFieldRecord": true
+    },
+    {
+      "id": "amazon-varzea",
+      "name": "Amazon várzea",
+      "region": "South America",
+      "countries": [
+        "BR",
+        "PE",
+        "CO"
+      ],
+      "realm": "Freshwater + Terrestrial",
+      "biome": "Seasonally flooded forest",
+      "center": {
+        "lat": -3.1,
+        "lng": -64.8
+      },
+      "protectedArea": "Mamirauá Reserve",
+      "newsQuery": "\"Amazon rainforest\" (deforestation OR fire OR Indigenous)",
+      "hasFieldRecord": true
+    },
+    {
+      "id": "congo-basin",
+      "name": "Congo Basin",
+      "region": "Central Africa",
+      "countries": [
+        "CD",
+        "CG",
+        "CM",
+        "GA"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Tropical lowland rainforest",
+      "center": {
+        "lat": -0.5,
+        "lng": 22
+      },
+      "protectedArea": "Salonga National Park",
+      "newsQuery": "\"Congo Basin\" (rainforest OR gorilla OR logging OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "serengeti-mara",
+      "name": "Serengeti–Mara",
+      "region": "East Africa",
+      "countries": [
+        "TZ",
+        "KE"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Tropical savanna grassland",
+      "center": {
+        "lat": -2.3,
+        "lng": 34.8
+      },
+      "protectedArea": "Serengeti National Park",
+      "newsQuery": "Serengeti (wildebeest OR migration OR poaching OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "borneo-leuser",
+      "name": "Borneo lowland rainforest",
+      "region": "Southeast Asia",
+      "countries": [
+        "ID",
+        "MY"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Tropical lowland dipterocarp forest",
+      "center": {
+        "lat": 0.5,
+        "lng": 114
+      },
+      "protectedArea": "Sebangau National Park",
+      "newsQuery": "Borneo (orangutan OR rainforest OR palm oil OR deforestation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "great-barrier-reef",
+      "name": "Great Barrier Reef",
+      "region": "Oceania",
+      "countries": [
+        "AU"
+      ],
+      "realm": "Marine",
+      "biome": "Tropical coral reef",
+      "center": {
+        "lat": -18.3,
+        "lng": 147.7
+      },
+      "protectedArea": "Great Barrier Reef Marine Park",
+      "newsQuery": "\"Great Barrier Reef\" (coral OR bleaching OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "galapagos",
+      "name": "Galápagos",
+      "region": "South America",
+      "countries": [
+        "EC"
+      ],
+      "realm": "Marine + Terrestrial",
+      "biome": "Oceanic island and upwelling",
+      "center": {
+        "lat": -0.7,
+        "lng": -90.5
+      },
+      "protectedArea": "Galápagos National Park",
+      "newsQuery": "Galapagos (tortoise OR marine OR conservation OR fishing)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "madagascar-spiny",
+      "name": "Madagascar dry forest",
+      "region": "Africa (island)",
+      "countries": [
+        "MG"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Dry deciduous and spiny forest",
+      "center": {
+        "lat": -22,
+        "lng": 44.5
+      },
+      "protectedArea": "Kirindy / Tsimanampetsotsa",
+      "newsQuery": "Madagascar (lemur OR deforestation OR forest OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "greater-yellowstone",
+      "name": "Greater Yellowstone",
+      "region": "North America",
+      "countries": [
+        "US"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Temperate montane forest and grassland",
+      "center": {
+        "lat": 44.6,
+        "lng": -110.5
+      },
+      "protectedArea": "Yellowstone National Park",
+      "newsQuery": "Yellowstone (wolf OR bison OR grizzly OR ecosystem)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "eastern-himalaya",
+      "name": "Eastern Himalaya",
+      "region": "South Asia",
+      "countries": [
+        "NP",
+        "IN",
+        "BT"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Montane broadleaf and alpine",
+      "center": {
+        "lat": 27.7,
+        "lng": 88.5
+      },
+      "protectedArea": "Kanchenjunga Landscape",
+      "newsQuery": "Himalaya (snow leopard OR glacier OR forest OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "coral-triangle",
+      "name": "Coral Triangle",
+      "region": "Southeast Asia",
+      "countries": [
+        "ID",
+        "PH",
+        "MY",
+        "PG"
+      ],
+      "realm": "Marine",
+      "biome": "Tropical coral reef and seagrass",
+      "center": {
+        "lat": 0,
+        "lng": 123
+      },
+      "protectedArea": "Coral Triangle Initiative",
+      "newsQuery": "\"Coral Triangle\" (reef OR fishing OR marine OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "okavango",
+      "name": "Okavango Delta",
+      "region": "Southern Africa",
+      "countries": [
+        "BW"
+      ],
+      "realm": "Freshwater",
+      "biome": "Inland delta and floodplain",
+      "center": {
+        "lat": -19.3,
+        "lng": 22.9
+      },
+      "protectedArea": "Okavango Delta World Heritage Site",
+      "newsQuery": "Okavango (delta OR elephant OR water OR oil OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "pantanal",
+      "name": "Pantanal",
+      "region": "South America",
+      "countries": [
+        "BR",
+        "BO",
+        "PY"
+      ],
+      "realm": "Freshwater",
+      "biome": "Tropical wetland",
+      "center": {
+        "lat": -17.7,
+        "lng": -57
+      },
+      "protectedArea": "Pantanal Matogrossense",
+      "newsQuery": "Pantanal (wetland OR fire OR jaguar OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "mekong-tonlesap",
+      "name": "Mekong & Tonlé Sap",
+      "region": "Southeast Asia",
+      "countries": [
+        "VN",
+        "KH",
+        "LA"
+      ],
+      "realm": "Freshwater",
+      "biome": "Large river and lake floodplain",
+      "center": {
+        "lat": 12.9,
+        "lng": 104.1
+      },
+      "protectedArea": "Tonlé Sap Biosphere Reserve",
+      "newsQuery": "Mekong (dam OR fishery OR river OR dolphin OR drought)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "western-ghats",
+      "name": "Western Ghats",
+      "region": "South Asia",
+      "countries": [
+        "IN"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Tropical moist montane forest",
+      "center": {
+        "lat": 11.5,
+        "lng": 76.5
+      },
+      "protectedArea": "Nilgiri Biosphere Reserve",
+      "newsQuery": "\"Western Ghats\" (forest OR elephant OR rain OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "cerrado",
+      "name": "Cerrado",
+      "region": "South America",
+      "countries": [
+        "BR"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Tropical savanna",
+      "center": {
+        "lat": -15.5,
+        "lng": -47.5
+      },
+      "protectedArea": "Chapada dos Veadeiros",
+      "newsQuery": "Cerrado (savanna OR deforestation OR soy OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "sumatra-leuser",
+      "name": "Leuser, Sumatra",
+      "region": "Southeast Asia",
+      "countries": [
+        "ID"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Tropical rainforest",
+      "center": {
+        "lat": 3.7,
+        "lng": 97.5
+      },
+      "protectedArea": "Leuser Ecosystem",
+      "newsQuery": "Leuser OR Sumatra (orangutan OR rhino OR rainforest OR deforestation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "virunga",
+      "name": "Virunga & Albertine Rift",
+      "region": "Central Africa",
+      "countries": [
+        "CD",
+        "RW",
+        "UG"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Montane forest and volcano",
+      "center": {
+        "lat": -1.4,
+        "lng": 29.3
+      },
+      "protectedArea": "Virunga National Park",
+      "newsQuery": "Virunga (gorilla OR park OR ranger OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "svalbard-barents",
+      "name": "Svalbard & Barents Sea",
+      "region": "Arctic",
+      "countries": [
+        "NO"
+      ],
+      "realm": "Marine + Polar",
+      "biome": "Arctic sea ice and tundra",
+      "center": {
+        "lat": 78,
+        "lng": 20
+      },
+      "protectedArea": "Svalbard protected areas",
+      "newsQuery": "Svalbard OR Barents (sea ice OR polar bear OR Arctic OR warming)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "patagonia-steppe",
+      "name": "Patagonian steppe",
+      "region": "South America",
+      "countries": [
+        "AR",
+        "CL"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Cool temperate grassland and steppe",
+      "center": {
+        "lat": -45,
+        "lng": -70
+      },
+      "protectedArea": "Patagonia National Park",
+      "newsQuery": "Patagonia (steppe OR guanaco OR puma OR rewilding)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "sonoran-desert",
+      "name": "Sonoran Desert",
+      "region": "North America",
+      "countries": [
+        "US",
+        "MX"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Hot desert",
+      "center": {
+        "lat": 32,
+        "lng": -112.5
+      },
+      "protectedArea": "Organ Pipe Cactus / El Pinacate",
+      "newsQuery": "\"Sonoran Desert\" (cactus OR water OR border OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "danube-delta",
+      "name": "Danube Delta",
+      "region": "Europe",
+      "countries": [
+        "RO",
+        "UA"
+      ],
+      "realm": "Freshwater + Marine",
+      "biome": "River delta and coastal wetland",
+      "center": {
+        "lat": 45,
+        "lng": 29.3
+      },
+      "protectedArea": "Danube Delta Biosphere Reserve",
+      "newsQuery": "\"Danube Delta\" (wetland OR bird OR fishing OR conservation)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "bialowieza",
+      "name": "Białowieża Forest",
+      "region": "Europe",
+      "countries": [
+        "PL",
+        "BY"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Temperate lowland old-growth forest",
+      "center": {
+        "lat": 52.7,
+        "lng": 23.8
+      },
+      "protectedArea": "Białowieża National Park",
+      "newsQuery": "Bialowieza (forest OR bison OR logging OR old-growth)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "antarctic-peninsula",
+      "name": "Antarctic Peninsula",
+      "region": "Antarctica",
+      "countries": [
+        "AQ"
+      ],
+      "realm": "Marine + Polar",
+      "biome": "Polar marine and ice shelf",
+      "center": {
+        "lat": -65,
+        "lng": -62
+      },
+      "protectedArea": "CCAMLR marine areas",
+      "newsQuery": "Antarctic (krill OR penguin OR ice shelf OR warming)",
+      "hasFieldRecord": false
+    }
+  ]
+}

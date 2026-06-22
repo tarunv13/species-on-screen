@@ -1,0 +1,11 @@
+{
+  "id": "serengeti-mara",
+  "name": "Serengeti–Mara",
+  "region": "East Africa",
+  "biome": "Tropical savanna grassland",
+  "protectedArea": "Serengeti National Park",
+  "query": "Serengeti (wildebeest OR migration OR poaching OR conservation) sourcelang:eng",
+  "fetched": "2026-06-21T03:39:55.090Z",
+  "source": "GDELT 2.0 DOC API",
+  "articles": []
+}

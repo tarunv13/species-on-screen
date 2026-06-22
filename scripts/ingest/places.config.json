@@ -1,0 +1,68 @@
+{
+  "_comment": "Editorial skeleton for each field-record place. The build-time ingest (scripts/ingest/) enriches each actor with authoritative GBIF taxonomy and each interaction with GloBI evidence + citation, then emits a Darwin Core Archive into public/dwca/<id>/. Scene layout (sceneX/Y), seasonality and cascade order stay human-authored here (the curatorial discipline); the APIs supply the attested taxonomy and interaction sourcing. litCitation is the literature fallback used when GloBI has no record for a pair.",
+  "sundarbans": {
+    "name": "Sundarbans",
+    "type": "Mangrove tidal forest",
+    "habitat": "Mangrove tidal forest",
+    "countries": ["BD", "IN"],
+    "locality": "Sundarbans Reserved Forest",
+    "protectedArea": "Sundarban Tiger Reserve",
+    "center": { "lat": 21.95, "lng": 89.18 },
+    "bbox": [88.9, 21.6, 89.4, 22.1],
+    "eventDate": "1973/2024",
+    "actors": [
+      { "sci": "Heritiera fomes", "vern": "Sundri mangrove", "role": "primary_producer", "sceneX": 0.50, "sceneY": 0.52, "season": { "wet": 1.0, "dry": 0.85 }, "fail": 1, "iucn": "EN", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Apis dorsata", "vern": "Giant honey bee", "role": "pollinator", "sceneX": 0.32, "sceneY": 0.40, "season": { "wet": 0.5, "dry": 1.0 }, "fail": 2, "iucn": "NE", "basisOfRecord": "HumanObservation", "month": 4 },
+      { "sci": "Axis axis", "vern": "Chital (spotted deer)", "role": "herbivore", "sceneX": 0.22, "sceneY": 0.60, "season": { "wet": 0.9, "dry": 1.0 }, "fail": 2, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Scylla serrata", "vern": "Mud crab", "role": "detritivore", "sceneX": 0.62, "sceneY": 0.70, "season": { "wet": 1.0, "dry": 0.8 }, "fail": 2, "iucn": "NE", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Tenualosa ilisha", "vern": "Hilsa shad", "role": "consumer", "sceneX": 0.80, "sceneY": 0.74, "season": { "wet": 1.0, "dry": 0.4 }, "fail": 3, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 7 },
+      { "sci": "Todiramphus chloris", "vern": "Collared kingfisher", "role": "predator", "sceneX": 0.70, "sceneY": 0.42, "season": { "wet": 1.0, "dry": 1.0 }, "fail": 4, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Prionailurus viverrinus", "vern": "Fishing cat", "role": "mesopredator", "sceneX": 0.90, "sceneY": 0.58, "season": { "wet": 1.0, "dry": 1.0 }, "fail": 4, "iucn": "VU", "basisOfRecord": "CameraTrap", "month": 0 },
+      { "sci": "Panthera tigris tigris", "vern": "Bengal tiger", "role": "apex_predator", "sceneX": 0.15, "sceneY": 0.76, "season": { "wet": 1.0, "dry": 1.0 }, "fail": 5, "iucn": "EN", "basisOfRecord": "CameraTrap", "month": 0 },
+      { "sci": "Homo sapiens", "vern": "Mawali honey collectors and fisher communities", "role": "human_community", "sceneX": 0.50, "sceneY": 0.90, "season": { "wet": 0.7, "dry": 1.0 }, "fail": 0, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 0 }
+    ],
+    "interactions": [
+      { "from": "Apis dorsata", "to": "Heritiera fomes", "type": "pollinates", "season": "dry", "litCitation": "Gani (2003)" },
+      { "from": "Axis axis", "to": "Heritiera fomes", "type": "eats", "season": "all", "litCitation": "Khan (2012)" },
+      { "from": "Scylla serrata", "to": "Heritiera fomes", "type": "eats", "season": "wet", "litCitation": "Chand & Dey (2008)" },
+      { "from": "Prionailurus viverrinus", "to": "Tenualosa ilisha", "type": "preysOn", "season": "all", "litCitation": "Mukherjee et al. (2012)" },
+      { "from": "Prionailurus viverrinus", "to": "Scylla serrata", "type": "preysOn", "season": "all", "litCitation": "Mukherjee et al. (2012)" },
+      { "from": "Todiramphus chloris", "to": "Tenualosa ilisha", "type": "preysOn", "season": "all", "litCitation": "BirdLife International" },
+      { "from": "Panthera tigris tigris", "to": "Axis axis", "type": "preysOn", "season": "all", "litCitation": "Khan (2012); Jhala et al. (2020)" },
+      { "from": "Homo sapiens", "to": "Tenualosa ilisha", "type": "eats", "season": "wet", "litCitation": "Hossain et al. (2019)" },
+      { "from": "Homo sapiens", "to": "Apis dorsata", "type": "interactsWith", "season": "dry", "litCitation": "Gani (2003); Jalais (2010)", "remark": "Mawali gather wild honey from Apis dorsata combs in the dry season." },
+      { "from": "Homo sapiens", "to": "Panthera tigris tigris", "type": "interactsWith", "season": "all", "litCitation": "Jalais (2010)", "remark": "Human-tiger conflict: encounters in the forest fringe intensify as prey and habitat decline." }
+    ]
+  },
+  "amazon-varzea": {
+    "name": "Amazon várzea",
+    "type": "Seasonally flooded forest",
+    "habitat": "Amazon white-water floodplain (várzea) and river",
+    "countries": ["BR", "PE", "CO"],
+    "locality": "Central Amazon várzea floodplain",
+    "protectedArea": "Mamirauá Sustainable Development Reserve",
+    "center": { "lat": -3.1, "lng": -64.8 },
+    "bbox": [-70.0, -6.0, -58.0, 0.5],
+    "eventDate": "1990/2024",
+    "actors": [
+      { "sci": "Ceiba pentandra", "vern": "Kapok tree", "role": "primary_producer", "sceneX": 0.50, "sceneY": 0.46, "season": { "wet": 1.0, "dry": 1.0 }, "fail": 1, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Ara macao", "vern": "Scarlet macaw", "role": "pollinator", "sceneX": 0.34, "sceneY": 0.36, "season": { "wet": 0.8, "dry": 1.0 }, "fail": 2, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Colossoma macropomum", "vern": "Tambaqui", "role": "herbivore", "sceneX": 0.30, "sceneY": 0.72, "season": { "wet": 1.0, "dry": 0.6 }, "fail": 2, "iucn": "NE", "basisOfRecord": "HumanObservation", "month": 2 },
+      { "sci": "Arapaima gigas", "vern": "Arapaima (pirarucu)", "role": "consumer", "sceneX": 0.66, "sceneY": 0.74, "season": { "wet": 1.0, "dry": 0.5 }, "fail": 3, "iucn": "DD", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Pteronura brasiliensis", "vern": "Giant otter", "role": "mesopredator", "sceneX": 0.84, "sceneY": 0.62, "season": { "wet": 1.0, "dry": 1.0 }, "fail": 4, "iucn": "EN", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Inia geoffrensis", "vern": "Amazon river dolphin", "role": "apex_predator", "sceneX": 0.78, "sceneY": 0.84, "season": { "wet": 1.0, "dry": 0.9 }, "fail": 4, "iucn": "EN", "basisOfRecord": "HumanObservation", "month": 0 },
+      { "sci": "Panthera onca", "vern": "Jaguar", "role": "apex_predator", "sceneX": 0.16, "sceneY": 0.78, "season": { "wet": 0.8, "dry": 1.0 }, "fail": 5, "iucn": "NT", "basisOfRecord": "CameraTrap", "month": 0 },
+      { "sci": "Homo sapiens", "vern": "Ribeirinho river communities", "role": "human_community", "sceneX": 0.50, "sceneY": 0.92, "season": { "wet": 0.8, "dry": 1.0 }, "fail": 0, "iucn": "LC", "basisOfRecord": "HumanObservation", "month": 0 }
+    ],
+    "interactions": [
+      { "from": "Ara macao", "to": "Ceiba pentandra", "type": "eats", "season": "dry", "litCitation": "Renton (2006), macaw foraging ecology" },
+      { "from": "Colossoma macropomum", "to": "Ceiba pentandra", "type": "eats", "season": "wet", "litCitation": "Goulding (1980), The Fishes and the Forest" },
+      { "from": "Arapaima gigas", "to": "Colossoma macropomum", "type": "preysOn", "season": "all", "litCitation": "Castello (2008), arapaima ecology" },
+      { "from": "Pteronura brasiliensis", "to": "Arapaima gigas", "type": "preysOn", "season": "all", "litCitation": "Carter & Rosas (1997), giant otter ecology" },
+      { "from": "Inia geoffrensis", "to": "Colossoma macropomum", "type": "preysOn", "season": "all", "litCitation": "da Silva (2009), Inia ecology" },
+      { "from": "Panthera onca", "to": "Arapaima gigas", "type": "preysOn", "season": "dry", "litCitation": "Ramalho (2012), jaguar fishing behaviour" },
+      { "from": "Homo sapiens", "to": "Arapaima gigas", "type": "eats", "season": "dry", "litCitation": "Castello et al. (2009), community pirarucu fishery" },
+      { "from": "Homo sapiens", "to": "Inia geoffrensis", "type": "interactsWith", "season": "all", "litCitation": "Loch et al. (2009), dolphin bycatch & folklore", "remark": "River dolphins entangle in fishing gear and recur in Amazonian folklore (the encantado)." }
+    ]
+  }
+}

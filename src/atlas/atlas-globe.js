@@ -23,6 +23,9 @@ import * as THREE from 'three';
 
 const GLOBE_RADIUS = 1.5;
 const POINT_RADIUS = 1.512;
+const TILT_LIMIT = 0.6; // ~34°: drag may tilt the poles, never flip them
+
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
 function latLngToVector3(lat, lng, radius) {
   const phi = (90 - lat) * (Math.PI / 180);
@@ -42,8 +45,6 @@ export class AtlasGlobe {
     this.canvas = canvas;
     this.points = [];          // { id, base: Vector3, mesh: Mesh }
     this._frameCbs = [];
-    this._mouse = new THREE.Vector2(0, 0);
-    this._hovering = false;
     this._raf = null;
     this._disposed = false;
 
@@ -186,23 +187,78 @@ export class AtlasGlobe {
   }
 
   _bindInput() {
-    this._onMove = (e) => {
-      this._hovering = true;
-      this._mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    // Drag-to-rotate (research surface; the globe is grabbable here,
+    // unlike the cinematic homepage globe). Pointer events cover mouse
+    // and touch. The grab/grabbing cursor gives the hand-tool feel.
+    this._reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._dragging = false;
+    this._last = { x: 0, y: 0 };
+    this._vel = { y: 0, x: 0 };   // angular velocity carried as inertia
+    this.canvas.style.cursor = 'grab';
+    this.canvas.style.touchAction = 'none'; // let touch-drag rotate, not scroll
+
+    const SENS = 0.005;
+
+    this._onDown = (e) => {
+      this._dragging = true;
+      this._last.x = e.clientX;
+      this._last.y = e.clientY;
+      this._vel.x = 0;
+      this._vel.y = 0;
+      this.canvas.style.cursor = 'grabbing';
+      if (e.pointerId != null && this.canvas.setPointerCapture) {
+        try { this.canvas.setPointerCapture(e.pointerId); } catch (_) { /* ok */ }
+      }
     };
-    this._onLeave = () => { this._hovering = false; };
-    window.addEventListener('mousemove', this._onMove, { passive: true });
-    window.addEventListener('mouseout', this._onLeave, { passive: true });
+    this._onMove = (e) => {
+      if (!this._dragging) return;
+      const dx = e.clientX - this._last.x;
+      const dy = e.clientY - this._last.y;
+      this._last.x = e.clientX;
+      this._last.y = e.clientY;
+      this.group.rotation.y += dx * SENS;
+      this.group.rotation.x = clamp(this.group.rotation.x + dy * SENS, -TILT_LIMIT, TILT_LIMIT);
+      // Track the latest motion as release velocity (inertia).
+      this._vel.y = dx * SENS;
+      this._vel.x = dy * SENS;
+    };
+    this._onUp = (e) => {
+      if (!this._dragging) return;
+      this._dragging = false;
+      this.canvas.style.cursor = 'grab';
+      if (e.pointerId != null && this.canvas.releasePointerCapture) {
+        try { this.canvas.releasePointerCapture(e.pointerId); } catch (_) { /* ok */ }
+      }
+    };
+
+    this.canvas.addEventListener('pointerdown', this._onDown);
+    window.addEventListener('pointermove', this._onMove, { passive: true });
+    window.addEventListener('pointerup', this._onUp, { passive: true });
+    window.addEventListener('pointercancel', this._onUp, { passive: true });
   }
 
   _startLoop() {
     const AMBIENT = 0.0006;   // ~1 rev / ~3 min
-    const BIAS = 0.0016;
+    const DAMP = 0.94;        // inertia decay after release
     const tick = () => {
       if (this._disposed) return;
       this._raf = requestAnimationFrame(tick);
-      const bias = this._hovering ? this._mouse.x * BIAS : 0;
-      this.group.rotation.y += AMBIENT + bias;
+
+      if (!this._dragging) {
+        // Glide out the release velocity (inertia), then resume the
+        // gentle ambient drift. Reduced motion: release stops dead.
+        if (this._reduce) { this._vel.x = 0; this._vel.y = 0; }
+        if (this._vel.y || this._vel.x) {
+          this.group.rotation.y += this._vel.y;
+          this.group.rotation.x = clamp(this.group.rotation.x + this._vel.x, -TILT_LIMIT, TILT_LIMIT);
+          this._vel.y *= DAMP;
+          this._vel.x *= DAMP;
+          if (Math.abs(this._vel.y) < 2e-5) this._vel.y = 0;
+          if (Math.abs(this._vel.x) < 2e-5) this._vel.x = 0;
+        }
+        this.group.rotation.y += AMBIENT;
+      }
+
       this.renderer.render(this.scene, this.camera);
       if (this._frameCbs.length) {
         const positions = this.getScreenPositions();
@@ -221,8 +277,10 @@ export class AtlasGlobe {
   dispose() {
     this._disposed = true;
     if (this._raf) cancelAnimationFrame(this._raf);
-    window.removeEventListener('mousemove', this._onMove);
-    window.removeEventListener('mouseout', this._onLeave);
+    this.canvas.removeEventListener('pointerdown', this._onDown);
+    window.removeEventListener('pointermove', this._onMove);
+    window.removeEventListener('pointerup', this._onUp);
+    window.removeEventListener('pointercancel', this._onUp);
     this.points.forEach(({ mesh }) => {
       mesh.geometry.dispose();
       mesh.material.dispose();
