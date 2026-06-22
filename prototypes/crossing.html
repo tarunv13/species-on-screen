@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>The Crossing</title>
+  <meta name="description" content="A crossing begins where the water deepens." />
+  <script type="module" src="/src/prototypes/crossing.js"></script>
+</head>
+<body>
+  <!--
+    The Crossing — scroll-governed cinematic migration (prototype).
+    ---------------------------------------------------------------
+    A stress-test of whether the Descent grammar (Article III) generalises
+    from a single point into a *journey across geography* — the project's
+    named-but-untested "multi-place coherence" tension (book-architecture
+    Part XIII §5). The reference register is the long scroll-driven map
+    journey (cf. Reuters migration graphics), rebuilt entirely in this
+    project's cinematic voice.
+
+    Subject: a sea turtle's natal-homing crossing — open ocean, returning
+    to the beach where it hatched. Per platform-architecture §5 the
+    cinematic surface NAMES nothing: no species, no place, no coordinates,
+    no counts, no sources. The crossing is felt, not labelled. The animal
+    is a point of light; the beach is never named. What it is, the viewer
+    infers from the journey.
+
+    The four lawful camera behaviours (Article I–IV) are strung along the
+    route instead of fired at one hotspot: Hold at the threshold, Drift
+    away from the origin, the Descent's Crossing hidden inside a luminance
+    dip at open ocean, Reveal of the natal shore at arrival, Settle that
+    never resolves to zero (Article XVII; "settle is not a tween").
+
+    PROTOTYPE STATUS: lives in prototypes/, dev-served from project root,
+    NOT bundled in production (vite.config.js excludes prototypes/).
+    Additive and reversible: deleting prototypes/crossing.html +
+    src/prototypes/crossing.{js,css} removes it with nothing else
+    depending on it. Editorial fragments here are hand-authored, as in the
+    salt-flat and mangrove prototypes; promotion to a canonical place
+    (places/) would first require a verified EcologicalNarrative record
+    and extraction of only place.name / editorialPlaceLine / fragment.
+
+    Biome palette grounded in the authored hawksbill safari_scene block
+    (public/data/hawksbill-turtle.json): cool, oceanic, near-black.
+  -->
+  <canvas id="crossing" aria-hidden="true"></canvas>
+
+  <!-- Editorial fragments. Fixed band; one subject per beat (Article IX);
+       injected and driven by scroll progress in crossing.js. -->
+  <div class="captions" id="captions" aria-hidden="true"></div>
+
+  <!-- Faint, self-effacing invitation to scroll; gone after the first push. -->
+  <div class="begin" id="begin" aria-hidden="true">begin</div>
+
+  <!-- The scroll track gives the journey its length. The canvas and
+       captions are fixed; the body scrolls over them. -->
+  <div class="scroll-track" aria-hidden="true"></div>
+
+  <noscript>
+    <div class="noscript">
+      A crossing begins where the water deepens.
+    </div>
+  </noscript>
+</body>
+</html>
