@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Enter the living place · Sundarbans</title>
+  <meta name="description" content="A living place read as a body — its water the circulation, its forest the breath, its species the nervous system — and what makes its future possible." />
+  <script type="module" src="/src/prototypes/living-place.js"></script>
+</head>
+<body>
+  <!--
+    "Enter the living place" — research-exploratory surface (prototype).
+    -------------------------------------------------------------------
+    Shares the field record's art direction (the shared high-fidelity
+    biome backdrop engine, aerial depth, gliding scroll) but reframes the
+    landscape as a living BODY: water = circulation, forest = breath,
+    species interactions = nervous system. It closes not on a dashboard
+    but on what makes change possible (the COM-B behaviour model, sourced)
+    — behaviour change through understanding, never gamification.
+
+    Light, dreamy, gliding. Reads the same Darwin Core Archive and the
+    same species illustrations. Cinematic descent (places/) stays pure;
+    this is the research-exploratory companion. Additive, reversible.
+  -->
+  <div class="lp" id="lp">
+    <!-- Zone 1 — the threshold: a real WebGL 3D living-island object on a
+         minimal studio backdrop, monumental type. A .glb dropped into
+         public/art/3d/<biome>.glb upgrades it to a photoreal model. -->
+    <section class="th" id="th">
+      <canvas id="th-canvas"></canvas>
+      <div class="th-overlay">
+        <div class="th-eyebrow">Species on Screen</div>
+        <div class="th-hint2" id="th-hint2">hover a point of life</div>
+        <h1 class="th-headline" id="th-headline">Enter a <em>living place</em>.</h1>
+        <div class="th-scroll">scroll<span aria-hidden="true">↓</span></div>
+      </div>
+      <div class="th-loading" id="th-loading">forming the place…</div>
+    </section>
+    <!-- glassmorphic species face-card, shown on hover over a 3D point of life -->
+    <div class="th-card" id="th-card" role="tooltip"></div>
+
+    <header class="lp-masthead">
+      <div class="lp-eyebrow">Enter the living place</div>
+      <h1 id="lp-title">Sundarbans</h1>
+      <p class="lp-sub" id="lp-sub">A landscape is a body. Follow its circulation, its breath, and the signals that keep it alive.</p>
+      <button id="lp-sound" class="lp-sound" type="button" aria-pressed="false">▷ Sound: off</button>
+      <div class="lp-hint" id="lp-hint">enter ↓</div>
+    </header>
+
+    <div class="lp-scrolly">
+      <div class="lp-graphic" aria-hidden="true">
+        <canvas id="lp-canvas"></canvas>
+        <div class="lp-system" id="lp-system"></div>
+      </div>
+      <div class="lp-steps" id="lp-steps"></div>
+    </div>
+
+    <section class="lp-combo" id="lp-combo" aria-label="What makes change possible"></section>
+  </div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;background:#eef1ea;color:#1f261e;display:grid;place-items:center;font-family:Georgia,serif;padding:2rem;text-align:center;">
+      <p style="max-width:42ch;font-style:italic;">Enter the living place is an interactive, scroll-driven page and needs JavaScript. The field record reads without it: <a href="field-record.html" style="color:#2f7d6b;">the field record</a>.</p>
+    </div>
+  </noscript>
+</body>
+</html>

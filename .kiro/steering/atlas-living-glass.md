@@ -18,6 +18,10 @@ worlds" direction: the calming habitat immersion of the cinematic
 surface, plus the legible, card-based species information of the
 research surface — together, on one page.
 
+The Atlas's glass material is the tokenized **Liquid Glass** design
+system; see [`liquid-glass-design-system.md`](./liquid-glass-design-system.md)
+for the material, tiers, motion, and accessibility/performance contract.
+
 ## Why it is doctrine-compatible (mostly), and where it is honest about deviating
 
 `platform-architecture.md` §1/§4 define the **research/archive
