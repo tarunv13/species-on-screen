@@ -1,0 +1,204 @@
+/*
+  Liquid Glass — the tokenized refined-glass material.
+  ----------------------------------------------------
+  The deletable core of the Atlas's glass language. This file owns the
+  `.glass` material; src/atlas/atlas.css owns layout only. Removing the
+  Liquid Glass system is deleting this file + src/atlas/liquid-glass.js,
+  reverting the one import in atlas.js, and deleting the steering doc.
+
+  SCOPE: research surface only (platform-architecture §4 — the research
+  surface may "look like a journal, an atlas, or a magazine"). Glass is a
+  documented anti-pattern on the *cinematic* surface (asymmetry.md; the
+  2026-05-24 audit removed floating-card glassmorphism from the homepage)
+  and nothing here is imported by any cinematic page.
+
+  THE MATERIAL, in layers (built on pseudo-elements; no markup change):
+    · body frost  — backdrop-filter blur/saturate/brightness + tint + a
+                    contrast scrim (so light ink stays legible over the
+                    drifting mesh).
+    · specular rim (::before) — a gradient hairline lit from one key
+                    light angle; the lensed edge.
+    · key light  (::after)   — a soft highlight that drifts (ambient) and
+                    biases toward the pointer (driven by liquid-glass.js
+                    via --lg-px/--lg-py); the light moving across glass.
+    · depth      — outer elevation shadow + inner base shadow (a slab,
+                    not a sticker).
+
+  Restraint: one key light, slow motion, generous negative space. Tilt is
+  capped at ~3°, hover scale ≤ 1.04. Accessibility and performance are
+  first-class (see the reduced-transparency / @supports / reduced-motion
+  blocks at the end), not afterthoughts.
+
+  Seasonal tint comes from src/atlas/season.js, which writes --glass-rgb
+  onto #atlas; --lg-tint defaults to it, so the whole material re-tints
+  per habitat season for free.
+*/
+
+/* Registered so the frost-forms reveal can transition custom properties.
+   Where @property is unsupported the values still apply; only the
+   in-between animation is lost (graceful). */
+@property --lg-blur  { syntax: "<length>"; inherits: true; initial-value: 18px; }
+@property --lg-scrim { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+.glass {
+  /* ---- tokens (overridable per tier / per element) ---- */
+  --lg-radius: 20px;
+  --lg-blur: 18px;
+  --lg-saturate: 1.6;
+  --lg-brightness: 1.06;
+  --lg-tint: var(--glass-rgb, 150, 170, 210);
+  --lg-tint-top: 0.20;        /* tint alpha at the lit edge */
+  --lg-tint-bottom: 0.07;     /* tint alpha away from the light */
+  --lg-scrim: 0;              /* dark contrast wash behind content */
+  --lg-rim: 0.6;              /* specular rim brightness */
+  --lg-rim-soft: 0.16;
+  --lg-sweep: 0.10;           /* traveling key-light strength */
+  --lg-elev-y: 16px;
+  --lg-elev-blur: 44px;
+  --lg-elev-alpha: 0.30;
+  --lg-key-angle: 135deg;     /* one key light, top-left → bottom-right */
+  --lg-px: 0.5;               /* pointer / ambient light position (0..1) */
+  --lg-py: 0.32;
+  --lg-rx: 0deg;              /* pointer tilt (applied to tilt tiers only) */
+  --lg-ry: 0deg;
+
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--lg-radius);
+  /* Scrim (bottom) → tint (top): the scrim guarantees contrast; the tint
+     gives the glass its seasonal colour; the frost behind blurs the mesh. */
+  background:
+    linear-gradient(180deg,
+      rgba(6, 10, 20, var(--lg-scrim)) 0%,
+      rgba(6, 10, 20, calc(var(--lg-scrim) + 0.06)) 100%),
+    linear-gradient(var(--lg-key-angle),
+      rgba(var(--lg-tint), var(--lg-tint-top)) 0%,
+      rgba(var(--lg-tint), var(--lg-tint-bottom)) 55%,
+      rgba(255, 255, 255, 0.03) 100%);
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
+          backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
+  box-shadow:
+    0 var(--lg-elev-y) var(--lg-elev-blur) rgba(4, 8, 18, var(--lg-elev-alpha)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -12px 26px -14px rgba(4, 8, 18, 0.55);
+  transition:
+    transform 0.45s var(--ease-soft, cubic-bezier(0.22, 0.61, 0.36, 1)),
+    box-shadow 0.45s var(--ease-soft, ease),
+    --lg-blur 0.7s var(--ease-soft, ease),
+    --lg-scrim 0.7s var(--ease-soft, ease);
+}
+
+/* Specular rim — a gradient hairline (mask-composite border trick) lit
+   from the key-light angle. Replaces the old flat 1px white border. */
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;                 /* above content, but only paints the 1px ring */
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(var(--lg-key-angle),
+    rgba(255, 255, 255, var(--lg-rim)) 0%,
+    rgba(255, 255, 255, var(--lg-rim-soft)) 38%,
+    rgba(255, 255, 255, 0) 66%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Traveling key light — a soft highlight at (--lg-px, --lg-py). Sits
+   below content (z-index:-1, within the isolated stacking context) so
+   text reads cleanly; screen-blends onto the frost. Position is driven
+   by liquid-glass.js: a slow ambient drift, biased to the pointer. */
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(58% 58% at calc(var(--lg-px) * 100%) calc(var(--lg-py) * 100%),
+    rgba(255, 255, 255, var(--lg-sweep)) 0%,
+    rgba(255, 255, 255, 0) 60%);
+  mix-blend-mode: screen;
+}
+
+/* ---- elevation tiers ---- */
+
+.glass--chip {
+  --lg-radius: 14px;
+  --lg-blur: 14px;
+  --lg-tint-top: 0.18;
+  --lg-elev-y: 8px;
+  --lg-elev-blur: 26px;
+  --lg-elev-alpha: 0.24;
+}
+
+.glass--bar {
+  --lg-radius: 16px;
+  --lg-blur: 16px;
+  --lg-elev-y: 10px;
+  --lg-elev-blur: 30px;
+}
+
+.glass--card {
+  --lg-radius: 24px;
+  --lg-blur: 22px;
+  --lg-rim: 0.7;
+  --lg-scrim: 0.34;          /* the card carries body text — guarantee contrast */
+  --lg-elev-y: 22px;
+  --lg-elev-blur: 56px;
+  --lg-elev-alpha: 0.34;
+}
+
+/* Pointer tilt is applied only to the larger surfaces (the controller
+   targets `.glass--card`); chips keep their centring transform. The
+   perspective tilt composes via `transform`; float/entrance use the
+   independent `translate`/`scale` properties (see atlas.css). */
+.glass--card,
+.glass--bar {
+  transform: perspective(900px) rotateX(var(--lg-rx)) rotateY(var(--lg-ry));
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* =========================================================
+   Accessibility — reduced transparency
+   The frost becomes a near-solid DARK slab (not light), so the light
+   ink the Atlas uses stays legible; the key light is dropped.
+   ========================================================= */
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+    background: rgba(12, 18, 32, 0.94);
+  }
+  .glass::after { display: none; }
+}
+
+/* =========================================================
+   Performance fallback — no backdrop-filter support
+   ========================================================= */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(12, 18, 32, 0.88);
+  }
+  .glass::after { display: none; }
+}
+
+/* =========================================================
+   Reduced motion — no traveling light, no tilt, no transitions
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .glass {
+    transition: none !important;
+    transform: none !important;
+  }
+  .glass::after {
+    /* Hold the key light still at a calm default position. */
+    --lg-px: 0.5;
+    --lg-py: 0.3;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "sundarbans",
+  "name": "Sundarbans",
+  "region": "South Asia",
+  "biome": "Mangrove tidal forest",
+  "protectedArea": "Sundarban Tiger Reserve",
+  "query": "Sundarbans (mangrove OR tiger OR cyclone OR embankment) sourcelang:eng",
+  "fetched": "2026-06-21T03:47:27.351Z",
+  "source": "GDELT 2.0 DOC API",
+  "articles": []
+}

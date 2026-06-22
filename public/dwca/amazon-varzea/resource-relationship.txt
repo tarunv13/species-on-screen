@@ -1,0 +1,9 @@
+resourceRelationshipID	resourceID	relatedResourceID	relationshipOfResource	relationshipOfResourceID	relationshipAccordingTo	relationshipEstablishedDate	relationshipRemarks
+AMAZON-VARZEA:REL:1	AMAZON-VARZEA:OCC:2	AMAZON-VARZEA:OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470	Renton (2006), macaw foraging ecology		seasonal:dry (literature record; not yet in GloBI).
+AMAZON-VARZEA:REL:2	AMAZON-VARZEA:OCC:3	AMAZON-VARZEA:OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470	Goulding (1980), The Fishes and the Forest		seasonal:wet (literature record; not yet in GloBI).
+AMAZON-VARZEA:REL:3	AMAZON-VARZEA:OCC:4	AMAZON-VARZEA:OCC:3	preysOn	http://purl.obolibrary.org/obo/RO_0002439	Castello (2008), arapaima ecology		seasonal:all (literature record; not yet in GloBI).
+AMAZON-VARZEA:REL:4	AMAZON-VARZEA:OCC:5	AMAZON-VARZEA:OCC:4	preysOn	http://purl.obolibrary.org/obo/RO_0002439	Carter & Rosas (1997), giant otter ecology		seasonal:all (literature record; not yet in GloBI).
+AMAZON-VARZEA:REL:5	AMAZON-VARZEA:OCC:6	AMAZON-VARZEA:OCC:3	preysOn	http://purl.obolibrary.org/obo/RO_0002439	da Silva (2009), Inia ecology		seasonal:all (literature record; not yet in GloBI).
+AMAZON-VARZEA:REL:6	AMAZON-VARZEA:OCC:7	AMAZON-VARZEA:OCC:4	preysOn	http://purl.obolibrary.org/obo/RO_0002439	Ramalho (2012), jaguar fishing behaviour		seasonal:dry Corroborated in GloBI (2+ record(s)).
+AMAZON-VARZEA:REL:7	AMAZON-VARZEA:OCC:8	AMAZON-VARZEA:OCC:4	eats	http://purl.obolibrary.org/obo/RO_0002470	Castello et al. (2009), community pirarucu fishery		seasonal:dry Corroborated in GloBI (2+ record(s)).
+AMAZON-VARZEA:REL:8	AMAZON-VARZEA:OCC:8	AMAZON-VARZEA:OCC:6	interactsWith	http://purl.obolibrary.org/obo/RO_0002437	Loch et al. (2009), dolphin bycatch & folklore		River dolphins entangle in fishing gear and recur in Amazonian folklore (the encantado). seasonal:all (literature record; not yet in GloBI).
