@@ -1,0 +1,177 @@
+PAPER 1 — CODING ENVIRONMENT SETUP REPORT
+==================================================
+
+Corpus file : papers_with_link_2026-06-03T01-25-05.csv
+Total papers: 380
+Output      : paper1-coding-starter.csv
+IRR output  : paper1-irr-subsample.csv
+
+--- Period breakdown ---
+  2001-2015: 35 papers
+  2016-2019: 87 papers
+  2020-2022: 119 papers
+  2023-2025: 139 papers
+
+--- IRR subsample (seed=42, 19 per period) ---
+  Random IRR total : 76 papers (20.0% of corpus)
+    2001-2015: 19 papers
+    2016-2019: 19 papers
+    2020-2022: 19 papers
+    2023-2025: 19 papers
+
+--- Training sets (separate from IRR sample) ---
+  Training Set A (answer key): 10 papers
+  Training Set B (pilot)     : 10 papers
+  Overlap with random IRR    : 13 papers (these get coded by both coders twice)
+
+NOTE: Methods section should state: "Inter-rater reliability was assessed
+on a stratified random subsample of 76 papers (20.0% of corpus;"
+"19 papers per period, seed=42)."
+
+--- Auto-detected fields ---
+  pokemon_cluster=Y: 35 papers (venues: JGS, A Bruxa, American Entomologist, etc.)
+  indigenous_paper=Y: 12 papers (keyword-detected; verify manually)
+
+--- Franchise distribution (auto-detected from title) ---
+  Pokémon: 45
+  AnimalCrossing: 11
+  Minecraft: 8
+  LastOfUs: 8
+  FinalFantasy: 7
+  NeverAlone-Thunderbird: 6
+  Horizon: 6
+  RDR2: 5
+  StardewValley: 3
+  Civilization: 2
+  BeyondBlue: 2
+  TheSims: 1
+  Pikmin: 1
+  None (no franchise): 275
+
+--- Duplicate paper_id suffixes assigned ---
+  England2016a — Sustainable Worlds, Sustainable Words: Using Digital Ga
+  England2016b — Playing with the environment: Rhetorical representation
+  Chang2019a — Between Plants and Polygons: SpeedTrees and an Even Spe
+  Chang2019b — Playing Nature: Ecology in Video Games
+  Hobbs2020a — Exploring Coral Reef Conservation in "Minecraft"
+  Hobbs2020b — A collaborative, user-based approach to developing scie
+  Saaty2021a — A Study on Pokémon GO: Exploring the Potential of Locat
+  Saaty2021b — Exergames and Nature
+  Vuong2021a — A Multinational Data Set of Game Players' Behaviors in 
+  Vuong2021b — On the environment-destructive probabilistic trends: A 
+  Ho2022a — Good ethics cannot stop me from exploiting: The good an
+  Ho2022b — Virtual tree, real impact: how simulated worlds associa
+  Laato2022a — Balancing the Augmented Experience: Design Tensions in 
+  Laato2022b — Gamification of forest-going: Opportunities for players
+  Thibault2022a — Forests in Digital Games-An Ecocritical Framework
+  Thibault2022b — ROOT, Woodland Ideologies in a Fantasy Game
+  Laato2023a — How Location-Based Games Incentivize Moving About: A St
+  Laato2023b — How location-based gaming affects players' nature and f
+  Lu2023a — Blooming Engagement in Flower: Computational Analysis o
+  Lu2023b — Human-Environment Relationships in Alba: A Typological 
+  Salvador2023a — An unexpected bird in Honkai: Star Rail and China’s war
+  Salvador2023b — The snails of Super Mario Bros.Wonder
+  Bianchi2024a — A Field Guide to Monsters: Practices of Wildlife Watchi
+  Bianchi2024b — Beyond Barren Wastelands: The Greening of the Post-apoc
+  Bianchi2024c — Playing the Animal: Imagining the Nonhuman Animal in Tw
+  Daiiani2024a — Eco-Game Design Lessons for Climate Communication: Augm
+  Daiiani2024b — Evaluating the Impact of Gameful Design on Pro-Environm
+  Galloway2024a — Indigenous-Designed Pixels, Circuits, and Game Music an
+  Galloway2024b — Sounds of Extraction and Collection and Listening to th
+  May2024a — Apocalypse as practice: Labour, technology and environm
+  May2024b — Dark Entanglement and Visions of the Post-Anthropocene 
+  May2024c — Undead Ecosystems: Death Stranding and the Contemporary
+  May2024d — Capitalocene Horizons: Producing, Exploiting and Mourni
+  Pinder2024a — Monstrous Gatekeepers – Eco-gothic Bodies in Video Game
+  Pinder2024b — “So, the Snake’s Finally Come Out of His Hole”: Liminal
+  Pinder2024c — Negotiating Anthropocentrism and Ecologies in Cozy Game
+  Salvador2024a — The birds of Fate/Grand Order
+  Salvador2024b — What's the deal with the blue "robins" in gacha games?
+
+--- IRR Main sample (first 10 per period shown) ---
+  2001-2015:
+    Stumpo2008                E-cology: Everquest and the Environment(s)
+    Balmford2002              Why Conservationists Should Heed Pokémon
+    Weagly2013                Dirt, not soil: A unit analysis of "Minecraft
+    Meyers2012                “Green Washing” the Digital Playground: How V
+    Woolbright2015            Where the wild games are: Ecologies in Latin 
+    Opel2004                  Zootycoon: Capitalism, Nature, and the Pursui
+    Caciuc2014                Reflections on the Ecologic Ethics in Online 
+    Clary2004                 Digital Nature: Uru and the Representation of
+    Bohunicky2014             Ecocomposition: Writing ecologies in digital 
+    Condis2015                "Live in Your World, Play in Ours": Video Gam
+  2016-2019:
+    Chang2019a                Between Plants and Polygons: SpeedTrees and a
+    Navarro-Remesal2019       Pixelated nature: ecocriticism, animals, mora
+    deLimaAlexandre2016       Os moluscos presentes em Pokémon
+    Haugom2019                When Ludology and Narratology Meet: A Compara
+    Baker2017                 Civilization and Its Contents: Procedural Rhe
+    Sellers2019               Pixelated Frontiers: Videogames and the Subli
+    Fernández-Caro2019        Post-Apocalyptic Nonhuman Characters in Horiz
+    Marqués2018               Ecological Videogames as a Means to Raise Env
+    Bohunicky2017             Ecomods: An Ecocritical Approach to Game Modi
+    Schmidt-Jeffris2018       Gotta Catch’em All! Communicating Entomology 
+  2020-2022:
+    Goulart2020               As plantas carnívoras e cactos Caryophyllales
+    Laato2021                 Central Themes of the Pokémon Franchise and w
+    Graça2020                 Poké-aves: a diversidade ornitológica como re
+    Hubertová2021            Reflection on Environmental Issues in Mainstr
+    Smith2022                 Commentary: Colonialist Values in Animal Cros
+    Gusland2021               Video Games and Sustainability Transformation
+    Cox2022                   Sustainability in City-Building Games
+    Chang2021                 Digital Games
+    Rosa2022                  Pokécrustacea: the crustacean-inspired Pokémo
+    Comerford2020             Coconuts, Custom-Play & COVID-19: Social Isol
+  2023-2025:
+    May2024d                  Capitalocene Horizons: Producing, Exploiting 
+    Bianchi2024a              A Field Guide to Monsters: Practices of Wildl
+    Gómez-Martínez2023        Dark wings, bright insights: a comprehensive 
+    Farca2023                 Farming a Cosy Utopia: A Regenerative Escape 
+    Cheyne2024                The power of gibbon songs: Going beyond the r
+    Frelik2024                Green New Worlds? Ecology and Energy in Plane
+    HomoLudens2023            Saving the Planet One Game at A Time
+    Clayton2024               Virtual Nature and the Future of the Wild
+    Kvist2023                 A Crisis of the Imagination: Games as a Tool 
+    Mukherjee2024             No Cyclones in Age of Empires: Empire, Ecolog
+
+--- Action 1 checklist ---
+  [x] Corpus loaded and sorted (by year then author)
+  [x] Unique paper_ids assigned (a/b/c suffixes for all 17 collision groups)
+  [x] period pre-calculated (2001-2015 / 2016-2019 / 2020-2022 / 2023-2025)
+  [x] franchise auto-detected from title (14 franchise groups)
+  [x] pokemon_cluster auto-detected from venue (JGS / A Bruxa / American Entomologist / etc.)
+  [x] indigenous_paper keyword-detected (verify manually — 12 flagged)
+  [x] irr_sample=Y for 76 random papers (seed=42, ~19 per period)
+  [x] training_set=A for 10 papers / training_set=B for 10 papers
+  [ ] abstract_accessed — set to Y as you open each abstract
+  [ ] game_primary — fill during coding
+  [ ] er_code / kf_primary / nc_level — blank, ready for coding
+
+--- Columns in paper1-coding-starter.csv ---
+  paper_id          unique ID (author+year, suffixed for dupes)
+  first_author      as in corpus
+  publication_year  as in corpus
+  title             as in corpus
+  publication       venue name
+  period            2001-2015 / 2016-2019 / 2020-2022 / 2023-2025
+  game_primary      [FILL DURING CODING]
+  franchise         auto-detected; verify and correct
+  er_code           [FILL: 0 / 1 / 2 / 3 / 4]
+  er_confidence     [FILL: High / Medium / Low]
+  kf_primary        [FILL: A / B / C / D1 / D2 / E / F]
+  kf_coprimary      [FILL: same options, or leave blank]
+  nc_level          [FILL: 1 / 2 / 3]
+  abstract_accessed [SET TO Y when you open an abstract]
+  indigenous_paper  keyword-detected Y/N; verify
+  pokemon_cluster   venue-detected Y/N; verify
+  irr_sample        Y = in the random 76; blank = primary coder only
+  training_set      A = Training Set A / B = Training Set B / blank
+  coder_notes       free text
+
+--- Next steps ---
+  1. Open paper1-coding-starter.csv in Excel or Google Sheets
+  2. Spot-check franchise column: search for "Pokémon" in title — confirm franchise=Pokemon
+  3. Run scripts/paper1-fetch-abstracts.py (Semantic Scholar) to pre-load abstracts
+  4. Send second coder: paper1-irr-subsample.csv (paper_id + title only)
+  5. Begin ER coding from row 1 (year 2001 — these calibrate your scheme)
+  6. Use Training Set A answer key to verify your first 10 codes before proceeding
