@@ -12,5 +12,12 @@
     "type": "Seasonally flooded forest",
     "actors": 8,
     "interactions": 8
+  },
+  {
+    "id": "coral-triangle",
+    "name": "Coral Triangle",
+    "type": "Tropical coral reef system",
+    "actors": 9,
+    "interactions": 10
   }
 ]
