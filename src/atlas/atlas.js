@@ -146,6 +146,11 @@ function buildSpeciesCard(n, onBack) {
     enter.href = `${BASE}places/sundarbans.html`;
     actions.appendChild(enter);
   }
+  if (n.place.id === 'amazon-varzea') {
+    const fieldRecord = el('a', 'link', 'Interaction web →');
+    fieldRecord.href = `${BASE}atlas/amazon-varzea.html`;
+    actions.appendChild(fieldRecord);
+  }
   if (n.place.id === 'coral-triangle') {
     const fieldRecord = el('a', 'link', 'Interaction web \u2192');
     fieldRecord.href = `${BASE}atlas/coral-triangle.html`;
