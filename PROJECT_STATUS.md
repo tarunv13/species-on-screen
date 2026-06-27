@@ -1,7 +1,7 @@
 # Eco-Cinema Observatory — Project Status
 
 **Last updated:** 2026-06-27
-**Current git commit:** TBD — feat(atlas): promote Sundarbans field record to canonical atlas page
+**Current git commit:** ebe1805 — feat(atlas): promote Sundarbans field record to canonical atlas page
 **Branch:** `feat/exploration-prototypes-and-data-pipelines`
 **AI Operating System:** v1.0 — frozen. See `.agents/AI-OS.md`.
 
@@ -68,7 +68,7 @@ Committed in `860f5e8`. Both sources confirmed (Lohmann et al. 2008 PNAS, Meylan
 
 ### M4 — Field record promoted to `atlas/sundarbans.html` ✓ COMPLETE (2026-06-27)
 
-Committed in `TBD`. Files created: `atlas/sundarbans.html`, `src/atlas/field-record.js`, `src/atlas/field-record.css`. The JS imports `species-art.js` and `biome-backdrop.js` from `../prototypes/` (additive — prototype originals untouched). `vite.config.js` auto-discovered `atlas/sundarbans.html` without modification. Build: clean, `dist/atlas/sundarbans.html` = 3.03 kB.
+Committed in `ebe1805`. Files created: `atlas/sundarbans.html`, `src/atlas/field-record.js`, `src/atlas/field-record.css`. The JS imports `species-art.js` and `biome-backdrop.js` from `../prototypes/` (additive — prototype originals untouched). `vite.config.js` auto-discovered `atlas/sundarbans.html` without modification. Build: clean, `dist/atlas/sundarbans.html` = 3.03 kB.
 
 ---
 
