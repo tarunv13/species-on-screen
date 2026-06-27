@@ -152,6 +152,7 @@ const SURFACE_LINKS = {
     { href: '../places/sundarbans.html', label: 'Enter the living place →' },
   ],
   'coral-triangle': [
+    { href: '../atlas/coral-triangle.html', label: 'Interaction web →' },
     { href: '../atlas/crossing.html', label: 'Research companion →' },
     { href: '../places/crossing.html', label: 'Enter the crossing →' },
   ],
