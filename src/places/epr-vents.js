@@ -247,7 +247,7 @@ let amb = 0;
    absolute abyss. As the vent field approaches (ventA), the bottom of
    the frame warms with vent heat before the glows themselves appear. */
 function paintBase(progress, ventA) {
-  const depth    = smoothstep(0, 0.38, progress);
+  const depth    = smoothstep(0.05, 0.60, progress);
   const topCol   = lerpC(PAL.midWater, PAL.abyss,     depth);
   const midCol   = lerpC(PAL.deepOcean, PAL.abyss,    depth);
   const botCol   = lerpC(PAL.abyss, PAL.ventGlow,     ventA * 0.40);
@@ -399,10 +399,13 @@ function paintVentParticles(cam, ventA) {
 }
 
 /* The Descent's one sanctioned cut (Article III): a luminance dip
-   centred at p≈0.48 — the deepest point of total darkness, just before
-   the first vent warmth seeps into the base gradient. */
+   centred at p≈0.40 — the last moment before total abyss, when the
+   extended depth gradient still carries a faint dark-blue above pure
+   black. Sigma is narrow (0.06) so the dip resolves by the time the
+   first vent warmth arrives at p≈0.52; amplitude 0.75 to match the
+   available contrast at EPR luminance levels. */
 function paintLuminanceDip(progress) {
-  const dip = Math.exp(-((progress - 0.48) ** 2) / (2 * 0.13 ** 2)) * 0.82;
+  const dip = Math.exp(-((progress - 0.40) ** 2) / (2 * 0.06 ** 2)) * 0.75;
   if (dip <= 0.001) return;
   ctx.fillStyle = rgb(PAL.abyss, dip);
   ctx.fillRect(0, 0, W, H);
@@ -410,16 +413,18 @@ function paintLuminanceDip(progress) {
 
 function render() {
   const cam   = camera(p);
-  const ventA = smoothstep(0.55, 0.82, p);   // thermal glow, plumes, particles
-  const wormA = smoothstep(0.73, 0.92, p);   // inhabitants arrive last
+  // ventA starts at p=0.45 so warmth is visible when beat 4 lands at p=0.52.
+  const ventA = smoothstep(0.45, 0.78, p);   // thermal glow, plumes, particles
+  // wormA starts at p=0.70 so "red in the water" beat (0.84) lands at wormA≈0.78.
+  const wormA = smoothstep(0.70, 0.90, p);   // inhabitants arrive last
 
   ctx.clearRect(0, 0, W, H);
   paintBase(p, ventA);
   paintThermalGlow(cam, ventA);
   paintMotes();
   paintPlumes(cam, ventA, amb);
+  paintVentParticles(cam, ventA);   // before worms: particles are atmosphere, not inhabitants
   paintWorms(cam, wormA);
-  paintVentParticles(cam, ventA);
   paintLuminanceDip(p);
 }
 
