@@ -11,7 +11,7 @@
 
 Two canonical cinematic place pages exist, build cleanly, and are both reachable from the homepage:
 - `places/sundarbans.html` — Bengal tiger, DOM/GSAP descent (narrative: `verified`)
-- `places/crossing.html` — Hawksbill natal homing, Canvas 2D scroll-governed (narrative: `draft`)
+- `places/crossing.html` — Hawksbill natal homing, Canvas 2D scroll-governed (narrative: `verified`, elevated in M3)
 
 Homepage navigation: two-caption stack (lower-right). Sundarbans = primary (ink-mid). Crossing = secondary (ink-low, above). Both transition via Article III luminance dip.
 

@@ -129,14 +129,26 @@ function buildSpeciesCard(n, onBack) {
   }
 
   const actions = el('div', 'card-actions');
-  const record = el('a', 'link', 'Read the field record \u2192');
+  const record = el('a', 'link', 'Field note \u2192');
   record.href = `${BASE}notes/${n.id}.html`;
   actions.appendChild(record);
+
+  // Bridge to the interactive field record (atlas surface), where one exists.
+  if (n.place.id === 'sundarbans') {
+    const fieldRecord = el('a', 'link', 'Interaction web \u2192');
+    fieldRecord.href = `${BASE}atlas/sundarbans.html`;
+    actions.appendChild(fieldRecord);
+  }
 
   // Bridge to the canonical cinematic place, where one exists.
   if (n.place.id === 'sundarbans') {
     const enter = el('a', 'link', 'Enter the living place \u2192');
     enter.href = `${BASE}places/sundarbans.html`;
+    actions.appendChild(enter);
+  }
+  if (n.place.id === 'coral-triangle') {
+    const enter = el('a', 'link', 'Enter the crossing \u2192');
+    enter.href = `${BASE}places/crossing.html`;
     actions.appendChild(enter);
   }
   card.appendChild(actions);
