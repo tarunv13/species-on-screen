@@ -159,6 +159,9 @@ const SURFACE_LINKS = {
     { href: '../atlas/crossing.html', label: 'Research companion →' },
     { href: '../places/crossing.html', label: 'Enter the crossing →' },
   ],
+  'east-pacific-rise-vents': [
+    { href: '../places/epr-vents.html', label: 'Enter the vent field →' },
+  ],
 };
 
 function renderSurfaceLinks(n) {
