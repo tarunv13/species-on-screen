@@ -616,6 +616,16 @@ async function init() {
     placeLink.textContent = 'Enter the living place →';
     nav.appendChild(placeLink);
   }
+  if (PLACE === 'coral-triangle') {
+    const companionLink = document.createElement('a');
+    companionLink.href = BASE + 'atlas/crossing.html';
+    companionLink.textContent = 'Research companion →';
+    nav.appendChild(companionLink);
+    const enterLink = document.createElement('a');
+    enterLink.href = BASE + 'places/crossing.html';
+    enterLink.textContent = 'Enter the crossing →';
+    nav.appendChild(enterLink);
+  }
   const fr = document.getElementById('fr');
   if (fr) fr.insertBefore(nav, fr.firstChild);
 

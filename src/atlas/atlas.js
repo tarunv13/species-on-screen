@@ -147,6 +147,9 @@ function buildSpeciesCard(n, onBack) {
     actions.appendChild(enter);
   }
   if (n.place.id === 'coral-triangle') {
+    const fieldRecord = el('a', 'link', 'Interaction web \u2192');
+    fieldRecord.href = `${BASE}atlas/coral-triangle.html`;
+    actions.appendChild(fieldRecord);
     const companion = el('a', 'link', 'Research companion \u2192');
     companion.href = `${BASE}atlas/crossing.html`;
     actions.appendChild(companion);
