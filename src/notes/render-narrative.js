@@ -143,6 +143,27 @@ function renderMetadata(m) {
   `;
 }
 
+/* ---------- Cross-surface navigation (atlas companions + cinematic places) ---------- */
+
+// Notes pages live at notes/<id>.html; relative paths work regardless of base.
+const SURFACE_LINKS = {
+  sundarbans: [
+    { href: '../atlas/sundarbans.html', label: 'Interaction web →' },
+    { href: '../places/sundarbans.html', label: 'Enter the living place →' },
+  ],
+  'coral-triangle': [
+    { href: '../atlas/crossing.html', label: 'Research companion →' },
+    { href: '../places/crossing.html', label: 'Enter the crossing →' },
+  ],
+};
+
+function renderSurfaceLinks(n) {
+  const links = SURFACE_LINKS[n.place.id];
+  if (!links || !links.length) return '';
+  const items = links.map((l) => `<a href="${escape(l.href)}">${escape(l.label)}</a>`).join('');
+  return `<nav class="surface-links" aria-label="Observatory surfaces">${items}</nav>`;
+}
+
 /* ---------- Page render ---------- */
 
 function renderArticle(n) {
@@ -187,6 +208,8 @@ function renderArticle(n) {
     <footer class="metadata">
       ${renderMetadata(n.metadata)}
     </footer>
+
+    ${renderSurfaceLinks(n)}
   `;
 
   // Page <title> on research surface includes species name.

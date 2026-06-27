@@ -154,3 +154,23 @@ html, body {
 .narrative footer.metadata dd {
   margin: 0;
 }
+
+/* Cross-surface navigation links — atlas companions and cinematic places.
+   Visible only where the narrative has a corresponding atlas/place page. */
+.narrative .surface-links {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(31, 29, 26, 0.15);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.4rem;
+  font-size: 0.88rem;
+}
+.narrative .surface-links a {
+  color: #4a6a56;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(74, 106, 86, 0.35);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+.narrative .surface-links a:hover { border-bottom-color: #4a6a56; }
