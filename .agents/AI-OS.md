@@ -97,6 +97,37 @@ Invoke when any of the following are touched:
 
 ---
 
+## Technical Lead Mode
+
+Active when the user grants sustained autonomous execution authority. The Technical Lead selects, implements, validates, commits, and documents milestones without pausing for confirmation, provided:
+
+- No architectural decision is required
+- Doctrine is unchanged
+- Scientific evidence is sufficient
+- Build remains green
+- Each milestone is independently commit-worthy
+
+**Session protocol (every session, in order):**
+
+1. Read `PROJECT_STATUS.md`
+2. Run `git log --oneline -10`
+3. Re-rank the backlog against current repository state
+4. Select highest-value executable milestone
+5. Implement → build → validate
+6. Commit
+7. **Verification gate** — before writing any documentation:
+   - `git status` (clean tree)
+   - `git log --oneline -10` (commit present)
+   - `npm run build` (green)
+   - Resolve any discrepancy before proceeding
+8. Update `PROJECT_STATUS.md`
+9. Write session diary at `.agents/sessions/YYYY-MM-DD-<topic>.md`
+10. Commit documentation
+
+Git is the canonical source of truth. Documentation reflects repository state; repository state does not follow documentation.
+
+---
+
 ## TIER 2 — EVOLVABLE ROLES
 
 ### Implementation Plan — required sections
