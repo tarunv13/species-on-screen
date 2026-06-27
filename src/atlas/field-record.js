@@ -602,6 +602,23 @@ function buildSources() {
 
 /* ---------- boot ---------- */
 async function init() {
+  // Back navigation — injected before async data loads so it appears immediately.
+  const nav = document.createElement('nav');
+  nav.className = 'fr-nav';
+  nav.setAttribute('aria-label', 'Site navigation');
+  const atlasLink = document.createElement('a');
+  atlasLink.href = BASE + 'atlas/';
+  atlasLink.textContent = '← Living Atlas';
+  nav.appendChild(atlasLink);
+  if (PLACE === 'sundarbans') {
+    const placeLink = document.createElement('a');
+    placeLink.href = BASE + 'places/sundarbans.html';
+    placeLink.textContent = 'Enter the living place →';
+    nav.appendChild(placeLink);
+  }
+  const fr = document.getElementById('fr');
+  if (fr) fr.insertBefore(nav, fr.firstChild);
+
   cv = document.getElementById('fr-canvas'); ctx = cv.getContext('2d');
   document.getElementById('fr-sound').addEventListener('click', toggleSound);
   window.addEventListener('scroll', () => { const h = document.getElementById('fr-scrollhint'); if (h && window.scrollY > 40) h.style.opacity = '0'; }, { passive: true });
