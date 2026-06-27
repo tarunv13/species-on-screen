@@ -1,6 +1,6 @@
 # Eco-Cinema Observatory — Project Status
 
-**HEAD:** `07c138c` · `feat/exploration-prototypes-and-data-pipelines` · build green
+**HEAD:** `41d0234` · `feat/exploration-prototypes-and-data-pipelines` · build green
 
 ---
 
@@ -12,7 +12,7 @@
 | Atlas | `atlas/index.html`, `atlas/sundarbans.html`, `atlas/amazon-varzea.html`, `atlas/crossing.html` |
 | Research | `notes/` × 12 (Sundarbans + Coral Triangle carry cross-surface nav) |
 
-Navigation graph complete. M1–M7 shipped. See `git log` and `.agents/sessions/` for execution history.
+Navigation graph complete. M1–M8 shipped. 10 of 12 narratives are `verified`. See `git log` and `.agents/sessions/` for execution history.
 
 ---
 
@@ -25,11 +25,11 @@ Navigation graph complete. M1–M7 shipped. See `git log` and `.agents/sessions/
 ## Backlog
 
 1. **Coral Triangle DwC-A** — assemble occurrence + interaction data; promote to `atlas/coral-triangle.html`
-2. **Narrative elevations** — Atacama tamarugo, Delaware Bay horseshoe crab, Santa Barbara giant kelp, Sendai crow (`in_review` → `verified`); Track A source verification only
+2. **Remaining narrative elevations** — Antarctic icefish, Baikal sponge, Dinaric olm, East Pacific Rise tubeworm, Hudson River tomcod, Pando aspen (`draft` → `in_review` → `verified`); each needs Track A
 3. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
 
 ---
 
 ## Next milestone
 
-**M8 — In-review narrative elevations.** Four narratives eligible for Track A verification. No code changes; pure research curation. Unblocks the notes surface completeness and is executable now without the Coral Triangle data dependency.
+**M9 — Remaining narrative elevations.** Six narratives are still `draft`. Each needs Track A source verification before promotion. Unblocks full research surface completeness.
