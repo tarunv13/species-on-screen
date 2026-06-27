@@ -1,6 +1,6 @@
 # Session Diary — 2026-06-27 — M4: Sundarbans field record to atlas/sundarbans.html
 
-**Commit:** TBD
+**Commit:** ebe1805
 **Pipeline:** Session Prime → Feature Intake → Repository Analysis → Implementation → Doctrine Review → Build → Commit
 
 ## Built
