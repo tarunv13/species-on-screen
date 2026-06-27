@@ -33,6 +33,26 @@ html, body { margin: 0; padding: 0; background: var(--fr-paper); color: var(--fr
 body { font-family: var(--fr-sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: var(--fr-accent); }
 
+/* ---------- back navigation ---------- */
+.fr-nav {
+  position: relative;
+  z-index: 4;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--fr-line);
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  background: var(--fr-paper);
+}
+.fr-nav a {
+  color: var(--fr-ink-soft);
+  text-decoration: none;
+  transition: color 0.2s var(--fr-ease);
+}
+.fr-nav a:hover { color: var(--fr-accent); }
+
 /* ---------- masthead ---------- */
 .fr-masthead {
   position: relative;
