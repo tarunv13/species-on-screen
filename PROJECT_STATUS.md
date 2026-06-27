@@ -12,7 +12,7 @@
 | Atlas | `atlas/index.html`, `atlas/sundarbans.html`, `atlas/amazon-varzea.html`, `atlas/crossing.html`, `atlas/coral-triangle.html` |
 | Research | `notes/` × 13 (Sundarbans, Coral Triangle, Amazon várzea carry cross-surface nav) |
 
-Navigation graph complete. M1–M16 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience live. **13 of 13 narratives are `verified`**; 0 remain `draft`. East Pacific Rise third cinematic place live (`places/epr-vents.html`). See `git log` and `.agents/sessions/` for execution history.
+Navigation graph complete. M1–M17 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience live. **13 of 13 narratives are `verified`**; 0 remain `draft`. East Pacific Rise third cinematic place live and UX-reviewed (`places/epr-vents.html`). See `git log` and `.agents/sessions/` for execution history.
 
 ---
 
@@ -33,6 +33,7 @@ None.
 
 ## Completed milestones
 
+- **M17** (2026-06-27) — Creative Director UX review of EPR cinematic surface. Three critical fixes in `src/places/epr-vents.js`: (1) warmth-beat/ventA misalignment — moved ventA gate from p=0.55 to p=0.45, so thermal glow is faintly present when beat 4 "a warmth with no source above it" lands at p=0.52; (2) compositing order — vent particles moved before worm tubes so atmospheric particles don't float in front of inhabitants (Article XVII); (3) depth gradient extended from `smoothstep(0,0.38)` to `smoothstep(0.05,0.60)`, maintaining visual texture in mid-descent; luminance dip repositioned to p=0.40 with narrower sigma. Full review in session diary.
 - **M16** (2026-06-27) — East Pacific Rise cinematic surface live: `places/epr-vents.html`. Canvas 2D scroll-driven descent from sunlit surface through absolute abyss to vent field; 4 vents, 7 editorial beats, EPR biome palette (thermal orange, white smoker mineral, arterial-red worm plume, marine snow). Article XVII atmospheric hierarchy (thermal glow → plumes → worms). Article III luminance dip at p≈0.48. `SURFACE_LINKS` wired for research-to-cinematic nav. 3 files created, 1 modified. Build green.
 - **M15** (2026-06-27) — Chief Architect ruling: East Pacific Rise hydrothermal vents selected as third cinematic place. 5-candidate evaluation (EPR, Amazon várzea, Santa Barbara Channel, Dinaric olm, Pando). EPR wins on cinematic potential and geographic diversity; Amazon várzea deferred (strong fallback). Decision record: `.agents/decisions/2026-06-27-third-cinematic-place-epr.md`. No files modified; decision only.
 - **M14** (2026-06-27) — Track A: `amazon-varzea-arapaima-flood-pulse` promoted draft → verified. Castello (2008) DOI confirmed (`10.1111/j.1600-0633.2007.00255.x`); title corrected to match publication. Castello et al. (2009) JAI supplement not indexed in CrossRef — no DOI assigned, citation retained. `notes/index.html` updated. **13/13 verified.**
