@@ -1,7 +1,7 @@
 # Eco-Cinema Observatory — Project Status
 
 **Last updated:** 2026-06-27
-**Current git commit:** `2e3834d` — feat(cinematic): canonicalize Crossing as places/crossing.html
+**Current git commit:** `e389ea7` — feat(homepage): surface Crossing as second navigable place
 **Branch:** `feat/exploration-prototypes-and-data-pipelines`
 **AI Operating System:** v1.0 — frozen. See `.agents/AI-OS.md`.
 
@@ -9,11 +9,11 @@
 
 ## Observatory — current state
 
-Two canonical cinematic place pages exist and build cleanly:
+Two canonical cinematic place pages exist, build cleanly, and are both reachable from the homepage:
 - `places/sundarbans.html` — Bengal tiger, DOM/GSAP descent (narrative: `verified`)
 - `places/crossing.html` — Hawksbill natal homing, Canvas 2D scroll-governed (narrative: `draft`)
 
-The Crossing is unreachable from the homepage. That is the single open production gap.
+Homepage navigation: two-caption stack (lower-right). Sundarbans = primary (ink-mid). Crossing = secondary (ink-low, above). Both transition via Article III luminance dip.
 
 ---
 
@@ -25,11 +25,17 @@ Ordered by dependency. Execute one milestone per session.
 
 ### M1 — Crossing canonicalization ✓ COMPLETE (2026-06-27)
 
-Committed in `2e3834d`. `places/crossing.html` exists, builds, passes check-narratives.
+Committed in `2e3834d`.
 
 ---
 
-### M2 — Homepage surfaces the Crossing ← NEXT
+### M2 — Homepage surfaces the Crossing ✓ COMPLETE (2026-06-27)
+
+Committed in `e389ea7`. Two-caption navigation stack in lower-right. `arriveToCrossing()` delivers Article III luminance dip transition to `places/crossing.html` in 1.5s.
+
+---
+
+### M3 — Hawksbill narrative elevated to `verified` ← NEXT
 
 **Why it matters:** The Crossing exists but is unreachable. The Observatory has two canonical cinematic experiences and only one is navigable. Until M2 ships, the architecture validation is invisible to any visitor.
 
@@ -106,7 +112,7 @@ Approach A is lower effort and consistent with the Observatory's one-editorial-v
 
 ## Next recommended session
 
-**Execute M2** (homepage surfaces the Crossing). Approach A. No design exploration needed — two captions, one new click handler. Estimated 2–3 hours including doctrine review and commit.
+**Execute M3** (hawksbill narrative elevated to `verified`). Requires source citation verification before changing the status field. Estimated 30 minutes.
 
 ---
 
