@@ -8,11 +8,11 @@
 
 | Surface | Pages |
 |---|---|
-| Cinematic | `index.html`, `places/sundarbans.html`, `places/crossing.html` |
+| Cinematic | `index.html`, `places/sundarbans.html`, `places/crossing.html`, `places/epr-vents.html` |
 | Atlas | `atlas/index.html`, `atlas/sundarbans.html`, `atlas/amazon-varzea.html`, `atlas/crossing.html`, `atlas/coral-triangle.html` |
 | Research | `notes/` × 13 (Sundarbans, Coral Triangle, Amazon várzea carry cross-surface nav) |
 
-Navigation graph complete. M1–M14 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience live. **13 of 13 narratives are `verified`**; 0 remain `draft`. See `git log` and `.agents/sessions/` for execution history.
+Navigation graph complete. M1–M16 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience live. **13 of 13 narratives are `verified`**; 0 remain `draft`. East Pacific Rise third cinematic place live (`places/epr-vents.html`). See `git log` and `.agents/sessions/` for execution history.
 
 ---
 
@@ -24,15 +24,16 @@ None.
 
 ## Backlog
 
-1. **EPR vents DwC-A design** — Research Curator session required before implementation; must address international-waters jurisdiction and deepwater observational access. Follows M9A precedent. Decision record: `.agents/decisions/2026-06-27-third-cinematic-place-epr.md`
-2. **EPR vents atlas field record** — `atlas/epr-vents.html`, after DwC-A design accepted
-3. **EPR vents cinematic surface** — `places/epr-vents.html`, after atlas complete; third cinematic place, third full 3-surface experience
-4. **Amazon várzea cinematic surface** — `places/amazon-varzea.html`, deferred; fallback if EPR blocked; would complete existing 3-surface infrastructure
+1. **EPR vents DwC-A design** — Research Curator session required; must address international-waters jurisdiction and deepwater observational access. Follows M9A precedent. Decision record: `.agents/decisions/2026-06-27-third-cinematic-place-epr.md`
+2. **EPR vents atlas field record** — `atlas/epr-vents.html`, after DwC-A design accepted; completes EPR 3-surface experience
+3. **EPR homepage nav** — add EPR vents to `index.html` main navigation (deferred per M15 decision record; implement after atlas complete)
+4. **Amazon várzea cinematic surface** — `places/amazon-varzea.html`, deferred; would complete existing 3-surface infrastructure
 
 ---
 
 ## Completed milestones
 
+- **M16** (2026-06-27) — East Pacific Rise cinematic surface live: `places/epr-vents.html`. Canvas 2D scroll-driven descent from sunlit surface through absolute abyss to vent field; 4 vents, 7 editorial beats, EPR biome palette (thermal orange, white smoker mineral, arterial-red worm plume, marine snow). Article XVII atmospheric hierarchy (thermal glow → plumes → worms). Article III luminance dip at p≈0.48. `SURFACE_LINKS` wired for research-to-cinematic nav. 3 files created, 1 modified. Build green.
 - **M15** (2026-06-27) — Chief Architect ruling: East Pacific Rise hydrothermal vents selected as third cinematic place. 5-candidate evaluation (EPR, Amazon várzea, Santa Barbara Channel, Dinaric olm, Pando). EPR wins on cinematic potential and geographic diversity; Amazon várzea deferred (strong fallback). Decision record: `.agents/decisions/2026-06-27-third-cinematic-place-epr.md`. No files modified; decision only.
 - **M14** (2026-06-27) — Track A: `amazon-varzea-arapaima-flood-pulse` promoted draft → verified. Castello (2008) DOI confirmed (`10.1111/j.1600-0633.2007.00255.x`); title corrected to match publication. Castello et al. (2009) JAI supplement not indexed in CrossRef — no DOI assigned, citation retained. `notes/index.html` updated. **13/13 verified.**
 - **M13** (2026-06-27) — Track A: `hudson-river-tomcod-pcb-resistance` promoted draft → verified. Correction: year start 1989 → 2006 (Wirgin 1989 is K-ras/tumour biology; Yuan 2006 EHP is earliest PCB-resistance source). DOI-anchored (Wirgin 2011, Yuan 2006). `notes/index.html` updated. 12 verified.
