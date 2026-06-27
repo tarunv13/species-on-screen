@@ -24,12 +24,16 @@ None.
 
 ## Backlog
 
-1. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
+1. **EPR vents DwC-A design** — Research Curator session required before implementation; must address international-waters jurisdiction and deepwater observational access. Follows M9A precedent. Decision record: `.agents/decisions/2026-06-27-third-cinematic-place-epr.md`
+2. **EPR vents atlas field record** — `atlas/epr-vents.html`, after DwC-A design accepted
+3. **EPR vents cinematic surface** — `places/epr-vents.html`, after atlas complete; third cinematic place, third full 3-surface experience
+4. **Amazon várzea cinematic surface** — `places/amazon-varzea.html`, deferred; fallback if EPR blocked; would complete existing 3-surface infrastructure
 
 ---
 
 ## Completed milestones
 
+- **M15** (2026-06-27) — Chief Architect ruling: East Pacific Rise hydrothermal vents selected as third cinematic place. 5-candidate evaluation (EPR, Amazon várzea, Santa Barbara Channel, Dinaric olm, Pando). EPR wins on cinematic potential and geographic diversity; Amazon várzea deferred (strong fallback). Decision record: `.agents/decisions/2026-06-27-third-cinematic-place-epr.md`. No files modified; decision only.
 - **M14** (2026-06-27) — Track A: `amazon-varzea-arapaima-flood-pulse` promoted draft → verified. Castello (2008) DOI confirmed (`10.1111/j.1600-0633.2007.00255.x`); title corrected to match publication. Castello et al. (2009) JAI supplement not indexed in CrossRef — no DOI assigned, citation retained. `notes/index.html` updated. **13/13 verified.**
 - **M13** (2026-06-27) — Track A: `hudson-river-tomcod-pcb-resistance` promoted draft → verified. Correction: year start 1989 → 2006 (Wirgin 1989 is K-ras/tumour biology; Yuan 2006 EHP is earliest PCB-resistance source). DOI-anchored (Wirgin 2011, Yuan 2006). `notes/index.html` updated. 12 verified.
 - **M12** (2026-06-27) — Track A: `east-pacific-rise-tubeworm-chemosynthesis` promoted draft → verified. Correction: year end 2011 → 1991 (Childress et al. 1991 is latest source). Dual DOI-anchored 1981 Science sources confirmed. `notes/index.html` updated. 11 verified.
