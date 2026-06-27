@@ -53,10 +53,11 @@ const narrative: EcologicalNarrative = {
     },
     {
       kind: 'peer_reviewed',
-      title: 'Lateral migration of Arapaima gigas in Amazon floodplains',
+      title: 'Lateral migration of Arapaima gigas in floodplains of the Amazon',
       authors: ['Castello, L.'],
       journal: 'Ecology of Freshwater Fish',
-      year: 2008
+      year: 2008,
+      doi: '10.1111/j.1600-0633.2007.00255.x'
     },
     {
       kind: 'peer_reviewed',
@@ -93,7 +94,7 @@ const narrative: EcologicalNarrative = {
     contributor: 'tarunv13',
     created: '2026-06-27',
     updated: '2026-06-27',
-    status: 'draft'
+    status: 'verified'
   }
 };
 
