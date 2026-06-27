@@ -1,0 +1,154 @@
+/*
+  The Crossing — cinematic place styles.
+  ----------------------------------------
+  Verbatim from prototypes/crossing.css, promoted to the canonical
+  places surface. No global tokens are used: --bone and --ink-deep are
+  biome-specific to this oceanic crossing palette and must not migrate
+  to src/style.css (which defines a different --colour-night for the
+  homepage's cool blue-black). They are local to this surface only.
+*/
+
+:root {
+  /* Frame neutrals (the only stable colours; biome palette lives in JS). */
+  --bone: #e9e4d9;
+  --ink-deep: #05070d;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink-deep);
+  color: var(--bone);
+  /* Documentary serif register, matching the project's editorial voice. */
+  font-family: Georgia, 'Times New Roman', serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* The journey's length. The fixed canvas/captions sit beneath the
+     scroll; the track below provides the scrollable distance. */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* The film. Fixed, full-bleed, behind everything. */
+#crossing {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 0;
+  background: var(--ink-deep);
+}
+
+/* Scrollable distance. Empty; its only job is to give the body height. */
+.scroll-track {
+  position: relative;
+  width: 1px;
+  height: 720vh;
+  pointer-events: none;
+}
+
+/* ---------- Editorial fragments ---------- */
+
+.captions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 18vh;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  padding: 0 8vw;
+}
+
+.caption {
+  grid-area: 1 / 1;            /* stack all beats; one is visible per beat */
+  margin: 0;
+  max-width: 30ch;
+  text-align: center;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--bone);
+  opacity: 0;
+  /* Legibility over a moving dark image without a box: a soft, wide,
+     near-black halation. Not a panel — the words sit in the air. */
+  text-shadow:
+    0 0 18px rgba(4, 8, 16, 0.92),
+    0 0 42px rgba(4, 8, 16, 0.78),
+    0 1px 2px rgba(0, 0, 0, 0.6);
+  will-change: opacity;
+}
+
+/* The threshold framing line is larger and centred higher: the held
+   first beat (Article I, Article XVII) before any motion. */
+.caption.is-framing {
+  align-self: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: max-content;
+  font-size: clamp(1.5rem, 4vw, 2.9rem);
+  font-style: italic;
+  max-width: 22ch;
+  line-height: 1.35;
+}
+
+/* The single scene inscription that arrives at the Settle and never
+   fully resolves (it breathes; its opacity is driven in JS). */
+.caption.is-inscription {
+  font-size: clamp(1.05rem, 2.4vw, 1.7rem);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- "begin" — the one self-effacing affordance ---------- */
+
+.begin {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 7vh;
+  z-index: 2;
+  text-align: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.42em;
+  text-transform: lowercase;
+  color: var(--bone);
+  opacity: 0.0;
+  pointer-events: none;
+  text-shadow: 0 0 16px rgba(4, 8, 16, 0.9);
+}
+
+/* ---------- noscript ---------- */
+
+.noscript {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  text-align: center;
+  background: var(--ink-deep);
+  color: var(--bone);
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+/* Reduced motion: the journey remains scroll-driven (user motion is not
+   autonomous motion), but the renderer suppresses its ambient drift and
+   the captions cross-fade quickly. Handled in JS; nothing to override
+   here beyond ensuring no CSS transitions add motion. */
+@media (prefers-reduced-motion: reduce) {
+  .caption { transition: none; }
+}
