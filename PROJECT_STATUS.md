@@ -12,7 +12,7 @@
 | Atlas | `atlas/index.html`, `atlas/sundarbans.html`, `atlas/amazon-varzea.html`, `atlas/crossing.html`, `atlas/coral-triangle.html` |
 | Research | `notes/` × 13 (Sundarbans, Coral Triangle, Amazon várzea carry cross-surface nav) |
 
-Navigation graph complete. M1–M10 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience now live (notes → atlas field record). 12 of 13 narratives are `verified`; 1 remains `draft` (amazon várzea arapaima). See `git log` and `.agents/sessions/` for execution history.
+Navigation graph complete. M1–M14 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience live. **13 of 13 narratives are `verified`**; 0 remain `draft`. See `git log` and `.agents/sessions/` for execution history.
 
 ---
 
@@ -24,14 +24,13 @@ None.
 
 ## Backlog
 
-1. **Remaining draft elevation** — amazon várzea arapaima; needs DOIs on Castello (2008, 2009) sources before Track A promotion
-2. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
-3. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
+1. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
 
 ---
 
 ## Completed milestones
 
+- **M14** (2026-06-27) — Track A: `amazon-varzea-arapaima-flood-pulse` promoted draft → verified. Castello (2008) DOI confirmed (`10.1111/j.1600-0633.2007.00255.x`); title corrected to match publication. Castello et al. (2009) JAI supplement not indexed in CrossRef — no DOI assigned, citation retained. `notes/index.html` updated. **13/13 verified.**
 - **M13** (2026-06-27) — Track A: `hudson-river-tomcod-pcb-resistance` promoted draft → verified. Correction: year start 1989 → 2006 (Wirgin 1989 is K-ras/tumour biology; Yuan 2006 EHP is earliest PCB-resistance source). DOI-anchored (Wirgin 2011, Yuan 2006). `notes/index.html` updated. 12 verified.
 - **M12** (2026-06-27) — Track A: `east-pacific-rise-tubeworm-chemosynthesis` promoted draft → verified. Correction: year end 2011 → 1991 (Childress et al. 1991 is latest source). Dual DOI-anchored 1981 Science sources confirmed. `notes/index.html` updated. 11 verified.
 - **M11** (2026-06-27) — Track A: `dinaric-olm-century-lifespan` promoted draft → verified. Correction: `order` Urodela → Caudata (GBIF backbone). DOI-anchored (Voituron et al. 2011). `notes/index.html` updated. 10 verified.
