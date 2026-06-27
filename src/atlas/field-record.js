@@ -22,9 +22,13 @@ import { makeSpeciesArt } from '../prototypes/species-art.js';
 import { makeBackdrop } from '../prototypes/biome-backdrop.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
-// Which place to read. Any place ingested into public/dwca/<id>/ works
-// (npm run ingest). Defaults to the Sundarbans exemplar.
-const PLACE = new URLSearchParams(location.search).get('place') || 'sundarbans';
+// Which place to read. Prefers the ?place= query param (dev/prototype use);
+// falls back to the URL filename so atlas/amazon-varzea.html resolves to
+// 'amazon-varzea' with no query string. 'field-record' (prototype filename)
+// is excluded; all unknowns default to 'sundarbans'.
+const _qPlace = new URLSearchParams(location.search).get('place');
+const _pPlace = location.pathname.split('/').pop().replace('.html', '');
+const PLACE = _qPlace || (_pPlace && _pPlace !== 'field-record' ? _pPlace : 'sundarbans');
 const DWCA = BASE + 'dwca/' + PLACE + '/';
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const art = makeSpeciesArt(BASE);
