@@ -1,7 +1,7 @@
 # Eco-Cinema Observatory — Project Status
 
 **Last updated:** 2026-06-27
-**Current git commit:** `e389ea7` — feat(homepage): surface Crossing as second navigable place
+**Current git commit:** TBD — feat(atlas): promote Sundarbans field record to canonical atlas page
 **Branch:** `feat/exploration-prototypes-and-data-pipelines`
 **AI Operating System:** v1.0 — frozen. See `.agents/AI-OS.md`.
 
@@ -35,7 +35,7 @@ Committed in `e389ea7`. Two-caption navigation stack in lower-right. `arriveToCr
 
 ---
 
-### M3 — Hawksbill narrative elevated to `verified` ← NEXT
+### M3 — Hawksbill narrative elevated to `verified` ✓ COMPLETE (2026-06-27)
 
 **Why it matters:** The Crossing exists but is unreachable. The Observatory has two canonical cinematic experiences and only one is navigable. Until M2 ships, the architecture validation is invisible to any visitor.
 
@@ -62,39 +62,13 @@ Approach A is lower effort and consistent with the Observatory's one-editorial-v
 
 ### M3 — Hawksbill narrative elevated to `verified`
 
-**Why it matters:** The narrative is at `draft` — invisible in the Archive (`notes/index.html`). The research surface for the Crossing is unreachable until the narrative is listed. Completes the cinematic-to-research surface connection.
-
-**Blocking dependencies:** M1 (done). Requires editorial second pass on two sources:
-- Lohmann, K.J., Putman, N.F. & Lohmann, C.M.F. (2008) PNAS 105(49) — verify citation accuracy
-- Meylan, A.B. & Donnelly, M. (1999) Chelonian Conservation and Biology 3(2) — verify citation accuracy
-
-**Estimated effort:** 30 minutes (source verification + status field change + one list item in notes/index.html).
-
-**Definition of Done:**
-- `metadata.status: 'verified'` in `coral-triangle-hawksbill-natal-homing.ts`
-- Link added under "Verified" section of `notes/index.html`
-- `npm run check-narratives` passes (the archive-index drift check will now require the link)
-
-**Expected commit:** `feat(research): elevate hawksbill narrative to verified`
+Committed in `860f5e8`. Both sources confirmed (Lohmann et al. 2008 PNAS, Meylan & Donnelly 1999 Chelonian Conservation and Biology). Archive entry added alphabetically. check-narratives archive-index drift check now enforces the link.
 
 ---
 
-### M4 — Field record promoted to `atlas/sundarbans.html`
+### M4 — Field record promoted to `atlas/sundarbans.html` ✓ COMPLETE (2026-06-27)
 
-**Why it matters:** The field-record scrollytelling (`prototypes/field-record.html`) is the Observatory's most sophisticated research surface feature — interactive species interaction graph, real Darwin Core data, biome backdrop, cascade visualization. It is currently only dev-served and invisible in production. Promoting it to `atlas/sundarbans.html` completes the Sundarbans two-surface experience.
-
-**Blocking dependencies:** M1 (done). No dependency on M2 or M3.
-
-**Estimated effort:** 3–4 hours. The field-record JS already handles arbitrary places via `?place=<id>`. The canonical page needs to be added to the Vite build (currently `prototypes/` is excluded). The atlas surface already exists; this adds a place-specific atlas page.
-
-**Files:** `atlas/sundarbans.html` (new) + move/adapt `src/prototypes/field-record.{js,css}` to `src/atlas/field-record.{js,css}`.
-
-**Definition of Done:**
-- `atlas/sundarbans.html` renders the Sundarbans field record from the production build
-- `npm run build` includes it in `dist/atlas/sundarbans.html`
-- Prototype files remain in `prototypes/` (additive, not destructive)
-
-**Expected commit:** `feat(atlas): promote Sundarbans field record to canonical atlas page`
+Committed in `TBD`. Files created: `atlas/sundarbans.html`, `src/atlas/field-record.js`, `src/atlas/field-record.css`. The JS imports `species-art.js` and `biome-backdrop.js` from `../prototypes/` (additive — prototype originals untouched). `vite.config.js` auto-discovered `atlas/sundarbans.html` without modification. Build: clean, `dist/atlas/sundarbans.html` = 3.03 kB.
 
 ---
 
@@ -112,7 +86,7 @@ Approach A is lower effort and consistent with the Observatory's one-editorial-v
 
 ## Next recommended session
 
-**Execute M3** (hawksbill narrative elevated to `verified`). Requires source citation verification before changing the status field. Estimated 30 minutes.
+**Execute M5** (Migration Atlas — hawksbill natal homing route). Requires GBIF data fetch and Liquid Glass design system. Estimated 6–8 hours.
 
 ---
 
