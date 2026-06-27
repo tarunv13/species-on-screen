@@ -151,6 +151,9 @@ const SURFACE_LINKS = {
     { href: '../atlas/sundarbans.html', label: 'Interaction web →' },
     { href: '../places/sundarbans.html', label: 'Enter the living place →' },
   ],
+  'amazon-varzea': [
+    { href: '../atlas/amazon-varzea.html', label: 'Interaction web →' },
+  ],
   'coral-triangle': [
     { href: '../atlas/coral-triangle.html', label: 'Interaction web →' },
     { href: '../atlas/crossing.html', label: 'Research companion →' },
