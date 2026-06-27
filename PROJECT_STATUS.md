@@ -1,6 +1,6 @@
 # Eco-Cinema Observatory — Project Status
 
-**HEAD:** `feat/exploration-prototypes-and-data-pipelines` · build green
+**HEAD:** `feat/exploration-prototypes-and-data-pipelines` · build green · `observatory-v1.0` tagged at e61e898
 
 ---
 
@@ -10,9 +10,9 @@
 |---|---|
 | Cinematic | `index.html`, `places/sundarbans.html`, `places/crossing.html` |
 | Atlas | `atlas/index.html`, `atlas/sundarbans.html`, `atlas/amazon-varzea.html`, `atlas/crossing.html`, `atlas/coral-triangle.html` |
-| Research | `notes/` × 12 (Sundarbans + Coral Triangle carry cross-surface nav) |
+| Research | `notes/` × 13 (Sundarbans, Coral Triangle, Amazon várzea carry cross-surface nav) |
 
-Navigation graph complete. M1–M9 + R1 shipped. Coral Triangle certified as Observatory reference implementation for DwC-A interaction-web ecosystems. 9 of 12 narratives are `verified`; 3 remain `draft` (dinaric olm, east pacific tubeworm, hudson tomcod). See `git log` and `.agents/sessions/` for execution history.
+Navigation graph complete. M1–M10 + R1 shipped. Coral Triangle certified as Observatory reference implementation. Amazon várzea DwC-A orphan resolved: 3-surface experience now live (notes → atlas field record). 9 of 13 narratives are `verified`; 4 remain `draft` (amazon várzea arapaima, dinaric olm, east pacific tubeworm, hudson tomcod). See `git log` and `.agents/sessions/` for execution history.
 
 ---
 
@@ -24,14 +24,14 @@ None.
 
 ## Backlog
 
-1. **Amazon várzea narrative** — DwC-A data orphan (8 actors, 8 interactions) with no narrative, no atlas chip, no notes page; creating a narrative unlocks a full 3-surface experience
-2. **Remaining draft elevations** — dinaric olm, east pacific tubeworm, hudson tomcod; Track A verification only, no code
+1. **Remaining draft elevations** — dinaric olm, east pacific tubeworm, hudson tomcod, amazon várzea arapaima; Track A verification only, no code
 3. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
 
 ---
 
 ## Completed milestones
 
+- **M10** (2026-06-27) — Amazon várzea narrative: `amazon-varzea-arapaima-flood-pulse` (Arapaima gigas, draft). Notes shell + narrative `.ts` created; SURFACE_LINKS and atlas.js card updated. DwC-A orphan resolved; full 3-surface experience live. 13 narratives registered.
 - **R1** (2026-06-27) — Release Patch R1: resolved two Independent Release Review blockers. Added "Interaction web →" to coral-triangle notes-surface SURFACE_LINKS (`src/notes/render-narrative.js`); added Hughes et al. (2007) to `public/dwca/coral-triangle/CREDITS.md`. Coral Triangle DwC-A certified as Observatory reference implementation.
 - **M9C** (2026-06-27) — Scientific Validation Audit: GBIF key 5220228 corrected to 8841716 (*E. imbricata*); OCC:1 class/order corrected to backbone; two DOI errors resolved (Barott: correct DOI confirmed; Hoey & Bellwood: DOI removed); month "0" → empty.
 - **M9B** (2026-06-27) — Coral Triangle field record: 9-actor DwC-A, 10 interactions, `atlas/coral-triangle.html`, atlas card + field-record nav.
