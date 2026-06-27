@@ -12,7 +12,7 @@
 | Atlas | `atlas/index.html`, `atlas/sundarbans.html`, `atlas/amazon-varzea.html`, `atlas/crossing.html` |
 | Research | `notes/` × 12 (Sundarbans + Coral Triangle carry cross-surface nav) |
 
-Navigation graph complete. M1–M8 shipped. 10 of 12 narratives are `verified`. See `git log` and `.agents/sessions/` for execution history.
+Navigation graph complete. M1–M8 shipped. 9 of 12 narratives are `verified`; 3 remain `draft` (dinaric olm, east pacific tubeworm, hudson tomcod). See `git log` and `.agents/sessions/` for execution history.
 
 ---
 
@@ -25,11 +25,12 @@ Navigation graph complete. M1–M8 shipped. 10 of 12 narratives are `verified`. 
 ## Backlog
 
 1. **Coral Triangle DwC-A** — assemble occurrence + interaction data; promote to `atlas/coral-triangle.html`
-2. **Remaining narrative elevations** — Antarctic icefish, Baikal sponge, Dinaric olm, East Pacific Rise tubeworm, Hudson River tomcod, Pando aspen (`draft` → `in_review` → `verified`); each needs Track A
-3. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
+2. **Amazon várzea narrative** — DwC-A data orphan (8 actors, 8 interactions) with no narrative, no atlas chip, no notes page; creating a narrative unlocks a full 3-surface experience
+3. **Remaining draft elevations** — dinaric olm, east pacific tubeworm, hudson tomcod; Track A verification only, no code
+4. **Third cinematic place** — candidate not selected; homepage nav evolves when ready
 
 ---
 
 ## Next milestone
 
-**M9 — Remaining narrative elevations.** Six narratives are still `draft`. Each needs Track A source verification before promotion. Unblocks full research surface completeness.
+**M9 — Coral Triangle interaction web.** M9A (Research Curator) in progress: producing `coral-triangle-design.md` from literature. M9B (Technical Lead) follows once design is verified. Completes the Coral Triangle 3-surface experience.
