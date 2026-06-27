@@ -25,6 +25,7 @@ Validation report: `.agents/decisions/2026-06-27-coral-triangle-m9c-validation.m
 - Hoey, A.S. & Bellwood, D.R. (2008). *MEPS* 358:105–117. [DOI unverified — 10.3354/meps07336 resolves to an unrelated paper; removed pending confirmation]
 - Bellwood, D.R., Hughes, T.P., Folke, C. & Nyström, M. (2004). *Nature* 429:827–833. doi:10.1038/nature02691
 - Hughes, T.P. (1994). *Science* 265:1547–1551. doi:10.1126/science.265.5178.1547
+- Hughes, T.P. et al. (2007). Phase shifts, herbivory, and the resilience of coral reefs to climate change. *Current Biology* 17(5):360–365. doi:10.1016/j.cub.2006.12.049
 - McClanahan, T.R. & Shafir, S.H. (1990). *Oecologia* 83(3):362–370.
 - Rasher, D.B. & Hay, M.E. (2010). *PNAS* 107:9683–9688. doi:10.1073/pnas.0912095107
 - Barott, K.L. et al. (2012). *MEPS* 460:1–12. doi:10.3354/meps09874
