@@ -1,8 +1,37 @@
-# Paper 1 — Project Status
+# Eco-Cinema Observatory + Paper 1 — Project Status
 
-**Last updated:** 2026-06-25
-**Current git commit:** `afa6d543ec56a85e7b767eb45f6ed59de2a6d24f`
+**Last updated:** 2026-06-27
+**Current git commit:** `63a8db9` (pre-Crossing; commit pending user approval)
 **Branch:** `feat/exploration-prototypes-and-data-pipelines`
+**AI Operating System:** operative as of 2026-06-27. See `.agents/AI-OS.md` (to be filed).
+
+---
+
+## Observatory — current state
+
+**Architecture validated.** The Crossing canonicalization confirms that the Observatory supports heterogeneous cinematic rendering models (Canvas 2D scroll-governed + DOM/GSAP click-triggered) without shared base classes, without config changes, without any modification to existing pages.
+
+### Completed since last session
+
+| Milestone | Files | Status |
+|---|---|---|
+| Crossing canonicalization (cinematic) | `places/crossing.html`, `src/places/crossing.{js,css}` | Complete — uncommitted |
+| Hawksbill natal-homing narrative record | `cinematic-language/narratives/coral-triangle-hawksbill-natal-homing.ts` | Draft — uncommitted |
+| Research surface shell | `notes/coral-triangle-hawksbill-natal-homing.html` | Complete — uncommitted |
+| check-narratives | 12 narratives, all invariants pass | ✓ |
+| Production build | dist/places/crossing.html emitted | ✓ |
+
+### Open Observatory tasks (ordered)
+
+| # | Task | Notes |
+|---|---|---|
+| O-1 | Commit Crossing canonicalization | Awaiting user approval of commit |
+| O-2 | Elevate narrative to `verified` | After second editorial review of hawksbill record; add link to notes/index.html |
+| O-3 | File `.agents/AI-OS.md` | AI Operating System document from 2026-06-27 session |
+| O-4 | Migration Atlas Phase 2 | `atlas/migration.html` + `src/atlas/migration.{js,css}` — glassmorphic research-surface companion to Crossing |
+| O-5 | Species hover face-card in living-place.js | TODO from field-record session |
+
+---
 
 ---
 
