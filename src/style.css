@@ -148,11 +148,27 @@ body {
   text-underline-offset: 0.25em;
 }
 
+/* Second place entry. Sits above the primary caption; visually
+   subordinate (ink-low vs ink-mid) to establish primary/secondary
+   hierarchy without introducing a different typographic register. */
+.page-caption--secondary {
+  bottom: 3.6rem;
+  color: var(--colour-ink-low);
+}
+
+.page-caption--secondary:hover {
+  color: var(--colour-ink-mid);
+}
+
 @media (max-width: 768px) {
   .page-caption {
     font-size: 0.72rem;
     right: 1rem;
     bottom: 1rem;
+  }
+
+  .page-caption--secondary {
+    bottom: 3.3rem;
   }
 }
 

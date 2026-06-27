@@ -73,15 +73,20 @@ function init() {
 
 function setupPageCaption() {
   pageCaption = document.getElementById('page-caption');
-  if (!pageCaption) return;
+  if (pageCaption) {
+    pageCaption.addEventListener('click', (e) => {
+      e.preventDefault();
+      arriveAtSundarbans();
+    });
+  }
 
-  pageCaption.addEventListener('click', (e) => {
-    // The page-caption is the only navigable surface on the homepage.
-    // Its canonical destination on a JS-enabled visit is the cinematic
-    // place, not the species static page; intercept the anchor.
-    e.preventDefault();
-    arriveAtSundarbans();
-  });
+  const crossingCaption = document.getElementById('page-caption-crossing');
+  if (crossingCaption) {
+    crossingCaption.addEventListener('click', (e) => {
+      e.preventDefault();
+      arriveToCrossing();
+    });
+  }
 }
 
 /**
@@ -203,6 +208,62 @@ function arriveAtSundarbans() {
   }, 3.0 * k);
 }
 
+/**
+ * Arrival into the Crossing place (places/crossing.html).
+ *
+ * The Crossing has no globe hotspot — it is an open-ocean journey,
+ * not a point on the planet. The transition therefore skips the globe
+ * camera fly and runs only the luminance dip (Article III §3: the cut
+ * to the destination must occur inside the dip, never on a clear frame).
+ * Total duration is ~1.5s vs Sundarbans' 3.0s; the difference is the
+ * absence of the 2.0s approach arc. The grammar is otherwise identical.
+ */
+function arriveToCrossing() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  killActiveTransition();
+  globe.isHovered = false;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const k = reduce ? 0.5 : 1.0;
+
+  const tl = gsap.timeline();
+  activeTransition = tl;
+
+  /* ----- Departure (0 - 0.7s * k) ----- */
+  tl.to('#globe-ui-container', {
+    opacity: 0,
+    duration: 0.7 * k,
+    ease: 'sine.inOut'
+  }, 0);
+
+  /* ----- Crossing (0.5 - 1.5s * k) — luminance dip ----- */
+  tl.add(() => {
+    const ls = document.getElementById('loading-screen');
+    if (ls) {
+      ls.style.display = 'block';
+      ls.style.opacity = '0';
+    }
+  }, 0.5 * k);
+  tl.to('#loading-screen', {
+    opacity: 1,
+    duration: 0.9 * k,
+    ease: 'power2.inOut'
+  }, 0.5 * k);
+  tl.to('#cinematic-canvas', {
+    opacity: 0,
+    duration: 0.8 * k,
+    ease: 'power2.inOut'
+  }, 0.6 * k);
+
+  /* ----- Cut at peak black (1.5s * k) ----- */
+  tl.add(() => {
+    const base = import.meta.env.BASE_URL || '/';
+    window.location.assign(`${base}places/crossing.html`);
+  }, 1.5 * k);
+}
+
 function killActiveTransition() {
   if (activeTransition) {
     activeTransition.kill();
@@ -228,12 +289,10 @@ function runLandingSequence() {
     // for 0.9s after the camera stops \u2014 the 'this place exists'
     // beat \u2014 before the caption fades in.
     gsap.delayedCall(0.9, () => {
-      if (globeUI) {
-        globeUI.classList.add('active');
-      }
-      if (pageCaption) {
-        pageCaption.classList.add('is-visible');
-      }
+      if (globeUI) globeUI.classList.add('active');
+      if (pageCaption) pageCaption.classList.add('is-visible');
+      const crossingCaption = document.getElementById('page-caption-crossing');
+      if (crossingCaption) crossingCaption.classList.add('is-visible');
     });
   });
 }
