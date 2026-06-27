@@ -1,151 +1,134 @@
-# Eco-Cinema Observatory + Paper 1 — Project Status
+# Eco-Cinema Observatory — Project Status
 
 **Last updated:** 2026-06-27
-**Current git commit:** `63a8db9` (pre-Crossing; commit pending user approval)
+**Current git commit:** `2e3834d` — feat(cinematic): canonicalize Crossing as places/crossing.html
 **Branch:** `feat/exploration-prototypes-and-data-pipelines`
-**AI Operating System:** operative as of 2026-06-27. See `.agents/AI-OS.md` (to be filed).
+**AI Operating System:** v1.0 — frozen. See `.agents/AI-OS.md`.
 
 ---
 
 ## Observatory — current state
 
-**Architecture validated.** The Crossing canonicalization confirms that the Observatory supports heterogeneous cinematic rendering models (Canvas 2D scroll-governed + DOM/GSAP click-triggered) without shared base classes, without config changes, without any modification to existing pages.
+Two canonical cinematic place pages exist and build cleanly:
+- `places/sundarbans.html` — Bengal tiger, DOM/GSAP descent (narrative: `verified`)
+- `places/crossing.html` — Hawksbill natal homing, Canvas 2D scroll-governed (narrative: `draft`)
 
-### Completed since last session
+The Crossing is unreachable from the homepage. That is the single open production gap.
 
-| Milestone | Files | Status |
+---
+
+## Production Roadmap
+
+Ordered by dependency. Execute one milestone per session.
+
+---
+
+### M1 — Crossing canonicalization ✓ COMPLETE (2026-06-27)
+
+Committed in `2e3834d`. `places/crossing.html` exists, builds, passes check-narratives.
+
+---
+
+### M2 — Homepage surfaces the Crossing ← NEXT
+
+**Why it matters:** The Crossing exists but is unreachable. The Observatory has two canonical cinematic experiences and only one is navigable. Until M2 ships, the architecture validation is invisible to any visitor.
+
+**Blocking dependencies:** M1 (done).
+
+**Design decision required before implementation:**
+The homepage currently has one hardcoded navigation entry (`arriveAtSundarbans()`, globe species marker at tiger hotspot, caption "Sundarbans · Bengal tiger"). The Crossing is an open-ocean journey — it has no single point on the globe. Two viable approaches:
+- **A. Second static caption** — Add "Coral Triangle · Hawksbill" below the existing caption; clicking navigates directly to `places/crossing.html` without a globe transition (the ocean crossing doesn't need the globe as an entry frame).
+- **B. Places index page** — Create `places/index.html` as a minimal navigation surface listing both places, accessible from a homepage link.
+
+Approach A is lower effort and consistent with the Observatory's one-editorial-voice-at-a-time principle. Approach B is more scalable as places grow. **Recommend A for now; B when a third place is added.**
+
+**Estimated effort:** 2–3 hours (Approach A: one new caption element + click handler in `src/main.js`).
+
+**Definition of Done:**
+- Homepage shows a navigation entry to the Crossing
+- Clicking it navigates to `places/crossing.html` without a full-screen flash
+- Existing Sundarbans navigation is unaffected
+- `npm run build` clean
+
+**Expected commit:** `feat(homepage): surface Crossing as second navigable place`
+
+---
+
+### M3 — Hawksbill narrative elevated to `verified`
+
+**Why it matters:** The narrative is at `draft` — invisible in the Archive (`notes/index.html`). The research surface for the Crossing is unreachable until the narrative is listed. Completes the cinematic-to-research surface connection.
+
+**Blocking dependencies:** M1 (done). Requires editorial second pass on two sources:
+- Lohmann, K.J., Putman, N.F. & Lohmann, C.M.F. (2008) PNAS 105(49) — verify citation accuracy
+- Meylan, A.B. & Donnelly, M. (1999) Chelonian Conservation and Biology 3(2) — verify citation accuracy
+
+**Estimated effort:** 30 minutes (source verification + status field change + one list item in notes/index.html).
+
+**Definition of Done:**
+- `metadata.status: 'verified'` in `coral-triangle-hawksbill-natal-homing.ts`
+- Link added under "Verified" section of `notes/index.html`
+- `npm run check-narratives` passes (the archive-index drift check will now require the link)
+
+**Expected commit:** `feat(research): elevate hawksbill narrative to verified`
+
+---
+
+### M4 — Field record promoted to `atlas/sundarbans.html`
+
+**Why it matters:** The field-record scrollytelling (`prototypes/field-record.html`) is the Observatory's most sophisticated research surface feature — interactive species interaction graph, real Darwin Core data, biome backdrop, cascade visualization. It is currently only dev-served and invisible in production. Promoting it to `atlas/sundarbans.html` completes the Sundarbans two-surface experience.
+
+**Blocking dependencies:** M1 (done). No dependency on M2 or M3.
+
+**Estimated effort:** 3–4 hours. The field-record JS already handles arbitrary places via `?place=<id>`. The canonical page needs to be added to the Vite build (currently `prototypes/` is excluded). The atlas surface already exists; this adds a place-specific atlas page.
+
+**Files:** `atlas/sundarbans.html` (new) + move/adapt `src/prototypes/field-record.{js,css}` to `src/atlas/field-record.{js,css}`.
+
+**Definition of Done:**
+- `atlas/sundarbans.html` renders the Sundarbans field record from the production build
+- `npm run build` includes it in `dist/atlas/sundarbans.html`
+- Prototype files remain in `prototypes/` (additive, not destructive)
+
+**Expected commit:** `feat(atlas): promote Sundarbans field record to canonical atlas page`
+
+---
+
+### M5 — Migration Atlas (Crossing research companion)
+
+**Why it matters:** The Crossing cinematic page has no research surface counterpart beyond the raw narrative notes page. The Migration Atlas would be a glassmorphic atlas-surface page showing the hawksbill's natal homing route with real GBIF occurrence data and the Liquid Glass design system.
+
+**Blocking dependencies:** M1 (done). M3 recommended first (narrative should be verified before the atlas page launches).
+
+**Estimated effort:** 6–8 hours. New surface: `atlas/migration.html` + `src/atlas/migration.{js,css}`. Uses existing Liquid Glass tokens (`src/atlas/liquid-glass.{css,js}`).
+
+**Expected commit:** `feat(atlas): Migration Atlas — hawksbill natal homing route`
+
+---
+
+## Next recommended session
+
+**Execute M2** (homepage surfaces the Crossing). Approach A. No design exploration needed — two captions, one new click handler. Estimated 2–3 hours including doctrine review and commit.
+
+---
+
+## Paper 1 — frozen
+
+Status unchanged. Blocked on B-1 through B-6 (see below). Do not initiate Paper 1 work unless it blocks the doctoral submission timeline.
+
+### Blocking tasks before pilot
+
+| # | Task | Owner |
 |---|---|---|
-| Crossing canonicalization (cinematic) | `places/crossing.html`, `src/places/crossing.{js,css}` | Complete — uncommitted |
-| Hawksbill natal-homing narrative record | `cinematic-language/narratives/coral-triangle-hawksbill-natal-homing.ts` | Draft — uncommitted |
-| Research surface shell | `notes/coral-triangle-hawksbill-natal-homing.html` | Complete — uncommitted |
-| check-narratives | 12 narratives, all invariants pass | ✓ |
-| Production build | dist/places/crossing.html emitted | ✓ |
+| B-1 | Write `paper1-coding-manual-v1.2.md` (HB-8 extension + HB-9) | Primary coder |
+| B-2 | Pre-register v1.2 on OSF before Day 1 of pilot | Primary coder |
+| B-3 | Update `paper1-coding-starter.csv`: add `kf_confidence`, `nc_confidence`, `in_scope` columns | Primary coder |
+| B-4 | Identify and onboard second coder | Primary coder |
+| B-5 | Second-coder calibration session (Training Set A + Training Set B Papers 2, 6, 9) | Both coders |
+| B-6 | Resolve Jepson (2015) scope gate | Primary coder |
 
-### Open Observatory tasks (ordered)
+### IRR thresholds
 
-| # | Task | Notes |
+| Variable | Statistic | Threshold |
 |---|---|---|
-| O-1 | Commit Crossing canonicalization | Awaiting user approval of commit |
-| O-2 | Elevate narrative to `verified` | After second editorial review of hawksbill record; add link to notes/index.html |
-| O-3 | File `.agents/AI-OS.md` | AI Operating System document from 2026-06-27 session |
-| O-4 | Migration Atlas Phase 2 | `atlas/migration.html` + `src/atlas/migration.{js,css}` — glassmorphic research-surface companion to Crossing |
-| O-5 | Species hover face-card in living-place.js | TODO from field-record session |
-
----
-
----
-
-## Current project state
-
-Paper 1 is a scoping review of a 380-paper corpus examining the representation of biological ecosystems and conservation knowledge in digital games. The three-variable coding scheme (ER / KF / NC) has been designed, audited, calibrated through two training sets, and validated through a 10-paper failure report. The coding manual is at v1.1 and two targeted amendments have been defined (v1.2) but not yet written into a final document.
-
-**Methodology status:** Frozen pending two minor rule additions (HB-8 extension; new HB-9). No structural changes are open or warranted.
-
-**Coding status:** Not yet begun. All pre-coding validation work is complete.
-
----
-
-## Completed milestones
-
-| Milestone | Artifact | Status |
-|---|---|---|
-| Coding scheme design (ER / KF / NC variables) | `paper1-coding-manual-v1.0.md` | Complete |
-| Methodology audit (rule gap analysis) | `paper1-methodology-audit-v1.md` | Complete |
-| Coding manual v1.1 (post-audit revisions) | `paper1-coding-manual-v1.1.md` | Complete |
-| Corpus-level distribution forecast (380 papers) | `paper1-corpus-forecast.md` | Complete |
-| Training Set A (initial calibration) | Session record | Complete |
-| Training Set B (stress-test calibration, 10 papers) | `paper1-training-set-b-coder.md` / `paper1-training-set-b-answer-key.md` | Complete |
-| Training Set B failure report + Outcome recommendation | This document / session record | Complete |
-| v1.2 amendment definitions | Session record (not yet written to file) | Defined, not filed |
-
-### Training Set B results summary
-
-- **Code accuracy:** 27/30 (90%) — ER 7/10, KF 10/10, NC 10/10
-- **Confidence accuracy:** 21/30 (70%) — ER-conf 9/10, KF-conf 6/10, NC-conf 6/10
-- **Outcome verdict:** Outcome 2 — Minor revision required
-- **HB-V4 (highest-risk rule):** Passed on all three Indigenous-paper tests
-- **All intended stress tests:** Passed (HB-V4, HB-R4, NC-2/3 boundary, AR Q4, coding-unit identification)
-- **All code errors:** Traceable to single HB-8 gap (category-level ER procedure)
-
----
-
-## Open tasks
-
-### Blocking — must complete before pilot
-
-| # | Task | Owner | Notes |
-|---|---|---|---|
-| B-1 | Write v1.2 handbook (HB-8 extension + new HB-9) | Primary coder | HB-8: add ER-1 default for category papers, no Q3/Q4 traversal on examples. HB-9: define High/Medium/Low confidence criteria explicitly. |
-| B-2 | Pre-register v1.2 handbook on OSF | Primary coder | Register v1.2 directly — do not register v1.1 and amend mid-pilot. Must be timestamped before Day 1 of pilot. |
-| B-3 | Update `paper1-coding-starter.csv` schema | Primary coder | Add columns: `er_confidence`, `kf_confidence`, `nc_confidence`, `in_scope`. Currently missing all four. |
-| B-4 | Identify and onboard second coder | Primary coder | Second coder must complete calibration on Training Set A + Training Set B Papers 2, 6, 9 before subsample. Papers 2, 6, 9 are the mandatory calibration papers for v1.2 rule coverage. |
-| B-5 | Second-coder calibration session | Both coders | Focus: HB-V4 (Papers 1–3 triplet), HB-8 extended (Papers 6, 8, 9), HB-9 confidence calibration. Do not begin 76-paper subsample until Papers 2, 6, and 9 code correctly under v1.2. |
-| B-6 | Resolve Jepson (2015) scope gate | Primary coder | One paper with an unresolved §1.2 scope determination. Must be resolved before pilot assignment. |
-
-### Non-blocking — complete before or during pilot
-
-| # | Task | Notes |
-|---|---|---|
-| N-1 | Add 2 ER-3 calibration papers to second-coder session | ER-3 (biome class, no named place) was never traversed in training. Corpus forecast estimates ~20 ER-3 papers. Identify candidates and add to calibration before subsample. |
-| N-2 | Create `scripts/paper1-fetch-abstracts.py` | Abstract access will be required for a significant share of corpus papers (HB-2 triggers). Pre-fetching avoids per-paper interruptions during coding. |
-| N-3 | Confirm IRR subsample composition | `paper1-irr-subsample.csv` exists. Verify 76-paper subsample is drawn correctly and both coders have access to the same paper set. |
-| N-4 | File Training Set B failure report as a permanent document | Current failure report exists only in session record. Write to `paper1-training-set-b-failure-report.md` for audit trail. |
-
----
-
-## Next recommended actions (ordered)
-
-1. **Write v1.2 handbook** — HB-8 extension and HB-9 are fully specified from the Training Set B failure report. This is a direct transcription task, not a design task. File as `paper1-coding-manual-v1.2.md`.
-
-2. **Update `paper1-coding-starter.csv`** — Add the four missing columns. This is a five-minute schema change that blocks all pilot data entry.
-
-3. **Pre-register on OSF** — Upload `paper1-coding-manual-v1.2.md` with a brief pre-registration note (coding scheme, variables, IRR plan, threshold targets: ER κ≥0.75, KF α≥0.70, NC α≥0.75).
-
-4. **Identify second coder** — Do not begin the pilot until this is resolved. The 76-paper subsample requires simultaneous independent coding.
-
-5. **Run second-coder calibration** — Minimum session: Training Set A papers + Training Set B Papers 2, 6, 9. Paper 2 tests HB-V4 (most likely failure point); Papers 6 and 9 test HB-8 extended and HB-9 together.
-
-6. **Resolve Jepson (2015) and add ER-3 calibration papers** — Both can be done in the same session before pilot Day 1.
-
-7. **Begin 20-paper pilot** — Once B-1 through B-6 are complete.
-
----
-
-## Current methodological risks
-
-| Risk | Severity | Status |
-|---|---|---|
-| Second coder not identified | High | Open |
-| v1.2 not yet written to file | High | Open (defined in session; not filed) |
-| `paper1-coding-starter.csv` missing confidence columns | High (blocks data entry) | Open |
-| OSF pre-registration pending | Procedural blocker | Open |
-| ER-3 branch never tested in training | Medium | Open — mitigate before pilot |
-| KF-A/KF-E boundary untested at scale | Medium | Monitor in pilot; no action now |
-| Jepson (2015) scope unresolved | Low–Medium | Open |
-
----
-
-## File inventory
-
-| File | Description | State |
-|---|---|---|
-| `paper1-coding-manual-v1.0.md` | Original coding manual | Superseded by v1.1 |
-| `paper1-coding-manual-v1.1.md` | Current active handbook | Active; two amendments pending |
-| `paper1-coding-manual-v1.2.md` | v1.2 with HB-8 + HB-9 | **Does not yet exist** |
-| `paper1-methodology-audit-v1.md` | Rule gap analysis | Complete |
-| `paper1-corpus-forecast.md` | Distribution estimates, 380 papers | Complete |
-| `paper1-training-set-b-coder.md` | Coder-facing Training Set B | Complete |
-| `paper1-training-set-b-answer-key.md` | Restricted answer key | Complete |
-| `paper1-training-set-b-failure-report.md` | Permanent failure report | **Does not yet exist** |
-| `paper1-coding-starter.csv` | Production coding data file | Schema incomplete (missing confidence + in_scope columns) |
-| `paper1-irr-subsample.csv` | 76-paper IRR subsample | Exists; composition unverified |
-
----
-
-## IRR thresholds (reference)
-
-| Variable | Statistic | Threshold | Subsample |
-|---|---|---|---|
-| ER | Weighted Cohen's κ (quadratic) | ≥ 0.75 | 76 papers |
-| KF | Krippendorff's α | ≥ 0.70 | 76 papers |
-| NC | Krippendorff's α | ≥ 0.75 | 76 papers |
+| ER | Weighted Cohen's κ (quadratic) | ≥ 0.75 |
+| KF | Krippendorff's α | ≥ 0.70 |
+| NC | Krippendorff's α | ≥ 0.75 |
