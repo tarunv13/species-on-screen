@@ -1,7 +1,7 @@
 # Eco-Cinema Observatory — Project Status
 
 **Last updated:** 2026-06-27
-**Current git commit:** ebe1805 — feat(atlas): promote Sundarbans field record to canonical atlas page
+**Current git commit:** `21985a8` — feat(notes): cross-surface navigation links from research pages
 **Branch:** `feat/exploration-prototypes-and-data-pipelines`
 **AI Operating System:** v1.0 — frozen. See `.agents/AI-OS.md`.
 
@@ -9,90 +9,75 @@
 
 ## Observatory — current state
 
-Two canonical cinematic place pages exist, build cleanly, and are both reachable from the homepage:
+Two canonical cinematic place pages, fully navigable from the homepage:
 - `places/sundarbans.html` — Bengal tiger, DOM/GSAP descent (narrative: `verified`)
-- `places/crossing.html` — Hawksbill natal homing, Canvas 2D scroll-governed (narrative: `verified`, elevated in M3)
+- `places/crossing.html` — Hawksbill natal homing, Canvas 2D scroll-governed (narrative: `verified`)
 
-Homepage navigation: two-caption stack (lower-right). Sundarbans = primary (ink-mid). Crossing = secondary (ink-low, above). Both transition via Article III luminance dip.
+Atlas surface: four canonical pages, all production-built and cross-linked:
+- `atlas/index.html` — Living Atlas globe (12 narrative chips + Interaction records panel)
+- `atlas/sundarbans.html` — Sundarbans interaction web (DwC-A, 9 actors, 10 interactions)
+- `atlas/amazon-varzea.html` — Amazon várzea interaction web (DwC-A, 8 actors, 8 interactions)
+- `atlas/crossing.html` — Hawksbill research companion (narrative + species data)
+
+Research surface: 12 narrative notes pages. Sundarbans and Coral Triangle notes pages carry cross-surface navigation links to atlas/place companions.
+
+Navigation graph is complete: every surface can reach every other surface it relates to.
 
 ---
 
 ## Production Roadmap
 
-Ordered by dependency. Execute one milestone per session.
-
 ---
 
 ### M1 — Crossing canonicalization ✓ COMPLETE (2026-06-27)
-
 Committed in `2e3834d`.
 
----
-
 ### M2 — Homepage surfaces the Crossing ✓ COMPLETE (2026-06-27)
-
-Committed in `e389ea7`. Two-caption navigation stack in lower-right. `arriveToCrossing()` delivers Article III luminance dip transition to `places/crossing.html` in 1.5s.
-
----
+Committed in `e389ea7`.
 
 ### M3 — Hawksbill narrative elevated to `verified` ✓ COMPLETE (2026-06-27)
-
-**Why it matters:** The Crossing exists but is unreachable. The Observatory has two canonical cinematic experiences and only one is navigable. Until M2 ships, the architecture validation is invisible to any visitor.
-
-**Blocking dependencies:** M1 (done).
-
-**Design decision required before implementation:**
-The homepage currently has one hardcoded navigation entry (`arriveAtSundarbans()`, globe species marker at tiger hotspot, caption "Sundarbans · Bengal tiger"). The Crossing is an open-ocean journey — it has no single point on the globe. Two viable approaches:
-- **A. Second static caption** — Add "Coral Triangle · Hawksbill" below the existing caption; clicking navigates directly to `places/crossing.html` without a globe transition (the ocean crossing doesn't need the globe as an entry frame).
-- **B. Places index page** — Create `places/index.html` as a minimal navigation surface listing both places, accessible from a homepage link.
-
-Approach A is lower effort and consistent with the Observatory's one-editorial-voice-at-a-time principle. Approach B is more scalable as places grow. **Recommend A for now; B when a third place is added.**
-
-**Estimated effort:** 2–3 hours (Approach A: one new caption element + click handler in `src/main.js`).
-
-**Definition of Done:**
-- Homepage shows a navigation entry to the Crossing
-- Clicking it navigates to `places/crossing.html` without a full-screen flash
-- Existing Sundarbans navigation is unaffected
-- `npm run build` clean
-
-**Expected commit:** `feat(homepage): surface Crossing as second navigable place`
-
----
-
-### M3 — Hawksbill narrative elevated to `verified`
-
-Committed in `860f5e8`. Both sources confirmed (Lohmann et al. 2008 PNAS, Meylan & Donnelly 1999 Chelonian Conservation and Biology). Archive entry added alphabetically. check-narratives archive-index drift check now enforces the link.
-
----
+Committed in `860f5e8`.
 
 ### M4 — Field record promoted to `atlas/sundarbans.html` ✓ COMPLETE (2026-06-27)
+Committed in `ebe1805`.
 
-Committed in `ebe1805`. Files created: `atlas/sundarbans.html`, `src/atlas/field-record.js`, `src/atlas/field-record.css`. The JS imports `species-art.js` and `biome-backdrop.js` from `../prototypes/` (additive — prototype originals untouched). `vite.config.js` auto-discovered `atlas/sundarbans.html` without modification. Build: clean, `dist/atlas/sundarbans.html` = 3.03 kB.
+### M5a — Atlas navigation connections ✓ COMPLETE (2026-06-27)
+Committed in `410d3c0`. Atlas species cards now surface Field note, Interaction web, and cinematic place links where available. Crossing narrative status corrected to `verified`.
 
----
+### M5b — Amazon várzea canonical field record ✓ COMPLETE (2026-06-27)
+Committed in `55f1092`. `atlas/amazon-varzea.html` promotes the existing DwC-A (8 actors, 8 interactions) to production. PLACE now derived from URL filename in `field-record.js`.
 
-### M5 — Migration Atlas (Crossing research companion)
+### M5c — Field-record back-navigation ✓ COMPLETE (2026-06-27)
+Committed in `f81312e`. `.fr-nav` bar on all atlas field-record pages links back to Living Atlas and forward to the cinematic place (Sundarbans only).
 
-**Why it matters:** The Crossing cinematic page has no research surface counterpart beyond the raw narrative notes page. The Migration Atlas would be a glassmorphic atlas-surface page showing the hawksbill's natal homing route with real GBIF occurrence data and the Liquid Glass design system.
+### M5d — Field-record discovery panel in atlas index ✓ COMPLETE (2026-06-27)
+Committed in `10560a4`. Bottom-right glass panel in atlas/index.html lists all DwC-A places from `public/dwca/index.json` as direct links to `atlas/<id>.html`.
 
-**Blocking dependencies:** M1 (done). M3 recommended first (narrative should be verified before the atlas page launches).
+### M6 — Hawksbill research companion (`atlas/crossing.html`) ✓ COMPLETE (2026-06-27)
+Committed in `91fd779`. Completes the Crossing two-surface experience. Reads from narrative registry + `public/data/hawksbill-turtle.json` (nesting habitats, pressures). All claims cited.
 
-**Estimated effort:** 6–8 hours. New surface: `atlas/migration.html` + `src/atlas/migration.{js,css}`. Uses existing Liquid Glass tokens (`src/atlas/liquid-glass.{css,js}`).
-
-**Expected commit:** `feat(atlas): Migration Atlas — hawksbill natal homing route`
+### M7 — Cross-surface navigation from notes pages ✓ COMPLETE (2026-06-27)
+Committed in `21985a8`. `render-narrative.js` appends `.surface-links` nav for Sundarbans and Coral Triangle narratives, linking to atlas companions and cinematic places.
 
 ---
 
 ## Next recommended session
 
-**Execute M5** (Migration Atlas — hawksbill natal homing route). Requires GBIF data fetch and Liquid Glass design system. Estimated 6–8 hours.
+**Backlog (re-ranked):**
+
+1. **Coral Triangle DwC-A** — Create `public/dwca/coral-triangle/` to enable a full interaction-web field record (`atlas/coral-triangle.html`). This is data/research work: requires sourcing species occurrences and interactions for the Coral Triangle reef system. Estimated effort: 4–6 hours (data assembly + field-record promotion). No development blocker — field-record.js already handles arbitrary places.
+
+2. **Third cinematic place** — No candidate species/place selected yet. When selected, the homepage navigation pattern evolves: a third caption may require a `places/index.html` (as noted in M3 design record — Approach B). Estimated: 3–5 hours once species/place is confirmed.
+
+3. **In-review narrative elevations** — Four narratives are `in_review` (Atacama tamarugo, Delaware Bay horseshoe crab, Santa Barbara giant kelp, Sendai crow). Each requires a Research Curator Track A source verification before elevation to `verified`. Sources are already listed in the narrative files; verification is confirming publication existence and independence.
+
+**Highest priority:** Coral Triangle DwC-A unlocks the last gap in the Crossing two-surface experience (interaction-web field record). However, it requires ecological data assembly rather than development work. If data assembly is not the current priority, in-review narrative elevations are the next highest-value development task (pure research verification, no code changes).
 
 ---
 
 ## Paper 1 — frozen
 
-Status unchanged. Blocked on B-1 through B-6 (see below). Do not initiate Paper 1 work unless it blocks the doctoral submission timeline.
+Status unchanged. Blocked on B-1 through B-6 below. Do not initiate Paper 1 work unless it blocks the doctoral submission timeline.
 
 ### Blocking tasks before pilot
 
