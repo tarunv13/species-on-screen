@@ -164,6 +164,7 @@ async function init() {
   const canvas = document.getElementById('atlas-globe-canvas');
   const chipLayer = document.getElementById('chip-layer');
   const extra = document.getElementById('chip-extra');
+  const fieldRecordsPanel = document.getElementById('field-records-panel');
   const detail = document.getElementById('habitat-detail');
   const back = document.getElementById('atlas-back');
   const seasonBadge = document.getElementById('season-badge-label');
@@ -175,6 +176,25 @@ async function init() {
   // Liquid Glass: ambient key-light drift + pointer lensing on .glass
   // surfaces. No-op under reduced-motion / coarse pointers.
   initLiquidGlass(root);
+
+  // Field-records discovery panel: DwC-A places with canonical atlas pages.
+  // Populated from public/dwca/index.json; panel is shown only when data loads.
+  try {
+    const dwcaIndex = await fetch(BASE + 'dwca/index.json').then((r) => r.ok ? r.json() : []);
+    if (Array.isArray(dwcaIndex) && dwcaIndex.length && fieldRecordsPanel) {
+      const label = el('span', 'panel-label', 'Interaction records');
+      fieldRecordsPanel.appendChild(label);
+      dwcaIndex.forEach((place) => {
+        const link = document.createElement('a');
+        link.className = 'field-record-chip glass glass--chip';
+        link.href = `${BASE}atlas/${place.id}.html`;
+        link.appendChild(el('span', 'place', place.name));
+        link.appendChild(el('span', 'kind', place.type || ''));
+        fieldRecordsPanel.appendChild(link);
+      });
+      fieldRecordsPanel.style.display = 'flex';
+    }
+  } catch (e) { /* panel degrades silently if dwca/index.json is unavailable */ }
 
   const narratives = listNarratives()
     .slice()

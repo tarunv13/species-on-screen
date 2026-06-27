@@ -479,3 +479,55 @@ a { color: inherit; }
 @media (max-width: 720px) {
   .chip-extra { max-width: 90vw; right: clamp(1.4rem, 4vw, 3rem); }
 }
+
+/* =========================================================
+   Field-records panel — bottom-right glass bar listing
+   canonical interaction-web pages (atlas/<id>.html).
+   Populated from public/dwca/index.json by atlas.js.
+   ========================================================= */
+.field-records-panel {
+  position: fixed;
+  right: clamp(1.4rem, 4vw, 3rem);
+  bottom: clamp(1.4rem, 4vh, 3rem);
+  z-index: 5;
+  max-width: min(42vw, 30rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.85rem 0.9rem;
+  align-items: center;
+}
+.field-records-panel .panel-label {
+  width: 100%;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+.field-record-chip {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem 0.85rem;
+  text-decoration: none;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: transform 0.4s var(--ease-soft);
+}
+.field-record-chip:hover { transform: scale(1.04); }
+.field-record-chip .place {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.98rem;
+}
+.field-record-chip .kind {
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  text-transform: lowercase;
+}
+
+@media (max-width: 720px) {
+  .field-records-panel { max-width: 90vw; left: clamp(1.4rem, 4vw, 3rem); right: auto; }
+}
