@@ -162,6 +162,14 @@ function buildSpeciesCard(n, onBack) {
     enter.href = `${BASE}places/crossing.html`;
     actions.appendChild(enter);
   }
+  if (n.place.id === 'east-pacific-rise-vents') {
+    const fieldRecord = el('a', 'link', 'Interaction web \u2192');
+    fieldRecord.href = `${BASE}atlas/epr-vents.html`;
+    actions.appendChild(fieldRecord);
+    const enter = el('a', 'link', 'Enter the vent field \u2192');
+    enter.href = `${BASE}places/epr-vents.html`;
+    actions.appendChild(enter);
+  }
   card.appendChild(actions);
 
   return { card, season };
