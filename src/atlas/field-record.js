@@ -626,6 +626,12 @@ async function init() {
     enterLink.textContent = 'Enter the crossing →';
     nav.appendChild(enterLink);
   }
+  if (PLACE === 'epr-vents') {
+    const enterLink = document.createElement('a');
+    enterLink.href = BASE + 'places/epr-vents.html';
+    enterLink.textContent = 'Enter the vent field →';
+    nav.appendChild(enterLink);
+  }
   const fr = document.getElementById('fr');
   if (fr) fr.insertBefore(nav, fr.firstChild);
 

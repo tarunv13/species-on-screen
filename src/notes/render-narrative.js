@@ -160,6 +160,7 @@ const SURFACE_LINKS = {
     { href: '../places/crossing.html', label: 'Enter the crossing →' },
   ],
   'east-pacific-rise-vents': [
+    { href: '../atlas/epr-vents.html', label: 'Interaction web →' },
     { href: '../places/epr-vents.html', label: 'Enter the vent field →' },
   ],
 };

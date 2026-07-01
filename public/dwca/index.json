@@ -19,5 +19,12 @@
     "type": "Tropical coral reef system",
     "actors": 9,
     "interactions": 10
+  },
+  {
+    "id": "epr-vents",
+    "name": "East Pacific Rise vent field",
+    "type": "Hydrothermal vent field",
+    "actors": 9,
+    "interactions": 10
   }
 ]
