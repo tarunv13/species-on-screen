@@ -1,6 +1,6 @@
 # Eco-Cinema Observatory — Project Status
 
-**HEAD:** `feat/exploration-prototypes-and-data-pipelines` · build green · `observatory-v1.0` tagged at e61e898
+**HEAD:** `feat/exploration-prototypes-and-data-pipelines` · build green · `observatory-v1.0` at e61e898 · **observatory-v2.0 release prepared — Independent Release Review = PASS WITH WARNINGS, 0 blockers; tag recommended (not yet applied). See `.agents/sessions/2026-07-02-observatory-v2.0-release.md`.**
 
 ---
 
