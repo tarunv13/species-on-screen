@@ -429,6 +429,10 @@ function render() {
 }
 
 /* ---------- Frame loop ---------- */
+let rafId = 0;
+let resumeTimer = 0;
+let running = true;
+
 function frame(now) {
   const dt = Math.min(now - t0, 50);
   t0 = now;
@@ -442,8 +446,31 @@ function frame(now) {
     b.el.style.opacity = beatOpacity(b, p, amb).toFixed(3);
   }
 
-  requestAnimationFrame(frame);
+  rafId = requestAnimationFrame(frame);
 }
+
+/* Principle XVII: the render loop pauses when the tab is not visible — a
+   backgrounded tab does not animate or schedule work. Resumption is itself
+   a ~400ms Hold before motion resumes, so returning to the tab never catches
+   the scene mid-motion; t0 is reset so the ambient clock does not jump. */
+function stopLoop() {
+  running = false;
+  if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+  if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = 0; }
+}
+function startLoop() {
+  if (running) return;
+  running = true;
+  if (resumeTimer) clearTimeout(resumeTimer);
+  resumeTimer = setTimeout(() => {
+    resumeTimer = 0;
+    t0 = performance.now();
+    rafId = requestAnimationFrame(frame);
+  }, REDUCE ? 0 : 400);
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') startLoop(); else stopLoop();
+});
 
 /* ---------- Boot ---------- */
 function init() {

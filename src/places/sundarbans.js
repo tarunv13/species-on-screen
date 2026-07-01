@@ -367,12 +367,40 @@ function rafLoop(t) {
     }
   }
 
-  requestAnimationFrame(rafLoop);
+  parallaxRaf = requestAnimationFrame(rafLoop);
+}
+
+/* Principle XVII: the ambient/parallax loop pauses when the tab is hidden —
+   a backgrounded tab does not animate or schedule work. Resumption is itself
+   a ~400ms Hold before motion resumes, so returning to the tab never catches
+   the scene mid-motion. (The GSAP descent/mist tweens run on their own ticker,
+   which the browser already throttles when hidden.) */
+let parallaxRaf = 0;
+let parallaxResumeTimer = 0;
+let parallaxRunning = true;
+
+function stopParallax() {
+  parallaxRunning = false;
+  if (parallaxRaf) { cancelAnimationFrame(parallaxRaf); parallaxRaf = 0; }
+  if (parallaxResumeTimer) { clearTimeout(parallaxResumeTimer); parallaxResumeTimer = 0; }
+}
+function resumeParallax() {
+  if (parallaxRunning) return;
+  parallaxRunning = true;
+  if (parallaxResumeTimer) clearTimeout(parallaxResumeTimer);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  parallaxResumeTimer = setTimeout(() => {
+    parallaxResumeTimer = 0;
+    parallaxRaf = requestAnimationFrame(rafLoop);
+  }, reduce ? 0 : 400);
 }
 
 function startParallax() {
   bindParallaxInput();
-  requestAnimationFrame(rafLoop);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') resumeParallax(); else stopParallax();
+  });
+  parallaxRaf = requestAnimationFrame(rafLoop);
 }
 
 /* ---------- Ambient mist (post-M5 continuance) ---------- */
