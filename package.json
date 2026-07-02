@@ -13,14 +13,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "npm run check-narratives",
+    "prebuild": "npm run check-narratives && npm run check-manifest",
     "build": "vite build",
     "preview": "vite preview",
     "fetch-data": "node scripts/fetch-tmdb-data.js",
     "ingest": "node scripts/ingest/build-dwca.mjs",
     "ingest:news": "node scripts/ingest/build-news.mjs",
     "new-narrative": "node scripts/new-narrative.js",
-    "check-narratives": "node scripts/check-narratives.js"
+    "check-narratives": "node scripts/check-narratives.js",
+    "check-manifest": "node scripts/check-manifest.js"
   },
   "dependencies": {
     "gsap": "^3.15.0",

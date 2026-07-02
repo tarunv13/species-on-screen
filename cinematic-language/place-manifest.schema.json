@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tarunv13/species-on-screen/cinematic-language/place-manifest.schema.json",
+  "title": "Observatory Place Manifest",
+  "description": "Canonical cross-surface place bindings for the Eco-Cinema Observatory (ADR-001). Enforcement is performed by scripts/check-manifest.js (dependency-free); this schema also drives editor completion/validation via the manifest's $schema pointer.",
+  "type": "object",
+  "required": ["places"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "_comment": { "type": "string" },
+    "places": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/place" }
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "description": "kebab-case identifier or route slug"
+    },
+    "place": {
+      "type": "object",
+      "required": ["placeId", "displayName", "type", "narrativeId", "surfaces"],
+      "additionalProperties": false,
+      "properties": {
+        "placeId": { "$ref": "#/$defs/slug", "description": "canonical, stable, unique place id (join key across data models)" },
+        "displayName": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "minLength": 1, "description": "biome type; drives atlas backdrop classification + overview card" },
+        "narrativeId": { "$ref": "#/$defs/slug", "description": "registry key + notes slug of the bound narrative" },
+        "surfaces": {
+          "type": "object",
+          "required": ["research"],
+          "additionalProperties": false,
+          "properties": {
+            "research": {
+              "type": "object",
+              "required": ["slug"],
+              "additionalProperties": false,
+              "properties": { "slug": { "$ref": "#/$defs/slug", "description": "notes/<slug>.html" } }
+            },
+            "cinematic": {
+              "type": "object",
+              "required": ["slug", "enterLabel", "arrival"],
+              "additionalProperties": false,
+              "properties": {
+                "slug": { "$ref": "#/$defs/slug", "description": "places/<slug>.html" },
+                "enterLabel": { "type": "string", "minLength": 1, "description": "editorial bridge label (research/atlas → cinematic)" },
+                "arrival": {
+                  "type": "object",
+                  "required": ["kind"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": { "enum": ["globe-hotspot", "dip"] },
+                    "hotspotId": { "type": "string", "minLength": 1, "description": "required when kind = globe-hotspot" }
+                  },
+                  "allOf": [
+                    {
+                      "if": { "properties": { "kind": { "const": "globe-hotspot" } } },
+                      "then": { "required": ["hotspotId"] }
+                    }
+                  ]
+                }
+              }
+            },
+            "atlas": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["slug", "kind"],
+                "additionalProperties": false,
+                "properties": {
+                  "slug": { "$ref": "#/$defs/slug", "description": "atlas/<slug>.html" },
+                  "kind": { "enum": ["field-record", "companion"] }
+                }
+              }
+            },
+            "dwca": {
+              "type": "object",
+              "required": ["slug", "actors", "interactions"],
+              "additionalProperties": false,
+              "properties": {
+                "slug": { "$ref": "#/$defs/slug", "description": "public/dwca/<slug>/" },
+                "actors": { "type": "integer", "minimum": 1 },
+                "interactions": { "type": "integer", "minimum": 0 }
+              }
+            }
+          }
+        },
+        "homepage": {
+          "type": "object",
+          "required": ["caption", "order"],
+          "additionalProperties": false,
+          "description": "present only for places curated onto the planetary homepage",
+          "properties": {
+            "caption": { "type": "string", "minLength": 1 },
+            "order": { "type": "integer", "minimum": 1, "description": "unique among homepage entries" }
+          }
+        }
+      }
+    }
+  }
+}
