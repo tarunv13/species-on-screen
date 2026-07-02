@@ -23,7 +23,7 @@ import './atlas.css';
 import { gsap } from 'gsap';
 import { initLiquidGlass } from './liquid-glass.js';
 import { listNarratives } from '../../cinematic-language/narrative-registry.ts';
-import { getPlaceByNarrativeId } from '../../cinematic-language/place-manifest.ts';
+import { PLACES, getPlaceByNarrativeId } from '../../cinematic-language/place-manifest.ts';
 import { describeSeason, overviewPalette } from './season.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -191,24 +191,29 @@ async function init() {
   // surfaces. No-op under reduced-motion / coarse pointers.
   initLiquidGlass(root);
 
-  // Field-records discovery panel: DwC-A places with canonical atlas pages.
-  // Populated from public/dwca/index.json; panel is shown only when data loads.
+  // Field-records discovery panel: DwC-A places with a canonical field-record
+  // atlas page. Sourced directly from the Place Manifest (ADR-001 single source
+  // of truth); public/dwca/index.json was retired in M27. Each chip links to
+  // the place's field-record atlas page and shows its name + biome type.
   try {
-    const dwcaIndex = await fetch(BASE + 'dwca/index.json').then((r) => r.ok ? r.json() : []);
-    if (Array.isArray(dwcaIndex) && dwcaIndex.length && fieldRecordsPanel) {
+    const records = PLACES.filter(
+      (p) => p.surfaces.dwca && (p.surfaces.atlas || []).some((a) => a.kind === 'field-record')
+    );
+    if (records.length && fieldRecordsPanel) {
       const label = el('span', 'panel-label', 'Interaction records');
       fieldRecordsPanel.appendChild(label);
-      dwcaIndex.forEach((place) => {
+      records.forEach((place) => {
+        const fr = place.surfaces.atlas.find((a) => a.kind === 'field-record');
         const link = document.createElement('a');
         link.className = 'field-record-chip glass glass--chip';
-        link.href = `${BASE}atlas/${place.id}.html`;
-        link.appendChild(el('span', 'place', place.name));
+        link.href = `${BASE}atlas/${fr.slug}.html`;
+        link.appendChild(el('span', 'place', place.displayName));
         link.appendChild(el('span', 'kind', place.type || ''));
         fieldRecordsPanel.appendChild(link);
       });
       fieldRecordsPanel.style.display = 'flex';
     }
-  } catch (e) { /* panel degrades silently if dwca/index.json is unavailable */ }
+  } catch (e) { /* panel degrades silently if the manifest is unavailable */ }
 
   const narratives = listNarratives()
     .slice()

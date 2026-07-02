@@ -20,6 +20,17 @@
       "homepage": { "caption": "Sundarbans · Bengal tiger", "order": 1 }
     },
     {
+      "placeId": "amazon-varzea",
+      "displayName": "Amazon várzea",
+      "type": "Seasonally flooded forest",
+      "narrativeId": "amazon-varzea-arapaima-flood-pulse",
+      "surfaces": {
+        "research": { "slug": "amazon-varzea-arapaima-flood-pulse" },
+        "atlas": [{ "slug": "amazon-varzea", "kind": "field-record" }],
+        "dwca": { "slug": "amazon-varzea", "actors": 8, "interactions": 8 }
+      }
+    },
+    {
       "placeId": "coral-triangle",
       "displayName": "Coral Triangle",
       "type": "Tropical coral reef system",
@@ -55,17 +66,6 @@
         "dwca": { "slug": "epr-vents", "actors": 9, "interactions": 10 }
       },
       "homepage": { "caption": "East Pacific Rise · Giant tubeworm", "order": 3 }
-    },
-    {
-      "placeId": "amazon-varzea",
-      "displayName": "Amazon várzea",
-      "type": "Seasonally flooded forest",
-      "narrativeId": "amazon-varzea-arapaima-flood-pulse",
-      "surfaces": {
-        "research": { "slug": "amazon-varzea-arapaima-flood-pulse" },
-        "atlas": [{ "slug": "amazon-varzea", "kind": "field-record" }],
-        "dwca": { "slug": "amazon-varzea", "actors": 8, "interactions": 8 }
-      }
     }
   ]
 }
