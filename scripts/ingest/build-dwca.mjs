@@ -168,19 +168,12 @@ async function main() {
   if (!ids.length) { console.error('No matching place in places.config.json:', only); process.exit(1); }
   const index = [];
   for (const id of ids) index.push(await buildPlace(id, CONFIG[id]));
-  // A small registry so the field-record can discover available places.
-  const idxPath = resolve(ROOT, 'public/dwca/index.json');
-  let merged = index;
-  if (existsSync(idxPath)) {
-    try {
-      const prev = JSON.parse(readFileSync(idxPath, 'utf8'));
-      const byId = new Map(prev.map((p) => [p.id, p]));
-      index.forEach((p) => byId.set(p.id, p));
-      merged = [...byId.values()];
-    } catch (e) { /* overwrite */ }
-  }
-  writeFileSync(idxPath, JSON.stringify(merged, null, 2) + '\n');
-  console.log(`\n✓ ingest complete: ${index.map((p) => p.id).join(', ')}\n  registry → public/dwca/index.json`);
+  // No dwca/index.json is written (retired in M27): the canonical registry of
+  // places is cinematic-language/place-manifest.json (ADR-001 single source of
+  // truth), which `check-manifest` validates against each archive's actual row
+  // counts. Regenerating an archive that changes its actor/interaction counts
+  // requires updating the manifest's dwca counts, which the validator enforces.
+  console.log(`\n✓ ingest complete: ${index.map((p) => p.id).join(', ')}`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

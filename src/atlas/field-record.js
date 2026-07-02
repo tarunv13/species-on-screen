@@ -647,11 +647,13 @@ async function init() {
     pointer.overUI = !!(e.target && e.target.closest && e.target.closest('.fr-card, .fr-sources, .fr-masthead, .fr-speciescard'));
   }, { passive: true });
   window.addEventListener('pointerleave', () => { pointer.active = false; setHovered(null); }, { passive: true });
-  // Place metadata (name/type) from the ingest registry, for the masthead.
-  try {
-    const idx = await fetch(BASE + 'dwca/index.json').then((r) => r.json());
-    PLACE_META = (idx || []).find((p) => p.id === PLACE) || null;
-  } catch (e) { PLACE_META = null; }
+  // Place metadata (name/type) for the masthead, from the Place Manifest
+  // (ADR-001 single source of truth; public/dwca/index.json retired in M27).
+  // PLACE is the atlas slug, so the lookup is by surface slug.
+  {
+    const mp = getPlaceBySurfaceSlug(PLACE);
+    PLACE_META = mp ? { name: mp.displayName, type: mp.type } : null;
+  }
   try {
     await loadDwc();
   } catch (e) {

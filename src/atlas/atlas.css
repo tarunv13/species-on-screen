@@ -483,7 +483,7 @@ a { color: inherit; }
 /* =========================================================
    Field-records panel — bottom-right glass bar listing
    canonical interaction-web pages (atlas/<id>.html).
-   Populated from public/dwca/index.json by atlas.js.
+   Populated from the Place Manifest by atlas.js (ADR-001).
    ========================================================= */
 .field-records-panel {
   position: fixed;
