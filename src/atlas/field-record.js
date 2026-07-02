@@ -20,6 +20,7 @@ import Lenis from 'lenis';
 import './field-record.css';
 import { makeSpeciesArt } from '../prototypes/species-art.js';
 import { makeBackdrop } from '../prototypes/biome-backdrop.js';
+import { getPlaceBySurfaceSlug } from '../../cinematic-language/place-manifest.ts';
 
 const BASE = import.meta.env.BASE_URL || '/';
 // Which place to read. Prefers the ?place= query param (dev/prototype use);
@@ -610,27 +611,29 @@ async function init() {
   atlasLink.href = BASE + 'atlas/';
   atlasLink.textContent = '← Living Atlas';
   nav.appendChild(atlasLink);
-  if (PLACE === 'sundarbans') {
-    const placeLink = document.createElement('a');
-    placeLink.href = BASE + 'places/sundarbans.html';
-    placeLink.textContent = 'Enter the living place →';
-    nav.appendChild(placeLink);
-  }
-  if (PLACE === 'coral-triangle') {
-    const companionLink = document.createElement('a');
-    companionLink.href = BASE + 'atlas/crossing.html';
-    companionLink.textContent = 'Research companion →';
-    nav.appendChild(companionLink);
-    const enterLink = document.createElement('a');
-    enterLink.href = BASE + 'places/crossing.html';
-    enterLink.textContent = 'Enter the crossing →';
-    nav.appendChild(enterLink);
-  }
-  if (PLACE === 'epr-vents') {
-    const enterLink = document.createElement('a');
-    enterLink.href = BASE + 'places/epr-vents.html';
-    enterLink.textContent = 'Enter the vent field →';
-    nav.appendChild(enterLink);
+  // Cross-surface nav, derived from the canonical Place Manifest (ADR-001).
+  // Replaces the per-place branches (M25 Phase 1B). Reproduces prior output and
+  // order exactly: each companion atlas ("Research companion →"), then the
+  // cinematic place (its manifest enterLabel). A field record never links to
+  // itself, and a place with no cinematic (e.g. amazon-varzea) gets only the
+  // "← Living Atlas" link above, as before. PLACE is the atlas slug, so the
+  // manifest lookup is by surface slug.
+  const manifestPlace = getPlaceBySurfaceSlug(PLACE);
+  if (manifestPlace) {
+    for (const a of (manifestPlace.surfaces.atlas || [])) {
+      if (a.kind === 'companion') {
+        const companionLink = document.createElement('a');
+        companionLink.href = BASE + 'atlas/' + a.slug + '.html';
+        companionLink.textContent = 'Research companion →';
+        nav.appendChild(companionLink);
+      }
+    }
+    if (manifestPlace.surfaces.cinematic) {
+      const enterLink = document.createElement('a');
+      enterLink.href = BASE + 'places/' + manifestPlace.surfaces.cinematic.slug + '.html';
+      enterLink.textContent = manifestPlace.surfaces.cinematic.enterLabel;
+      nav.appendChild(enterLink);
+    }
   }
   const fr = document.getElementById('fr');
   if (fr) fr.insertBefore(nav, fr.firstChild);

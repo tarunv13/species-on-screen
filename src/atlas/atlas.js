@@ -23,6 +23,7 @@ import './atlas.css';
 import { gsap } from 'gsap';
 import { initLiquidGlass } from './liquid-glass.js';
 import { listNarratives } from '../../cinematic-language/narrative-registry.ts';
+import { getPlaceByNarrativeId } from '../../cinematic-language/place-manifest.ts';
 import { describeSeason, overviewPalette } from './season.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -133,42 +134,36 @@ function buildSpeciesCard(n, onBack) {
   record.href = `${BASE}notes/${n.id}.html`;
   actions.appendChild(record);
 
-  // Bridge to the interactive field record (atlas surface), where one exists.
-  if (n.place.id === 'sundarbans') {
-    const fieldRecord = el('a', 'link', 'Interaction web \u2192');
-    fieldRecord.href = `${BASE}atlas/sundarbans.html`;
-    actions.appendChild(fieldRecord);
-  }
-
-  // Bridge to the canonical cinematic place, where one exists.
-  if (n.place.id === 'sundarbans') {
-    const enter = el('a', 'link', 'Enter the living place \u2192');
-    enter.href = `${BASE}places/sundarbans.html`;
-    actions.appendChild(enter);
-  }
-  if (n.place.id === 'amazon-varzea') {
-    const fieldRecord = el('a', 'link', 'Interaction web →');
-    fieldRecord.href = `${BASE}atlas/amazon-varzea.html`;
-    actions.appendChild(fieldRecord);
-  }
-  if (n.place.id === 'coral-triangle') {
-    const fieldRecord = el('a', 'link', 'Interaction web \u2192');
-    fieldRecord.href = `${BASE}atlas/coral-triangle.html`;
-    actions.appendChild(fieldRecord);
-    const companion = el('a', 'link', 'Research companion \u2192');
-    companion.href = `${BASE}atlas/crossing.html`;
-    actions.appendChild(companion);
-    const enter = el('a', 'link', 'Enter the crossing \u2192');
-    enter.href = `${BASE}places/crossing.html`;
-    actions.appendChild(enter);
-  }
-  if (n.place.id === 'east-pacific-rise-vents') {
-    const fieldRecord = el('a', 'link', 'Interaction web \u2192');
-    fieldRecord.href = `${BASE}atlas/epr-vents.html`;
-    actions.appendChild(fieldRecord);
-    const enter = el('a', 'link', 'Enter the vent field \u2192');
-    enter.href = `${BASE}places/epr-vents.html`;
-    actions.appendChild(enter);
+  // Cross-surface bridges, derived from the canonical Place Manifest (ADR-001).
+  // Replaces the per-place branches (M25 Phase 1B). Reproduces prior output and
+  // order exactly: each field-record atlas ("Interaction web"), then each
+  // companion atlas ("Research companion"), then the cinematic place (its
+  // manifest enterLabel). Narratives with no manifest entry get only the
+  // "Field note" link above, as before. Lookup is by narrative id because the
+  // manifest's canonical placeId differs from a narrative's place.id in some
+  // cases (east-pacific-rise vs east-pacific-rise-vents).
+  const place = getPlaceByNarrativeId(n.id);
+  if (place) {
+    const atlas = place.surfaces.atlas || [];
+    for (const a of atlas) {
+      if (a.kind === 'field-record') {
+        const fieldRecord = el('a', 'link', 'Interaction web →');
+        fieldRecord.href = `${BASE}atlas/${a.slug}.html`;
+        actions.appendChild(fieldRecord);
+      }
+    }
+    for (const a of atlas) {
+      if (a.kind === 'companion') {
+        const companion = el('a', 'link', 'Research companion →');
+        companion.href = `${BASE}atlas/${a.slug}.html`;
+        actions.appendChild(companion);
+      }
+    }
+    if (place.surfaces.cinematic) {
+      const enter = el('a', 'link', place.surfaces.cinematic.enterLabel);
+      enter.href = `${BASE}places/${place.surfaces.cinematic.slug}.html`;
+      actions.appendChild(enter);
+    }
   }
   card.appendChild(actions);
 
