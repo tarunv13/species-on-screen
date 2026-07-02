@@ -21,6 +21,8 @@
 
 import { getNarrativeById } from
   '../../cinematic-language/narrative-registry.ts';
+import { getPlaceByNarrativeId } from
+  '../../cinematic-language/place-manifest.ts';
 import './research-article.css';
 
 const IUCN_LABEL = {
@@ -146,28 +148,47 @@ function renderMetadata(m) {
 /* ---------- Cross-surface navigation (atlas companions + cinematic places) ---------- */
 
 // Notes pages live at notes/<id>.html; relative paths work regardless of base.
-const SURFACE_LINKS = {
-  sundarbans: [
-    { href: '../atlas/sundarbans.html', label: 'Interaction web →' },
-    { href: '../places/sundarbans.html', label: 'Enter the living place →' },
-  ],
-  'amazon-varzea': [
-    { href: '../atlas/amazon-varzea.html', label: 'Interaction web →' },
-  ],
-  'coral-triangle': [
-    { href: '../atlas/coral-triangle.html', label: 'Interaction web →' },
-    { href: '../atlas/crossing.html', label: 'Research companion →' },
-    { href: '../places/crossing.html', label: 'Enter the crossing →' },
-  ],
-  'east-pacific-rise-vents': [
-    { href: '../atlas/epr-vents.html', label: 'Interaction web →' },
-    { href: '../places/epr-vents.html', label: 'Enter the vent field →' },
-  ],
-};
+//
+// Links are derived from the canonical Place Manifest (ADR-001). This replaced
+// the per-place SURFACE_LINKS table in M24 Phase 1A; the manifest is now the
+// single source of truth for cross-surface bindings. The derivation reproduces
+// the previous output exactly, in the same order: each field-record atlas
+// ("Interaction web →"), then each companion atlas ("Research companion →"),
+// then the cinematic place (its editorial enter label). A narrative with no
+// manifest entry (research-only) renders no surface links, as before.
+//
+// The generic atlas labels are a research-surface convention (not per-place
+// data), so they live here; only the place-specific cinematic label
+// (`enterLabel`) comes from the manifest. Lookup is by narrative id, because
+// the manifest's canonical `placeId` intentionally differs from a narrative's
+// `place.id` in some cases (e.g. east-pacific-rise vs east-pacific-rise-vents).
+function surfaceLinksFor(n) {
+  const place = getPlaceByNarrativeId(n.id);
+  if (!place) return [];
+  const atlas = place.surfaces.atlas || [];
+  const links = [];
+  for (const a of atlas) {
+    if (a.kind === 'field-record') {
+      links.push({ href: `../atlas/${a.slug}.html`, label: 'Interaction web →' });
+    }
+  }
+  for (const a of atlas) {
+    if (a.kind === 'companion') {
+      links.push({ href: `../atlas/${a.slug}.html`, label: 'Research companion →' });
+    }
+  }
+  if (place.surfaces.cinematic) {
+    links.push({
+      href: `../places/${place.surfaces.cinematic.slug}.html`,
+      label: place.surfaces.cinematic.enterLabel,
+    });
+  }
+  return links;
+}
 
 function renderSurfaceLinks(n) {
-  const links = SURFACE_LINKS[n.place.id];
-  if (!links || !links.length) return '';
+  const links = surfaceLinksFor(n);
+  if (!links.length) return '';
   const items = links.map((l) => `<a href="${escape(l.href)}">${escape(l.label)}</a>`).join('');
   return `<nav class="surface-links" aria-label="Observatory surfaces">${items}</nav>`;
 }
