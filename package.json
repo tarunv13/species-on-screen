@@ -2,6 +2,14 @@
   "name": "eco-cinema-observatory",
   "private": true,
   "version": "0.1.0",
+  "description": "Eco-Cinema Observatory (species-on-screen): a doctrine-governed cinematic + research ecological observatory with Darwin Core interaction archives.",
+  "license": "Apache-2.0",
+  "author": "tarunv13",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tarunv13/species-on-screen.git"
+  },
+  "homepage": "https://tarunv13.github.io/species-on-screen/",
   "type": "module",
   "scripts": {
     "dev": "vite",

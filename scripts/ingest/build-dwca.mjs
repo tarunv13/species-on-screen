@@ -68,6 +68,9 @@ function eml(id, place) {
     <pubDate>${new Date().toISOString().slice(0, 10)}</pubDate>
     <language>en</language>
     <abstract><para>An attested, illustrative interaction dataset for ${place.name} (${place.locality}). Occurrences — species and the human community (Homo sapiens) — are placed in the landscape and linked by resource relationships typed with OBO Relations Ontology terms (as the Global Biotic Interactions network uses them). Taxonomy is the GBIF backbone; interactions are sourced from GloBI where present and from the cited literature otherwise. Coordinates are representative georeferenced occurrences within the reserve.</para></abstract>
+    <intellectualRights>
+      <para>This work is licensed under a <ulink url="https://creativecommons.org/licenses/by/4.0/legalcode"><citetitle>Creative Commons Attribution (CC BY) 4.0 License</citetitle></ulink>.</para>
+    </intellectualRights>
     <coverage>
       <geographicCoverage>
         <geographicDescription>${place.locality}</geographicDescription>
