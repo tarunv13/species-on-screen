@@ -160,6 +160,18 @@ body {
   color: var(--colour-ink-mid);
 }
 
+/* Third place entry. Stacks above the secondary caption in the same
+   subordinate register (ink-low), continuing the primary/secondary
+   hierarchy without a new typographic treatment. */
+.page-caption--tertiary {
+  bottom: 5.2rem;
+  color: var(--colour-ink-low);
+}
+
+.page-caption--tertiary:hover {
+  color: var(--colour-ink-mid);
+}
+
 @media (max-width: 768px) {
   .page-caption {
     font-size: 0.72rem;
@@ -169,6 +181,10 @@ body {
 
   .page-caption--secondary {
     bottom: 3.3rem;
+  }
+
+  .page-caption--tertiary {
+    bottom: 5.6rem;
   }
 }
 

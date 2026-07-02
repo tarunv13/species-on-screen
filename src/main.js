@@ -87,6 +87,14 @@ function setupPageCaption() {
       arriveToCrossing();
     });
   }
+
+  const eprCaption = document.getElementById('page-caption-epr');
+  if (eprCaption) {
+    eprCaption.addEventListener('click', (e) => {
+      e.preventDefault();
+      arriveToEPR();
+    });
+  }
 }
 
 /**
@@ -264,6 +272,63 @@ function arriveToCrossing() {
   }, 1.5 * k);
 }
 
+/**
+ * Arrival into the East Pacific Rise place (places/epr-vents.html).
+ *
+ * Like the Crossing, the vent field has no globe hotspot — it is an
+ * abyssal descent, not a point on the planet — so this transition skips
+ * the globe camera fly and runs only the luminance dip (Article III §3:
+ * the cut must occur inside the dip, never on a clear frame). The
+ * destination begins on a near-black inline-styled body (#02030a), so
+ * the dark frame continues uninterrupted across the cut. Grammar and
+ * timing are identical to arriveToCrossing().
+ */
+function arriveToEPR() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  killActiveTransition();
+  globe.isHovered = false;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const k = reduce ? 0.5 : 1.0;
+
+  const tl = gsap.timeline();
+  activeTransition = tl;
+
+  /* ----- Departure (0 - 0.7s * k) ----- */
+  tl.to('#globe-ui-container', {
+    opacity: 0,
+    duration: 0.7 * k,
+    ease: 'sine.inOut'
+  }, 0);
+
+  /* ----- Crossing (0.5 - 1.5s * k) — luminance dip ----- */
+  tl.add(() => {
+    const ls = document.getElementById('loading-screen');
+    if (ls) {
+      ls.style.display = 'block';
+      ls.style.opacity = '0';
+    }
+  }, 0.5 * k);
+  tl.to('#loading-screen', {
+    opacity: 1,
+    duration: 0.9 * k,
+    ease: 'power2.inOut'
+  }, 0.5 * k);
+  tl.to('#cinematic-canvas', {
+    opacity: 0,
+    duration: 0.8 * k,
+    ease: 'power2.inOut'
+  }, 0.6 * k);
+
+  /* ----- Cut at peak black (1.5s * k) ----- */
+  tl.add(() => {
+    const base = import.meta.env.BASE_URL || '/';
+    window.location.assign(`${base}places/epr-vents.html`);
+  }, 1.5 * k);
+}
+
 function killActiveTransition() {
   if (activeTransition) {
     activeTransition.kill();
@@ -293,6 +358,8 @@ function runLandingSequence() {
       if (pageCaption) pageCaption.classList.add('is-visible');
       const crossingCaption = document.getElementById('page-caption-crossing');
       if (crossingCaption) crossingCaption.classList.add('is-visible');
+      const eprCaption = document.getElementById('page-caption-epr');
+      if (eprCaption) eprCaption.classList.add('is-visible');
     });
   });
 }
