@@ -1,0 +1,35 @@
+{
+  "_comment": "The conformance contract, per level. An implementation is conformant at a level iff it produces exactly these verdicts and reason-code sets (order-independent) for this corpus at that level. Levels are additive: an Ln-conformant binding is L(n-1)-conformant. Keys are <archiveSlug>/<resourceRelationshipID>.",
+  "levels": {
+    "L1": {
+      "clean/REL:1": { "verdict": "CONFORMANT", "reasons": [] },
+      "clean/REL:2": { "verdict": "CONFORMANT", "reasons": [] },
+      "mixed/MREL:1": { "verdict": "CONFORMANT", "reasons": [] },
+      "mixed/MREL:2": { "verdict": "NON_CONFORMANT", "reasons": ["EVIDENCE_UNRESOLVABLE"] },
+      "mixed/MREL:3": { "verdict": "NON_CONFORMANT", "reasons": ["RELATION_UNTYPED"] },
+      "mixed/MREL:4": { "verdict": "NON_CONFORMANT", "reasons": ["SOURCE_MISSING"] },
+      "mixed/MREL:5": { "verdict": "NON_CONFORMANT", "reasons": ["BACKBONE_UNRECONCILED"] },
+      "mixed/MREL:6": { "verdict": "NON_CONFORMANT", "reasons": ["AS_OF_MISSING"] }
+    },
+    "L2": {
+      "clean/REL:1": { "verdict": "CONFORMANT", "reasons": [] },
+      "clean/REL:2": { "verdict": "CONFORMANT", "reasons": [] },
+      "mixed/MREL:1": { "verdict": "NON_CONFORMANT", "reasons": ["SOURCE_UNRESOLVABLE"] },
+      "mixed/MREL:2": { "verdict": "NON_CONFORMANT", "reasons": ["EVIDENCE_UNRESOLVABLE", "SOURCE_UNRESOLVABLE"] },
+      "mixed/MREL:3": { "verdict": "NON_CONFORMANT", "reasons": ["RELATION_UNTYPED", "SOURCE_UNRESOLVABLE"] },
+      "mixed/MREL:4": { "verdict": "NON_CONFORMANT", "reasons": ["SOURCE_MISSING"] },
+      "mixed/MREL:5": { "verdict": "NON_CONFORMANT", "reasons": ["BACKBONE_UNRECONCILED", "SOURCE_UNRESOLVABLE"] },
+      "mixed/MREL:6": { "verdict": "NON_CONFORMANT", "reasons": ["AS_OF_MISSING", "SOURCE_UNRESOLVABLE"] }
+    },
+    "L3": {
+      "clean/REL:1": { "verdict": "CONFORMANT", "reasons": [] },
+      "clean/REL:2": { "verdict": "CONFORMANT", "reasons": [] },
+      "mixed/MREL:1": { "verdict": "NON_CONFORMANT", "reasons": ["SOURCE_UNRESOLVABLE", "BACKBONE_UNPINNED", "ASSERTION_UNATTRIBUTED"] },
+      "mixed/MREL:2": { "verdict": "NON_CONFORMANT", "reasons": ["EVIDENCE_UNRESOLVABLE", "SOURCE_UNRESOLVABLE", "BACKBONE_UNPINNED", "ASSERTION_UNATTRIBUTED"] },
+      "mixed/MREL:3": { "verdict": "NON_CONFORMANT", "reasons": ["RELATION_UNTYPED", "SOURCE_UNRESOLVABLE", "BACKBONE_UNPINNED", "ASSERTION_UNATTRIBUTED"] },
+      "mixed/MREL:4": { "verdict": "NON_CONFORMANT", "reasons": ["SOURCE_MISSING", "BACKBONE_UNPINNED", "ASSERTION_UNATTRIBUTED"] },
+      "mixed/MREL:5": { "verdict": "NON_CONFORMANT", "reasons": ["BACKBONE_UNRECONCILED", "SOURCE_UNRESOLVABLE", "BACKBONE_UNPINNED", "ASSERTION_UNATTRIBUTED"] },
+      "mixed/MREL:6": { "verdict": "NON_CONFORMANT", "reasons": ["AS_OF_MISSING", "SOURCE_UNRESOLVABLE", "BACKBONE_UNPINNED", "ASSERTION_UNATTRIBUTED"] }
+    }
+  }
+}

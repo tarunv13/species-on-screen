@@ -1,3 +1,10 @@
+/* Cross-depth transition — the "cut hidden in a dip" between depths, via the
+   W3C View Transitions API (cross-document): a calm ~350ms cross-fade where
+   supported, a plain multi-page navigation where not. Cinematic pages do NOT
+   opt in — purity preserved. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+
 /*
   Field record — research-surface scrollytelling (atlas) styles.
   ------------------------------------------------------------------
@@ -70,6 +77,9 @@ a { color: var(--fr-accent); }
   font-family: var(--fr-serif); font-weight: 400; font-style: italic;
   font-size: clamp(2.6rem, 7.5vw, 4.6rem); line-height: 1.02; margin: 0.6rem 0 0;
   color: var(--fr-ink);
+  /* Subject-through-line: the place title morphs across the atlas→evidence
+     descent, pairing with the ledger's identically-named <h1>. */
+  view-transition-name: eke-subject;
 }
 .fr-sub {
   font-size: 1.08rem; line-height: 1.6; color: var(--fr-ink-soft);

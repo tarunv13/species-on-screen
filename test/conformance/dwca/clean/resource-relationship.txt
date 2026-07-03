@@ -1,0 +1,3 @@
+resourceRelationshipID	resourceID	relatedResourceID	relationshipOfResource	relationshipOfResourceID	relationshipAccordingTo	relationshipEstablishedDate	relationshipRemarks
+REL:1	OCC:2	OCC:1	pollinates	http://purl.obolibrary.org/obo/RO_0002455	https://doi.org/10.1111/jbi.14001	2020-01-01	conformant at L1, L2, L3 (DOI source, pinned backbone, dated binding)
+REL:2	OCC:3	OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470	10.1111/jbi.14002	2020-01-01	conformant at L1, L2, L3 (bare DOI, pinned backbone, dated binding)

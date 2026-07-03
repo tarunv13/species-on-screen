@@ -23,6 +23,7 @@ import { getNarrativeById } from
   '../../cinematic-language/narrative-registry.ts';
 import { getPlaceByNarrativeId } from
   '../../cinematic-language/place-manifest.ts';
+import { surfaceLinksForPlace } from './surface-links.js';
 import './research-article.css';
 
 const IUCN_LABEL = {
@@ -157,33 +158,12 @@ function renderMetadata(m) {
 // then the cinematic place (its editorial enter label). A narrative with no
 // manifest entry (research-only) renders no surface links, as before.
 //
-// The generic atlas labels are a research-surface convention (not per-place
-// data), so they live here; only the place-specific cinematic label
-// (`enterLabel`) comes from the manifest. Lookup is by narrative id, because
-// the manifest's canonical `placeId` intentionally differs from a narrative's
-// `place.id` in some cases (e.g. east-pacific-rise vs east-pacific-rise-vents).
+// The pure derivation lives in ./surface-links.js (unit-tested in Node). Lookup
+// is by narrative id, because the manifest's canonical `placeId` intentionally
+// differs from a narrative's `place.id` in some cases (e.g. east-pacific-rise
+// vs east-pacific-rise-vents).
 function surfaceLinksFor(n) {
-  const place = getPlaceByNarrativeId(n.id);
-  if (!place) return [];
-  const atlas = place.surfaces.atlas || [];
-  const links = [];
-  for (const a of atlas) {
-    if (a.kind === 'field-record') {
-      links.push({ href: `../atlas/${a.slug}.html`, label: 'Interaction web →' });
-    }
-  }
-  for (const a of atlas) {
-    if (a.kind === 'companion') {
-      links.push({ href: `../atlas/${a.slug}.html`, label: 'Research companion →' });
-    }
-  }
-  if (place.surfaces.cinematic) {
-    links.push({
-      href: `../places/${place.surfaces.cinematic.slug}.html`,
-      label: place.surfaces.cinematic.enterLabel,
-    });
-  }
-  return links;
+  return surfaceLinksForPlace(getPlaceByNarrativeId(n.id));
 }
 
 function renderSurfaceLinks(n) {
