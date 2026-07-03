@@ -149,22 +149,44 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 
 - **Goal:** Implement the **interrogate** primitive as a **depth-local reveal** that exposes a
   claim's evidence chain from `check-bindings --json`, **never re-derived** at render time.
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - Interrogation happens **in place, at the current depth** — it does not navigate to another
-    depth or document.
-  - The revealed evidence (subject/object occurrences, source, backbone/date/pin status, verdict,
-    reason codes) comes **directly from the validator's JSON**, embedded at build time; nothing is
-    recomputed in the browser.
-  - No new evidentiary logic lives on the surface (single source of truth = the validator).
-  - Cinematic surfaces host no interrogate affordance (consistent with D3).
-  - Verified headlessly (the inlined JSON matches the validator output; the reveal is present in
-    the built artifact).
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** Follows M34 (needs the reach-not-truth badge vocabulary). Primary generators:
-  `scripts/build-evidence.mjs`, `scripts/check-bindings.js` (`--json`).
+  - ✅ Interrogation happens **in place, at the current depth** — each claim carries a native
+    `<details>` reveal that toggles inline; no `href`, no navigation, no depth change.
+  - ✅ The revealed evidence (subject/object occurrences, source, backbone/date/pin status,
+    verdict, reason codes) comes **directly from the validator's JSON**, inlined at build time;
+    the reveal is static HTML with **zero JS** — nothing is recomputed in the browser.
+  - ✅ No new evidentiary logic lives on the surface: the pure `interrogationChain()` only selects
+    and shapes validator fields (single source of truth = `check-bindings.js`), unit-proven verbatim.
+  - ✅ Cinematic surfaces host no interrogate affordance (D3) — confirmed absent from every
+    `dist/assets/places-*.js`; also absent from the atlas/research bundles (it is depth-local to
+    the evidential ledger).
+  - ✅ Verified headlessly: a cross-check confirmed **all 190 inlined fields match the validator
+    output** exactly across the four ledgers, and the reveal ships in the built artifact.
+- **Files Changed:**
+  - `scripts/evidence-interrogate.mjs` (new) — pure, dependency-free `interrogationChain(record)`
+    that copies verdict / reason codes / source / subject+object occurrence status (occurrenceID,
+    name, backbone, as-of, pinned) verbatim from one validator `--json` record; never re-derives.
+  - `scripts/build-evidence.mjs` — renders a `<details class="interrogate">` per claim from that
+    chain (verdict verbatim, reason codes, source, both occurrences' full status); the occurrence
+    detail moved from the always-visible summary into the reveal; new interrogate/chain styles.
+  - `scripts/evidence-interrogate.test.mjs` (new) — 21 black-box checks (verbatim verdict/source/
+    occurrence fields, reachCodes preferred then L1 reasons, null-not-fabricated, defensive input).
+    `package.json` wires `test:evidence-interrogate` into `verify` (now 11 checks).
+- **Commit:** One clean M35 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:evidence-interrogate` — PASS (21 checks).
+  - `npm run verify` — 11 checks green.
+  - `npm run build` — green.
+  - Real-data cross-check: parsed `check-bindings.js --json` (+ L2), asserted every ledger's
+    `<details>` count equals its record count and **all 190 inlined validator fields matched**.
+  - Built `dist/evidence/epr-vents.html` ships 10 interrogate reveals; M34's reach badges +
+    verbatim codes intact; no interrogate logic in any cinematic/atlas/research bundle.
+- **Notes:** Followed M34 (uses the reach-not-truth badge context). The `<details>` reveal now also
+  surfaces the **verbatim validator verdict** (`CONFORMANT` / `NON_CONFORMANT`) — the raw audit
+  disclosure where the literal verdict token belongs — which closes the M34-review observation that
+  the verbatim verdict appeared nowhere, without reintroducing pass/fail language into the badge.
 
 ### M36 — Typed-edge follow in the atlas (D4)
 

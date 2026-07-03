@@ -23,6 +23,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { classifyReach, REACH_META, reasonCodesVerbatim } from './evidence-reach.mjs';
+import { interrogationChain } from './evidence-interrogate.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(REPO_ROOT, 'public', 'evidence');
@@ -50,6 +51,16 @@ h1{font-size:2rem;margin:0 0 .25rem;view-transition-name:eke-subject}.sub{color:
 .codes code{display:inline-block;background:#ece7db;border-radius:.2rem;padding:.06rem .34rem;margin:.05rem .12rem .05rem 0;font:.78rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink)}
 .ev{list-style:none;margin:0;padding:0;font:.86rem/1.5 -apple-system,system-ui,sans-serif;color:var(--muted)}
 .ev li{padding:.1rem 0}.ev .sci{font-style:italic;color:var(--ink)}
+.interrogate{margin:.5rem 0 .1rem;font:.86rem/1.5 -apple-system,system-ui,sans-serif}
+.interrogate>summary{cursor:pointer;color:var(--teal);list-style:none;display:inline-block;padding:.15rem 0;letter-spacing:.02em}
+.interrogate>summary::-webkit-details-marker{display:none}
+.interrogate>summary::before{content:"▸ ";color:var(--muted)}
+.interrogate[open]>summary::before{content:"▾ "}
+.chain{border-left:2px solid var(--rule);margin:.5rem 0 .3rem;padding:.3rem 0 .3rem .9rem;color:var(--muted)}
+.chain .row{padding:.12rem 0}.chain .k{color:var(--ink);font-weight:600}
+.chain code{background:#ece7db;border-radius:.2rem;padding:.06rem .34rem;font:.8rem/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink)}
+.chain .occ{margin:.35rem 0 0}.chain .occ .sci{font-style:italic;color:var(--ink)}
+.chain .occ .facts{color:var(--muted)}
 .foot{margin-top:3rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--rule);padding-top:1rem}
 a{color:var(--teal)}
 .nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 2.25rem}
@@ -93,11 +104,29 @@ function pageHtml(place, records) {
     // D7: non-resolution is a first-class terminal state — a calm italic note
     // framing the open reach as an open question rather than a failure.
     const reachNote = r.reach === 'open' ? `\n        <p class="reach">${esc(meta.note)}</p>` : '';
-    const occ = (o) => `<li><span class="sci">${esc(o.name || o.occurrenceID)}</span> — backbone ${o.backbone ? 'reconciled' : 'unreconciled'}${o.asOf ? `, recorded ${esc(o.asOf)}` : ''}</li>`;
+    // D5 — INTERROGATE: a depth-local <details> reveal (no navigation, no JS)
+    // showing the full evidence chain, inlined at build time straight from the
+    // validator record. interrogationChain() only selects fields; it never
+    // re-derives, so the reveal cannot drift from check-bindings.js.
+    const chain = interrogationChain(r);
+    const occRow = (o) => `<div class="occ"><span class="k">${esc(o.role)}:</span> <span class="sci">${esc(o.name || o.occurrenceID)}</span>
+          <div class="facts">occurrenceID <code>${esc(o.occurrenceID)}</code> · GBIF backbone ${o.backbone ? 'reconciled' : 'unreconciled'} · as-of ${o.asOf ? `<code>${esc(o.asOf)}</code>` : '—'} · backbone version ${o.pinned ? 'pinned' : 'unpinned'}</div></div>`;
+    const chainCodes = chain.reasons.length
+      ? chain.reasons.map((c) => `<code>${esc(c)}</code>`).join(' ')
+      : '<span class="k">none</span>';
+    const interrogate = `\n        <details class="interrogate">
+          <summary>Interrogate — trace this claim to its evidence</summary>
+          <div class="chain">
+            <div class="row"><span class="k">validator verdict (baseline):</span> <code>${esc(chain.verdict || '—')}</code></div>
+            <div class="row"><span class="k">reason codes:</span> ${chainCodes}</div>
+            <div class="row"><span class="k">source:</span> ${esc(chain.source || '(none declared)')}</div>
+            ${occRow(chain.subject)}
+            ${occRow(chain.object)}
+          </div>
+        </details>`;
     return `      <article class="claim">
         <p class="head">${esc(r.subject.name || r.resourceID)} <span class="rel">${esc(r.relation)}</span> ${esc(r.object.name || r.relatedResourceID)}${badge}</p>
-        <p class="src">Source: ${esc(r.source || '(none declared)')}</p>${codesLine}${reachNote}
-        <ul class="ev">${occ(r.subject)}${occ(r.object)}</ul>
+        <p class="src">Source: ${esc(r.source || '(none declared)')}</p>${codesLine}${reachNote}${interrogate}
       </article>`;
   }).join('\n');
   const traceable = records.filter((r) => r.reach === 'traceable').length;
