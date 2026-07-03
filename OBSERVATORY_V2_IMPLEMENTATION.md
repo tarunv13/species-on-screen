@@ -104,21 +104,46 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 
 - **Goal:** Present each claim's **verdict and reason codes verbatim**, with badges that name the
   **reach of the warrant, not truth** — three states, never pass/fail.
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - Reason codes are shown **verbatim** (the append-only vocabulary from `check-bindings.js`), not
-    paraphrased or hidden.
-  - Badge language names reach (e.g. how far the warrant reaches), never correctness/truth; no
-    "pass", "fail", "error", or check/cross semantics.
-  - Exactly **three** badge states, consistent with D7's terminal non-resolution state.
-  - Badges are derived from the validator's output, not re-derived.
-  - Cinematic surfaces untouched; standards reuse only.
-  - A unit test covers the badge/reason-code mapping and is wired into `verify`.
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** Session-landable, low/med, user-visible. Depends on M33. Primary generator:
-  `scripts/build-evidence.mjs` (+ shared reach vocabulary).
+  - ✅ Reason codes are shown **verbatim** (the append-only vocabulary from `check-bindings.js`),
+    not paraphrased or hidden — rendered per claim as `<code>` chips straight from the validator.
+  - ✅ Badge language names reach (`REACHES EVIDENCE` / `REACHES A SOURCE` / `REACH INCOMPLETE`),
+    never correctness/truth; no "pass", "fail", "error", or check/cross semantics (unit-enforced
+    against a forbidden-term list).
+  - ✅ Exactly **three** badge states, consistent with D7's terminal non-resolution state (the
+    `open` state keeps its calm first-class D7 note).
+  - ✅ Badges are derived from the validator's output (`classifyReach` from the L1 verdict; codes
+    are the validator's L2 reason set passed through verbatim), not re-derived.
+  - ✅ Cinematic surfaces untouched (confirmed by grep against `dist/assets/places-*.js`); standards
+    reuse only (no new reason code, no schema change).
+  - ✅ A unit test covers the badge/reason-code mapping (reach-naming + forbidden-term guard +
+    verbatim pass-through) and is wired into `verify`.
+- **Files Changed:**
+  - `scripts/evidence-reach.mjs` — reformed `REACH_META` badge labels to reach-naming
+    (`REACHES EVIDENCE` / `REACHES A SOURCE` / `REACH INCOMPLETE`); added `reasonCodesVerbatim`
+    (filters non-strings, never paraphrases).
+  - `scripts/build-evidence.mjs` — uniform reach badge for every state (no `GAP:`-in-badge special
+    case); new verbatim `.codes` line per claim; carries `r.reachCodes` (validator L2 reasons);
+    index now names all three states (traceable / open / reach-incomplete).
+  - `scripts/evidence-reach.test.mjs` — added D6 assertions (three distinct reach-naming badges,
+    forbidden-term guard, verbatim reason-code pass-through). 19 checks total.
+- **Commit:** One clean M34 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:evidence-reach` — PASS (19 checks: D7 classifier + D6 badges/verbatim codes).
+  - `npm run verify` — 9 checks green.
+  - `npm run build` — green.
+  - Regenerated `public/evidence/*.html`; built `dist/evidence/epr-vents.html` shows 10 reach
+    badges (`REACHES A SOURCE`) + 10 verbatim `<code>SOURCE_UNRESOLVABLE</code>` lines + the D7 open
+    note; index expresses all three states.
+  - Cinematic purity confirmed: no reach/badge logic in any `dist/assets/places-*.js`.
+- **Notes:** Session-landable, low/med, user-visible. Built on M33 (D7) without regressing it — the
+  `open` state stays calm and first-class. As a side consistency fix on the same surface, the index
+  now also names the `gap` state (closing the M33-review residual where the index could not express
+  it). The full **verdict string** is intentionally not reprinted (it would reintroduce
+  "non-conformant" pass/fail language); the badge names reach and the reason codes carry the exact
+  machine signal, satisfying D6's verbatim requirement without the pass/fail framing D6 forbids.
 
 ### M35 — In-place interrogate from inline validator JSON (D5)
 
