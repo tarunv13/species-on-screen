@@ -22,7 +22,7 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { classifyReach, REACH_META } from './evidence-reach.mjs';
+import { classifyReach, REACH_META, reasonCodesVerbatim } from './evidence-reach.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(REPO_ROOT, 'public', 'evidence');
@@ -45,6 +45,9 @@ h1{font-size:2rem;margin:0 0 .25rem;view-transition-name:eke-subject}.sub{color:
 .ok{background:#e5efe9;color:var(--teal)}.no{background:#f3e7dc;color:var(--warn)}.open{background:#e7e9f1;color:var(--slate)}
 .src{color:var(--muted);font-size:.92rem;margin:.15rem 0 .5rem}
 .reach{font-size:.86rem;margin:.1rem 0 .5rem;padding:.35rem 0 .35rem .8rem;border-left:2px solid var(--slate);color:var(--slate);font-style:italic}
+.codes{font-size:.82rem;margin:.1rem 0 .5rem;color:var(--muted)}
+.codes .lbl{letter-spacing:.03em}
+.codes code{display:inline-block;background:#ece7db;border-radius:.2rem;padding:.06rem .34rem;margin:.05rem .12rem .05rem 0;font:.78rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink)}
 .ev{list-style:none;margin:0;padding:0;font:.86rem/1.5 -apple-system,system-ui,sans-serif;color:var(--muted)}
 .ev li{padding:.1rem 0}.ev .sci{font-style:italic;color:var(--ink)}
 .foot{margin-top:3rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--rule);padding-top:1rem}
@@ -78,17 +81,22 @@ function pageHtml(place, records) {
   const nav = crossDepthNav(place.surfaces);
   const claims = records.map((r) => {
     const meta = REACH_META[r.reach];
-    // A gap still names the specific unmet baseline codes; the open terminal
-    // state names itself, without a code list (non-resolution is not a defect).
-    const badgeText = r.reach === 'gap' ? `GAP: ${esc(r.reasons.join(', '))}` : meta.badge;
-    const badge = `<span class="badge ${meta.cls}">${badgeText}</span>`;
-    // Non-resolution is rendered as a first-class terminal state (D7): an italic
-    // note on the claim itself, framed as an open question rather than a failure.
+    // D6: the badge names REACH (not truth), identically shaped for every state —
+    // no pass/fail, no code list smuggled into the badge text.
+    const badge = `<span class="badge ${meta.cls}">${esc(meta.badge)}</span>`;
+    // D6: the validator's reason codes are shown VERBATIM beside the badge — the
+    // exact append-only strings from check-bindings.js, never paraphrased.
+    const codes = reasonCodesVerbatim(r.reachCodes);
+    const codesLine = codes.length
+      ? `\n        <p class="codes"><span class="lbl">reason codes:</span> ${codes.map((c) => `<code>${esc(c)}</code>`).join(' ')}</p>`
+      : '';
+    // D7: non-resolution is a first-class terminal state — a calm italic note
+    // framing the open reach as an open question rather than a failure.
     const reachNote = r.reach === 'open' ? `\n        <p class="reach">${esc(meta.note)}</p>` : '';
     const occ = (o) => `<li><span class="sci">${esc(o.name || o.occurrenceID)}</span> — backbone ${o.backbone ? 'reconciled' : 'unreconciled'}${o.asOf ? `, recorded ${esc(o.asOf)}` : ''}</li>`;
     return `      <article class="claim">
         <p class="head">${esc(r.subject.name || r.resourceID)} <span class="rel">${esc(r.relation)}</span> ${esc(r.object.name || r.relatedResourceID)}${badge}</p>
-        <p class="src">Source: ${esc(r.source || '(none declared)')}</p>${reachNote}
+        <p class="src">Source: ${esc(r.source || '(none declared)')}</p>${codesLine}${reachNote}
         <ul class="ev">${occ(r.subject)}${occ(r.object)}</ul>
       </article>`;
   }).join('\n');
@@ -115,8 +123,9 @@ ${claims}
 
 function indexHtml(entries) {
   const items = entries.map((e) => {
-    const openClause = e.open ? `, ${e.open} whose resolution is honestly open` : '';
-    return `    <li><a href="./${esc(e.slug)}.html">${esc(e.displayName)}</a> — ${e.total} claim${e.total === 1 ? '' : 's'}, ${e.traceable} resolving to a persistent identifier${openClause}</li>`;
+    const openClause = e.open ? `, ${e.open} reaching a named source whose resolution is honestly open` : '';
+    const gapClause = e.gap ? `, ${e.gap} with reach incomplete at baseline` : '';
+    return `    <li><a href="./${esc(e.slug)}.html">${esc(e.displayName)}</a> — ${e.total} claim${e.total === 1 ? '' : 's'}, ${e.traceable} reaching evidence that resolves to a persistent identifier${openClause}${gapClause}</li>`;
   }).join('\n');
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -159,7 +168,12 @@ async function main() {
     console.error(`build-evidence: L1/L2 record count mismatch (${records.length} vs ${l2.length}).`);
     process.exit(1);
   }
-  records.forEach((r, i) => { r.reach = classifyReach(r.verdict, l2[i].reasons); });
+  records.forEach((r, i) => {
+    r.reach = classifyReach(r.verdict, l2[i].reasons);
+    // The L2 reason set is the fullest verbatim diagnostic (L2 ⊇ L1 codes); it is
+    // shown as-is, straight from the validator (D6 — verbatim, no re-derivation).
+    r.reachCodes = l2[i].reasons;
+  });
 
   let places = {};
   if (existsSync(MANIFEST)) {
@@ -186,6 +200,7 @@ async function main() {
       displayName: place.displayName || slug,
       traceable: recs.filter((r) => r.reach === 'traceable').length,
       open: recs.filter((r) => r.reach === 'open').length,
+      gap: recs.filter((r) => r.reach === 'gap').length,
       total: recs.length,
     });
   }

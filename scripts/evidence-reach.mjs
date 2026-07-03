@@ -35,26 +35,38 @@ export const SOURCE_UNRESOLVABLE = 'SOURCE_UNRESOLVABLE';
 export const REACH_STATES = ['traceable', 'open', 'gap'];
 
 // Presentation vocabulary shared by every surface that renders reach, so the
-// wording of the non-resolution terminal state is defined in exactly one place.
-// (D6/M34 will reform badge language across all verdict+reason codes; this is the
-// minimal D7 vocabulary the non-resolution state needs today.)
+// wording of every reach-state is defined in exactly one place.
+//
+// D6/M34: every badge NAMES REACH, NOT TRUTH — how far the claim's warrant
+// reaches (evidence → a source → nowhere yet), never whether the claim is
+// correct. No pass/fail, no "error"/check/cross semantics. The three states
+// stay consistent with D7's first-class non-resolution terminal state (open).
+// Alongside the badge, the surface shows the validator's reason codes VERBATIM
+// (the append-only vocabulary from check-bindings.js) — never paraphrased.
 export const REACH_META = {
   traceable: {
-    badge: 'TRACEABLE',
+    badge: 'REACHES EVIDENCE',
     cls: 'ok',
     note: 'The warrant reaches evidence that resolves to a persistent identifier.',
   },
   open: {
-    badge: 'UNRESOLVED',
+    badge: 'REACHES A SOURCE',
     cls: 'open',
     note: 'The warrant reaches a named source; no persistent identifier resolves it yet. An open question — a first-class terminal state, not a failure.',
   },
   gap: {
-    badge: 'GAP',
+    badge: 'REACH INCOMPLETE',
     cls: 'no',
-    note: 'Baseline traceability is incomplete: the claim does not yet reach a declared, typed, sourced evidentiary binding.',
+    note: 'The warrant does not yet reach a declared, typed, sourced evidentiary binding at baseline.',
   },
 };
+
+// Reason codes are surfaced VERBATIM — this helper only orders them stably and
+// drops non-strings; it never renames, paraphrases, or hides a code (D6).
+export function reasonCodesVerbatim(codes) {
+  if (!Array.isArray(codes)) return [];
+  return codes.filter((c) => typeof c === 'string' && c.length > 0);
+}
 
 /**
  * Classify a claim's reach into one of REACH_STATES.
