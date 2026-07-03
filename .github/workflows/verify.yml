@@ -6,12 +6,19 @@ name: Verify evidentiary gate
 #   check-narratives   narrative registry invariants
 #   check-manifest     Place Manifest bindings resolve
 #   check-bindings     L1 interaction-claim traceability over the archives
+#   check-dwca-xml     meta.xml/eml.xml are well-formed XML (no silent corruption
+#                       in the archives shipped for download and external ingestion)
 #   test:conformance   verdict-and-reason agreement over the versioned corpus
 #   test:surface-links cross-depth (reciprocal descent) derivation
+#   test:biome-backdrop biome-classification routing (every place type resolves
+#                       to a diagnostic recipe, not a silent generic fallback)
+#   test:dwca-xml      well-formedness scanner discriminates every claimed
+#                       failure mode (negative-tested, not just pass-only)
 #
-# `npm run build` already enforces L1 traceability via the prebuild hook; this
-# workflow additionally runs the conformance harness and unit tests that build
-# alone does not, so a change that breaks conformance is caught before merge.
+# `npm run build` already enforces L1 traceability + XML well-formedness via
+# the prebuild hook; this workflow additionally runs the conformance harness
+# and unit tests that build alone does not, so a change that breaks
+# conformance is caught before merge.
 
 on:
   push:
