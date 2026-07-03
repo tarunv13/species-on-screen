@@ -170,20 +170,49 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 
 - **Goal:** Implement the **follow** primitive as an **RO-typed lateral edge at the same depth**
   in the analytical (atlas) surface.
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - A follow edge stays at the **same epistemic depth** (analytical → analytical); it does not
-    press-in or step-back.
-  - Each followable edge is **typed by its OBO Relations Ontology relation** (the same controlled
-    IRI the validator checks), not an untyped link.
-  - Edges are derived from the archive's `resource-relationship.txt` / manifest, not hand-authored.
-  - Cinematic surfaces untouched; standards reuse only.
-  - Verified headlessly (typed edges present in the built atlas surface; relation IRIs correct).
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** Session-landable, can proceed **in parallel** with M34/M35. Primary generators:
-  `src/atlas/atlas.js`, `src/atlas/field-record.js`.
+  - ✅ A follow edge stays at the **same epistemic depth** (analytical → analytical); it does not
+    press-in or step-back — every follow is an in-page `#fr-node-<id>` fragment to another actor
+    at the same depth (unit-asserted: every follow-target is an actor in the same set).
+  - ✅ Each followable edge is **typed by its OBO Relations Ontology relation** — the relation term
+    links to the controlled IRI (`http://purl.obolibrary.org/obo/RO_…`) the validator checks; an
+    edge with no controlled IRI is marked untyped rather than faked.
+  - ✅ Edges are derived from the archive's `resource-relationship.txt` + occurrence records
+    (`RELS` / `actorList`), not hand-authored.
+  - ✅ Cinematic surfaces untouched (confirmed: no follow-web logic in any `dist/assets/places-*.js`);
+    standards reuse only (OBO RO PURLs; no new vocabulary).
+  - ✅ Verified headlessly: unit test on the pure model + a real-data render check across all four
+    archives (100% of edges RO-typed, all IRIs valid, all follow-targets lateral) + the built
+    `field-record` bundle carries the follow web.
+- **Files Changed:**
+  - `src/atlas/interaction-web.js` (new) — pure, dependency-free `interactionWebModel(actors, rels)`
+    + `isRoIri` (mirrors the validator's controlled-IRI pattern). Builds one node per actor with its
+    RO-typed edges, `dir` (out/in), and lateral follow-target; never fakes an IRI.
+  - `src/atlas/field-record.js` — renders the interaction web from that model as followable actor
+    nodes (`#fr-node-<id>`), relation terms linked to their OBO RO IRI, plus a small a11y/highlight
+    handler on follow; replaced the old flat relationship list (same information, now navigable).
+  - `src/atlas/field-record.css` — styles for the typed follow web (`.fr-node` / `.fr-web` /
+    `.fr-rel` / `.fr-follow`), a `:target` + reduced-motion-safe pulse highlight on the followed node.
+  - `scripts/interaction-web.test.mjs` (new) — 19 black-box checks (RO-typing, verbatim IRI, lateral
+    follow-targets, untyped-not-faked, derived-only, defensive input). `package.json` wires
+    `test:interaction-web` into `verify` (now 10 checks).
+- **Commit:** One clean M36 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:interaction-web` — PASS (19 checks).
+  - `npm run verify` — 10 checks green.
+  - `npm run build` — green.
+  - Real-data render check (all 4 archives): sundarbans/coral-triangle/epr-vents 20 edges each,
+    amazon-várzea 16 — every edge RO-typed, every IRI valid, every follow-target lateral.
+  - Built `dist/assets/field-record-*.js` carries `interactionWebModel` / `fr-follow` / `fr-node-` /
+    `purl.obolibrary`; absent from every `dist/assets/places-*.js`.
+- **Notes:** Session-landable; landed independently of M35 (parallel per the execution order).
+  `src/atlas/atlas.js` (the discovery overview) was **not** touched — it renders no interaction
+  edges, so the typed follow web lives entirely in the field-record interaction web. The follow is
+  implemented as same-depth DOM navigation (the grammatically essential lateral act) and is
+  deliberately **not** coupled to the canvas focus system — that avoids fighting the scroll-driven
+  narrative focus and keeps the surface robust; not required by D4.
 
 ### M37 — Cinematic-purity + subject-morph build gates (D3, D9)
 

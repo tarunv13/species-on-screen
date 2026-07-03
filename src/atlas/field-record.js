@@ -21,6 +21,7 @@ import './field-record.css';
 import { makeSpeciesArt } from '../prototypes/species-art.js';
 import { makeBackdrop } from '../prototypes/biome-backdrop.js';
 import { getPlaceBySurfaceSlug } from '../../cinematic-language/place-manifest.ts';
+import { interactionWebModel } from './interaction-web.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 // Which place to read. Prefers the ?place= query param (dev/prototype use);
@@ -569,13 +570,41 @@ function citationsFrom() {
   RELS.forEach((r) => r.according && set.add(r.according.trim()));
   return [...set].sort();
 }
+/* The interaction web as a set of RO-typed, laterally-FOLLOWABLE edges (D4).
+   Each actor is an addressable node (id="fr-node-<occurrenceID>"); each of its
+   edges names its OBO Relations Ontology relation — linked to the controlled
+   IRI the validator checks — and lets you FOLLOW the edge to the actor it
+   links, at the SAME analytical depth (an in-page #fragment, never a press-in
+   to the evidence ledger or a step-back to the cinematic surface). The model is
+   built by the pure, unit-tested interactionWebModel() from RELS + actorList;
+   this function only renders it. Nothing hand-authored. */
+function buildInteractionWeb() {
+  return interactionWebModel(actorList, RELS).map((node) => {
+    const edges = node.edges.map((e) => {
+      // The relation is TYPED: the term resolves to its OBO RO IRI. An edge with
+      // no controlled IRI is marked untyped rather than faked.
+      const rel = e.typed
+        ? `<a class="fr-rel" href="${escapeHtml(e.iri)}" target="_blank" rel="noopener noreferrer" title="OBO Relations Ontology · ${escapeHtml(e.iri)}">${escapeHtml(e.relType)}</a>`
+        : `<span class="fr-rel is-untyped" title="no controlled OBO RO IRI">${escapeHtml(e.relType)}</span>`;
+      const dir = e.dir === 'out' ? '→' : '←';
+      const follow = `<a class="fr-follow" href="#fr-node-${escapeHtml(e.otherId)}">${escapeHtml(e.otherVern)}</a>`;
+      const src = e.according ? ` <span class="fr-edge-src">according to ${escapeHtml(e.according)}</span>` : '';
+      return `<li class="fr-edge" data-rel-iri="${escapeHtml(e.iri || '')}">${rel} <span class="fr-dir" aria-hidden="true">${dir}</span> ${follow}${src}</li>`;
+    }).join('');
+    return `<section class="fr-node" id="fr-node-${escapeHtml(node.id)}" tabindex="-1">
+        <h3>${escapeHtml(node.vern)} <span class="sci">${escapeHtml(node.sci)}</span></h3>
+        <ul class="fr-web">${edges}</ul>
+      </section>`;
+  }).join('');
+}
+
 function buildSources() {
   const el = document.getElementById('fr-sources');
-  const rels = RELS.map((r) => `<li>${A(r.from).vern} <em>${r.type}</em> ${A(r.to).vern} <span style="opacity:.7">— ${A(r.from).sci} → ${A(r.to).sci}; according to ${r.according}</span></li>`).join('');
   const cites = citationsFrom().map((c) => `<li>${c}</li>`).join('');
   el.innerHTML = `
     <h2>The interaction web</h2>
-    <ul>${rels}</ul>
+    <p class="fr-web-help">Each edge names its OBO Relations Ontology relation; <strong>follow</strong> an edge to move laterally to the actor it links — you stay in the atlas.</p>
+    ${buildInteractionWeb()}
     <h2>Sources</h2>
     <ol>${cites}</ol>
     <h2>Darwin Core mapping</h2>
@@ -683,6 +712,23 @@ async function init() {
   TARGET = Object.assign({}, STEPS[0].state);
   buildSteps();
   buildSources();
+  // Follow (D4): a click on a typed edge's target moves laterally to that
+  // actor's node — same depth (an in-page #fragment). The native anchor scrolls
+  // and sets :target; this only adds a11y focus and a brief highlight pulse.
+  const sourcesEl = document.getElementById('fr-sources');
+  if (sourcesEl) {
+    sourcesEl.addEventListener('click', (e) => {
+      const f = e.target.closest && e.target.closest('.fr-follow');
+      if (!f) return;
+      const id = decodeURIComponent((f.getAttribute('href') || '').replace(/^#/, ''));
+      const node = id && document.getElementById(id);
+      if (!node) return;
+      node.classList.remove('is-followed');
+      void node.offsetWidth; // restart the pulse animation
+      node.classList.add('is-followed');
+      if (typeof node.focus === 'function') node.focus({ preventScroll: true });
+    });
+  }
   updateChrome(0);
   resize();
   const onLayout = () => { resize(); recomputeStepCenters(); };
