@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run build:evidence",
+    "prebuild": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run check-dwca-xml && npm run build:evidence",
     "build": "vite build",
     "preview": "vite preview",
     "fetch-data": "node scripts/fetch-tmdb-data.js",
@@ -23,12 +23,16 @@
     "check-narratives": "node scripts/check-narratives.js",
     "check-manifest": "node scripts/check-manifest.js",
     "check-bindings": "node scripts/check-bindings.js",
+    "check-dwca-xml": "node scripts/check-dwca-xml.js",
     "build:evidence": "node scripts/build-evidence.mjs",
     "curator-worksheet": "node scripts/curator-worksheet.mjs",
     "conformance:build": "node test/conformance/build.mjs",
     "test:conformance": "node scripts/check-bindings.test.mjs",
     "test:surface-links": "node scripts/surface-links.test.mjs",
-    "verify": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run test:conformance && npm run test:surface-links"
+    "test:biome-backdrop": "node scripts/biome-backdrop.test.mjs",
+    "test:dwca-xml": "node scripts/check-dwca-xml.test.mjs",
+    "test:evidence-reach": "node scripts/evidence-reach.test.mjs",
+    "verify": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run check-dwca-xml && npm run test:conformance && npm run test:surface-links && npm run test:biome-backdrop && npm run test:dwca-xml && npm run test:evidence-reach"
   },
   "dependencies": {
     "gsap": "^3.15.0",

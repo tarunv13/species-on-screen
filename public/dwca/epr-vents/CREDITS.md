@@ -60,21 +60,33 @@ the biological Occurrence core.
 - Cavanaugh, C.M., Gardiner, S.L., Jones, M.L., Jannasch, H.W. & Waterbury, J.B. (1981). Prokaryotic cells in the hydrothermal vent tube worm *Riftia pachyptila*. *Science* 213:340–342. doi:10.1126/science.213.4505.340
 - Felbeck, H. (1981). Chemoautotrophic potential of the hydrothermal vent tube worm *Riftia pachyptila*. *Science* 213:336–338. doi:10.1126/science.213.4505.336
 - Childress, J.J., Fisher, C.R., Favuzzi, J.A. & Sanders, N.K. (1991). Sulfide and CO₂ uptake by *Riftia pachyptila* and its bacterial symbionts. *Physiological Zoology* 64:1444–1484.
-- Robidart, J.C. et al. (2008). Metabolic versatility of the *Riftia pachyptila* endosymbiont, *Candidatus* Endoriftia persephone. *Environmental Microbiology* 10:727–737. [DOI unverified — pending an M9C-style audit]
-- Lutz, R.A. et al. (1994). Rapid growth at deep-sea vents. *Nature* 371:663–664. [DOI unverified]
-- Desbruyères, D. et al. (1998). Biology and ecology of the "Pompeii worm" (*Alvinella pompejana*). *Deep-Sea Research II* 45:383–422. [DOI unverified]
-- Micheli, F. et al. (2002). Predation structures communities at deep-sea hydrothermal vents. *Ecological Monographs* 72:365–382. [DOI unverified]
-- Sancho, G. et al. (2005). Selective predation by the zoarcid fish *Thermarces cerberus* at hydrothermal vents. *Deep-Sea Research I* 52:837–844. [DOI unverified]
-- Bates, A.E. et al. (2005). Grazing and microhabitat of the vent limpet *Lepetodrilus*. [DOI unverified]
-- Van Dover, C.L. (2000). *The Ecology of Deep-Sea Hydrothermal Vents*. Princeton University Press. (Community trophic synthesis.)
-- Van Dover, C.L. et al. (2018). Scientific rationale and international obligations for protection of active hydrothermal vent ecosystems from deep-sea mining. *Marine Policy* 90:20–28. [DOI unverified]
-- Boschen, R.E. et al. (2013). Mining of deep-sea seafloor massive sulfides: environmental impacts. *Ocean & Coastal Management* 84:54–67. [DOI unverified]
+- Robidart, J.C., Bench, S.R., Feldman, R.A., Novoradovsky, A., Podell, S.B., Gaasterland, T., Allen, E.E. & Felbeck, H. (2008). Metabolic versatility of the *Riftia pachyptila* endosymbiont revealed through metagenomics. *Environmental Microbiology* 10(3):727–737. doi:10.1111/j.1462-2920.2007.01496.x. (Title corrected during the 2026-07-03 audit — the archive previously paraphrased it as "...endosymbiont, *Candidatus* Endoriftia persephone".)
+- Lutz, R.A., Shank, T.M., Fornari, D.J., Haymon, R.M., Lilley, M.D., Von Damm, K.L. & Desbruyères, D. (1994). Rapid growth at deep-sea vents. *Nature* 371:663–664. doi:10.1038/371663a0
+- Desbruyères, D., Chevaldonné, P., Alayse, A.-M., Jollivet, D., Lallier, F.H., Jouin-Toulmond, C., Zal, F., Sarradin, P.-M., Cosson, R., Caprais, J.-C., Arndt, C., O'Brien, J., Guezennec, J., Hourdez, S., Riso, R., Gaill, F., Laubier, L. & Toulmond, A. (1998). Biology and ecology of the "Pompeii worm" (*Alvinella pompejana* Desbruyères and Laubier), a normal dweller of an extreme deep-sea environment: a synthesis of current knowledge and recent developments. *Deep-Sea Research II* 45(1–3):383–422. doi:10.1016/S0967-0645(97)00083-0
+- Micheli, F., Peterson, C.H., Mullineaux, L.S., Fisher, C.R., Mills, S.W., Sancho, G., Johnson, G.A. & Lenihan, H.S. (2002). Predation structures communities at deep-sea hydrothermal vents. *Ecological Monographs* 72(3):365–382. doi:10.1890/0012-9615(2002)072[0365:PSCADS]2.0.CO;2
+- Sancho, G., Fisher, C.R., Mills, S., Micheli, F., Johnson, G.A., Lenihan, H.S., Peterson, C.H. & Mullineaux, L.S. (2005). Selective predation by the zoarcid fish *Thermarces cerberus* at hydrothermal vents. *Deep-Sea Research I* 52(5):837–844. doi:10.1016/j.dsr.2004.12.002
+- Bates, A.E. et al. (2005). Grazing and microhabitat of the vent limpet *Lepetodrilus*. [DOI still unresolved after a second, deeper audit (2026-07-04) — deliberately not guessed. Two named candidates were re-checked by resolving each DOI directly against CrossRef: (1) Bates, Tunnicliffe & Lee (2005), *Marine Ecology Progress Series* 305:1–15, doi:10.3354/meps305001, "Role of thermal conditions in habitat selection by hydrothermal vent gastropods" — matches the cited year and the multi-author "et al.", and its abstract does concern microhabitat (thermal-zone partitioning of vent gastropods including *Lepetodrilus fucensis*), but does not address grazing/diet. (2) Bates (2007), *Marine Ecology Progress Series* 347:87–99, doi:10.3354/meps07020, "Feeding strategy, morphological specialisation and presence of bacterial episymbionts in lepetodrilid gastropods from hydrothermal vents" — matches the grazing/feeding-strategy theme, but is sole-authored (no "et al.") and dated 2007, two years off. Neither cleanly fits both the byline and the subject. A third lead surfaced this audit: A.E. Bates's 2006 University of Victoria PhD dissertation, "Population and feeding characteristics of hydrothermal vent gastropods along environmental gradients with a focus on a bacterial symbiosis hosted by *Lepetodrilus fucensis*" — spanning both the feeding/grazing and environmental-gradient/microhabitat themes at once — raising the possibility this citation informally synthesizes Bates's PhD-era research program rather than naming one indexed paper; no persistent identifier for the thesis itself was found, and none is asserted here. Left unresolved rather than misattributed; see `PROJECT_STATUS.md` backlog item 4 for the decision a Research Curator still needs to make.]
+- Van Dover, C.L. (2000). *The Ecology of Deep-Sea Hydrothermal Vents*. Princeton University Press. (Community trophic synthesis; a book — no DOI expected.)
+- Van Dover, C.L., Arnaud-Haond, S., Gianni, M., Helmreich, S., Huber, J.A., Jaeckel, A.L., Metaxas, A., Pendleton, L.H., Petersen, S., Ramirez-Llodra, E., Steinberg, P.E., Tunnicliffe, V. & Yamamoto, H. (2018). Scientific rationale and international obligations for protection of active hydrothermal vent ecosystems from deep-sea mining. *Marine Policy* 90:20–28. doi:10.1016/j.marpol.2018.01.020
+- Boschen, R.E., Rowden, A.A., Clark, M.R. & Gardner, J.P.A. (2013). Mining of deep-sea seafloor massive sulfides: a review of the deposits, their benthic communities, impacts from mining, regulatory frameworks and management strategies. *Ocean & Coastal Management* 84:54–67. doi:10.1016/j.ocecoaman.2013.07.005
 
-DOI status: the two 1981 *Science* papers are DOI-anchored (carried from the
-verified narrative record). Remaining citations are recorded as author-year-
-journal and flagged for a dedicated DOI/reference audit (the M9C-equivalent
-validation step), consistent with the Observatory's assemble-then-audit
-discipline.
+DOI status: **M9C-equivalent audit complete (2026-07-03; re-examined
+2026-07-04)** — closes backlog item 1. 9 of 11 citations are now DOI-anchored:
+the two 1981 *Science* papers (carried from the verified narrative record)
+plus 7 confirmed during the first audit pass (Lutz 1994, Desbruyères 1998,
+Micheli 2002, Sancho 2005, Van Dover 2018, Boschen 2013, and Robidart 2008 —
+whose title was also corrected to match the publication, the same class of
+fix M9C/M11/M13 made elsewhere in the Observatory). Every DOI above was
+independently confirmed against CrossRef's own record
+(`api.crossref.org/works/<doi>`), not taken from a single search result. Two
+citations remain without a DOI, both for a documented reason rather than an
+unfinished audit: Van Dover (2000) is a book (no DOI expected), and Bates et
+al. (2005) remains a genuine ambiguity after a second, deeper look — now
+between *three* candidates (two named papers plus a PhD dissertation), none
+of which cleanly matches both the cited byline and the cited subject —
+recorded above rather than guessed — consistent with the Observatory's
+assemble-then-audit discipline: **a wrong DOI is worse than a citation
+string.**
 
 ## Taxonomic notes
 

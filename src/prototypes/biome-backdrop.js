@@ -66,6 +66,23 @@ const RECIPES = {
     ],
     water: { y: 0.0, col: [96, 158, 176] }, signature: 'coral', fore: [40, 90, 104],
   },
+  abyssal: {
+    /* Hydrothermal vent field: no daylight reaches here, so `sun` is set
+       to match `top` (the radial highlight becomes imperceptible instead
+       of misplacing a bright glow near the top of frame, which the shared
+       bake() always positions at h*0.16). The scene is already fully
+       submerged (water.y: 0 skips the water plane, as `reef` does), and
+       the only warm light is the vents themselves, drawn in paintSignature
+       from the palette already vetted on the cinematic EPR surface
+       (src/places/epr-vents.js PAL). Sparse band density keeps the field
+       reading as barren abyssal plain (Article VI, darkness is content). */
+    sky: { top: [10, 18, 30], hor: [2, 3, 8], sun: [10, 18, 30], sunX: 0.5 },
+    bands: [
+      { y0: 0.52, y1: 0.74, light: [22, 28, 40], shadow: [10, 14, 22], density: 220, r: 15, par: 0.12, blur: 6 },
+      { y0: 0.64, y1: 0.92, light: [15, 19, 28], shadow: [5, 8, 13], density: 360, r: 12, par: 0.28, blur: 1 },
+    ],
+    water: { y: 0, col: [4, 6, 12] }, signature: 'smokers', fore: [12, 14, 20],
+  },
   savanna: {
     sky: { top: [176, 200, 214], hor: [232, 220, 188], sun: [252, 244, 214], sunX: 0.8 },
     bands: [
@@ -90,6 +107,7 @@ function keyFor(typeStr) {
   if (/mangrove/.test(tp)) return 'mangrove';
   if (/flood|v[áa]rzea/.test(tp)) return 'varzea';
   if (/reef|coral|marine/.test(tp)) return 'reef';
+  if (/vent|hydrothermal|abyssal/.test(tp)) return 'abyssal';
   if (/savanna|grass/.test(tp)) return 'savanna';
   return 'default';
 }
@@ -143,6 +161,31 @@ function paintSignature(c, W, H, rec) {
     for (let i = 0; i < 220; i++) { const x = Math.random() * W; const h = 14 + Math.random() * 30; c.strokeStyle = rgb(jit(mix(fore, [150, 140, 80], Math.random()), 14)); c.lineWidth = 1 + Math.random() * 1.6; c.beginPath(); c.moveTo(x, H - 2); c.lineTo(x + (Math.random() - 0.5) * 10, H - 2 - h); c.stroke(); }
   } else if (rec.signature === 'coral') {
     for (let i = 0; i < 30; i++) { const x = Math.random() * W, h = 16 + Math.random() * 40; c.fillStyle = rgb(jit([150, 120, 120], 30), 0.85); c.beginPath(); c.moveTo(x - 9, H); c.quadraticCurveTo(x, H - h, x + 9, H); c.fill(); }
+  } else if (rec.signature === 'smokers') {
+    // Hydrothermal vent chimneys: dark mineral columns, a warm thermal glow
+    // at the base, and a pale mineral plume rising above — the vent field's
+    // only warm register (Article XVII), reusing the palette already
+    // established on the cinematic EPR surface (ventCore/plume).
+    [[0.22, 46, 0.85], [0.52, 64, 1.0], [0.78, 40, 0.7]].forEach(([tx, h, inten]) => {
+      const x = tx * W, base = H - 2;
+      const glow = c.createRadialGradient(x, base, 0, x, base, h * 1.9);
+      glow.addColorStop(0, rgb([255, 160, 45], 0.55 * inten));
+      glow.addColorStop(1, rgb([255, 160, 45], 0));
+      c.fillStyle = glow; c.beginPath(); c.arc(x, base, h * 1.9, 0, 6.28); c.fill();
+      c.fillStyle = rgb(jit([28, 24, 22], 8));
+      c.beginPath();
+      c.moveTo(x - h * 0.22, base); c.lineTo(x - h * 0.08, base - h);
+      c.lineTo(x + h * 0.08, base - h); c.lineTo(x + h * 0.22, base);
+      c.closePath(); c.fill();
+      const plume = c.createLinearGradient(x, base - h, x, base - h * 2.4);
+      plume.addColorStop(0, rgb([230, 225, 210], 0.45 * inten));
+      plume.addColorStop(1, rgb([230, 225, 210], 0));
+      c.fillStyle = plume;
+      c.beginPath();
+      c.moveTo(x - h * 0.08, base - h); c.lineTo(x - h * 0.26, base - h * 2.4);
+      c.lineTo(x + h * 0.26, base - h * 2.4); c.lineTo(x + h * 0.08, base - h);
+      c.closePath(); c.fill();
+    });
   } else {
     for (let i = 0; i < 120; i++) { const x = Math.random() * W; const h = 16 + Math.random() * 26; c.strokeStyle = rgb(jit(fore, 12)); c.lineWidth = 1.6; c.beginPath(); c.moveTo(x, H - 2); c.lineTo(x + 6, H - 2 - h); c.stroke(); }
   }
