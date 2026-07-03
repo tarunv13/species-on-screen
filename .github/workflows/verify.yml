@@ -1,0 +1,40 @@
+name: Verify evidentiary gate
+
+# Runs the full evidence-preserving reference-implementation gate on every push
+# and pull request, so the conformance definition cannot silently regress:
+#
+#   check-narratives   narrative registry invariants
+#   check-manifest     Place Manifest bindings resolve
+#   check-bindings     L1 interaction-claim traceability over the archives
+#   test:conformance   verdict-and-reason agreement over the versioned corpus
+#   test:surface-links cross-depth (reciprocal descent) derivation
+#
+# `npm run build` already enforces L1 traceability via the prebuild hook; this
+# workflow additionally runs the conformance harness and unit tests that build
+# alone does not, so a change that breaks conformance is caught before merge.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify evidentiary gate
+        run: npm run verify

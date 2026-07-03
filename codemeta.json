@@ -1,0 +1,47 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "eco-cinema-observatory",
+  "name": "Eco-Cinema Observatory (species-on-screen)",
+  "description": "A doctrine-governed eco-cinema observatory and a reference implementation for evidence-preserving ecological communication: scroll-driven cinematic ecological places, a research/archive surface of attested ecological narratives, Darwin Core interaction archives grounded in the GBIF backbone taxonomy and OBO Relations Ontology, and a standards-only interaction-claim evidence-binding profile with a three-level reference validator that certifies traceability (not truth) of ecological interaction claims to their evidence.",
+  "codeRepository": "https://github.com/tarunv13/species-on-screen",
+  "url": "https://tarunv13.github.io/species-on-screen/",
+  "issueTracker": "https://github.com/tarunv13/species-on-screen/issues",
+  "license": [
+    "https://spdx.org/licenses/Apache-2.0",
+    "https://spdx.org/licenses/CC-BY-4.0"
+  ],
+  "version": "2.0.0",
+  "dateModified": "2026-07-03",
+  "dateCreated": "2026-06-20",
+  "datePublished": "2026-07-02",
+  "programmingLanguage": [
+    { "@type": "ComputerLanguage", "name": "JavaScript" },
+    { "@type": "ComputerLanguage", "name": "TypeScript" }
+  ],
+  "runtimePlatform": "Node.js",
+  "author": [
+    { "@type": "Person", "name": "tarunv13" }
+  ],
+  "maintainer": { "@type": "Person", "name": "tarunv13" },
+  "keywords": [
+    "biodiversity informatics",
+    "Darwin Core",
+    "GBIF",
+    "OBO Relations Ontology",
+    "evidence-preserving communication",
+    "provenance",
+    "reference implementation",
+    "ecological storytelling",
+    "conservation culturomics",
+    "digital humanities"
+  ],
+  "developmentStatus": "active",
+  "referencePublication": {
+    "@type": "CreativeWork",
+    "name": "Interaction-Claim Evidence-Binding Profile (v0.1, draft)",
+    "url": "https://github.com/tarunv13/species-on-screen/blob/main/docs/interaction-claim-binding-profile.md"
+  },
+  "readme": "https://github.com/tarunv13/species-on-screen/blob/main/README.md",
+  "_note": "Consistent with CITATION.cff. Author identity is the repository git handle; replace with full legal name(s) and add an ORCID before the first formal citation / Zenodo DOI release (a future milestone). This CodeMeta record complements CITATION.cff for machine-readable, harvester-friendly software citation and discovery."
+}

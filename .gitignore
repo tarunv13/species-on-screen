@@ -5,3 +5,6 @@ dist/
 
 # Local Claude Code config
 .claude/
+
+# Derived evidential-depth surface (regenerated every build by scripts/build-evidence.mjs)
+public/evidence/

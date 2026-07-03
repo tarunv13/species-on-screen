@@ -1,3 +1,10 @@
+/* Cross-depth transition — the "cut hidden in a dip" between depths, via the
+   W3C View Transitions API (cross-document): a calm ~350ms cross-fade where
+   supported, a plain multi-page navigation where not. Cinematic pages do NOT
+   opt in — purity preserved. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+
 /*
   Living Atlas — Liquid Glass design system.
   ------------------------------------------

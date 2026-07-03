@@ -634,6 +634,16 @@ async function init() {
       enterLink.textContent = manifestPlace.surfaces.cinematic.enterLabel;
       nav.appendChild(enterLink);
     }
+    // Cross-depth descent to the evidential record (the evidence ledger), where
+    // every interaction claim is traced to the records that license it. Present
+    // only where the place has a Darwin Core archive. The cinematic surface
+    // deliberately receives no such affordance — it stays pure (one-way bridge).
+    if (manifestPlace.surfaces.dwca) {
+      const evidenceLink = document.createElement('a');
+      evidenceLink.href = BASE + 'evidence/' + manifestPlace.surfaces.dwca.slug + '.html';
+      evidenceLink.textContent = 'Evidence ledger →';
+      nav.appendChild(evidenceLink);
+    }
   }
   const fr = document.getElementById('fr');
   if (fr) fr.insertBefore(nav, fr.firstChild);

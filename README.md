@@ -112,3 +112,36 @@ violated.
 
 The check runs automatically before `npm run build` (via the
 `prebuild` hook), so a build cannot ship narrative drift.
+
+## Evidence-preserving communication — the reference implementation
+
+The observatory also hosts a **reference implementation for evidence-preserving
+ecological communication**: a small, standards-only profile and validator that
+certify an ecological *interaction claim* is bound to the evidence that licenses
+it. It certifies **traceability, not truth** — that a claim traces to declared,
+resolvable, typed, sourced, reconciled, dated Darwin Core evidence, never that
+the interaction is correct. It invents no vocabulary: it reuses Darwin Core
+(`ResourceRelationship`), the OBO Relations Ontology, the GBIF backbone, and
+PROV/ECO.
+
+- **Specification:** [`docs/interaction-claim-binding-profile.md`](./docs/interaction-claim-binding-profile.md)
+- **Reference validator:** `scripts/check-bindings.js`
+- **Conformance corpus:** [`test/conformance/`](./test/conformance/) (fixtures + `expected.json` contract; `npm run test:conformance`)
+
+**Validate your own archive** — any Darwin Core archive producer can check their
+interaction bindings against the profile, with no dependency on this repository's
+manifest:
+
+```sh
+node scripts/check-bindings.js path/to/your-archive          # baseline (L1) traceability
+node scripts/check-bindings.js path/to/your-archive --trace  # render the evidence chain per claim
+node scripts/check-bindings.js path/to/your-archive --level=L2   # require persistent-identifier sources
+```
+
+Conformance is defined by verdict-and-reason agreement over the versioned
+corpus, so an independent implementation in any language can be checked for
+conformance without sharing code. `npm run verify` runs the whole evidentiary
+gate; L1 traceability is enforced on every build via `prebuild`. Build also
+generates the **evidence ledgers** (`public/evidence/` → `dist/evidence/`) — the
+evidential surface where each place's interaction claims are shown traced to
+their records.
