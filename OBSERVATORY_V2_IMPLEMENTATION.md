@@ -289,17 +289,49 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 - **Goal:** Consolidate the grammar's constraints into **a single CI gate** that rejects any change
   violating the four constraints (subject invariant, depth discreteness, affordance placement,
   subject-morph).
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - **One** gate (one command / one CI job) enforces all four grammar constraints; a violation of
-    any one fails the gate.
-  - The gate composes the M37 checks (and any others) rather than duplicating their logic.
-  - Wired into CI (`.github/workflows/`) and `verify`.
-  - Negative-tested: each of the four constraints, when violated, fails the composite gate.
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** Follows M37. New composite `scripts/check-*.js` + CI wiring.
+  - ✅ **One** gate — `scripts/check-grammar.js` (`npm run check-grammar`) — enforces all four
+    constraints; a violation of **any** one fails the gate (exit 1), reported grouped by constraint.
+  - ✅ It **composes** M37 rather than duplicating: it imports M37's pure predicates
+    (`findCinematicJsAffordances` / `…CssTransitions` / `…HtmlCrossDepthLinks` / `findMissingSubjectMorph`
+    from `cinematic-grammar.mjs`) plus the two new ones (`findForeignSubjectNames` /
+    `findScrollDepthCrossing` from `grammar-constraints.mjs`, which themselves reuse M37's
+    `stripJsComments`/`SUBJECT_MORPH`). No logic is re-implemented.
+  - ✅ Wired into **CI** (`.github/workflows/verify.yml` — an explicit "Grammar gate (D10)" step)
+    and **`verify`** (and `prebuild`, replacing the standalone M37 gate — the D10 consolidation).
+  - ✅ Negative-tested: `check-grammar.test.mjs` violates **each** of the four constraints in turn
+    (plus a clean world, a declarative-anchor-is-not-a-crossing case, and a same-depth cinematic
+    arrival case) and asserts the composite rejects/accepts correctly.
+- **Files Changed:**
+  - `scripts/grammar-constraints.mjs` (new) — the two constraints M37 lacked: `findForeignSubjectNames`
+    (D1 — `eke-subject` is the only view-transition-name anywhere) and `findScrollDepthCrossing`
+    (D2 — no programmatic cross-depth navigation; movement is declarative & multi-document). Reuses
+    M37's helpers.
+  - `scripts/check-grammar.js` (new) — the single composite gate: a pure, testable `evaluateGrammar()`
+    over the four constraint groups + a CLI that reads the real surfaces.
+  - `scripts/check-grammar.test.mjs` (new) — 9 checks (each constraint rejected + clean/edge cases).
+  - `package.json` — `check-grammar` + `test:grammar` scripts; `check-grammar` replaces
+    `check-cinematic-grammar` in `prebuild` and `verify` (consolidation); `test:grammar` added to
+    `verify` (now 13 checks). `test:cinematic-grammar` (M37's unit test) retained.
+  - `.github/workflows/verify.yml` — explicit "Grammar gate (D10)" step + header note.
+- **Commit:** One clean M38 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:grammar` — PASS (9 checks; each of the four constraints rejected, clean world +
+    edge cases pass).
+  - `node scripts/check-grammar.js` on real code — PASS (all four hold).
+  - Live injection: added `view-transition-name:rogue-subject` to `src/atlas/atlas.css` → composite
+    failed under **subject invariant (D1)** (exit 1) → reverted, `git` clean.
+  - `npm run verify` — 13 checks green; `npm run build` — green (`prebuild` runs the composite gate).
+- **Notes:** **M37 is untouched** — its three files are byte-identical and `test:cinematic-grammar`
+  still runs; the composite **reuses** M37's predicates and **supersedes the standalone M37 gate in
+  the build/verify wiring** (that is exactly D10's consolidation). Operationalisation of the two new
+  constraints: **D1 (subject invariant)** = `eke-subject` is the only view-transition-name across
+  production stylesheets (test fixtures excluded); **D2 (depth discreteness)** = cross-depth movement
+  must be a declarative `<a href>` (a user navigation → multi-document view transition), never a
+  programmatic `location`/`history` jump that scroll or a timer could drive — `places/` (the
+  experiential depth) is excluded, so the same-depth cinematic arrival is not a crossing.
 
 ### M39 — Subject URL-addressability across surfaces (D1)
 
