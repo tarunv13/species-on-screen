@@ -25,6 +25,7 @@ import path from 'node:path';
 import { classifyReach, REACH_META, reasonCodesVerbatim } from './evidence-reach.mjs';
 import { interrogationChain } from './evidence-interrogate.mjs';
 import { withSubject } from '../src/subject.js';
+import { CLAIM_PREFIX, claimDomId } from './interrogation-url.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(REPO_ROOT, 'public', 'evidence');
@@ -62,12 +63,42 @@ h1{font-size:2rem;margin:0 0 .25rem;view-transition-name:eke-subject}.sub{color:
 .chain code{background:#ece7db;border-radius:.2rem;padding:.06rem .34rem;font:.8rem/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink)}
 .chain .occ{margin:.35rem 0 0}.chain .occ .sci{font-style:italic;color:var(--ink)}
 .chain .occ .facts{color:var(--muted)}
+.interrogate{scroll-margin-top:1.5rem}
 .foot{margin-top:3rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--rule);padding-top:1rem}
 a{color:var(--teal)}
 .nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 2.25rem}
 .nav a{display:inline-block;border:1px solid var(--rule);border-radius:.3rem;padding:.4rem .75rem;text-decoration:none;font:.85rem/1 -apple-system,system-ui,sans-serif;color:var(--teal);background:#fff}
 .nav .depth{color:var(--muted);font-size:.72rem;display:block;margin-bottom:.15rem;letter-spacing:.03em}
 `;
+
+// D8 — interrogation state in the URL fragment. A tiny, self-contained,
+// progressive-enhancement script (the ledger content stays static — M35): it
+// opens the claim addressed by #claim-N on load and on back/forward, and opening
+// a claim sets the fragment (a history entry, so back/forward retraces). Without
+// JS the <details> still work manually; only URL restoration is lost. The
+// subject stays in ?subject= (D1), interrogation in the fragment — one model.
+const INTERROGATE_SYNC = `<script>
+(function(){
+  var RX = new RegExp('^' + ${JSON.stringify(CLAIM_PREFIX)} + '\\\\d+$');
+  function target(){ var h = (location.hash || '').replace(/^#/, ''); return RX.test(h) ? h : ''; }
+  function sync(){
+    var id = target();
+    document.querySelectorAll('details.interrogate').forEach(function(d){
+      var match = d.id === id; if (d.open !== match) d.open = match;
+    });
+    var el = id && document.getElementById(id);
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+  }
+  window.addEventListener('hashchange', sync);
+  document.querySelectorAll('details.interrogate').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if (d.open){ if (location.hash !== '#' + d.id) location.hash = d.id; }
+      else if (location.hash === '#' + d.id){ history.replaceState(null, '', location.pathname + location.search); }
+    });
+  });
+  sync();
+})();
+</script>`;
 
 function crossDepthNav(surfaces, subjectId) {
   const s = surfaces || {};
@@ -92,7 +123,7 @@ function crossDepthNav(surfaces, subjectId) {
 function pageHtml(place, records) {
   const displayName = place.displayName;
   const nav = crossDepthNav(place.surfaces, place.placeId);
-  const claims = records.map((r) => {
+  const claims = records.map((r, i) => {
     const meta = REACH_META[r.reach];
     // D6: the badge names REACH (not truth), identically shaped for every state —
     // no pass/fail, no code list smuggled into the badge text.
@@ -116,7 +147,7 @@ function pageHtml(place, records) {
     const chainCodes = chain.reasons.length
       ? chain.reasons.map((c) => `<code>${esc(c)}</code>`).join(' ')
       : '<span class="k">none</span>';
-    const interrogate = `\n        <details class="interrogate">
+    const interrogate = `\n        <details class="interrogate" id="${claimDomId(i + 1)}">
           <summary>Interrogate — trace this claim to its evidence</summary>
           <div class="chain">
             <div class="row"><span class="k">validator verdict (baseline):</span> <code>${esc(chain.verdict || '—')}</code></div>
@@ -148,7 +179,9 @@ function pageHtml(place, records) {
 ${nav}
 ${claims}
   <p class="foot">Generated from <code>public/dwca/</code> by the reference validator (<code>scripts/check-bindings.js</code>). Regenerated every build; derived, not a source of truth. · <a href="./index.html">All places</a></p>
-</main></body></html>
+</main>
+${INTERROGATE_SYNC}
+</body></html>
 `;
 }
 
