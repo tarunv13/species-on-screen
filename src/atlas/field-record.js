@@ -20,17 +20,25 @@ import Lenis from 'lenis';
 import './field-record.css';
 import { makeSpeciesArt } from '../prototypes/species-art.js';
 import { makeBackdrop } from '../prototypes/biome-backdrop.js';
-import { getPlaceBySurfaceSlug } from '../../cinematic-language/place-manifest.ts';
+import { getPlaceBySurfaceSlug, resolveSubject } from '../../cinematic-language/place-manifest.ts';
 import { interactionWebModel } from './interaction-web.js';
+import { subjectIdFromSearch, withSubject } from '../subject.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 // Which place to read. Prefers the ?place= query param (dev/prototype use);
 // falls back to the URL filename so atlas/amazon-varzea.html resolves to
 // 'amazon-varzea' with no query string. 'field-record' (prototype filename)
 // is excluded; all unknowns default to 'sundarbans'.
+// D1: ?subject=<canonical placeId> addresses the field record independently of
+// the filename. If it resolves, its field-record atlas slug wins; otherwise fall
+// back to ?place= (dev) then the URL filename (graceful — an unknown/absent
+// subject never breaks the surface).
+const _subjectId = subjectIdFromSearch(location.search);
+const _subjectPlace = _subjectId ? resolveSubject(_subjectId) : undefined;
+const _subjectSlug = _subjectPlace ? ((_subjectPlace.surfaces.atlas || []).find((a) => a.kind === 'field-record') || {}).slug : null;
 const _qPlace = new URLSearchParams(location.search).get('place');
 const _pPlace = location.pathname.split('/').pop().replace('.html', '');
-const PLACE = _qPlace || (_pPlace && _pPlace !== 'field-record' ? _pPlace : 'sundarbans');
+const PLACE = _subjectSlug || _qPlace || (_pPlace && _pPlace !== 'field-record' ? _pPlace : 'sundarbans');
 const DWCA = BASE + 'dwca/' + PLACE + '/';
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const art = makeSpeciesArt(BASE);
@@ -636,8 +644,12 @@ async function init() {
   const nav = document.createElement('nav');
   nav.className = 'fr-nav';
   nav.setAttribute('aria-label', 'Site navigation');
+  // D1: the held subject (this place's canonical placeId) is carried across
+  // every nav link as ?subject=, so the id travels each depth transition.
+  const manifestPlace = getPlaceBySurfaceSlug(PLACE);
+  const SUBJECT_ID = manifestPlace ? manifestPlace.placeId : _subjectId;
   const atlasLink = document.createElement('a');
-  atlasLink.href = BASE + 'atlas/';
+  atlasLink.href = withSubject(BASE + 'atlas/', SUBJECT_ID);
   atlasLink.textContent = '← Living Atlas';
   nav.appendChild(atlasLink);
   // Cross-surface nav, derived from the canonical Place Manifest (ADR-001).
@@ -647,19 +659,18 @@ async function init() {
   // itself, and a place with no cinematic (e.g. amazon-varzea) gets only the
   // "← Living Atlas" link above, as before. PLACE is the atlas slug, so the
   // manifest lookup is by surface slug.
-  const manifestPlace = getPlaceBySurfaceSlug(PLACE);
   if (manifestPlace) {
     for (const a of (manifestPlace.surfaces.atlas || [])) {
       if (a.kind === 'companion') {
         const companionLink = document.createElement('a');
-        companionLink.href = BASE + 'atlas/' + a.slug + '.html';
+        companionLink.href = withSubject(BASE + 'atlas/' + a.slug + '.html', SUBJECT_ID);
         companionLink.textContent = 'Research companion →';
         nav.appendChild(companionLink);
       }
     }
     if (manifestPlace.surfaces.cinematic) {
       const enterLink = document.createElement('a');
-      enterLink.href = BASE + 'places/' + manifestPlace.surfaces.cinematic.slug + '.html';
+      enterLink.href = withSubject(BASE + 'places/' + manifestPlace.surfaces.cinematic.slug + '.html', SUBJECT_ID);
       enterLink.textContent = manifestPlace.surfaces.cinematic.enterLabel;
       nav.appendChild(enterLink);
     }
@@ -669,7 +680,7 @@ async function init() {
     // deliberately receives no such affordance — it stays pure (one-way bridge).
     if (manifestPlace.surfaces.dwca) {
       const evidenceLink = document.createElement('a');
-      evidenceLink.href = BASE + 'evidence/' + manifestPlace.surfaces.dwca.slug + '.html';
+      evidenceLink.href = withSubject(BASE + 'evidence/' + manifestPlace.surfaces.dwca.slug + '.html', SUBJECT_ID);
       evidenceLink.textContent = 'Evidence ledger →';
       nav.appendChild(evidenceLink);
     }

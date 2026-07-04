@@ -89,6 +89,15 @@ export function getPlaceById(placeId: string): PlaceEntry | undefined {
   return PLACES.find((p) => p.placeId === placeId);
 }
 
+/**
+ * Resolve the held SUBJECT to its place by canonical subject id (= `placeId`),
+ * the D1 URL-addressability entry (`?subject=`). The subject id is surface-
+ * independent; each surface derives its own local slug from the resolved place.
+ */
+export function resolveSubject(subjectId: string): PlaceEntry | undefined {
+  return getPlaceById(subjectId);
+}
+
 /** Look up a place by the bound narrative id. */
 export function getPlaceByNarrativeId(narrativeId: string): PlaceEntry | undefined {
   return PLACES.find((p) => p.narrativeId === narrativeId);
