@@ -73,9 +73,15 @@ milestone's automated test(s), all green in the current tree.
 
 **Audit notes (the entries the audit flagged):**
 
-1. **M36** — closed. The one residual is visual-only: the `:target` follow-highlight pulse is
-   verified structurally, not in a browser. Folded into **R1**; the follow mechanism itself
-   (lateral fragment navigation) works without JS and is fully verified.
+1. **M36** — closed; **R1 browser QA now DONE (2026-07-05).** The `:target` follow-highlight
+   pulse — verified structurally at closure — is now **browser-verified** against `dist/`
+   (`vite preview`, EPR field record): a follow activation sets `#fr-node-<id>`, matches
+   `:target` (accent-soft background), runs `fr-follow-pulse`, moves a11y focus, and adds one
+   history entry; Back/Forward retrace re-resolves `:target`; the reduced-motion rule suppresses
+   the pulse. No code changed. One honest limitation was recorded (see R1 below): a **cold
+   deep-link** `#fr-node-<id>` does not restore `:target`, because the field record's follow web
+   is built async after a fetch — an M40 restorability edge on an async surface, not an M36
+   defect. Session diary: `.agents/sessions/2026-07-05-m36-browser-qa.md`.
 2. **M39** — closed with a **recorded plan revision**: the original plan named `src/main.js`;
    the milestone deliberately did **not** touch it, because a subject-carrying affordance on the
    cinematic surface would violate D3 (affordance-sink). The cinematic place *is* the subject;
@@ -108,15 +114,27 @@ only verified headlessly:
   the query, interrogation from the fragment, and closing a claim drops the fragment while
   preserving `?subject=`. The existing implementation satisfied every criterion; no code change
   was required. Session diary: `.agents/sessions/2026-07-04-m40-browser-qa.md`.
+- **M36 (primary): ✅ DONE (browser-verified 2026-07-05).** Driven against `dist/` on the EPR
+  field record. Follow renders as 20 same-depth lateral edges; a follow activation sets
+  `#fr-node-<id>`, matches `:target` (accent-soft background), runs the `fr-follow-pulse`
+  animation, moves a11y focus to the node, and adds exactly one history entry; real Back/Forward
+  retrace re-resolves `:target`; the reduced-motion media rule suppresses the pulse. Existing
+  code satisfied every criterion; no code change. Session diary:
+  `.agents/sessions/2026-07-05-m36-browser-qa.md`.
 - **M37/M39 (remaining):** the `eke-subject` view-transition morph across a research→evidential /
   atlas→evidential descent; the live `?subject=` resolution animation on each surface. (M39's
   subject-carry on the ascent links was confirmed present during the M40 pass.)
-- **M36 (remaining):** the `:target` follow-highlight pulse (reduced-motion-safe).
 - **M28 carryover (remaining):** final transition easing/timing polish (the ~30-min browser item
   from `.agents/HANDOFF-eke-completion.md`).
+- **Cold deep-link `#fr-node` restore (recorded 2026-07-05, not fixed):** loading
+  `atlas/<place>.html#fr-node-<id>` cold does not restore `:target`/scroll — the field record
+  builds its follow web async after a fetch, so the node is absent at load-time fragment
+  resolution and `:target` is never re-resolved (warm follow + Back/Forward are unaffected).
+  An M40 restorability edge on an async surface, not an M36 defect; deferred (fixing it reopens a
+  closed milestone).
 
-The primary (M40) verification is closed; the remaining items are view-transition/animation
-polish. No re-architecture. Blocks R2.
+The M36 and M40 verifications are closed; the remaining items are view-transition/animation
+polish plus the recorded async cold-restore edge. No re-architecture. Blocks R2.
 
 ### R2 — Merge M33–M40 to `main`
 
