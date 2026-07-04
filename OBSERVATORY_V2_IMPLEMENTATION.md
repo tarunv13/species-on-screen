@@ -393,17 +393,46 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 
 - **Goal:** Make browser **history the primitive string** (the sequence of grammar primitives
   taken), with **interrogation state carried in the URL fragment** (D8).
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - Navigating with the four primitives produces a **history stack that reads as the primitive
-    string** (press-in / step-back / follow / interrogate), so back/forward retraces the reasoning
-    path.
-  - Interrogation (open/closed, which claim) is encoded in the **URL fragment**, so a deep link
-    restores the interrogation state.
-  - Consistent with D1 subject addressability (M39) — a shared, restorable URL model.
-  - Verified: a copied URL restores subject + depth + interrogation state.
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** **Spans sessions; last milestone.** Depends on M39. Touches history/URL handling
-  across surfaces.
+  - ✅ Navigating with the four primitives produces a **history stack that reads as the primitive
+    string**: press-in / step-back are cross-depth `<a href>` document navigations (each a history
+    entry, carrying `?subject=` per M39); **follow** is M36's `#fr-node-<id>` hash (a history entry);
+    **interrogate** now sets `#claim-N` via `location.hash` (a history entry) — so back/forward
+    retraces the reasoning path.
+  - ✅ Interrogation (which claim is open) is encoded in the **URL fragment** (`#claim-N`): the
+    ledger's tiny restore/sync script opens the addressed claim on load and on back/forward, so a
+    deep link restores the interrogation state; opening a claim writes the fragment (a history entry).
+  - ✅ Consistent with D1 (M39): a **shared, restorable URL model** — the subject stays in the query
+    (`?subject=`), the interrogation in the fragment (`#claim-N`); they coexist (verified:
+    `withSubject('…#claim-3', …)` → `…?subject=…#claim-3`).
+  - ✅ Verified: a copied URL `evidence/<slug>.html?subject=<placeId>#claim-N` restores **subject**
+    (query, carried onward), **depth** (the page = evidential), and **interrogation** (the fragment
+    opens claim N).
+- **Files Changed:**
+  - `scripts/interrogation-url.mjs` (new) — pure, dependency-free fragment↔claim mapping
+    (`CLAIM_PREFIX`, `claimDomId(index)`, `domIdFromHash(hash)`); the single definition used to stamp
+    the claim DOM ids at build time and (inlined) drive the restore script.
+  - `scripts/build-evidence.mjs` — each interrogation `<details>` gets `id="claim-N"`; a small
+    self-contained progressive-enhancement `<script>` syncs the addressed `<details>` open-state ↔
+    the URL fragment (open on load/hashchange, write the fragment on open, drop it on manual close),
+    `scroll-margin` for the anchored claim.
+  - `scripts/interrogation-url.test.mjs` (new) — 15 checks (round-trip; non-interrogation fragments —
+    incl. M36's `#fr-node-…` and a subject query — ignored). `package.json` wires
+    `test:interrogation-url` into `verify` (now 15 checks).
+- **Commit:** One clean M40 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:interrogation-url` — PASS (15 checks).
+  - `npm run verify` — 15 checks green, **including the M38 grammar gate**.
+  - `npm run build` — green. The built ledger stamps 10 `id="claim-N"` and ships the restore script;
+    the extracted inline script passes `node --check` (valid JS; the escaped `^claim-\d+$` regex
+    renders correctly); the index page (no claims) carries no script.
+  - **M35 not regressed:** the evidence chain stays static/inlined (all verdicts + occurrences
+    present); the script only manages open/close ↔ URL, never the evidence content — and without JS
+    the `<details>` still work manually (progressive enhancement).
+- **Notes:** Last milestone; the roadmap M33–M40 is complete. **M36's follow and the cross-depth
+  `<a href>` navigations were left untouched** — they already produce history entries and restore
+  from a deep link (M36's `#fr-node` via native `:target` scroll), so "history as the primitive
+  string" holds for all four primitives without changing them; M40's active work is the interrogate
+  fragment on the evidential surface. Cinematic untouched; the grammar gate stays green.
