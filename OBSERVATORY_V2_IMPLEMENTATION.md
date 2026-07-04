@@ -100,16 +100,23 @@ architecture.
 Open a real browser against the built `dist/` and confirm the interaction behaviors that were
 only verified headlessly:
 
-- **M40 (primary):** a deep link `evidence/<slug>.html?subject=<placeId>#claim-N` opens the
-  addressed claim; opening a claim writes the fragment; back/forward retraces the reasoning
-  path (`hashchange`).
-- **M37/M39:** the `eke-subject` view-transition morph across a research→evidential / atlas→
-  evidential descent; `?subject=` carried and resolved on each surface.
-- **M36:** the `:target` follow-highlight pulse (reduced-motion-safe).
-- **M28 carryover:** final transition easing/timing polish (the ~30-min browser item from
-  `.agents/HANDOFF-eke-completion.md`).
+- **M40 (primary): ✅ DONE (browser-verified 2026-07-04).** Driven against `dist/` served by
+  `vite preview` on the EPR evidence ledger. All four behavioral criteria confirmed: a deep link
+  `#claim-N` opens the addressed claim on load; opening a claim (real summary click) writes
+  `#claim-N` and adds exactly one history entry; `back`/`forward` retrace (re-opening the
+  addressed claim via `hashchange`); `?subject=<placeId>#claim-N` coexist — subject restored from
+  the query, interrogation from the fragment, and closing a claim drops the fragment while
+  preserving `?subject=`. The existing implementation satisfied every criterion; no code change
+  was required. Session diary: `.agents/sessions/2026-07-04-m40-browser-qa.md`.
+- **M37/M39 (remaining):** the `eke-subject` view-transition morph across a research→evidential /
+  atlas→evidential descent; the live `?subject=` resolution animation on each surface. (M39's
+  subject-carry on the ascent links was confirmed present during the M40 pass.)
+- **M36 (remaining):** the `:target` follow-highlight pulse (reduced-motion-safe).
+- **M28 carryover (remaining):** final transition easing/timing polish (the ~30-min browser item
+  from `.agents/HANDOFF-eke-completion.md`).
 
-Effort: hours, one browser session. No re-architecture. Blocks R2.
+The primary (M40) verification is closed; the remaining items are view-transition/animation
+polish. No re-architecture. Blocks R2.
 
 ### R2 — Merge M33–M40 to `main`
 
