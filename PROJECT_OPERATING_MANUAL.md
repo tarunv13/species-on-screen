@@ -48,10 +48,11 @@ depth affordance, and the grammar gate (D10) enforces this at build time.
 The frozen acceptance bar for any change is **headless and green**:
 
 - `npm run verify` — the full gate: 5 checks (`check-narratives`, `check-manifest`,
-  `check-bindings`, `check-dwca-xml`, `check-grammar`) + 10 unit tests
+  `check-bindings`, `check-dwca-xml`, `check-grammar`) + 12 unit tests
   (`test:conformance`, `test:surface-links`, `test:biome-backdrop`, `test:dwca-xml`,
-  `test:evidence-reach`, `test:interaction-web`, `test:evidence-interrogate`,
-  `test:cinematic-grammar`, `test:grammar`, `test:subject`, `test:interrogation-url`).
+  `test:evidence-reach`, `test:interaction-web`, `test:follow-url`,
+  `test:evidence-interrogate`, `test:cinematic-grammar`, `test:grammar`, `test:subject`,
+  `test:interrogation-url`).
 - `npm run build` — Vite build; `prebuild` runs the invariant gates
   (`check-narratives`, `check-manifest`, `check-bindings`, `check-dwca-xml`,
   `check-grammar`, `build:evidence`).

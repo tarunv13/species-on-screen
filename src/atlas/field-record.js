@@ -22,6 +22,7 @@ import { makeSpeciesArt } from '../prototypes/species-art.js';
 import { makeBackdrop } from '../prototypes/biome-backdrop.js';
 import { getPlaceBySurfaceSlug, resolveSubject } from '../../cinematic-language/place-manifest.ts';
 import { interactionWebModel } from './interaction-web.js';
+import { followDomIdFromHash } from './follow-url.js';
 import { subjectIdFromSearch, withSubject } from '../subject.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -726,20 +727,31 @@ async function init() {
   // Follow (D4): a click on a typed edge's target moves laterally to that
   // actor's node — same depth (an in-page #fragment). The native anchor scrolls
   // and sets :target; this only adds a11y focus and a brief highlight pulse.
+  // Shared by the on-load deep-link restore below (which must also scroll, since
+  // no native anchor navigation ran for it).
+  const revealFollowNode = (node, doScroll) => {
+    if (!node) return;
+    if (doScroll && typeof node.scrollIntoView === 'function') node.scrollIntoView({ block: 'start' });
+    node.classList.remove('is-followed');
+    void node.offsetWidth; // restart the pulse animation
+    node.classList.add('is-followed');
+    if (typeof node.focus === 'function') node.focus({ preventScroll: true });
+  };
   const sourcesEl = document.getElementById('fr-sources');
   if (sourcesEl) {
     sourcesEl.addEventListener('click', (e) => {
       const f = e.target.closest && e.target.closest('.fr-follow');
       if (!f) return;
-      const id = decodeURIComponent((f.getAttribute('href') || '').replace(/^#/, ''));
-      const node = id && document.getElementById(id);
-      if (!node) return;
-      node.classList.remove('is-followed');
-      void node.offsetWidth; // restart the pulse animation
-      node.classList.add('is-followed');
-      if (typeof node.focus === 'function') node.focus({ preventScroll: true });
+      revealFollowNode(document.getElementById(followDomIdFromHash(f.getAttribute('href')) || ''), false);
     });
   }
+  // Restore a deep-linked follow target (D4/D8): the follow web is built async
+  // after the archive fetch, so a cold #fr-node-<id> is absent at the browser's
+  // load-time fragment resolution — native :target/scroll never fire. Reveal it
+  // here (after buildSources) so a copied #fr-node-<id> URL restores the followed
+  // actor, the same reveal a click gives; it scrolls because no anchor could.
+  const restoreId = followDomIdFromHash(location.hash);
+  if (restoreId) revealFollowNode(document.getElementById(restoreId), true);
   updateChrome(0);
   resize();
   const onLayout = () => { resize(); recomputeStepCenters(); };
