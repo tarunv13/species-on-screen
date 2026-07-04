@@ -459,27 +459,6 @@ button {
   filter: blur(6px);
 }
 
-/* ---------- Vignette ---------- */
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 12;
-  /*
-    Vignette is intentionally subtle: edge attenuation, not a film vignette.
-    Higher opacities or a late-stage tween toward 1.0 read as cinematic
-    closure (an iris darkening as a scene ends). This vignette only does
-    the work of softening the frame's hardest corners.
-  */
-  background:
-    radial-gradient(ellipse 95% 85% at 50% 55%,
-      rgba(0,0,0,0) 60%,
-      rgba(0,0,0,0.20) 88%,
-      rgba(0,0,0,0.36) 100%);
-  pointer-events: none;
-  opacity: 0.55;
-}
-
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {

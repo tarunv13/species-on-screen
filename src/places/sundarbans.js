@@ -613,8 +613,7 @@ function buildDescent() {
     }, 3.00 * k);
 
   /* ----- Movement 5 — Settling (4.5 – ∞) ----- */
-  // The world does not conclude. Vignette does not deepen — that was a
-  // film gesture and read as scene-end. The fog-fore and mist-rising
+  // The world does not conclude. The fog-fore and mist-rising
   // "settle" tweens are replaced with non-looping random tweens that
   // never resolve, so opacity drifts asymptotically. At the close of
   // M5 the parallax system takes ownership of transforms with rest
