@@ -21,6 +21,7 @@ No architecture is introduced here.
 | **Architecture Index** | `PROJECT_STATE.md` | Engineering map: two-surface asymmetry, stack, doctrine index (§4), repo layout (§5). |
 | **AI Operating System** (roles, pipeline, Technical Lead protocol) | `.agents/AI-OS.md` | Frozen constraint. The role/decision-authority framework and the session protocol §"Technical Lead Mode". |
 | **Observatory v2 Roadmap** | `OBSERVATORY_V2_IMPLEMENTATION.md` | Frozen grammar + D1–D10; M33–M40 closure record; live remaining work R1–R3. |
+| **Implementation Blueprint** | `IMPLEMENTATION_BLUEPRINT.md` | Retrospective execution detail beneath the roadmap: per-milestone modules/reuse/never-touch, dependency graph, critical path, shared-file conflict surface, rollback unit. Descriptive, not binding — the roadmap's closure table remains the source of milestone status. |
 | **Status** | `PROJECT_STATUS.md` | Updated only when a milestone state changes. |
 | **Session diaries** | `.agents/sessions/YYYY-MM-DD-<topic>.md` | One per session. |
 | **Decisions** | `.agents/decisions/YYYY-MM-DD-<ruling>.md` | Written only when a ruling is made. |
