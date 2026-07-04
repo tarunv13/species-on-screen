@@ -4,7 +4,7 @@
 of 2026-07-04 is **accepted**: every milestone's commit is present in the branch history,
 each commit's file list matches its ledger claim, and the full automated gate is green
 — `npm run verify` (5 gates: `check-narratives`, `check-manifest`, `check-bindings`,
-`check-dwca-xml`, `check-grammar` + 10 unit tests) and `npm run build`.
+`check-dwca-xml`, `check-grammar` + 12 unit tests) and `npm run build`.
 
 This document is now the **canonical implementation roadmap**. It supersedes the prior
 verbose per-milestone ledger; the full implementation detail for each closed milestone
@@ -78,10 +78,13 @@ milestone's automated test(s), all green in the current tree.
    (`vite preview`, EPR field record): a follow activation sets `#fr-node-<id>`, matches
    `:target` (accent-soft background), runs `fr-follow-pulse`, moves a11y focus, and adds one
    history entry; Back/Forward retrace re-resolves `:target`; the reduced-motion rule suppresses
-   the pulse. No code changed. One honest limitation was recorded (see R1 below): a **cold
-   deep-link** `#fr-node-<id>` does not restore `:target`, because the field record's follow web
-   is built async after a fetch — an M40 restorability edge on an async surface, not an M36
-   defect. Session diary: `.agents/sessions/2026-07-05-m36-browser-qa.md`.
+   the pulse. No code changed for the follow *action*. A cold-deep-link gap surfaced during this
+   QA (a copied `#fr-node-<id>` did not restore the followed node, because the field record's
+   follow web is built async after a fetch — the node is absent at the browser's load-time
+   fragment resolution) and was then **fixed** (see R1 below): the D8 restorability claim for the
+   follow primitive now holds on the async surface. Session diaries:
+   `.agents/sessions/2026-07-05-m36-browser-qa.md`,
+   `.agents/sessions/2026-07-05-follow-deeplink-restore.md`.
 2. **M39** — closed with a **recorded plan revision**: the original plan named `src/main.js`;
    the milestone deliberately did **not** touch it, because a subject-carrying affordance on the
    cinematic surface would violate D3 (affordance-sink). The cinematic place *is* the subject;
@@ -126,15 +129,20 @@ only verified headlessly:
   subject-carry on the ascent links was confirmed present during the M40 pass.)
 - **M28 carryover (remaining):** final transition easing/timing polish (the ~30-min browser item
   from `.agents/HANDOFF-eke-completion.md`).
-- **Cold deep-link `#fr-node` restore (recorded 2026-07-05, not fixed):** loading
-  `atlas/<place>.html#fr-node-<id>` cold does not restore `:target`/scroll — the field record
-  builds its follow web async after a fetch, so the node is absent at load-time fragment
-  resolution and `:target` is never re-resolved (warm follow + Back/Forward are unaffected).
-  An M40 restorability edge on an async surface, not an M36 defect; deferred (fixing it reopens a
-  closed milestone).
+- **Cold deep-link `#fr-node` restore (recorded 2026-07-05): ✅ FIXED (browser-verified
+  2026-07-05).** Completes the D8 restorability claim for the *follow* primitive on the async
+  field record: a copied `atlas/<place>.html#fr-node-<id>` now scrolls the addressed actor node
+  into view and applies the same highlight/focus a follow click gives. The field record builds its
+  follow web async after the archive fetch, so a cold `#fr-node-<id>` is absent at the browser's
+  load-time fragment resolution (native `:target`/scroll never fire); the renderer now reveals the
+  addressed node after `buildSources()`. Implemented with a new pure fragment↔dom-id mapping
+  `src/atlas/follow-url.js` (`followDomIdFromHash`) — the single definition shared by the click
+  handler and the on-load restore — with a Node test `scripts/follow-url.test.mjs` (15 checks;
+  round-trip, non-follow fragments ignored) wired into `verify`. Warm follow + Back/Forward
+  unregressed (verified). Diary: `.agents/sessions/2026-07-05-follow-deeplink-restore.md`.
 
-The M36 and M40 verifications are closed; the remaining items are view-transition/animation
-polish plus the recorded async cold-restore edge. No re-architecture. Blocks R2.
+The M36 and M40 verifications are closed and the async cold-restore edge is fixed; the remaining
+items are view-transition/animation polish (M37/M39 morph, M28 easing). No re-architecture. Blocks R2.
 
 ### R2 — Merge M33–M40 to `main`
 
