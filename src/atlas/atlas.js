@@ -25,6 +25,7 @@ import { initLiquidGlass } from './liquid-glass.js';
 import { listNarratives } from '../../cinematic-language/narrative-registry.ts';
 import { PLACES, getPlaceByNarrativeId } from '../../cinematic-language/place-manifest.ts';
 import { describeSeason, overviewPalette } from './season.js';
+import { withSubject } from '../subject.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 
@@ -129,9 +130,15 @@ function buildSpeciesCard(n, onBack) {
     card.appendChild(src);
   }
 
+  // D1: carry the held subject (canonical placeId) across every cross-surface
+  // link as ?subject=, so the same id travels the depth transition. A research-
+  // only narrative has no manifest place \u2192 no subject \u2192 hrefs are unchanged.
+  const place = getPlaceByNarrativeId(n.id);
+  const subjectId = place ? place.placeId : null;
+
   const actions = el('div', 'card-actions');
   const record = el('a', 'link', 'Field note \u2192');
-  record.href = `${BASE}notes/${n.id}.html`;
+  record.href = withSubject(`${BASE}notes/${n.id}.html`, subjectId);
   actions.appendChild(record);
 
   // Cross-surface bridges, derived from the canonical Place Manifest (ADR-001).
@@ -142,26 +149,25 @@ function buildSpeciesCard(n, onBack) {
   // "Field note" link above, as before. Lookup is by narrative id because the
   // manifest's canonical placeId differs from a narrative's place.id in some
   // cases (east-pacific-rise vs east-pacific-rise-vents).
-  const place = getPlaceByNarrativeId(n.id);
   if (place) {
     const atlas = place.surfaces.atlas || [];
     for (const a of atlas) {
       if (a.kind === 'field-record') {
         const fieldRecord = el('a', 'link', 'Interaction web →');
-        fieldRecord.href = `${BASE}atlas/${a.slug}.html`;
+        fieldRecord.href = withSubject(`${BASE}atlas/${a.slug}.html`, subjectId);
         actions.appendChild(fieldRecord);
       }
     }
     for (const a of atlas) {
       if (a.kind === 'companion') {
         const companion = el('a', 'link', 'Research companion →');
-        companion.href = `${BASE}atlas/${a.slug}.html`;
+        companion.href = withSubject(`${BASE}atlas/${a.slug}.html`, subjectId);
         actions.appendChild(companion);
       }
     }
     if (place.surfaces.cinematic) {
       const enter = el('a', 'link', place.surfaces.cinematic.enterLabel);
-      enter.href = `${BASE}places/${place.surfaces.cinematic.slug}.html`;
+      enter.href = withSubject(`${BASE}places/${place.surfaces.cinematic.slug}.html`, subjectId);
       actions.appendChild(enter);
     }
   }
@@ -206,7 +212,7 @@ async function init() {
         const fr = place.surfaces.atlas.find((a) => a.kind === 'field-record');
         const link = document.createElement('a');
         link.className = 'field-record-chip glass glass--chip';
-        link.href = `${BASE}atlas/${fr.slug}.html`;
+        link.href = withSubject(`${BASE}atlas/${fr.slug}.html`, place.placeId);
         link.appendChild(el('span', 'place', place.displayName));
         link.appendChild(el('span', 'kind', place.type || ''));
         fieldRecordsPanel.appendChild(link);

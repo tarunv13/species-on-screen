@@ -24,6 +24,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { classifyReach, REACH_META, reasonCodesVerbatim } from './evidence-reach.mjs';
 import { interrogationChain } from './evidence-interrogate.mjs';
+import { withSubject } from '../src/subject.js';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(REPO_ROOT, 'public', 'evidence');
@@ -68,28 +69,29 @@ a{color:var(--teal)}
 .nav .depth{color:var(--muted);font-size:.72rem;display:block;margin-bottom:.15rem;letter-spacing:.03em}
 `;
 
-function crossDepthNav(surfaces) {
+function crossDepthNav(surfaces, subjectId) {
   const s = surfaces || {};
   const links = [];
   // Step-back / ascend along the epistemic-depth axis: from this evidential
   // record up to the analytical (interaction web) and experiential (encounter)
-  // depths, using the manifest's own cross-surface bindings (ADR-001).
+  // depths, using the manifest's own cross-surface bindings (ADR-001). D1: the
+  // held subject (canonical placeId) is carried on each link as ?subject=.
   if (s.cinematic && s.cinematic.slug) {
-    links.push(`<a href="../places/${esc(s.cinematic.slug)}.html"><span class="depth">experiential</span>${esc(s.cinematic.enterLabel || 'Enter the place')} →</a>`);
+    links.push(`<a href="${esc(withSubject(`../places/${s.cinematic.slug}.html`, subjectId))}"><span class="depth">experiential</span>${esc(s.cinematic.enterLabel || 'Enter the place')} →</a>`);
   }
   const fr = (s.atlas || []).find((a) => a.kind === 'field-record');
   if (fr && fr.slug) {
-    links.push(`<a href="../atlas/${esc(fr.slug)}.html"><span class="depth">analytical</span>Interaction web →</a>`);
+    links.push(`<a href="${esc(withSubject(`../atlas/${fr.slug}.html`, subjectId))}"><span class="depth">analytical</span>Interaction web →</a>`);
   }
   if (s.research && s.research.slug) {
-    links.push(`<a href="../notes/${esc(s.research.slug)}.html"><span class="depth">research</span>Field notes →</a>`);
+    links.push(`<a href="${esc(withSubject(`../notes/${s.research.slug}.html`, subjectId))}"><span class="depth">research</span>Field notes →</a>`);
   }
   return links.length ? `  <nav class="nav" aria-label="This place across the environment">\n    ${links.join('\n    ')}\n  </nav>` : '';
 }
 
 function pageHtml(place, records) {
   const displayName = place.displayName;
-  const nav = crossDepthNav(place.surfaces);
+  const nav = crossDepthNav(place.surfaces, place.placeId);
   const claims = records.map((r) => {
     const meta = REACH_META[r.reach];
     // D6: the badge names REACH (not truth), identically shaped for every state —

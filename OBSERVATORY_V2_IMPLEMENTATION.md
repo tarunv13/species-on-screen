@@ -337,19 +337,57 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 
 - **Goal:** Make the held **subject a URL-addressable manifest id** (`?subject=`) that resolves
   consistently across every surface.
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - The subject is addressable by a stable **manifest id** via a `?subject=` query parameter.
-  - The same `?subject=` resolves correctly on each surface (experiential / analytical /
-    evidential), using the manifest resolvers (ADR-001), with no per-surface bespoke mapping.
-  - Unknown / absent subject degrades gracefully (no broken surface).
-  - Cinematic purity and existing navigation parity preserved.
-  - Verified across surfaces (the same id resolves to the same subject everywhere).
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** **High blast radius; spans sessions.** Touches the manifest resolvers, `src/main.js`,
-  `src/atlas/*`, `src/notes/*`, `scripts/build-evidence.mjs`. Sequenced after M37/M38.
+  - ✅ The subject is addressable by a stable **manifest id** (the canonical `placeId`) via a
+    `?subject=` query parameter — read with `subjectIdFromSearch`, resolved with `resolveSubject`.
+  - ✅ The same `?subject=` resolves correctly on each surface via the **one shared** resolver +
+    the manifest (ADR-001), with **no per-surface bespoke mapping**: e.g. `?subject=east-pacific-rise`
+    yields the cinematic/atlas/dwca slug `epr-vents` and the research slug
+    `east-pacific-rise-tubeworm-chemosynthesis` on every surface; `?subject=coral-triangle` yields
+    cinematic slug `crossing`. Each surface derives its **own** local slug from the resolved place.
+  - ✅ Unknown / absent subject degrades gracefully — `heldSubject` falls back to the surface's own
+    identity, `withSubject` is a no-op on a falsy id, and a place with no cinematic surface simply
+    carries no cinematic link (amazon-várzea verified).
+  - ✅ Cinematic purity + navigation parity preserved: **no cinematic file was touched** (the place
+    *is* the subject; links *into* it carry `?subject=` from other surfaces); the M38 grammar gate
+    stays green; link **targets** are unchanged (the `?subject=` is additive; existing query/fragment
+    preserved).
+  - ✅ Verified across surfaces: a 37-check unit test against the real manifest + the built evidence
+    ledgers show one id → the correct per-surface slug across experiential/analytical/evidential/
+    research, on all four places.
+- **Files Changed:**
+  - `src/subject.js` (new) — the **single** URL-addressability mechanism (pure, dependency-free):
+    `subjectIdFromSearch`, `resolveSubject(places, id)`, `heldSubject(places, search, fallbackId)`,
+    `withSubject(href, id)`. Used by every surface; no second identity scheme.
+  - `cinematic-language/place-manifest.ts` — added the typed `resolveSubject(subjectId)` resolver
+    (= `getPlaceById`, the subject id is the canonical `placeId`).
+  - `src/atlas/field-record.js` — resolves `?subject=` to establish `PLACE` (subject → field-record
+    slug wins, else `?place=`/filename), and carries `?subject=` on all four nav links.
+  - `src/atlas/atlas.js` — carries `?subject=` on the detail-card bridges + the discovery chips.
+  - `src/notes/render-narrative.js` — carries `?subject=` on the cross-surface links (the pure
+    `surface-links.js` derivation + its test unchanged; the subject is layered on at render).
+  - `scripts/build-evidence.mjs` — the evidence ledger's ascent links carry `?subject=<placeId>`.
+  - `scripts/subject.test.mjs` (new) — 37 checks; `package.json` wires `test:subject` into `verify`
+    (now 14 checks).
+- **Commit:** One clean M39 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:subject` — PASS (37 checks against the real manifest).
+  - `npm run verify` — 14 checks green, **including the M38 grammar gate** (cinematic purity + depth
+    discreteness intact after the surface edits).
+  - `npm run build` — green. Built evidence ledgers carry `?subject=<placeId>` on every ascent link;
+    the same canonical id resolves to the correct per-surface slug (EPR → `epr-vents`/…; coral-triangle
+    → `crossing`); amazon-várzea (no cinematic) carries subject on atlas + research only.
+  - Cinematic bundles confirmed pure (no `?subject=` cross-depth logic in any `dist/assets/places-*.js`);
+    the atlas/research/field-record bundles carry the subject logic.
+- **Notes:** **High blast radius** but landed in one session as a **complete, additive** increment.
+  **`src/main.js` was deliberately not touched** — the goal listed it, but the cinematic surface is an
+  affordance-sink (M37/M38): giving it a subject-carrying cross-depth affordance would violate D3, and
+  the cinematic place page *is* the subject already; other surfaces' links into it carry `?subject=`.
+  Scope held to URL-addressability (read + resolve + carry + graceful); making a per-place page *switch*
+  its whole content by `?subject=` beyond the field record, and persisting the subject through history,
+  is M40 (D8) territory and was not started.
 
 ### M40 — History-as-trace + interrogation state in URL (D8)
 

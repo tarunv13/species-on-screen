@@ -24,6 +24,7 @@ import { getNarrativeById } from
 import { getPlaceByNarrativeId } from
   '../../cinematic-language/place-manifest.ts';
 import { surfaceLinksForPlace } from './surface-links.js';
+import { withSubject } from '../subject.js';
 import './research-article.css';
 
 const IUCN_LABEL = {
@@ -162,14 +163,17 @@ function renderMetadata(m) {
 // is by narrative id, because the manifest's canonical `placeId` intentionally
 // differs from a narrative's `place.id` in some cases (e.g. east-pacific-rise
 // vs east-pacific-rise-vents).
-function surfaceLinksFor(n) {
-  return surfaceLinksForPlace(getPlaceByNarrativeId(n.id));
-}
-
 function renderSurfaceLinks(n) {
-  const links = surfaceLinksFor(n);
+  // D1: the held subject (this place's canonical placeId) is carried across
+  // every cross-surface link as ?subject=, so the same id travels the depth
+  // transition. The pure link derivation (surface-links.js) is unchanged; the
+  // subject is layered on at render. A research-only narrative has no place →
+  // no subject → withSubject leaves the (absent) links untouched.
+  const place = getPlaceByNarrativeId(n.id);
+  const links = surfaceLinksForPlace(place);
   if (!links.length) return '';
-  const items = links.map((l) => `<a href="${escape(l.href)}">${escape(l.label)}</a>`).join('');
+  const subjectId = place ? place.placeId : null;
+  const items = links.map((l) => `<a href="${escape(withSubject(l.href, subjectId))}">${escape(l.label)}</a>`).join('');
   return `<nav class="surface-links" aria-label="Observatory surfaces">${items}</nav>`;
 }
 
