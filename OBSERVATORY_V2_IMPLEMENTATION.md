@@ -240,19 +240,49 @@ transition easing (needs a browser); the evidence-code field (awaits TDWG placem
 
 - **Goal:** Enforce, at build time, that the **cinematic surface hosts no depth affordance** (D3)
   and that the **subject morph is present on every depth transition** (D9).
-- **Status:** NOT STARTED
+- **Status:** DONE (2026-07-04)
 - **Acceptance Criteria:**
-  - A build/CI check **fails** if any cinematic bundle contains a depth affordance (press-in /
-    step-back / interrogate / cross-depth link) — the affordance-sink / one-way-bridge doctrine.
-  - A build/CI check **fails** if any depth-transition entry point is missing the shared
-    `eke-subject` view-transition morph on the held subject.
-  - Both checks are dependency-free and run in `verify` (and `prebuild` where they are invariants).
-  - Checks are negative-tested (a deliberately-broken fixture is caught).
-- **Files Changed:** —
-- **Commit:** —
-- **Verification:** —
-- **Notes:** Session-landable. Precedes M38. New `scripts/check-*.js` gate(s) + `package.json`
-  wiring; reads built bundles / source surfaces.
+  - ✅ A build check **fails** if the cinematic runtime contains a depth affordance — a cross-depth
+    import, a cross-depth navigation string, an evidential/analytical logic identifier
+    (`interrogationChain` / `interactionWebModel` / `classifyReach` / `REACH_META` /
+    `reasonCodesVerbatim`), an `interrogate` marker, a cross-document `@view-transition` / `eke-subject`
+    in cinematic CSS, or a real cross-depth `<a>` in a place shell. (Runtime = JS + CSS + shells;
+    prose comments are stripped first; the built bundle is a pure transform of this gated source.)
+  - ✅ A build check **fails** if any depth-transition subject surface (research article, atlas
+    field-record, evidence ledger) is missing the `@view-transition` opt-in or the
+    `view-transition-name: eke-subject` morph, or declares any **other** view-transition-name
+    (the single-subject invariant).
+  - ✅ Both checks are dependency-free (Node stdlib) and run in **`verify`** and **`prebuild`**
+    (build invariants).
+  - ✅ Negative-tested: 19 fixture checks exercise every failure mode + every clean shape, plus a
+    live injection into a real cinematic CSS file (caught, exit 1) then reverted.
+- **Files Changed:**
+  - `scripts/cinematic-grammar.mjs` (new) — pure, dependency-free predicates: `stripJsComments` /
+    `stripHtmlComments`, `findCinematicJsAffordances`, `findCinematicCssTransitions`,
+    `findHtmlCrossDepthLinks`, `findMissingSubjectMorph`.
+  - `scripts/check-cinematic-grammar.js` (new) — CLI gate reading the real surfaces (4 cinematic JS,
+    4 cinematic CSS, 3 place shells; 3 depth-transition subject surfaces).
+  - `scripts/check-cinematic-grammar.test.mjs` (new) — 19 negative + positive checks.
+  - `package.json` — `check-cinematic-grammar` wired into `prebuild` **and** `verify`;
+    `test:cinematic-grammar` into `verify` (now 12 checks).
+- **Commit:** One clean M37 commit (this change set); see `git log` on
+  `feat/exploration-prototypes-and-data-pipelines`.
+- **Verification:**
+  - `npm run test:cinematic-grammar` — PASS (19 checks).
+  - `node scripts/check-cinematic-grammar.js` on real code — PASS (D3 across 4 js + 4 css + 3 shells;
+    D9 morph on 3 surfaces).
+  - Live injection: appended `view-transition-name:eke-subject` to `src/places/epr-vents.css` → gate
+    failed (exit 1, correct file/kind) → reverted (`git` clean).
+  - `npm run verify` — 12 checks green; `npm run build` — green (`prebuild` runs the gate as an
+    invariant).
+- **Notes:** Session-landable; precedes M38 (which composes this into the single grammar CI gate).
+  **Scope decision:** the gate enforces D3 on the cinematic **source** (the authoritative input the
+  bundle is built from) rather than grepping the post-build bundle — deterministic, runs before the
+  build as an invariant, and the vite build injects no affordances, so bundle purity is inherited.
+  `index.html` (the hub) is exempt from the shell cross-depth-link check: its caption anchors are
+  intentional no-JS fallbacks the runtime intercepts (its runtime, `src/main.js`, is still gated and
+  reads hrefs generically — it holds no cross-depth string). The atlas overview (`atlas.css`) has the
+  calm cross-fade but no held subject, so it is correctly **not** a subject surface.
 
 ### M38 — Composite grammar-rejection CI gate (D10)
 

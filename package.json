@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run check-dwca-xml && npm run build:evidence",
+    "prebuild": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run check-dwca-xml && npm run check-cinematic-grammar && npm run build:evidence",
     "build": "vite build",
     "preview": "vite preview",
     "fetch-data": "node scripts/fetch-tmdb-data.js",
@@ -24,6 +24,7 @@
     "check-manifest": "node scripts/check-manifest.js",
     "check-bindings": "node scripts/check-bindings.js",
     "check-dwca-xml": "node scripts/check-dwca-xml.js",
+    "check-cinematic-grammar": "node scripts/check-cinematic-grammar.js",
     "build:evidence": "node scripts/build-evidence.mjs",
     "curator-worksheet": "node scripts/curator-worksheet.mjs",
     "conformance:build": "node test/conformance/build.mjs",
@@ -34,7 +35,8 @@
     "test:evidence-reach": "node scripts/evidence-reach.test.mjs",
     "test:interaction-web": "node scripts/interaction-web.test.mjs",
     "test:evidence-interrogate": "node scripts/evidence-interrogate.test.mjs",
-    "verify": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run check-dwca-xml && npm run test:conformance && npm run test:surface-links && npm run test:biome-backdrop && npm run test:dwca-xml && npm run test:evidence-reach && npm run test:interaction-web && npm run test:evidence-interrogate"
+    "test:cinematic-grammar": "node scripts/check-cinematic-grammar.test.mjs",
+    "verify": "npm run check-narratives && npm run check-manifest && npm run check-bindings && npm run check-dwca-xml && npm run check-cinematic-grammar && npm run test:conformance && npm run test:surface-links && npm run test:biome-backdrop && npm run test:dwca-xml && npm run test:evidence-reach && npm run test:interaction-web && npm run test:evidence-interrogate && npm run test:cinematic-grammar"
   },
   "dependencies": {
     "gsap": "^3.15.0",
