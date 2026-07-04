@@ -164,6 +164,10 @@ function camera(p) {
   const cx = lerp(FIELD_W / 2, head.x, follow);
   const cy = lerp(FIELD_H / 2, head.y, follow);
   const ax = lerp(W / 2, W * 0.52, follow);
+  // ay lerps from 50% (screen-centre) to 60% as follow engages, framing
+  // the subject lower to leave room above for sky/horizon. Reviewed
+  // (WP7): deliberate per-scene framing, not unreconciled drift — differs
+  // from East Pacific Rise's fixed 50% centre-hold by design.
   const ay = lerp(H / 2, H * 0.60, follow);
   return { scale, cx, cy, ax, ay };
 }

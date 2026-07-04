@@ -152,7 +152,12 @@ window.addEventListener('resize', resize);
 
 /* The camera descends. Zoom increases as depth increases; the centre of
    view (cy) moves from upper-middle world space toward the vent field.
-   ax/ay: the screen position that the camera centre maps to. */
+   ax/ay: the screen position that the camera centre maps to.
+   ay holds at a fixed 50% (screen-centre) for the whole descent, unlike
+   The Crossing's ay, which lerps toward 60% as its follow phase engages.
+   Reviewed (WP7): deliberate per-scene framing, not unreconciled drift —
+   the vent field has no horizon/sky register above the subject to leave
+   room for, so a centred hold is the correct composition here. */
 function camera(p) {
   const zoom  = lerp(0.60, 2.20, smoothstep(0.20, 0.92, p));
   const scale = baseFit * zoom;
