@@ -255,18 +255,22 @@ const prevCursorTarget = { x: 0, y: 0 };
 let descentState = 'threshold';
 
 /*
-  Scroll progress (WP8 migration Step 1 — plumbing only).
+  Scroll progress (WP8 migration Steps 1 & 3).
   Normalized 0→1 value derived from live scroll position, computed the
   same way src/places/crossing.js's rawP is: scrollY over the total
-  scrollable range. Not read by anything yet — no timeline, no CSS
-  transform, no visual output is wired to scrollP at this step. It
-  exists so a later step can drive the descent timeline's progress from
-  it without introducing a second, inconsistent scroll-math convention.
+  scrollable range. scrollDirection tracks whether the most recent
+  change was forward or backward — GSAP's tl.add() callbacks fire on
+  every crossing of their timestamp in either direction with no
+  built-in way to tell which, so the two M5 handoff callbacks below
+  read this to behave correctly under reversible scrubbing.
 */
 let scrollP = 0;
+let scrollDirection = 'forward';
 function readScrollProgress() {
   const max = document.body.scrollHeight - window.innerHeight;
-  scrollP = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+  const next = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+  if (next !== scrollP) scrollDirection = next > scrollP ? 'forward' : 'backward';
+  scrollP = next;
 }
 
 /*
@@ -647,15 +651,43 @@ function buildDescent() {
   // poses captured from the descent's final state, so post-descent
   // motion is additive on top of inhabited geometry rather than a
   // separate ambient loop.
+  //
+  // WP8 migration Step 3 — reversibility guards (requirement 9):
+  // GSAP fires an .add() callback on every crossing of its timestamp
+  // in either direction, with no built-in way to distinguish them, and
+  // empirical testing against this project's installed GSAP confirmed
+  // it (a same callback fires on forward AND backward crossings). Two
+  // adaptations were required; the tweens, durations, easing, and
+  // keyframes above are unchanged.
+  let ambientMistStarted = false;
   tl.add(() => {
-      startAmbientMist();
+      // startAmbientMist() creates two infinite-repeat tweens; calling
+      // it again would stack duplicates. Guarded to fire once, only
+      // going forward. Deliberately NOT stopped on a later backward
+      // crossing: once started it is a slow (9-15s) independent drift
+      // layered under the timeline's own value for the same
+      // properties — killing/restarting it on every back-and-forth
+      // crossing was judged more disruptive (visible tween restarts)
+      // than leaving it running quietly. This is the one explained,
+      // deliberate residual difference from a single-direction fire.
+      if (scrollDirection === 'forward' && !ambientMistStarted) {
+        startAmbientMist();
+        ambientMistStarted = true;
+      }
     }, 4.50 * k)
     .add(() => {
-      // Hand transform ownership back to parallax. The descent's
-      // yPercent/scale on each layer remain in GSAP's tracked state;
-      // parallax only modifies x/y on top of those values.
-      captureRestPoses();
-      descentState = 'inhabited';
+      if (scrollDirection === 'forward') {
+        // Hand transform ownership back to parallax. The descent's
+        // yPercent/scale on each layer remain in GSAP's tracked state;
+        // parallax only modifies x/y on top of those values.
+        captureRestPoses();
+        descentState = 'inhabited';
+      } else if (descentState === 'inhabited') {
+        // Reverse the handoff: re-suspend idle parallax so it does not
+        // fight the timeline's own scrubbed transforms while scrolling
+        // back into the descent's active range.
+        descentState = 'descending';
+      }
     }, 5.20 * k);
 
   return tl;
@@ -723,12 +755,19 @@ function init() {
     if (e.key === 'Enter' || e.key === ' ') beginDescent(e);
   });
 
-  // WP8 migration Steps 1-2: scrollP is computed continuously; whether
-  // it is authorized to drive anything depends on scrollDrivesDescent,
-  // set only by beginDescent above. Neither is consumed by the
-  // timeline yet — see readScrollProgress and scrollDrivesDescent.
+  // WP8 migration Step 3: once authorized (scrollDrivesDescent, set by
+  // beginDescent above), live scroll position drives the existing
+  // descent timeline's progress directly — no autoplay, no separate
+  // clock. Registered after readScrollProgress so scrollP is current
+  // for each scroll event before this reads it.
+  function driveDescentFromScroll() {
+    if (!scrollDrivesDescent) return;
+    descent.progress(scrollP);
+  }
+
   readScrollProgress();
   window.addEventListener('scroll', readScrollProgress, { passive: true });
+  window.addEventListener('scroll', driveDescentFromScroll, { passive: true });
 }
 
 if (document.readyState === 'loading') {
