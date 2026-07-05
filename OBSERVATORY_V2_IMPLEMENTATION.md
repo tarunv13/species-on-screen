@@ -158,3 +158,25 @@ built to expose, **not** a milestone defect. Upgrading `open` → `traceable` re
 Curator to attach verified persistent identifiers (never invented DOIs), plus the still-open
 Bates et al. (2005) citation (`PROJECT_STATUS.md` backlog 4) and the evidence-code field
 awaiting TDWG placement. Curator-gated; not autonomous. Independent of R1/R2.
+
+---
+
+## Related architecture decision (outside D1–D10 scope)
+
+**Not part of the Observatory v2 grammar or the M33–M40 closure above.** The Interaction Grammar
+(D1–D10) governs the research/analytical/evidential surfaces only; it does not touch cinematic
+camera mechanics. Recorded here only because this document is the project's canonical roadmap.
+
+**WP8 — Sundarbans↔canvas interaction-model divergence: ARCHITECTURE DECISION COMPLETE
+(RATIFIED 2026-07-05).** The Chief Architect ruling is recorded in
+`.agents/decisions/2026-07-05-wp8-interaction-model-adr.md`: **Option A** — converge on
+scroll-scrubbed Canvas2D; retrofit Sundarbans to match Crossing and East Pacific Rise. See
+`PROJECT_STATUS.md` backlog item 3(a) for the corresponding status entry.
+
+**Next genuine implementation milestone (not implemented by this record):** retrofit
+`src/places/sundarbans.js` so its Movements (M1–M5) are driven by live scroll position
+(`camera(p)`-style, matching `crossing.js`/`epr-vents.js`) rather than an autoplaying
+`gsap.timeline()` — re-authoring tuned `duration`/`ease` values as functions of scroll position,
+full visual re-verification of all five Movements, re-verification of the reduced-motion path,
+and tuning the scrollable extent against Principle III's timing envelope. This is cinematic
+engineering work, sequenced and scoped separately from R1–R3 above.
