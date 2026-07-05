@@ -131,3 +131,15 @@ Specifically:
 - **"Scroll-scrubbed Canvas2D"**, as used in Section 4 (Available options) and Section 10 (Ratification), refers to the **interaction paradigm** demonstrated by Crossing and East Pacific Rise — a progress value derived from live scroll position — not to their rendering technology.
 - This ADR **does not require** Sundarbans' existing DOM/CSS/SVG rendering to be replaced with canvas-drawn output. Sundarbans' rendering technology may be preserved; only its progress-driving mechanism is in scope.
 - Any future proposal to migrate Sundarbans' (or any place's) rendering technology would require its **own** Architecture Decision Record — it is not authorized or implied by this one.
+
+---
+
+## Amendment 2 (2026-07-05)
+
+**Type:** Scope clarification, prompted by an accessibility review conducted 2026-07-05. Sections 1–10 and the prior amendment above are unchanged; this note is additive, per the same amendment convention.
+
+This ADR governs **interaction architecture only** — whether a cinematic place's progress is scroll-driven or autoplaying. It does not govern accessibility evaluation, which remains independently governed by applicable accessibility standards, not by this record.
+
+Section 10's reference to the pending retrofit re-verifying "Principle XV's contract" names an accessibility requirement, not an interaction-model requirement. That verification must apply the applicable accessibility standard's own test directly. An editorial judgment that a given motion is meaning-bearing is not equivalent to, and does not by itself satisfy, WCAG's distinct test for motion that is "essential" to the information being conveyed — these are different evaluative tests, made by different authorities, and neither substitutes for the other.
+
+This clarification does not alter the ratified decision (Option A), the milestone named in Section 10, or the implementation plan. It narrows only how the accessibility portion of that already-named future work should be evaluated.
