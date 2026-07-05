@@ -254,6 +254,21 @@ const prevCursorTarget = { x: 0, y: 0 };
  */
 let descentState = 'threshold';
 
+/*
+  Scroll progress (WP8 migration Step 1 — plumbing only).
+  Normalized 0→1 value derived from live scroll position, computed the
+  same way src/places/crossing.js's rawP is: scrollY over the total
+  scrollable range. Not read by anything yet — no timeline, no CSS
+  transform, no visual output is wired to scrollP at this step. It
+  exists so a later step can drive the descent timeline's progress from
+  it without introducing a second, inconsistent scroll-math convention.
+*/
+let scrollP = 0;
+function readScrollProgress() {
+  const max = document.body.scrollHeight - window.innerHeight;
+  scrollP = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+}
+
 const cursorTarget   = { x: 0, y: 0 };
 const cursorSmoothed = { x: 0, y: 0 };
 const restPose = Object.create(null);   // selector → { x, y } in px
@@ -691,6 +706,11 @@ function init() {
   lensHabitat.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') beginDescent(e);
   });
+
+  // WP8 migration Step 1: establish scrollP only. Not consumed anywhere
+  // yet — see readScrollProgress above.
+  readScrollProgress();
+  window.addEventListener('scroll', readScrollProgress, { passive: true });
 }
 
 if (document.readyState === 'loading') {
