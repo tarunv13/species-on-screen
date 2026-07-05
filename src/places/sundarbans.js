@@ -528,6 +528,23 @@ function buildDescent() {
 
   const tl = gsap.timeline({ paused: true, defaults: { ease: 'sine.inOut' } });
 
+  /*
+    WP8 migration Step 5 (revised) — reduced-motion magnitude, not
+    suppression, for the layers whose transform is the sole or primary
+    carrier of their beat's meaning (per the accepted composition
+    audit). For .mist-rising/.water/.roots-mid/.roots-fore, the
+    starting offset each tween below animates FROM is reduced by a CSS
+    rule in sundarbans.css (not a tl.set() here): an empirical probe
+    against this project's installed GSAP confirmed that a .set() at
+    timeline position 0 combined with a later .to() on the SAME
+    property does not reliably apply on the first .progress() render
+    (a real, reproducible GSAP quirk, not this codebase's bug) —
+    whereas GSAP reading a percentage-based CSS transform as a tween's
+    starting value already works correctly (proven by the existing,
+    unmodified normal-motion behavior). The CSS override is therefore
+    the reliable mechanism; see sundarbans.css.
+  */
+
   /* ----- Movement 1 — Acknowledgement (0.00 – 0.45s) ----- */
   // Unchosen lenses recede (not fade — recede). The chosen lens settles:
   // a small inward scale that reads as weight finding its center.
@@ -596,8 +613,12 @@ function buildDescent() {
       transformOrigin: '50% 30%'
     }, 1.00 * k)
     .to('.canopy-mid', {
-      yPercent: -7,
-      scale: 1.06,
+      // WP8 Step 5 (revised): canopy-mid has no separate opacity cue or
+      // base offset (unlike the .set() layers above) -- this tween's
+      // target values ARE its entire motion, so the target itself is
+      // scaled by k. At k=1.0: yPercent=-7, scale=1.06 (unchanged).
+      yPercent: -7 * k,
+      scale: 1 + 0.06 * k,
       duration: 2.00 * k,
       ease: 'power2.inOut',
       transformOrigin: '50% 30%'
