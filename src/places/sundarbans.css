@@ -491,4 +491,32 @@ button {
   .water-sheen {
     animation: none !important;
   }
+
+  /*
+    WP8 migration Step 5 — restores the reduced-motion contract under
+    the scroll-driven descent (Steps 1-4). buildDescent()'s reduce/k
+    scaling compressed the AUTOPLAY's absolute duration before Step 3;
+    since progress is now set via descent.progress(p), a fraction of
+    the timeline, uniformly scaling every tween's position and duration
+    by the same k cancels out completely (verified: a tween's local
+    progress at a given p is independent of k). The choreography, the
+    JS timeline, and the normal (non-reduced) experience are untouched
+    by this rule -- it is CSS-only and applies only under this query.
+
+    Per pacing-principles.md Principle XV ("scroll-triggered reveals
+    become CSS opacity transitions... no transforms"), the scale/
+    position transforms GSAP applies to these layers are suppressed;
+    their own opacity tweens (unaffected by this rule) still reveal
+    them via the same scroll-scrubbed mechanism. Each layer's untransformed
+    base position is its natural, on-screen resting place (verified per
+    layer below), not an off-frame or broken state.
+  */
+  .canopy-far,     /* base: no transform; tween nudges scale/position for the parallax-flip */
+  .canopy-mid,     /* base: no transform; tween nudges scale/position for the parallax-flip */
+  .mist-rising,    /* base: translateY(100%, via inset+gradient); tween rises it to 0 */
+  .water,          /* base: translate3d(0,30%,0); tween reveals to natural position */
+  .roots-mid,      /* base: translate3d(0,30%,0); tween reveals to natural position */
+  .roots-fore {    /* base: translate3d(0,40%,0) scale(1.04); tween reveals to natural position/scale */
+    transform: none !important;
+  }
 }
