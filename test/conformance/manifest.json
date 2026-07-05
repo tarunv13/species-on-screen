@@ -1,0 +1,7 @@
+{
+  "_comment": "Conformance test manifest for the reference validator. Binds the two fixture archives. Minimal by design: check-bindings reads only surfaces.dwca.slug.",
+  "places": [
+    { "placeId": "clean", "surfaces": { "dwca": { "slug": "clean" } } },
+    { "placeId": "mixed", "surfaces": { "dwca": { "slug": "mixed" } } }
+  ]
+}

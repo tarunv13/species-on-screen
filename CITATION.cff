@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software or its data, please cite it as below."
+title: "Eco-Cinema Observatory (species-on-screen)"
+abstract: >-
+  A doctrine-governed eco-cinema observatory: scroll-driven cinematic
+  ecological places, a research/archive surface of attested ecological
+  narratives, and Darwin Core interaction archives grounded in the GBIF
+  backbone taxonomy and OBO Relations Ontology interaction terms. Code is
+  licensed Apache-2.0; documentation, editorial prose, and Darwin Core data
+  are licensed CC-BY-4.0 (see LICENSING.md).
+type: software
+# NOTE: author identity is recorded from the repository's git author handle.
+# Replace with full legal name(s) and add an `orcid:` field before the first
+# formal citation or archival release (Zenodo DOI is a future milestone).
+authors:
+  - name: "tarunv13"
+version: "2.0.0"
+date-released: "2026-07-02"
+license:
+  - Apache-2.0
+  - CC-BY-4.0
+repository-code: "https://github.com/tarunv13/species-on-screen"
+url: "https://tarunv13.github.io/species-on-screen/"
+keywords:
+  - biodiversity informatics
+  - Darwin Core
+  - GBIF
+  - ecological storytelling
+  - conservation culturomics
+  - digital humanities
+  - interactive journalism

@@ -1,3 +1,16 @@
+/* Cross-depth transition — the "cut hidden in a dip" between depths, via the
+   W3C View Transitions API (cross-document): a calm ~350ms cross-fade where
+   supported, a plain multi-page navigation where not (stays fully deployable as
+   an ordinary website). Cinematic pages deliberately do NOT opt in — the
+   one-way bridge has no transition into it, so purity is preserved. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+/* The subject is the through-line: the place title carries a shared
+   view-transition-name so it morphs across the descent into the evidence
+   ledger (which names its own <h1> identically). Degrades to the root
+   cross-fade, then to plain navigation. */
+#narrative header h1 { view-transition-name: eke-subject; }
+
 /*
   Research-surface article styling.
   ---------------------------------
@@ -154,3 +167,23 @@ html, body {
 .narrative footer.metadata dd {
   margin: 0;
 }
+
+/* Cross-surface navigation links — atlas companions and cinematic places.
+   Visible only where the narrative has a corresponding atlas/place page. */
+.narrative .surface-links {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(31, 29, 26, 0.15);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.4rem;
+  font-size: 0.88rem;
+}
+.narrative .surface-links a {
+  color: #4a6a56;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(74, 106, 86, 0.35);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+.narrative .surface-links a:hover { border-bottom-color: #4a6a56; }

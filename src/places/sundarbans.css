@@ -25,7 +25,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
   background: #0a1014;
   color: #d6d2c8;
   font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
@@ -54,6 +53,29 @@ button {
   perspective: 1400px;
   perspective-origin: 50% 60%;
   isolation: isolate;
+}
+
+/* ---------- Scroll track (WP8 migration Steps 1 & 4) ----------
+   Establishes real document scroll height so a normalized scroll
+   progress value can be computed and, since Step 3, drives the descent
+   timeline directly. .stage is position: fixed, so it is visually
+   independent of this element itself.
+
+   Step 4 calibration: the original authored GSAP timeline (unchanged
+   since Step 3) has a real duration of 5.2s at k=1.0 (verified against
+   the actual timeline via node, not estimated). Using the standard
+   scrollytelling rate of 100vh of scroll per second of typical
+   continuous scrolling — 5.2s * 100vh/s = 520vh. Cross-checked against
+   this project's own established convention: Crossing and East
+   Pacific Rise both use 720vh for their full descent-plus-reveal
+   scroll extent (a different, non-seconds-based choreography); 520vh
+   is the same order of magnitude, not an outlier. Reduced-motion
+   (k=0.45, 2.34s) is not addressed here — its interaction with this
+   value is Step 5's explicit scope. */
+.scroll-track {
+  position: relative;
+  height: 520vh;
+  pointer-events: none;
 }
 
 /* All layers fill the stage; specific layers override height/position. */
@@ -459,27 +481,6 @@ button {
   filter: blur(6px);
 }
 
-/* ---------- Vignette ---------- */
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 12;
-  /*
-    Vignette is intentionally subtle: edge attenuation, not a film vignette.
-    Higher opacities or a late-stage tween toward 1.0 read as cinematic
-    closure (an iris darkening as a scene ends). This vignette only does
-    the work of softening the frame's hardest corners.
-  */
-  background:
-    radial-gradient(ellipse 95% 85% at 50% 55%,
-      rgba(0,0,0,0) 60%,
-      rgba(0,0,0,0.20) 88%,
-      rgba(0,0,0,0.36) 100%);
-  pointer-events: none;
-  opacity: 0.55;
-}
-
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -490,4 +491,61 @@ button {
   .water-sheen {
     animation: none !important;
   }
+
+  /*
+    WP8 migration Step 5 (revised) — restores the reduced-motion
+    contract under the scroll-driven descent (Steps 1-4), per the
+    accepted composition audit and the accepted Category D+A strategy.
+
+    The audit found that a blanket transform suppression (this rule's
+    original form) removed editorial meaning that several layers carry
+    ONLY through their transform, with no opacity fallback. Layers are
+    differentiated below -- but each treatment was individually
+    verified empirically before shipping, and two of the six did NOT
+    end up where the audit alone would have placed them:
+
+    - canopy-far ("supporting motion"): its own opacity tween (0.78 to
+      0.42) still communicates its meaning without any transform, so
+      suppression remains correct here -- unchanged from before.
+    - canopy-mid ("meaning-bearing"): no base offset of its own -- its
+      .to() tween's target values are scaled directly by k in
+      sundarbans.js (a plain buildDescent() tween value). Verified:
+      lands at its correct final scale/position at every k.
+    - roots-mid, roots-fore ("meaning-bearing"): each starts (base CSS,
+      below) at a percentage offset its .to() tween in sundarbans.js
+      animates toward its natural resting position (yPercent 0). A
+      reduced STARTING offset here (not a tl.set() in the JS -- see
+      sundarbans.js for why a .set() at this timeline position was
+      tried and empirically found unreliable on first render) makes
+      the same tween travel a shorter distance to the SAME verified
+      final position. No !important: GSAP's inline writes, once each
+      tween is active, take over via normal cascade.
+    - mist-rising ("meaning-bearing", but NOT given the above
+      treatment): its .to() target is an unusual absolute yPercent
+      (-100, not the plain 0 that roots-mid/roots-fore/water use).
+      Empirically, reducing its starting offset the same way caused it
+      to overshoot far past its correct resting position (verified via
+      live testing, not assumed) -- a confirmed defect, not a
+      hypothetical one. Suppressed here instead, as canopy-far is,
+      until this GSAP-specific interaction is understood well enough
+      to fix without risk. This is a known, incomplete resolution for
+      this one layer, not a silent gap.
+    - water: NOT given any rule here. Testing this fix uncovered that
+      water's yPercent .to() tween does not actually animate at all in
+      the CURRENT, UNMODIFIED normal-motion experience (independent of
+      reduced motion, and independent of anything in this migration --
+      confirmed against sundarbans.js's untouched tween definition). It
+      already renders as a static, opacity-only reveal for every
+      visitor today. Reduced motion therefore needs no treatment here:
+      there is no motion on this property to reduce, and adding a rule
+      would make reduced motion diverge from what normal motion
+      already, unrelatedly, does. Not fixed here -- fixing it would
+      change the normal experience, which this step must not do.
+  */
+  .canopy-far,
+  .mist-rising {
+    transform: none !important;
+  }
+  .roots-mid    { transform: translate3d(0, 13.5%, 0); } /* base 30% * 0.45 */
+  .roots-fore   { transform: translate3d(0, 18%, 0) scale(1.018); } /* base 40%/1.04 * 0.45 */
 }

@@ -21,6 +21,10 @@
 
 import { getNarrativeById } from
   '../../cinematic-language/narrative-registry.ts';
+import { getPlaceByNarrativeId } from
+  '../../cinematic-language/place-manifest.ts';
+import { surfaceLinksForPlace } from './surface-links.js';
+import { withSubject } from '../subject.js';
 import './research-article.css';
 
 const IUCN_LABEL = {
@@ -143,6 +147,36 @@ function renderMetadata(m) {
   `;
 }
 
+/* ---------- Cross-surface navigation (atlas companions + cinematic places) ---------- */
+
+// Notes pages live at notes/<id>.html; relative paths work regardless of base.
+//
+// Links are derived from the canonical Place Manifest (ADR-001). This replaced
+// the per-place SURFACE_LINKS table in M24 Phase 1A; the manifest is now the
+// single source of truth for cross-surface bindings. The derivation reproduces
+// the previous output exactly, in the same order: each field-record atlas
+// ("Interaction web →"), then each companion atlas ("Research companion →"),
+// then the cinematic place (its editorial enter label). A narrative with no
+// manifest entry (research-only) renders no surface links, as before.
+//
+// The pure derivation lives in ./surface-links.js (unit-tested in Node). Lookup
+// is by narrative id, because the manifest's canonical `placeId` intentionally
+// differs from a narrative's `place.id` in some cases (e.g. east-pacific-rise
+// vs east-pacific-rise-vents).
+function renderSurfaceLinks(n) {
+  // D1: the held subject (this place's canonical placeId) is carried across
+  // every cross-surface link as ?subject=, so the same id travels the depth
+  // transition. The pure link derivation (surface-links.js) is unchanged; the
+  // subject is layered on at render. A research-only narrative has no place →
+  // no subject → withSubject leaves the (absent) links untouched.
+  const place = getPlaceByNarrativeId(n.id);
+  const links = surfaceLinksForPlace(place);
+  if (!links.length) return '';
+  const subjectId = place ? place.placeId : null;
+  const items = links.map((l) => `<a href="${escape(withSubject(l.href, subjectId))}">${escape(l.label)}</a>`).join('');
+  return `<nav class="surface-links" aria-label="Observatory surfaces">${items}</nav>`;
+}
+
 /* ---------- Page render ---------- */
 
 function renderArticle(n) {
@@ -187,6 +221,8 @@ function renderArticle(n) {
     <footer class="metadata">
       ${renderMetadata(n.metadata)}
     </footer>
+
+    ${renderSurfaceLinks(n)}
   `;
 
   // Page <title> on research surface includes species name.

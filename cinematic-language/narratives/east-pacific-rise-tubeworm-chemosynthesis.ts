@@ -48,7 +48,7 @@ const narrative: EcologicalNarrative = {
       'in the external plume \u2014 a trophic chain whose primary ' +
       'production runs on vent chemistry rather than sunlight.',
     type: 'trophic_relation',
-    year: [1981, 2011]
+    year: [1981, 1991]
   },
   sources: [
     {
@@ -117,8 +117,8 @@ const narrative: EcologicalNarrative = {
     schemaVersion: '1',
     contributor: 'tarunv13',
     created: '2026-05-25',
-    updated: '2026-05-25',
-    status: 'draft'
+    updated: '2026-06-27',
+    status: 'verified'
   }
 };
 

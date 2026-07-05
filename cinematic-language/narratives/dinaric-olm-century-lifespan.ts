@@ -32,7 +32,7 @@ const narrative: EcologicalNarrative = {
     id: 'proteus-anguinus',
     commonName: 'olm',
     scientificName: 'Proteus anguinus',
-    taxonomy: { family: 'Proteidae', order: 'Urodela', class: 'Amphibia' },
+    taxonomy: { family: 'Proteidae', order: 'Caudata', class: 'Amphibia' },
     iucnStatus: 'vulnerable'
   },
   observation: {
@@ -101,8 +101,8 @@ const narrative: EcologicalNarrative = {
     schemaVersion: '1',
     contributor: 'tarunv13',
     created: '2026-05-25',
-    updated: '2026-05-25',
-    status: 'draft'
+    updated: '2026-06-27',
+    status: 'verified'
   }
 };
 

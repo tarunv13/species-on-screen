@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import * as THREE from 'three';
 import { CinematicEngine } from './cinematic-engine.js';
 import { Globe } from './globe.js';
+import { getPlaceByNarrativeId } from '../cinematic-language/place-manifest.ts';
 
 /*
   Homepage entry. Wires the planet, the editorial caption, and the
@@ -16,7 +17,7 @@ import { Globe } from './globe.js';
 
 let engine = null;
 let globe = null;
-let pageCaption = null;
+let wiredCaptions = [];
 let isTransitioning = false;
 // Single authoritative reference to the currently-playing transition
 // timeline. Any new transition kills the previous one before
@@ -62,145 +63,114 @@ function init() {
     runLandingSequence();
   }
 
-  // Wire up the static page caption (Sundarbans \u00b7 Bengal tiger).
-  // Clicking it intercepts the anchor and drives the canonical arrival
-  // into the published Sundarbans place. The href remains as the
-  // unenhanced fallback to the canonical research narrative at
-  // notes/sundarbans-bengal-tiger-saline-swimmer.html for a JS-disabled
-  // visitor; that page reads without 3D and stays in research register.
-  setupPageCaption();
+  // Wire the curated homepage captions to their manifest-driven arrivals.
+  // Captions are human-authored anchors in index.html (curated, never
+  // generated); the manifest supplies each caption's arrival kind/target
+  // (ADR-002). The href remains the JS-disabled fallback to the research note.
+  setupCaptions();
 }
 
-function setupPageCaption() {
-  pageCaption = document.getElementById('page-caption');
-  if (!pageCaption) return;
+/*
+  Wire the curated homepage captions to their cinematic arrivals. The captions
+  are human-authored static anchors in index.html (curated composition, never
+  generated -- ADR-002). A caption is matched to its place by the research-note
+  slug in its href; its arrival kind/target/hotspot are DATA from the Place
+  Manifest. This replaced the three bespoke arrival functions and per-id wiring
+  (M26 Phase 1C). A caption with no manifest place (or no cinematic surface) is
+  left as a plain link; a new place never appears here unless a human authors
+  its caption anchor.
+*/
+function placeForCaption(el) {
+  const href = el.getAttribute('href') || '';
+  const slug = href.split('/').pop().replace(/\.html$/, '');
+  return getPlaceByNarrativeId(slug);
+}
 
-  pageCaption.addEventListener('click', (e) => {
-    // The page-caption is the only navigable surface on the homepage.
-    // Its canonical destination on a JS-enabled visit is the cinematic
-    // place, not the species static page; intercept the anchor.
-    e.preventDefault();
-    arriveAtSundarbans();
+function setupCaptions() {
+  const caps = document.querySelectorAll('#globe-ui-container a.page-caption');
+  caps.forEach((el) => {
+    const place = placeForCaption(el);
+    if (!place || !place.surfaces.cinematic) return;
+    wiredCaptions.push(el);
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      arrive(place, el);
+    });
   });
 }
 
 /**
- * Canonical arrival into the published Sundarbans place.
+ * Canonical Article III arrival into a curated cinematic place, dispatched by
+ * the manifest's cinematic.arrival.kind. Timings, easings, camera fly, and the
+ * luminance dip are unchanged from the pre-M26 bespoke functions; only the data
+ * source (which place, which kind, which target, which hotspot) is the manifest.
  *
- * Implements Article III's four-phase transition. The five timing
- * marks below are scaled by `k` (1.0 normal, 0.5 reduced-motion) so
- * the sequence compresses without losing its grammar.
+ *   globe-hotspot (Sundarbans): departure fades the arriving caption + chrome;
+ *     the camera arcs to the hotspot (Approach); luminance dip; cut to
+ *     places/<slug>.html at peak black (3.0s * k).
+ *   dip (The Crossing, East Pacific Rise): no globe fly -- a journey/descent,
+ *     not a point on the planet; departure fades chrome; dip; cut at 1.5s * k.
  *
- *   Departure (0.0 - 0.8s * k)
- *     The page-caption and the surrounding chrome recede. The camera
- *     begins to lean toward the Sundarbans hotspot. World drift is
- *     zeroed so the planet does not slide while we move past it.
- *
- *   Approach (0.4 - 2.4s * k)
- *     The camera arcs along the surface normal to a near-tangent
- *     over the Sundarbans hotspot, ending ~3 units off the surface.
- *     The planet occupies more frame.
- *
- *   Crossing (1.9 - 3.0s * k)
- *     The cinematic canvas dims to opacity 0 while the loading-screen
- *     scrim returns to opaque black, producing a luminance dip on
- *     top of the canvas. Article III \u00a73 mandates that the cut to
- *     the destination occur INSIDE this dip, never on a clear frame.
- *     At peak darkness (3.0s * k) we navigate to
- *     places/sundarbans.html.
- *
- *   Settle (post-navigation)
- *     The destination paints from a near-black inline-styled body, so
- *     the dark frame continues uninterrupted across the cut. The
- *     destination's own threshold reveal (~0.9s delay, then 1.6s
- *     ease) brings the framing question up out of the dark. The
- *     viewer never sees an unstyled flash, never sees a navigation
- *     gesture, and never sees a clear frame between source and
- *     destination.
+ * k compresses the envelope for reduced motion (0.5) without losing grammar.
  */
-function arriveAtSundarbans() {
+function arrive(place, captionEl) {
   if (isTransitioning) return;
   isTransitioning = true;
 
   killActiveTransition();
 
-  // Zero the cursor-bias drift so the planet does not slide during
-  // the approach. globe.update() reads `isHovered` and `mouse.x` each
-  // frame; setting isHovered=false drops the bias to zero on the next
-  // frame. The planet finishes its motion on AMBIENT_DRIFT alone.
+  // Zero cursor-bias drift so the planet does not slide during the transition.
   globe.isHovered = false;
 
-  // Camera target: a near-tangent position over the Sundarbans
-  // hotspot.
-  globe.group.updateMatrixWorld();
-  const speciesPos = globe.getSpeciesPosition('tiger');
-  const worldPos = speciesPos.clone().applyMatrix4(globe.group.matrixWorld);
-  const normal = worldPos.clone().normalize();
-  const cameraTo = worldPos.clone().add(normal.clone().multiplyScalar(3.0));
-  const targetTo = worldPos.clone();
-
+  const cine = place.surfaces.cinematic;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const k = reduce ? 0.5 : 1.0;
+  const base = import.meta.env.BASE_URL || '/';
+  const dest = `${base}places/${cine.slug}.html`;
 
   const tl = gsap.timeline();
   activeTransition = tl;
 
-  /* ----- Departure (0 - 0.8s * k) ----- */
-  tl.to('#page-caption', {
-    opacity: 0,
-    duration: 0.7 * k,
-    ease: 'sine.inOut'
-  }, 0);
-  tl.to('#globe-ui-container', {
-    opacity: 0,
-    duration: 0.7 * k,
-    ease: 'sine.inOut'
-  }, 0);
+  if (cine.arrival.kind === 'globe-hotspot') {
+    globe.group.updateMatrixWorld();
+    const speciesPos = globe.getSpeciesPosition(cine.arrival.hotspotId);
+    const worldPos = speciesPos.clone().applyMatrix4(globe.group.matrixWorld);
+    const normal = worldPos.clone().normalize();
+    const cameraTo = worldPos.clone().add(normal.clone().multiplyScalar(3.0));
+    const targetTo = worldPos.clone();
 
-  /* ----- Approach (0.4 - 2.4s * k) ----- */
-  tl.add(
-    engine.flyCamera(cameraTo, targetTo, 2.0 * k, 'power3.inOut'),
-    0.4 * k
-  );
+    /* ----- Departure (0 - 0.7s * k) ----- */
+    tl.to(captionEl, { opacity: 0, duration: 0.7 * k, ease: 'sine.inOut' }, 0);
+    tl.to('#globe-ui-container', { opacity: 0, duration: 0.7 * k, ease: 'sine.inOut' }, 0);
 
-  /* ----- Crossing (1.9 - 3.0s * k) - the luminance dip -----
-     The loading-screen scrim returns to opaque black underneath the
-     canvas, then the canvas dims through it. The dip closes on true
-     black, not on a transparent canvas over the body background. */
-  tl.add(() => {
-    const ls = document.getElementById('loading-screen');
-    if (ls) {
-      ls.style.display = 'block';
-      ls.style.opacity = '0';
-    }
-  }, 1.9 * k);
-  tl.to('#loading-screen', {
-    opacity: 1,
-    duration: 1.0 * k,
-    ease: 'power2.inOut'
-  }, 1.9 * k);
-  tl.to('#cinematic-canvas', {
-    opacity: 0,
-    duration: 0.9 * k,
-    ease: 'power2.inOut'
-  }, 2.0 * k);
+    /* ----- Approach (0.4 - 2.4s * k) ----- */
+    tl.add(engine.flyCamera(cameraTo, targetTo, 2.0 * k, 'power3.inOut'), 0.4 * k);
 
-  /* ----- Cut at peak black (3.0s * k) -----
-     The destination begins on a near-black inline-styled body
-     (places/sundarbans.html <head> ensures first-paint darkness),
-     so the dark frame continues across the navigation. Article III
-     \u00a73 observed: the cut is hidden inside the luminance dip from
-     both sides. Continuity is ecological: dark to dark. */
-  tl.add(() => {
-    const base = import.meta.env.BASE_URL || '/';
-    // The browser fully tears down this page on navigation; the
-    // engine animation loop, particle drift, and globe rotation stop
-    // with it. No explicit teardown is required. activeTransition
-    // stays referenced because it is the timeline currently in
-    // flight; on navigation the reference is discarded with the
-    // document.
-    window.location.assign(`${base}places/sundarbans.html`);
-  }, 3.0 * k);
+    /* ----- Crossing (1.9 - 3.0s * k) -- luminance dip ----- */
+    tl.add(() => {
+      const ls = document.getElementById('loading-screen');
+      if (ls) { ls.style.display = 'block'; ls.style.opacity = '0'; }
+    }, 1.9 * k);
+    tl.to('#loading-screen', { opacity: 1, duration: 1.0 * k, ease: 'power2.inOut' }, 1.9 * k);
+    tl.to('#cinematic-canvas', { opacity: 0, duration: 0.9 * k, ease: 'power2.inOut' }, 2.0 * k);
+
+    /* ----- Cut at peak black (3.0s * k) ----- */
+    tl.add(() => { window.location.assign(dest); }, 3.0 * k);
+  } else {
+    /* ----- Departure (0 - 0.7s * k) ----- */
+    tl.to('#globe-ui-container', { opacity: 0, duration: 0.7 * k, ease: 'sine.inOut' }, 0);
+
+    /* ----- Crossing (0.5 - 1.5s * k) -- luminance dip ----- */
+    tl.add(() => {
+      const ls = document.getElementById('loading-screen');
+      if (ls) { ls.style.display = 'block'; ls.style.opacity = '0'; }
+    }, 0.5 * k);
+    tl.to('#loading-screen', { opacity: 1, duration: 0.9 * k, ease: 'power2.inOut' }, 0.5 * k);
+    tl.to('#cinematic-canvas', { opacity: 0, duration: 0.8 * k, ease: 'power2.inOut' }, 0.6 * k);
+
+    /* ----- Cut at peak black (1.5s * k) ----- */
+    tl.add(() => { window.location.assign(dest); }, 1.5 * k);
+  }
 }
 
 function killActiveTransition() {
@@ -228,12 +198,8 @@ function runLandingSequence() {
     // for 0.9s after the camera stops \u2014 the 'this place exists'
     // beat \u2014 before the caption fades in.
     gsap.delayedCall(0.9, () => {
-      if (globeUI) {
-        globeUI.classList.add('active');
-      }
-      if (pageCaption) {
-        pageCaption.classList.add('is-visible');
-      }
+      if (globeUI) globeUI.classList.add('active');
+      wiredCaptions.forEach((el) => el.classList.add('is-visible'));
     });
   });
 }
