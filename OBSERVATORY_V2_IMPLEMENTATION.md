@@ -173,10 +173,8 @@ camera mechanics. Recorded here only because this document is the project's cano
 scroll-scrubbed Canvas2D; retrofit Sundarbans to match Crossing and East Pacific Rise. See
 `PROJECT_STATUS.md` backlog item 3(a) for the corresponding status entry.
 
-**Next genuine implementation milestone (not implemented by this record):** retrofit
-`src/places/sundarbans.js` so its Movements (M1–M5) are driven by live scroll position
-(`camera(p)`-style, matching `crossing.js`/`epr-vents.js`) rather than an autoplaying
-`gsap.timeline()` — re-authoring tuned `duration`/`ease` values as functions of scroll position,
-full visual re-verification of all five Movements, re-verification of the reduced-motion path,
-and tuning the scrollable extent against Principle III's timing envelope. This is cinematic
-engineering work, sequenced and scoped separately from R1–R3 above.
+**Retrofit status: IMPLEMENTED.** `src/places/sundarbans.js`'s Movements (M1–M5) are now
+driven by live scroll position (`camera(p)`-style, matching `crossing.js`/`epr-vents.js`)
+rather than an autoplaying `gsap.timeline()`. WP8 is certified **PASS WITH WARNINGS**
+(ADR Amendment 3, 2026-07-05) — see `PROJECT_STATUS.md` backlog items 3(a) and 5 for the
+corresponding status and the one open warning.
