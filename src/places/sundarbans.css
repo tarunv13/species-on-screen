@@ -55,16 +55,26 @@ button {
   isolation: isolate;
 }
 
-/* ---------- Scroll track (WP8 migration Step 1) ----------
+/* ---------- Scroll track (WP8 migration Steps 1 & 4) ----------
    Establishes real document scroll height so a normalized scroll
-   progress value can be computed. .stage is position: fixed, so it is
-   visually independent of this element and of scroll position entirely
-   at this step — nothing below is wired to the computed progress value
-   yet. Purely additive plumbing; no visual change results from its
-   presence. */
+   progress value can be computed and, since Step 3, drives the descent
+   timeline directly. .stage is position: fixed, so it is visually
+   independent of this element itself.
+
+   Step 4 calibration: the original authored GSAP timeline (unchanged
+   since Step 3) has a real duration of 5.2s at k=1.0 (verified against
+   the actual timeline via node, not estimated). Using the standard
+   scrollytelling rate of 100vh of scroll per second of typical
+   continuous scrolling — 5.2s * 100vh/s = 520vh. Cross-checked against
+   this project's own established convention: Crossing and East
+   Pacific Rise both use 720vh for their full descent-plus-reveal
+   scroll extent (a different, non-seconds-based choreography); 520vh
+   is the same order of magnitude, not an outlier. Reduced-motion
+   (k=0.45, 2.34s) is not addressed here — its interaction with this
+   value is Step 5's explicit scope. */
 .scroll-track {
   position: relative;
-  height: 600vh;
+  height: 520vh;
   pointer-events: none;
 }
 
