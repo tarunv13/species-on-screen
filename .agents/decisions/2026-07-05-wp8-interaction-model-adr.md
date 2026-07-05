@@ -143,3 +143,15 @@ This ADR governs **interaction architecture only** — whether a cinematic place
 Section 10's reference to the pending retrofit re-verifying "Principle XV's contract" names an accessibility requirement, not an interaction-model requirement. That verification must apply the applicable accessibility standard's own test directly. An editorial judgment that a given motion is meaning-bearing is not equivalent to, and does not by itself satisfy, WCAG's distinct test for motion that is "essential" to the information being conveyed — these are different evaluative tests, made by different authorities, and neither substitutes for the other.
 
 This clarification does not alter the ratified decision (Option A), the milestone named in Section 10, or the implementation plan. It narrows only how the accessibility portion of that already-named future work should be evaluated.
+
+---
+
+## Amendment 3 (2026-07-05)
+
+**Type:** Certification ruling. Sections 1–10 and the prior two amendments above are unchanged; this note is additive, per the same amendment convention.
+
+**Ruling:** WP8 is certified **PASS WITH WARNINGS**. The interaction-model migration (Option A) is implemented and verified across Sundarbans, Crossing, and East Pacific Rise, closing the milestone named in Section 10.
+
+The one remaining item — `mist-rising`'s reduced-motion treatment reverting to full transform suppression, which the accepted composition audit found does not preserve documentary meaning for this layer — **remains an explicit open warning, not an accepted architectural trade-off.** It is tracked in `PROJECT_STATUS.md`'s backlog, comparable in status to the Bates et al. (2005) citation ambiguity: honestly disclosed, not resolved, and open to future work without requiring a new ruling to justify revisiting it.
+
+WP8's implementation is otherwise considered complete.
