@@ -1,6 +1,6 @@
 # Architecture Decision Record — WP8: Sundarbans↔Canvas Interaction-Model Divergence
 
-**Status:** RATIFIED (2026-07-05) — Option A selected by the Chief Architect. Sections 1–8 remain the factual/analytical record; Section 9 is the engineering recommendation that was accepted as written; Section 10 records the ratification.
+**Status:** RATIFIED (2026-07-05) — Option A selected by the Chief Architect. Sections 1–8 remain the factual/analytical record; Section 9 is the engineering recommendation that was accepted as written; Section 10 records the ratification. **Amended 2026-07-05 — see Amendment below** (scope clarification; the decision and recommendation are unchanged).
 
 ---
 
@@ -117,3 +117,17 @@ Option A is now the governing interaction model for every future cinematic place
 WP8's own acceptance criterion — *"a ruling is recorded naming which interaction model governs future places"* — is satisfied by this record. WP8 is closed as a governance item.
 
 **Next genuine implementation milestone (not part of this governance action; not implemented here):** retrofit `src/places/sundarbans.js` so its Movements (M1–M5) are driven by live scroll position (`camera(p)`-style, matching `src/places/crossing.js` and `src/places/epr-vents.js`) rather than an autoplaying `gsap.timeline()`. Per Section 6 of this ADR, this requires: re-authoring every tuned `duration`/`ease` value as a function of scroll position instead of elapsed time; full visual re-verification of all five Movements; re-verification that the reduced-motion path still holds Principle XV's contract under the new mechanism; and tuning Sundarbans' scrollable extent so a typical scroll speed approximates the existing Principle III timing envelope. This is cinematic-surface engineering work, tracked separately from the Observatory v2 (D1–D10) roadmap, and is not scoped or sequenced by this governance record.
+
+---
+
+## Amendment (2026-07-05)
+
+**Type:** Scope clarification. Sections 1–10 above are unchanged; this note is additive, per this project's established amendment convention (amendments are dated and noted, not overwritten — see `cinematic-vocabulary.md` §13). The decision and the recommendation are not modified by this amendment.
+
+This ADR governs the **interaction model** — whether a cinematic place's progress is driven by live scroll position or by an autoplaying authored timeline. It does not, on its own, govern rendering technology.
+
+Specifically:
+
+- **"Scroll-scrubbed Canvas2D"**, as used in Section 4 (Available options) and Section 10 (Ratification), refers to the **interaction paradigm** demonstrated by Crossing and East Pacific Rise — a progress value derived from live scroll position — not to their rendering technology.
+- This ADR **does not require** Sundarbans' existing DOM/CSS/SVG rendering to be replaced with canvas-drawn output. Sundarbans' rendering technology may be preserved; only its progress-driving mechanism is in scope.
+- Any future proposal to migrate Sundarbans' (or any place's) rendering technology would require its **own** Architecture Decision Record — it is not authorized or implied by this one.
