@@ -104,7 +104,7 @@ These are **not** new milestones (opening a new `M` requires a Chief Architect r
 are the closeout items an autonomous headless process structurally cannot supply. None is new
 architecture.
 
-### R1 — Browser / visual QA of the realized grammar
+### R1 — Browser / visual QA of the realized grammar — ✅ CLOSED (2026-07-05)
 
 Open a real browser against the built `dist/` and confirm the interaction behaviors that were
 only verified headlessly:
@@ -124,11 +124,24 @@ only verified headlessly:
   retrace re-resolves `:target`; the reduced-motion media rule suppresses the pulse. Existing
   code satisfied every criterion; no code change. Session diary:
   `.agents/sessions/2026-07-05-m36-browser-qa.md`.
-- **M37/M39 (remaining):** the `eke-subject` view-transition morph across a research→evidential /
-  atlas→evidential descent; the live `?subject=` resolution animation on each surface. (M39's
-  subject-carry on the ascent links was confirmed present during the M40 pass.)
-- **M28 carryover (remaining):** final transition easing/timing polish (the ~30-min browser item
-  from `.agents/HANDOFF-eke-completion.md`).
+- **M37/M39: ✅ DONE (browser-verified 2026-07-05).** The `eke-subject` view-transition morph
+  across a research→evidential / atlas→evidential descent, with the live `?subject=` resolution,
+  was driven against `dist/` on the EPR place. `view-transition-name: eke-subject` confirmed
+  identical on the research-article `h1`, the atlas field-record masthead `h1`, and the evidence-
+  ledger `h1`; both descent paths (`notes/east-pacific-rise-tubeworm-chemosynthesis.html` →
+  evidence ledger, and `atlas/epr-vents.html` → evidence ledger) navigated cleanly, carrying and
+  resolving `?subject=east-pacific-rise` on each, with the place title carrying through unchanged
+  and no console errors. (M39's subject-carry on the ascent links was confirmed present during the
+  M40 pass.) Existing code satisfied every criterion; no code change. Session diary:
+  `.agents/sessions/2026-07-05-r1-browser-qa-closure.md`.
+- **M28 carryover: ✅ DONE (browser-verified 2026-07-05).** The final transition easing/timing
+  polish item (the ~30-min browser item from `.agents/HANDOFF-eke-completion.md`) was exercised on
+  the same two descent paths: the descent reads as one dip with the title carrying through and
+  nothing else changing, matching the HANDOFF's stated acceptance. No defect found; no tuning was
+  required or performed. Session diary: `.agents/sessions/2026-07-05-r1-browser-qa-closure.md`.
+- **Cinematic purity: reconfirmed 2026-07-05.** `grep -rl view-transition dist/assets/*.css`
+  matches only `render-narrative`/`field-record`/`atlas-index` (no `places-*.css`); `check-grammar`
+  and `check-cinematic-grammar` both report all constraints holding on the real build.
 - **Cold deep-link `#fr-node` restore (recorded 2026-07-05): ✅ FIXED (browser-verified
   2026-07-05).** Completes the D8 restorability claim for the *follow* primitive on the async
   field record: a copied `atlas/<place>.html#fr-node-<id>` now scrolls the addressed actor node
@@ -141,8 +154,10 @@ only verified headlessly:
   round-trip, non-follow fragments ignored) wired into `verify`. Warm follow + Back/Forward
   unregressed (verified). Diary: `.agents/sessions/2026-07-05-follow-deeplink-restore.md`.
 
-The M36 and M40 verifications are closed and the async cold-restore edge is fixed; the remaining
-items are view-transition/animation polish (M37/M39 morph, M28 easing). No re-architecture. Blocks R2.
+**R1 is closed.** Every item is now browser-verified: M36 and M40 (2026-07-04/05), the async
+cold-restore edge (fixed 2026-07-05), and the M37/M39 subject morph + M28 easing polish (browser-
+verified 2026-07-05, no implementation defect found, no code changed). No re-architecture was
+required anywhere in R1. **R2 is now unblocked.**
 
 ### R2 — Merge M33–M40 to `main`
 
