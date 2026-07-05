@@ -254,6 +254,37 @@ const prevCursorTarget = { x: 0, y: 0 };
  */
 let descentState = 'threshold';
 
+/*
+  Scroll progress (WP8 migration Steps 1 & 3).
+  Normalized 0→1 value derived from live scroll position, computed the
+  same way src/places/crossing.js's rawP is: scrollY over the total
+  scrollable range. scrollDirection tracks whether the most recent
+  change was forward or backward — GSAP's tl.add() callbacks fire on
+  every crossing of their timestamp in either direction with no
+  built-in way to tell which, so the two M5 handoff callbacks below
+  read this to behave correctly under reversible scrubbing.
+*/
+let scrollP = 0;
+let scrollDirection = 'forward';
+function readScrollProgress() {
+  const max = document.body.scrollHeight - window.innerHeight;
+  const next = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+  if (next !== scrollP) scrollDirection = next > scrollP ? 'forward' : 'backward';
+  scrollP = next;
+}
+
+/*
+  WP8 migration Step 2 — authorization gate, not yet a driver.
+  Before the Habitat Lens is chosen, scroll input is not authorized to
+  move the descent at all (the threshold/idle experience is exactly as
+  before). Once the lens is chosen, scrollDrivesDescent becomes true,
+  retiring the old click-triggered autoplay (descent.play(0)) as the
+  descent's driver. Nothing yet reads scrollDrivesDescent to call
+  descent.progress(scrollP) — that wiring is Step 3. This step only
+  ensures the old and new drivers are never both active at once.
+*/
+let scrollDrivesDescent = false;
+
 const cursorTarget   = { x: 0, y: 0 };
 const cursorSmoothed = { x: 0, y: 0 };
 const restPose = Object.create(null);   // selector → { x, y } in px
@@ -367,12 +398,40 @@ function rafLoop(t) {
     }
   }
 
-  requestAnimationFrame(rafLoop);
+  parallaxRaf = requestAnimationFrame(rafLoop);
+}
+
+/* Principle XVII: the ambient/parallax loop pauses when the tab is hidden —
+   a backgrounded tab does not animate or schedule work. Resumption is itself
+   a ~400ms Hold before motion resumes, so returning to the tab never catches
+   the scene mid-motion. (The GSAP descent/mist tweens run on their own ticker,
+   which the browser already throttles when hidden.) */
+let parallaxRaf = 0;
+let parallaxResumeTimer = 0;
+let parallaxRunning = true;
+
+function stopParallax() {
+  parallaxRunning = false;
+  if (parallaxRaf) { cancelAnimationFrame(parallaxRaf); parallaxRaf = 0; }
+  if (parallaxResumeTimer) { clearTimeout(parallaxResumeTimer); parallaxResumeTimer = 0; }
+}
+function resumeParallax() {
+  if (parallaxRunning) return;
+  parallaxRunning = true;
+  if (parallaxResumeTimer) clearTimeout(parallaxResumeTimer);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  parallaxResumeTimer = setTimeout(() => {
+    parallaxResumeTimer = 0;
+    parallaxRaf = requestAnimationFrame(rafLoop);
+  }, reduce ? 0 : 400);
 }
 
 function startParallax() {
   bindParallaxInput();
-  requestAnimationFrame(rafLoop);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') resumeParallax(); else stopParallax();
+  });
+  parallaxRaf = requestAnimationFrame(rafLoop);
 }
 
 /* ---------- Ambient mist (post-M5 continuance) ---------- */
@@ -469,6 +528,23 @@ function buildDescent() {
 
   const tl = gsap.timeline({ paused: true, defaults: { ease: 'sine.inOut' } });
 
+  /*
+    WP8 migration Step 5 (revised) — reduced-motion magnitude, not
+    suppression, for the layers whose transform is the sole or primary
+    carrier of their beat's meaning (per the accepted composition
+    audit). For .mist-rising/.water/.roots-mid/.roots-fore, the
+    starting offset each tween below animates FROM is reduced by a CSS
+    rule in sundarbans.css (not a tl.set() here): an empirical probe
+    against this project's installed GSAP confirmed that a .set() at
+    timeline position 0 combined with a later .to() on the SAME
+    property does not reliably apply on the first .progress() render
+    (a real, reproducible GSAP quirk, not this codebase's bug) —
+    whereas GSAP reading a percentage-based CSS transform as a tween's
+    starting value already works correctly (proven by the existing,
+    unmodified normal-motion behavior). The CSS override is therefore
+    the reliable mechanism; see sundarbans.css.
+  */
+
   /* ----- Movement 1 — Acknowledgement (0.00 – 0.45s) ----- */
   // Unchosen lenses recede (not fade — recede). The chosen lens settles:
   // a small inward scale that reads as weight finding its center.
@@ -537,8 +613,12 @@ function buildDescent() {
       transformOrigin: '50% 30%'
     }, 1.00 * k)
     .to('.canopy-mid', {
-      yPercent: -7,
-      scale: 1.06,
+      // WP8 Step 5 (revised): canopy-mid has no separate opacity cue or
+      // base offset (unlike the .set() layers above) -- this tween's
+      // target values ARE its entire motion, so the target itself is
+      // scaled by k. At k=1.0: yPercent=-7, scale=1.06 (unchanged).
+      yPercent: -7 * k,
+      scale: 1 + 0.06 * k,
       duration: 2.00 * k,
       ease: 'power2.inOut',
       transformOrigin: '50% 30%'
@@ -585,23 +665,50 @@ function buildDescent() {
     }, 3.00 * k);
 
   /* ----- Movement 5 — Settling (4.5 – ∞) ----- */
-  // The world does not conclude. Vignette does not deepen — that was a
-  // film gesture and read as scene-end. The fog-fore and mist-rising
+  // The world does not conclude. The fog-fore and mist-rising
   // "settle" tweens are replaced with non-looping random tweens that
   // never resolve, so opacity drifts asymptotically. At the close of
   // M5 the parallax system takes ownership of transforms with rest
   // poses captured from the descent's final state, so post-descent
   // motion is additive on top of inhabited geometry rather than a
   // separate ambient loop.
+  //
+  // WP8 migration Step 3 — reversibility guards (requirement 9):
+  // GSAP fires an .add() callback on every crossing of its timestamp
+  // in either direction, with no built-in way to distinguish them, and
+  // empirical testing against this project's installed GSAP confirmed
+  // it (a same callback fires on forward AND backward crossings). Two
+  // adaptations were required; the tweens, durations, easing, and
+  // keyframes above are unchanged.
+  let ambientMistStarted = false;
   tl.add(() => {
-      startAmbientMist();
+      // startAmbientMist() creates two infinite-repeat tweens; calling
+      // it again would stack duplicates. Guarded to fire once, only
+      // going forward. Deliberately NOT stopped on a later backward
+      // crossing: once started it is a slow (9-15s) independent drift
+      // layered under the timeline's own value for the same
+      // properties — killing/restarting it on every back-and-forth
+      // crossing was judged more disruptive (visible tween restarts)
+      // than leaving it running quietly. This is the one explained,
+      // deliberate residual difference from a single-direction fire.
+      if (scrollDirection === 'forward' && !ambientMistStarted) {
+        startAmbientMist();
+        ambientMistStarted = true;
+      }
     }, 4.50 * k)
     .add(() => {
-      // Hand transform ownership back to parallax. The descent's
-      // yPercent/scale on each layer remain in GSAP's tracked state;
-      // parallax only modifies x/y on top of those values.
-      captureRestPoses();
-      descentState = 'inhabited';
+      if (scrollDirection === 'forward') {
+        // Hand transform ownership back to parallax. The descent's
+        // yPercent/scale on each layer remain in GSAP's tracked state;
+        // parallax only modifies x/y on top of those values.
+        captureRestPoses();
+        descentState = 'inhabited';
+      } else if (descentState === 'inhabited') {
+        // Reverse the handoff: re-suspend idle parallax so it does not
+        // fight the timeline's own scrubbed transforms while scrolling
+        // back into the descent's active range.
+        descentState = 'descending';
+      }
     }, 5.20 * k);
 
   return tl;
@@ -657,13 +764,31 @@ function init() {
     descentState = 'descending';
     resetParallaxOffsets();
 
-    descent.play(0);
+    // WP8 migration Step 2: scroll progress is now the only authorized
+    // driver of the descent going forward. The prior autoplay trigger
+    // (descent.play(0)) is retired here rather than left to compete
+    // with it once Step 3 wires scrollP to descent.progress().
+    scrollDrivesDescent = true;
   };
 
   lensHabitat.addEventListener('click', beginDescent);
   lensHabitat.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') beginDescent(e);
   });
+
+  // WP8 migration Step 3: once authorized (scrollDrivesDescent, set by
+  // beginDescent above), live scroll position drives the existing
+  // descent timeline's progress directly — no autoplay, no separate
+  // clock. Registered after readScrollProgress so scrollP is current
+  // for each scroll event before this reads it.
+  function driveDescentFromScroll() {
+    if (!scrollDrivesDescent) return;
+    descent.progress(scrollP);
+  }
+
+  readScrollProgress();
+  window.addEventListener('scroll', readScrollProgress, { passive: true });
+  window.addEventListener('scroll', driveDescentFromScroll, { passive: true });
 }
 
 if (document.readyState === 'loading') {

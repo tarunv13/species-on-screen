@@ -1,0 +1,7 @@
+resourceRelationshipID	resourceID	relatedResourceID	relationshipOfResource	relationshipOfResourceID	relationshipAccordingTo	relationshipEstablishedDate	relationshipRemarks
+MREL:1	OCC:2	OCC:1	pollinates	http://purl.obolibrary.org/obo/RO_0002455	Ref (2001)		conformant at L1; SOURCE_UNRESOLVABLE at L2 (citation string, no PID)
+MREL:2	OCC:99	OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470	Ref		EVIDENCE_UNRESOLVABLE
+MREL:3	OCC:2	OCC:1	eats	eats	Ref		RELATION_UNTYPED (bare label, not a controlled IRI)
+MREL:4	OCC:2	OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470			SOURCE_MISSING (relationshipAccordingTo empty)
+MREL:5	OCC:3	OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470	Ref		BACKBONE_UNRECONCILED (OCC:3 has no taxon key)
+MREL:6	OCC:4	OCC:1	eats	http://purl.obolibrary.org/obo/RO_0002470	Ref		AS_OF_MISSING (OCC:4 has no eventDate)

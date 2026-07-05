@@ -1,0 +1,4 @@
+occurrenceID	scientificName	associatedReferences	eventDate	dynamicProperties
+OCC:1	Alpha alpha	https://www.gbif.org/species/1	2001	{"gbifTaxonKey":1,"backboneVersion":"10.15468/39omei"}
+OCC:2	Beta beta	https://www.gbif.org/species/2	2001	{"gbifTaxonKey":2,"backboneVersion":"10.15468/39omei"}
+OCC:3	Gamma gamma	https://www.gbif.org/species/3	2002	{"gbifTaxonKey":3,"backboneVersion":"10.15468/39omei"}

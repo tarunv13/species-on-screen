@@ -23,7 +23,9 @@ import './atlas.css';
 import { gsap } from 'gsap';
 import { initLiquidGlass } from './liquid-glass.js';
 import { listNarratives } from '../../cinematic-language/narrative-registry.ts';
+import { PLACES, getPlaceByNarrativeId } from '../../cinematic-language/place-manifest.ts';
 import { describeSeason, overviewPalette } from './season.js';
+import { withSubject } from '../subject.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 
@@ -128,16 +130,46 @@ function buildSpeciesCard(n, onBack) {
     card.appendChild(src);
   }
 
+  // D1: carry the held subject (canonical placeId) across every cross-surface
+  // link as ?subject=, so the same id travels the depth transition. A research-
+  // only narrative has no manifest place \u2192 no subject \u2192 hrefs are unchanged.
+  const place = getPlaceByNarrativeId(n.id);
+  const subjectId = place ? place.placeId : null;
+
   const actions = el('div', 'card-actions');
-  const record = el('a', 'link', 'Read the field record \u2192');
-  record.href = `${BASE}notes/${n.id}.html`;
+  const record = el('a', 'link', 'Field note \u2192');
+  record.href = withSubject(`${BASE}notes/${n.id}.html`, subjectId);
   actions.appendChild(record);
 
-  // Bridge to the canonical cinematic place, where one exists.
-  if (n.place.id === 'sundarbans') {
-    const enter = el('a', 'link', 'Enter the living place \u2192');
-    enter.href = `${BASE}places/sundarbans.html`;
-    actions.appendChild(enter);
+  // Cross-surface bridges, derived from the canonical Place Manifest (ADR-001).
+  // Replaces the per-place branches (M25 Phase 1B). Reproduces prior output and
+  // order exactly: each field-record atlas ("Interaction web"), then each
+  // companion atlas ("Research companion"), then the cinematic place (its
+  // manifest enterLabel). Narratives with no manifest entry get only the
+  // "Field note" link above, as before. Lookup is by narrative id because the
+  // manifest's canonical placeId differs from a narrative's place.id in some
+  // cases (east-pacific-rise vs east-pacific-rise-vents).
+  if (place) {
+    const atlas = place.surfaces.atlas || [];
+    for (const a of atlas) {
+      if (a.kind === 'field-record') {
+        const fieldRecord = el('a', 'link', 'Interaction web →');
+        fieldRecord.href = withSubject(`${BASE}atlas/${a.slug}.html`, subjectId);
+        actions.appendChild(fieldRecord);
+      }
+    }
+    for (const a of atlas) {
+      if (a.kind === 'companion') {
+        const companion = el('a', 'link', 'Research companion →');
+        companion.href = withSubject(`${BASE}atlas/${a.slug}.html`, subjectId);
+        actions.appendChild(companion);
+      }
+    }
+    if (place.surfaces.cinematic) {
+      const enter = el('a', 'link', place.surfaces.cinematic.enterLabel);
+      enter.href = withSubject(`${BASE}places/${place.surfaces.cinematic.slug}.html`, subjectId);
+      actions.appendChild(enter);
+    }
   }
   card.appendChild(actions);
 
@@ -152,6 +184,7 @@ async function init() {
   const canvas = document.getElementById('atlas-globe-canvas');
   const chipLayer = document.getElementById('chip-layer');
   const extra = document.getElementById('chip-extra');
+  const fieldRecordsPanel = document.getElementById('field-records-panel');
   const detail = document.getElementById('habitat-detail');
   const back = document.getElementById('atlas-back');
   const seasonBadge = document.getElementById('season-badge-label');
@@ -163,6 +196,30 @@ async function init() {
   // Liquid Glass: ambient key-light drift + pointer lensing on .glass
   // surfaces. No-op under reduced-motion / coarse pointers.
   initLiquidGlass(root);
+
+  // Field-records discovery panel: DwC-A places with a canonical field-record
+  // atlas page. Sourced directly from the Place Manifest (ADR-001 single source
+  // of truth); public/dwca/index.json was retired in M27. Each chip links to
+  // the place's field-record atlas page and shows its name + biome type.
+  try {
+    const records = PLACES.filter(
+      (p) => p.surfaces.dwca && (p.surfaces.atlas || []).some((a) => a.kind === 'field-record')
+    );
+    if (records.length && fieldRecordsPanel) {
+      const label = el('span', 'panel-label', 'Interaction records');
+      fieldRecordsPanel.appendChild(label);
+      records.forEach((place) => {
+        const fr = place.surfaces.atlas.find((a) => a.kind === 'field-record');
+        const link = document.createElement('a');
+        link.className = 'field-record-chip glass glass--chip';
+        link.href = withSubject(`${BASE}atlas/${fr.slug}.html`, place.placeId);
+        link.appendChild(el('span', 'place', place.displayName));
+        link.appendChild(el('span', 'kind', place.type || ''));
+        fieldRecordsPanel.appendChild(link);
+      });
+      fieldRecordsPanel.style.display = 'flex';
+    }
+  } catch (e) { /* panel degrades silently if the manifest is unavailable */ }
 
   const narratives = listNarratives()
     .slice()

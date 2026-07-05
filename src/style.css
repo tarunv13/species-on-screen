@@ -27,7 +27,7 @@
   --colour-dawn-rim: rgb(140, 128, 107);          /* 0.55, 0.50, 0.42 */
 
   /* Typography */
-  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-stack: "Iowan Old Style", Georgia, "Times New Roman", serif;
   --font-caption: 0.78rem;          /* anchored species labels */
   --font-body: 1rem;
   --tracking-caption: 0.04em;
@@ -46,7 +46,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
   background: #0a0a1a;
   color: #ffffff;
   line-height: 1.6;
@@ -148,11 +148,43 @@ body {
   text-underline-offset: 0.25em;
 }
 
+/* Second place entry. Sits above the primary caption; visually
+   subordinate (ink-low vs ink-mid) to establish primary/secondary
+   hierarchy without introducing a different typographic register. */
+.page-caption--secondary {
+  bottom: 3.6rem;
+  color: var(--colour-ink-low);
+}
+
+.page-caption--secondary:hover {
+  color: var(--colour-ink-mid);
+}
+
+/* Third place entry. Stacks above the secondary caption in the same
+   subordinate register (ink-low), continuing the primary/secondary
+   hierarchy without a new typographic treatment. */
+.page-caption--tertiary {
+  bottom: 5.2rem;
+  color: var(--colour-ink-low);
+}
+
+.page-caption--tertiary:hover {
+  color: var(--colour-ink-mid);
+}
+
 @media (max-width: 768px) {
   .page-caption {
     font-size: 0.72rem;
     right: 1rem;
     bottom: 1rem;
+  }
+
+  .page-caption--secondary {
+    bottom: 3.3rem;
+  }
+
+  .page-caption--tertiary {
+    bottom: 5.6rem;
   }
 }
 
@@ -195,7 +227,7 @@ body {
   border: 0;
   background: transparent;
   color: rgba(255, 255, 255, 0.78);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
   font-size: 0.78rem;
   font-weight: 300;
   letter-spacing: 0.04em;

@@ -51,7 +51,7 @@ const narrative: EcologicalNarrative = {
       'sustained industrial discharge into the river and is rare in ' +
       'tomcod from less contaminated waters of the Atlantic seaboard.',
     type: 'threat_dynamic',
-    year: [1989, 2011]
+    year: [2006, 2011]
   },
   sources: [
     {
@@ -122,8 +122,8 @@ const narrative: EcologicalNarrative = {
     schemaVersion: '1',
     contributor: 'tarunv13',
     created: '2026-05-25',
-    updated: '2026-05-25',
-    status: 'draft'
+    updated: '2026-06-27',
+    status: 'verified'
   }
 };
 

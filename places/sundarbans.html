@@ -114,10 +114,17 @@
 
     <!-- Foreground humidity wisps: faint, ambient -->
     <div class="fog-fore" data-layer="fog-fore" aria-hidden="true"></div>
-
-    <!-- Vignette: subtle frame darkening to deepen embeddedness -->
-    <div class="vignette" aria-hidden="true"></div>
   </div>
+
+  <!--
+    Scroll track (WP8 migration Step 1). Establishes real document
+    scroll height so src/places/sundarbans.js can compute a normalized
+    scroll-progress value. #stage above is position: fixed and renders
+    identically regardless of scroll position; nothing here is wired to
+    any visual output yet. Invisible, non-interactive, present only so
+    the page has scrollable extent to measure.
+  -->
+  <div class="scroll-track" id="scrollTrack" aria-hidden="true"></div>
 
   <noscript>
     <div style="position:fixed;inset:0;background:#0f1418;color:#cdd3d0;display:grid;place-items:center;font-family:Georgia,serif;padding:2rem;text-align:center;">
