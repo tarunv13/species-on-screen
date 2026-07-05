@@ -269,6 +269,18 @@ function readScrollProgress() {
   scrollP = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
 }
 
+/*
+  WP8 migration Step 2 — authorization gate, not yet a driver.
+  Before the Habitat Lens is chosen, scroll input is not authorized to
+  move the descent at all (the threshold/idle experience is exactly as
+  before). Once the lens is chosen, scrollDrivesDescent becomes true,
+  retiring the old click-triggered autoplay (descent.play(0)) as the
+  descent's driver. Nothing yet reads scrollDrivesDescent to call
+  descent.progress(scrollP) — that wiring is Step 3. This step only
+  ensures the old and new drivers are never both active at once.
+*/
+let scrollDrivesDescent = false;
+
 const cursorTarget   = { x: 0, y: 0 };
 const cursorSmoothed = { x: 0, y: 0 };
 const restPose = Object.create(null);   // selector → { x, y } in px
@@ -699,7 +711,11 @@ function init() {
     descentState = 'descending';
     resetParallaxOffsets();
 
-    descent.play(0);
+    // WP8 migration Step 2: scroll progress is now the only authorized
+    // driver of the descent going forward. The prior autoplay trigger
+    // (descent.play(0)) is retired here rather than left to compete
+    // with it once Step 3 wires scrollP to descent.progress().
+    scrollDrivesDescent = true;
   };
 
   lensHabitat.addEventListener('click', beginDescent);
@@ -707,8 +723,10 @@ function init() {
     if (e.key === 'Enter' || e.key === ' ') beginDescent(e);
   });
 
-  // WP8 migration Step 1: establish scrollP only. Not consumed anywhere
-  // yet — see readScrollProgress above.
+  // WP8 migration Steps 1-2: scrollP is computed continuously; whether
+  // it is authorized to drive anything depends on scrollDrivesDescent,
+  // set only by beginDescent above. Neither is consumed by the
+  // timeline yet — see readScrollProgress and scrollDrivesDescent.
   readScrollProgress();
   window.addEventListener('scroll', readScrollProgress, { passive: true });
 }
