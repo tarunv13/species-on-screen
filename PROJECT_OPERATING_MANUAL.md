@@ -25,6 +25,7 @@ No architecture is introduced here.
 | **Status** | `PROJECT_STATUS.md` | Updated only when a milestone state changes. |
 | **Session diaries** | `.agents/sessions/YYYY-MM-DD-<topic>.md` | One per session. |
 | **Decisions** | `.agents/decisions/YYYY-MM-DD-<ruling>.md` | Written only when a ruling is made. |
+| **Thoughts** | `.agents/thoughts/YYYY-MM-DD-<slug>.md` | Durable pre-resolution reasoning upstream of Tasks/ADRs/milestones. Read-only once promoted; feeds the canonical artifacts, never duplicates them. See `.agents/decisions/2026-07-07-thought-system.md`. |
 
 The frozen-constraint documents (Constitution, Architecture Index, Knowledge Lifecycle,
 Production / Capability / Workflow Architecture, AI Operating System) are **not re-read or

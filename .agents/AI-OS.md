@@ -94,6 +94,7 @@ Invoke when any of the following are touched:
 | Status | `PROJECT_STATUS.md` | Every session |
 | Session Diary | `.agents/sessions/YYYY-MM-DD-<topic>.md` | One per session |
 | Decisions | `.agents/decisions/YYYY-MM-DD-<ruling>.md` | When a ruling is made |
+| Thoughts | `.agents/thoughts/YYYY-MM-DD-<slug>.md` | When durable pre-resolution reasoning is captured or advanced (see `.agents/decisions/2026-07-07-thought-system.md`) |
 
 ---
 
@@ -123,6 +124,7 @@ Active when the user grants sustained autonomous execution authority. The Techni
 8. Update `PROJECT_STATUS.md`
 9. Write session diary at `.agents/sessions/YYYY-MM-DD-<topic>.md`
 10. Commit documentation
+11. **Thought Review** (session close) — ask whether the work generated durable pre-resolution thinking (reasoning that outlives this session and is not already owned by an ADR, diary, or doctrine). If an existing Thought (`.agents/thoughts/`) owns that reasoning, evolve it; only if none does, create one; never create a duplicate; always prefer evolving an existing Thought. Record the one-line outcome in the session diary (step 9). Until the Thought System's search affordance ships (roadmap TS4), the "does one already own this?" check is performed by hand against the flat directory. See `.agents/decisions/2026-07-07-thought-system.md`.
 
 Git is the canonical source of truth. Documentation reflects repository state; repository state does not follow documentation.
 
