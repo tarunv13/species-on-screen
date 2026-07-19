@@ -32,9 +32,14 @@ features. Derived from the pre-announcement technical backlog (2026-07-18).
   `<h1>` added to `index.html` (class) and `places/sundarbans.html` (inline
   hidden). _Done 2026-07-19; verify 17/17 incl. D10 grammar gate, build green.
   Reduced-motion **visual** confirmation folded into T6._
-- [ ] **T5 · Loading-screen masks Three init + focus-visibility spot-check** —
-  confirm `#loading-screen` hides first paint; ensure visible keyboard focus on
-  all interactive elements (only `field-record.css` defines custom focus today).
+- [x] **T5 · Loading-screen masks Three init + focus-visibility spot-check** —
+  **verified, no fix needed.** (A) Built `index.html` ships render-blocking CSS
+  and the globe is built synchronously before the 1.5s hold → held darkness
+  masks init, no first-paint flash. (B) Focus visible everywhere: both
+  `outline:none` cases are legitimate (`.fr-node` is a `tabindex=-1` scroll
+  target with `:focus-visible` on its links; `.lens--live` replaces the outline
+  with a designed focus state); all other controls keep the default ring.
+  _Done 2026-07-19._
 
 ## VERIFY-ONLY — look, fix only if broken
 - [ ] **T6** — atlas empty-season state; homepage caption fallback target;
@@ -57,3 +62,5 @@ Three.js code-splitting; `sitemap.xml` / `robots.txt`; analytics.
 - 2026-07-19 — **T4 done**: globe reduced-motion gate + sr-only `<h1>` on
   homepage and Sundarbans place page; `verify` 17/17 (D10 grammar gate passed on
   the added heading) + `build` green.
+- 2026-07-19 — **T5 verified**: loading-screen masking and focus visibility both
+  sound; no code change required. **SHOULD tier (T4–T5) complete.**
