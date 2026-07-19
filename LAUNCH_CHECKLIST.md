@@ -26,9 +26,12 @@ features. Derived from the pre-announcement technical backlog (2026-07-18).
   build green, links resolve to real deployed paths._
 
 ## SHOULD — visible quality, cheap
-- [ ] **T4 · Reduced-motion gate on homepage globe + sr-only h1** — gate ambient
-  rotation (`src/globe.js:340`) on `prefers-reduced-motion`; add `sr-only`
-  `<h1>` to `index.html` and `places/sundarbans.html` (both have zero `<h1>`).
+- [x] **T4 · Reduced-motion gate on homepage globe + sr-only h1** — `src/globe.js`
+  now captures `this._reduce` (matchMedia) and suppresses both ambient drift and
+  cursor bias under `prefers-reduced-motion` (planet holds still); `sr-only`
+  `<h1>` added to `index.html` (class) and `places/sundarbans.html` (inline
+  hidden). _Done 2026-07-19; verify 17/17 incl. D10 grammar gate, build green.
+  Reduced-motion **visual** confirmation folded into T6._
 - [ ] **T5 · Loading-screen masks Three init + focus-visibility spot-check** —
   confirm `#loading-screen` hides first paint; ensure visible keyboard focus on
   all interactive elements (only `field-record.css` defines custom focus today).
@@ -51,3 +54,6 @@ Three.js code-splitting; `sitemap.xml` / `robots.txt`; analytics.
   built bundle. Runtime WebGL-off render deferred to T6 browser smoke.
 - 2026-07-19 — **T3 done**: `404.html` shipped to `dist/` root; `build` green;
   links to observatory + archive resolve. **MUST tier (T1–T3) complete.**
+- 2026-07-19 — **T4 done**: globe reduced-motion gate + sr-only `<h1>` on
+  homepage and Sundarbans place page; `verify` 17/17 (D10 grammar gate passed on
+  the added heading) + `build` green.

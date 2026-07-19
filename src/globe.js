@@ -51,6 +51,9 @@ export class Globe {
     this.mouse = new THREE.Vector2(-999, -999);
     this.hoveredIndex = -1;
     this.isHovered = false;
+    // Captured once: under prefers-reduced-motion the ambient drift and the
+    // cursor bias are both suppressed in update() so the planet holds still.
+    this._reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this._isDragging = false;
     this._prevPointer = { x: 0, y: 0 };
     this._velocity = { x: 0, y: 0 };
@@ -336,8 +339,10 @@ export class Globe {
     // planet acknowledges that you are present.
     const AMBIENT_DRIFT = 0.0003;
     const CURSOR_BIAS = 0.0018; // ±6x ambient at full pointer offset.
+    // Under prefers-reduced-motion the planet holds still — no autonomous
+    // drift and no cursor-driven bias (flag captured once in the constructor).
     const bias = this.isHovered ? this.mouse.x * CURSOR_BIAS : 0;
-    this.group.rotation.y += AMBIENT_DRIFT + bias;
+    if (!this._reduce) this.group.rotation.y += AMBIENT_DRIFT + bias;
 
     // Latitude is locked at 0. The planet does not tilt with cursor Y;
     // doctrine calls for horizon, not roll. The post-§9.3 camera framing
