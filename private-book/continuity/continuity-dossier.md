@@ -12,8 +12,8 @@
 - **Doctrine consolidated** (PR #61, 2026-05-25). Single canonical perceptual / editorial / temporal / intuitional layer at `.kiro/steering/`; single operational authority at `cinematic-language/platform-architecture.md`; `cinematic-principles.md` archival.
 - **Book architecture frozen** (PR #62, 2026-05-25). 100-page A4 outline binding; no prose drafted.
 - **Publication-readiness reached** (PR #60). Family C and prototypes excluded from production; archive-index drift gated by build.
-- **One canonical cinematic place** (`places/sundarbans.html`). Descent grammar locked at v2.
-- **Eleven narrative records** under `cinematic-language/narratives/`; registry-backed; build-time integrity check (`scripts/check-narratives.js`) is a prebuild gate.
+- **Three canonical cinematic places** (`places/sundarbans.html`, `places/crossing.html`, `places/epr-vents.html`). Descent grammar locked at v2.
+- **13 narrative records** under `cinematic-language/narratives/`; registry-backed; build-time integrity check (`scripts/check-narratives.js`) is a prebuild gate.
 - **Deploy** via `actions/deploy-pages` only; `gh-pages` mirror retired (PR #48). Per-PR previews under `gh-pages/preview/{n}/`.
 
 ## 2 · Canonical layers (binding citation tokens)
@@ -40,14 +40,14 @@
 | Descent four-phase grammar (Article III) | Build-time integrity gate |
 | Settle-as-continuance; luminance-dip rule | Per-PR preview deploys |
 | Family C and `prototypes/*` excluded from build | Production deploy via `actions/deploy-pages` |
-| 11 narrative ids + HTML shells | Tightening of `check-narratives` invariants (additive only) |
+| 13 narrative ids + HTML shells | Tightening of `check-narratives` invariants (additive only) |
 | Book architecture file (`private-book/architecture/book-architecture.md`) | — |
 
 ## 4 · Intentionally deferred tensions (do not resolve casually)
 
 1. **Audio (Article XVI).** Reserved territory. No implementation.
 2. **Localisation (Canon XIX).** English is the voice. No second language attempted.
-3. **Multi-place coherence.** Only Sundarbans exists. Mangrove canonical spec ratified but not built.
+3. **Multi-place coherence.** Three cinematic places exist (Sundarbans, Crossing, East Pacific Rise vents). Mangrove canonical spec ratified but not built.
 4. **Draft URLs reachable.** `notes/<id>.html` shells exist for draft records; index hides them. Doctrine accepted; alternative not chosen.
 5. **`public/data/*.json` substrate.** Legacy species data is mechanically read by the canonical globe. Not Family C residue; a substrate decision unresolved.
 6. **`observation.type` schema.** Six enum values do not cover life-history traits (extreme longevity). Flagged PR #49; do not edit silently.

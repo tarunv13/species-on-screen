@@ -571,7 +571,8 @@ plans):
   cross-reference; a "world map" zone; AR layers; a live "pulse" dashboard;
   an education zone.
 - **Unresolved doctrinal tensions** (`book-architecture.md` Part XIII):
-  multi-place coherence (only one canonical cinematic place exists); audio
+  multi-place coherence (3 cinematic places now exist: sundarbans, crossing,
+  epr-vents); audio
   (Article XVI) reserved; localisation (Canon XIX) reserved; drafts
   addressable by URL; the two-doctrine-set re-collision risk.
 
