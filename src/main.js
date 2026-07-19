@@ -31,8 +31,17 @@ function init() {
 
   const loadingScreen = document.getElementById('loading-screen');
 
-  engine = new CinematicEngine(canvas);
-  globe = new Globe(engine.getScene(), engine.getCamera(), engine.renderer);
+  // The planetary view requires a WebGL context. If the renderer cannot be
+  // created (WebGL disabled, blocked, or unavailable), fall back to the
+  // static entrance rather than leaving the visitor on held darkness forever.
+  try {
+    engine = new CinematicEngine(canvas);
+    globe = new Globe(engine.getScene(), engine.getCamera(), engine.renderer);
+  } catch (err) {
+    console.error('Cinematic engine unavailable (WebGL); showing the static entrance.', err);
+    showStaticFallback();
+    return;
+  }
 
   // Keep the species marker layer active.
   globe.setLayer('species');
@@ -178,6 +187,26 @@ function killActiveTransition() {
     activeTransition.kill();
     activeTransition = null;
   }
+}
+
+/*
+  Static entrance fallback. Used only when the WebGL renderer cannot be
+  created. Hides the (empty) canvas and the held-darkness scrim, and reveals
+  the three curated captions as plain anchors — no cinematic arrival is wired,
+  so each caption's href fallback (its research note) stands, the same
+  destination the <noscript> block offers. The body background is already held
+  darkness (#0a0a1a), so the light captions remain legible with no globe behind.
+*/
+function showStaticFallback() {
+  const loadingScreen = document.getElementById('loading-screen');
+  const canvas = document.getElementById('cinematic-canvas');
+  const globeUI = document.getElementById('globe-ui-container');
+  if (loadingScreen) loadingScreen.style.display = 'none';
+  if (canvas) canvas.style.display = 'none';
+  if (globeUI) globeUI.classList.add('active');
+  document
+    .querySelectorAll('#globe-ui-container a.page-caption')
+    .forEach((el) => el.classList.add('is-visible'));
 }
 
 function runLandingSequence() {

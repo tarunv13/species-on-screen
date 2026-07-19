@@ -14,9 +14,12 @@ features. Derived from the pre-announcement technical backlog (2026-07-18).
   zlib — no new deps); present in `dist/`; OG/Twitter image URL resolves. _Done
   2026-07-19. Design may swap for a live globe screenshot post-launch (same
   filename, non-blocking)._
-- [ ] **T2 · WebGL init failure fallback** — guard `new THREE.WebGLRenderer`
-  (`src/cinematic-engine.js:110`); on failure reveal the caption links / route
-  to `notes/`. _Evidence: no try/catch or WebGL guard today._
+- [x] **T2 · WebGL init failure fallback** — `try/catch` in `src/main.js`
+  around engine/globe construction (catches the throw from the WebGLRenderer);
+  on failure `showStaticFallback()` hides the scrim/canvas and reveals the
+  curated captions as plain links to their research notes (same destination the
+  `<noscript>` block offers). _Done 2026-07-19; verify+build green, path
+  confirmed in bundle. WebGL-off **runtime** render to be confirmed under T6._
 - [ ] **T3 · 404.html** — minimal branded 404 that links home. _Evidence: no
   `404.html` exists; GitHub Pages serves its generic page._
 
@@ -41,3 +44,6 @@ Three.js code-splitting; `sitemap.xml` / `robots.txt`; analytics.
   og:image raster into **T1b** (pending — needs a screenshot).
 - 2026-07-19 — **T1b done**: 1200×630 `og-image.png` generated and shipped;
   `verify` 17/17 + `build` green; asset present in `dist/`. **T1 complete.**
+- 2026-07-19 — **T2 done**: WebGL-failure fallback (`showStaticFallback`) added
+  to `src/main.js`; `verify` 17/17 + `build` green; fallback path present in the
+  built bundle. Runtime WebGL-off render deferred to T6 browser smoke.
