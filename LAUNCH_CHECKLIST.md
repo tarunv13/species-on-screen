@@ -20,8 +20,10 @@ features. Derived from the pre-announcement technical backlog (2026-07-18).
   curated captions as plain links to their research notes (same destination the
   `<noscript>` block offers). _Done 2026-07-19; verify+build green, path
   confirmed in bundle. WebGL-off **runtime** render to be confirmed under T6._
-- [ ] **T3 · 404.html** — minimal branded 404 that links home. _Evidence: no
-  `404.html` exists; GitHub Pages serves its generic page._
+- [x] **T3 · 404.html** — `public/404.html` (→ `dist/404.html`, the root page
+  GitHub Pages serves for any unmatched path); self-contained, held-darkness
+  register, links to the observatory + the archive; `noindex`. _Done 2026-07-19;
+  build green, links resolve to real deployed paths._
 
 ## SHOULD — visible quality, cheap
 - [ ] **T4 · Reduced-motion gate on homepage globe + sr-only h1** — gate ambient
@@ -47,3 +49,5 @@ Three.js code-splitting; `sitemap.xml` / `robots.txt`; analytics.
 - 2026-07-19 — **T2 done**: WebGL-failure fallback (`showStaticFallback`) added
   to `src/main.js`; `verify` 17/17 + `build` green; fallback path present in the
   built bundle. Runtime WebGL-off render deferred to T6 browser smoke.
+- 2026-07-19 — **T3 done**: `404.html` shipped to `dist/` root; `build` green;
+  links to observatory + archive resolve. **MUST tier (T1–T3) complete.**
