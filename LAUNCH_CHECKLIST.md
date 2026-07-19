@@ -42,8 +42,17 @@ features. Derived from the pre-announcement technical backlog (2026-07-18).
   _Done 2026-07-19._
 
 ## VERIFY-ONLY — look, fix only if broken
-- [ ] **T6** — atlas empty-season state; homepage caption fallback target;
-  Safari/iOS smoke pass.
+- [ ] **T6 · verify-only** (2 of 3 cleared; 1 blocked)
+  - (a) atlas "In season now" badge — **verified sound**: `describeSeason(45,
+    null).label` = "Summer"; the "—" seen server-side is the pre-JS default,
+    replaced on load. Not a bug.
+  - (b) homepage caption fallback — **verified intended**: `href` → research
+    note (JS-off), `arrive()` → cinematic place (JS-on), per the in-code
+    comments. Graceful degradation, no action.
+  - (c) **BLOCKED — Safari/iOS smoke + runtime toggles** (WebGL-off render from
+    T2, reduced-motion visual from T4): needs a real Safari/iOS device and
+    browser toggles; unavailable on this Windows machine. Maintainer/Design
+    device-QA gate.
 
 ## Out of scope until after launch
 Three.js code-splitting; `sitemap.xml` / `robots.txt`; analytics.
@@ -64,3 +73,10 @@ Three.js code-splitting; `sitemap.xml` / `robots.txt`; analytics.
   the added heading) + `build` green.
 - 2026-07-19 — **T5 verified**: loading-screen masking and focus visibility both
   sound; no code change required. **SHOULD tier (T4–T5) complete.**
+- 2026-07-19 — **T6 partial**: (a) atlas season badge and (b) caption fallback
+  both verified sound (no bug, intended behaviour). (c) Safari/iOS smoke +
+  WebGL-off/reduced-motion runtime toggles **blocked** — needs real browser/
+  device; hands to maintainer/Design QA gate. **STOP: blocker + human review.**
+- 2026-07-19 — Not yet deployed: T1–T5 commits sit on
+  `feat/exploration-prototypes-and-data-pipelines`. Merge/push to `main` (the
+  production deploy trigger) is a human decision — see stop summary.
