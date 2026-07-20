@@ -24,7 +24,7 @@ The project's intelligence is presently distributed across:
 - one operational architecture (`cinematic-language/platform-architecture.md`),
 - a registry-backed narrative pipeline (`cinematic-language/narratives/`,
   `notes/*.html`, `narrative-registry.ts`, `scripts/check-narratives.js`),
-- one cinematic place (`places/sundarbans.html`),
+- three cinematic places (`places/sundarbans.html`, `places/crossing.html`, `places/epr-vents.html`),
 - one archival doctrine document (`cinematic-language/cinematic-principles.md`),
 - two prototype review records (`prototypes/reviews/`),
 - one advisory findings document (`cinematic-language/depth-medium-findings.md`),
@@ -699,8 +699,8 @@ know which decisions are durable and which are incidental.
   page.
 - §4 Build separation — `vite.config.js` as the production-vs-prototype
   boundary; why `species/` and `prototypes/` are excluded from the build
-  but kept on disk; why `places/` and `notes/` are the only canonical
-  bundled surfaces. Half a page.
+  but kept on disk; why `places/`, `notes/`, and `atlas/` are the only
+  canonical bundled surfaces. Half a page.
 - §5 Three-surface separation in code — why `places/sundarbans.js` does
   not load `notes/render-narrative.js` and vice versa; the runtime
   module disjointness rule. Half a page.
@@ -719,7 +719,7 @@ know which decisions are durable and which are incidental.
 
 **Reproduces.**
 - The five invariant categories from `scripts/check-narratives.js`.
-- The three-input shape of `vite.config.js` (main + places + notes).
+- The four-input shape of `vite.config.js` (main + places + notes + atlas).
 
 **Depends on.** Parts V, VI.
 
@@ -798,7 +798,7 @@ not into the doctrine. Naming them sets the inheritance honestly.
 - §4 Localisation (Canon XIX) reserved — the editorial voice claims
   English is the voice and the interface is not the voice; no second
   language has been attempted. Half a page.
-- §5 Multi-place coherence — one cinematic place exists (Sundarbans).
+- §5 Multi-place coherence — three cinematic places exist (Sundarbans, Crossing, East Pacific Rise vents).
   The doctrine generalises; the project has not yet tested the
   generalisation. The mangrove spec begins to. One page.
 - §6 The two-doctrine-set risk in the future — the consolidation closed

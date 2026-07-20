@@ -255,35 +255,63 @@ const prevCursorTarget = { x: 0, y: 0 };
 let descentState = 'threshold';
 
 /*
-  Scroll progress (WP8 migration Steps 1 & 3).
-  Normalized 0→1 value derived from live scroll position, computed the
-  same way src/places/crossing.js's rawP is: scrollY over the total
-  scrollable range. scrollDirection tracks whether the most recent
-  change was forward or backward — GSAP's tl.add() callbacks fire on
-  every crossing of their timestamp in either direction with no
-  built-in way to tell which, so the two M5 handoff callbacks below
-  read this to behave correctly under reversible scrubbing.
+  Scroll progress (WP8 migration Step 1; driver amended by WP8 ADR
+  Amendment 4, 2026-07-19; directionality per the Descent Approval
+  Specification, C2). Normalized 0→1 value derived from live scroll
+  position, computed the same way src/places/crossing.js's rawP is:
+  scrollY over the total scrollable range. scrollP is the viewer's
+  raw scroll position — the descent never reads it directly. Once the
+  descent has begun, scroll expresses only the intent to continue:
+  descentIntent is the high-water mark of scrollP, so scrolling back
+  up neither reverses nor pauses the descent (C2), and the governed
+  progress that drives the timeline (descentP, advanced in rafLoop)
+  is monotonically non-decreasing by construction. descentP chases
+  descentIntent at a rate clamped to the timeline's own authored
+  duration, so no scroll velocity can traverse the Descent faster
+  than its canonical envelope (Principle III).
 */
 let scrollP = 0;
-let scrollDirection = 'forward';
 function readScrollProgress() {
   const max = document.body.scrollHeight - window.innerHeight;
-  const next = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-  if (next !== scrollP) scrollDirection = next > scrollP ? 'forward' : 'backward';
-  scrollP = next;
+  scrollP = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
 }
 
 /*
-  WP8 migration Step 2 — authorization gate, not yet a driver.
+  WP8 migration Step 2 — authorization gate.
   Before the Habitat Lens is chosen, scroll input is not authorized to
   move the descent at all (the threshold/idle experience is exactly as
   before). Once the lens is chosen, scrollDrivesDescent becomes true,
   retiring the old click-triggered autoplay (descent.play(0)) as the
-  descent's driver. Nothing yet reads scrollDrivesDescent to call
-  descent.progress(scrollP) — that wiring is Step 3. This step only
-  ensures the old and new drivers are never both active at once.
+  descent's driver. The governed advance in rafLoop reads this gate
+  before moving the timeline.
 */
 let scrollDrivesDescent = false;
+
+/*
+  WP8 ADR Amendment 4 (2026-07-19) — time-governed progression with a
+  perceptual floor. descentP is the displayed progress the timeline
+  actually renders. Each frame it moves toward descentIntent (the
+  high-water mark of the viewer's scroll intent) by at most
+  dt / duration, where duration is the timeline's own authored length
+  (already k-scaled, so the reduced-motion path keeps its Principle
+  XV compression). The viewer may move slower than the authored
+  Descent but can never traverse it faster than the canonical
+  Principle III envelope — the forbidden "quick descent" is
+  mechanically impossible rather than merely discouraged — and never
+  backward (C2: the governed progress is monotone; no reverse path
+  exists). With a distant intent the advance is linear time through
+  the timeline, which reproduces the originally authored pacing
+  exactly. Arrival — descentP reaching the M5 handoff — is an event,
+  not a position: it fires once, and no scrolling can exit the
+  arrived scene or disturb its terminal hold (C4). DT_CLAMP_MS bounds
+  a single frame's step so a hidden tab resuming (Principle XVII)
+  advances gently instead of jumping to the intent.
+*/
+let descentIntent = 0;
+let descentP = 0;
+let descentTimeline = null;   // set once in init()
+let prevRafT = 0;
+const DT_CLAMP_MS = 64;
 
 const cursorTarget   = { x: 0, y: 0 };
 const cursorSmoothed = { x: 0, y: 0 };
@@ -325,6 +353,22 @@ function resetParallaxOffsets() {
 }
 
 function rafLoop(t) {
+  const dt = prevRafT ? Math.min(t - prevRafT, DT_CLAMP_MS) : 0;
+  prevRafT = t;
+
+  // Governed descent advance (WP8 ADR Amendment 4; C2): the timeline
+  // chases the high-water mark of scroll intent at no more than its
+  // authored rate, and never moves backward.
+  if (scrollDrivesDescent && descentTimeline && dt > 0) {
+    if (scrollP > descentIntent) descentIntent = scrollP;
+    const delta = descentIntent - descentP;
+    if (delta > 0) {
+      const maxStep = dt / (descentTimeline.duration() * 1000);
+      descentP += Math.min(delta, maxStep);
+      descentTimeline.progress(descentP);
+    }
+  }
+
   // Smooth cursor toward target.
   cursorSmoothed.x += (cursorTarget.x - cursorSmoothed.x) * CURSOR_SMOOTH;
   cursorSmoothed.y += (cursorTarget.y - cursorSmoothed.y) * CURSOR_SMOOTH;
@@ -673,42 +717,29 @@ function buildDescent() {
   // motion is additive on top of inhabited geometry rather than a
   // separate ambient loop.
   //
-  // WP8 migration Step 3 — reversibility guards (requirement 9):
-  // GSAP fires an .add() callback on every crossing of its timestamp
-  // in either direction, with no built-in way to distinguish them, and
-  // empirical testing against this project's installed GSAP confirmed
-  // it (a same callback fires on forward AND backward crossings). Two
-  // adaptations were required; the tweens, durations, easing, and
-  // keyframes above are unchanged.
+  // Descent Approval Specification C2/C4: the governed progress is
+  // monotone — no reverse path exists — so each callback below can
+  // only be crossed once, going forward. (WP8 Step 3's reversibility
+  // guards are deleted with the reverse path itself.) The once-guard
+  // on the mist stays as cheap defense in depth. The M5 handoff is
+  // the arrival event (C4): parallax takes ownership of the inhabited
+  // scene, and no scroll input can undo it.
   let ambientMistStarted = false;
   tl.add(() => {
       // startAmbientMist() creates two infinite-repeat tweens; calling
-      // it again would stack duplicates. Guarded to fire once, only
-      // going forward. Deliberately NOT stopped on a later backward
-      // crossing: once started it is a slow (9-15s) independent drift
-      // layered under the timeline's own value for the same
-      // properties — killing/restarting it on every back-and-forth
-      // crossing was judged more disruptive (visible tween restarts)
-      // than leaving it running quietly. This is the one explained,
-      // deliberate residual difference from a single-direction fire.
-      if (scrollDirection === 'forward' && !ambientMistStarted) {
+      // it again would stack duplicates.
+      if (!ambientMistStarted) {
         startAmbientMist();
         ambientMistStarted = true;
       }
     }, 4.50 * k)
     .add(() => {
-      if (scrollDirection === 'forward') {
-        // Hand transform ownership back to parallax. The descent's
-        // yPercent/scale on each layer remain in GSAP's tracked state;
-        // parallax only modifies x/y on top of those values.
-        captureRestPoses();
-        descentState = 'inhabited';
-      } else if (descentState === 'inhabited') {
-        // Reverse the handoff: re-suspend idle parallax so it does not
-        // fight the timeline's own scrubbed transforms while scrolling
-        // back into the descent's active range.
-        descentState = 'descending';
-      }
+      // Arrival (C4). Hand transform ownership back to parallax. The
+      // descent's yPercent/scale on each layer remain in GSAP's
+      // tracked state; parallax only modifies x/y on top of those
+      // values.
+      captureRestPoses();
+      descentState = 'inhabited';
     }, 5.20 * k);
 
   return tl;
@@ -764,10 +795,10 @@ function init() {
     descentState = 'descending';
     resetParallaxOffsets();
 
-    // WP8 migration Step 2: scroll progress is now the only authorized
+    // WP8 migration Step 2: scroll intent is now the only authorized
     // driver of the descent going forward. The prior autoplay trigger
-    // (descent.play(0)) is retired here rather than left to compete
-    // with it once Step 3 wires scrollP to descent.progress().
+    // (descent.play(0)) stays retired; opening this gate lets the
+    // governed advance in rafLoop (Amendment 4) begin chasing scrollP.
     scrollDrivesDescent = true;
   };
 
@@ -776,19 +807,35 @@ function init() {
     if (e.key === 'Enter' || e.key === ' ') beginDescent(e);
   });
 
-  // WP8 migration Step 3: once authorized (scrollDrivesDescent, set by
-  // beginDescent above), live scroll position drives the existing
-  // descent timeline's progress directly — no autoplay, no separate
-  // clock. Registered after readScrollProgress so scrollP is current
-  // for each scroll event before this reads it.
-  function driveDescentFromScroll() {
-    if (!scrollDrivesDescent) return;
-    descent.progress(scrollP);
+  // WP8 migration Step 3, as amended by WP8 ADR Amendment 4: scroll
+  // events only record raw position (scrollP); the governed advance
+  // in rafLoop folds it into the intent high-water mark and moves the
+  // timeline toward that at no more than the authored rate. Direct
+  // descent.progress(scrollP) coupling is retired — it let scroll
+  // velocity outrun the Principle III envelope.
+  descentTimeline = descent;
+
+  // Descent Approval Specification — instrumentation contract.
+  // Read-only, development-only view of the real descent state for
+  // browser verification; Vite excludes this block from production
+  // builds. timelineProgress reads GSAP directly (not our governed
+  // copy) so verification can confirm the two agree.
+  if (import.meta.env.DEV) {
+    Object.defineProperty(window, '__descent', {
+      value: Object.freeze({
+        get committed() { return scrollDrivesDescent; },
+        get intent() { return descentIntent; },
+        get progress() { return descentP; },
+        get timelineProgress() { return descent.progress(); },
+        get duration() { return descent.duration(); },
+        get state() { return descentState; },
+        get arrived() { return descentState === 'inhabited'; }
+      })
+    });
   }
 
   readScrollProgress();
   window.addEventListener('scroll', readScrollProgress, { passive: true });
-  window.addEventListener('scroll', driveDescentFromScroll, { passive: true });
 }
 
 if (document.readyState === 'loading') {

@@ -155,3 +155,19 @@ This clarification does not alter the ratified decision (Option A), the mileston
 The one remaining item — `mist-rising`'s reduced-motion treatment reverting to full transform suppression, which the accepted composition audit found does not preserve documentary meaning for this layer — **remains an explicit open warning, not an accepted architectural trade-off.** It is tracked in `PROJECT_STATUS.md`'s backlog, comparable in status to the Bates et al. (2005) citation ambiguity: honestly disclosed, not resolved, and open to future work without requiring a new ruling to justify revisiting it.
 
 WP8's implementation is otherwise considered complete.
+
+---
+
+## Amendment 4 (2026-07-19)
+
+**Type:** Partial reopening and scope narrowing. Sections 1–10 and Amendments 1–3 are unchanged; this note is additive, per the amendment convention (`cinematic-vocabulary.md` §13).
+
+**Finding accepted.** An accepted design investigation demonstrated that the Sundarbans Descent as implemented under Option A — viewer scroll position coupled directly to timeline progress — violates Principle III's contract ("the Descent is timed, not improvised": the canonical envelope, the mandatory first hold, and the prohibition on viewer-triggered short-circuits) and the intended visitor experience. Section 9.4's judgment that the timing envelope could be approximated by tuning scrollable extent is superseded by this finding: extent tuning cannot bound viewer scroll velocity, and an unbounded velocity makes the forbidden "quick descent" the default capability of every visit.
+
+**Ruling.** Option A remains ratified as the governing interaction model: scroll remains the sole authorizing and advancing input for every cinematic place, and no autoplaying trigger returns. For the Sundarbans Descent only, direct position coupling (`descent.progress(scrollP)`) is retired in favor of a **time-governed progression with a perceptual floor**: scroll expresses the viewer's intent to advance; displayed progress follows that intent at a rate that may never traverse the Descent faster than the canonical Principle III envelope (reduced-motion compression excepted, per Principle XV and Amendment 2). This narrows what "scroll-scrubbed" has always meant in this repository — Crossing and East Pacific Rise have never coupled scroll position directly, advancing instead through a time-smoothed chase of scroll intent (`src/places/crossing.js`, "a scroll is a slow push") — and brings Sundarbans into alignment with that shipped precedent rather than departing from it.
+
+**Acceptance test.** The Descent Approval Specification (Claude Design, external Project document — not a repository file) is the acceptance test for this amendment's implementation. Behavioral decisions within the governor — including directionality of a committed Descent and carry-through of atmospheric beats — are resolved by that specification, not improvised in implementation.
+
+**Certification status.** Amendment 3's PASS WITH WARNINGS certification remains in force for all of WP8 except the Sundarbans Descent's progress driver, which is reopened until the implementation passes the Descent Approval Specification in browser verification. The `mist-rising` reduced-motion warning is unaffected.
+
+**Not authorized by this amendment:** any rendering-technology change (Amendment 1 stands); any change to `src/places/crossing.js` or `src/places/epr-vents.js`; any new dependency. Whether the accepted finding generalizes to the arrival sequences of Crossing and East Pacific Rise is recorded as an open question, not ruled here.
