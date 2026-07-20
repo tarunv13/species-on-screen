@@ -25,6 +25,7 @@ No architecture is introduced here.
 | **Status** | `PROJECT_STATUS.md` | Updated only when a milestone state changes. |
 | **Session diaries** | `.agents/sessions/YYYY-MM-DD-<topic>.md` | One per session. |
 | **Decisions** | `.agents/decisions/YYYY-MM-DD-<ruling>.md` | Written only when a ruling is made. |
+| **Thoughts** | `.agents/thoughts/YYYY-MM-DD-<slug>.md` | Durable pre-resolution reasoning upstream of Tasks/ADRs/milestones. Read-only once promoted; feeds the canonical artifacts, never duplicates them. See `.agents/decisions/2026-07-07-thought-system.md`. |
 
 The frozen-constraint documents (Constitution, Architecture Index, Knowledge Lifecycle,
 Production / Capability / Workflow Architecture, AI Operating System) are **not re-read or
@@ -99,3 +100,41 @@ a **Chief Architect decision record** (`.agents/decisions/`); it is never done a
 
 **Operating principle** (`.agents/AI-OS.md`): *the repository advances through completed
 production milestones, not through additional architectural documents.*
+
+---
+
+## 6. Documentation-canonicalization procedure
+
+When an external document (a design-tool output, a conversation summary, a prior session's
+artifact) proposes new repository content, apply this procedure before creating anything.
+Absorbed from a 2026-07-07 governance review (`.agents/decisions/2026-07-07-documentation-governance-integration.md`)
+that rejected a four-document parallel governance layer built without it.
+
+1. **Verify before canonicalizing.** Check whether the source document — and everything it
+   claims as a destination — actually exists in the repository (`git ls-files`, full-tree
+   grep, direct file reads). Absence is a finding, not an assumption to paper over. Read the
+   actual destination content and compare it, line by line where it matters, against what the
+   external document claims; a citation to a section/Article/Canon/Principle number is a
+   falsifiable claim. Never fabricate a reference frame — if a named document doesn't exist,
+   say so and ask how to proceed rather than inventing its contents.
+2. **Check the governance map first (§1).** Before proposing a new root-level file or
+   top-level directory, confirm no existing tier in §1's table already owns that content
+   class. If one does, the new material is routed there.
+3. **Default to reference, never copy.** For any proposed content, decide one of: *reference*
+   (destination already states this — point to it), *merge* (fold into an existing
+   destination), *replace* (supersede stale content), *archive* (retire without deleting the
+   historical record), or *standalone* (genuinely new, no existing destination — must be
+   explicitly proposed, never silently inserted). Duplication across near-duplicate files
+   (e.g. a second backlog, a second ownership table, a `.docs/` beside `docs/`) is the
+   failure mode this step exists to catch.
+4. **Sequence cheap-to-expensive when a queue is warranted.** Land mechanical, no-decision
+   corrections first; batch same-file changes together; resolve any large structural question
+   as its own gate before smaller additions land against it; batch every item awaiting
+   maintainer-plus-Design approval into one review round; give explicitly deprioritized items
+   their own place in the existing `PROJECT_STATUS.md` Backlog rather than a new file.
+5. **Route the outcome through an existing tier, never a new artifact type.** Operational
+   work items go in `PROJECT_STATUS.md`'s Backlog (lettered sub-items, in its existing
+   style). A ruling that opens or closes an architectural question is a decision record under
+   `.agents/decisions/`. A reusable procedure is absorbed as a section of this manual. No
+   standing tracker, roadmap, or ownership file is created outside §1's map without its own
+   decision record amending §1 first.
