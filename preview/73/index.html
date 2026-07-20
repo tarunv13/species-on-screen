@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco-Cinema Observatory</title>
+  <meta name="description" content="An ecological observatory: one inhabited place, and a separate archive of attested observations." />
+  <link rel="canonical" href="https://tarunv13.github.io/species-on-screen/" />
+  <link rel="icon" type="image/svg+xml" href="/species-on-screen/preview/73/favicon.svg" />
+
+  <!-- Link-preview metadata (Open Graph + Twitter Card) for public sharing. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Eco-Cinema Observatory" />
+  <meta property="og:title" content="Eco-Cinema Observatory" />
+  <meta property="og:description" content="An ecological observatory: one inhabited place, and a separate archive of attested observations." />
+  <meta property="og:url" content="https://tarunv13.github.io/species-on-screen/" />
+  <meta property="og:image" content="https://tarunv13.github.io/species-on-screen/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Eco-Cinema Observatory — a planetary observation surface." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Eco-Cinema Observatory" />
+  <meta name="twitter:description" content="An ecological observatory: one inhabited place, and a separate archive of attested observations." />
+  <meta name="twitter:image" content="https://tarunv13.github.io/species-on-screen/og-image.png" />
+
+  <script type="module" crossorigin src="/species-on-screen/preview/73/assets/main-BeHy2Ck0.js"></script>
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/73/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/73/assets/place-manifest-b-sYIR9x.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/73/assets/gsap-D_956-p2.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/73/assets/three.module-iOtoceOb.js">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/preview/73/assets/main-CT_mDziN.css">
+</head>
+<body>
+  <h1 class="sr-only">Eco-Cinema Observatory</h1>
+  <noscript>
+    <div style="background:#0a0a1a;color:#ffffff;padding:2rem;font-family:Georgia,Cambria,'Times New Roman',serif;max-width:700px;margin:0 auto;">
+      <p style="margin:1rem 0;">Sundarbans &middot; Bengal tiger.</p>
+      <p style="margin:1rem 0;">The planetary view requires JavaScript. The archive of attested narratives reads without it: <a href="notes/" style="color:#ffffff;">notes/</a>.</p>
+    </div>
+  </noscript>
+
+  <canvas id="cinematic-canvas"></canvas>
+
+  <div id="loading-screen"></div>
+
+  <div id="globe-ui-container">
+    <!-- Final reduction: the homepage carries one editorial caption,
+         fixed in the lower-right of the frame. It is a static <a> — not
+         a screen-projected, position-tracking floating element. The
+         caption does not follow its subject around the page; it sits
+         where editorial typesetting puts it. main.js intercepts the
+         click to drive the existing cinematic transition into the
+         species page; the href is the unenhanced fallback. -->
+    <a id="page-caption-crossing" class="page-caption page-caption--secondary"
+       href="notes/coral-triangle-hawksbill-natal-homing.html"
+       data-place="crossing">Coral Triangle &middot; Hawksbill</a>
+    <a id="page-caption-epr" class="page-caption page-caption--tertiary"
+       href="notes/east-pacific-rise-tubeworm-chemosynthesis.html"
+       data-place="epr-vents">East Pacific Rise &middot; Giant tubeworm</a>
+    <a id="page-caption" class="page-caption" href="notes/sundarbans-bengal-tiger-saline-swimmer.html"
+       data-species="tiger">Sundarbans &middot; Bengal tiger</a>
+  </div>
+
+  <div id="safari-container"></div>
+
+  <button class="return-to-globe" style="display:none;">Return to the planet</button>
+
+  <!-- Screen reader description -->
+  <div class="sr-only">
+    A planetary observation surface. Three inhabited places are reachable
+    from here: a Bengal tiger in the Sundarbans, a hawksbill in the Coral
+    Triangle, and a giant tubeworm at the East Pacific Rise vent field.
+    Each place's name below opens its dedicated page.
+  </div>
+</body>
+</html>
