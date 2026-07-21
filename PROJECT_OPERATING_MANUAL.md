@@ -26,6 +26,7 @@ No architecture is introduced here.
 | **Session diaries** | `.agents/sessions/YYYY-MM-DD-<topic>.md` | One per session. |
 | **Decisions** | `.agents/decisions/YYYY-MM-DD-<ruling>.md` | Written only when a ruling is made. |
 | **Thoughts** | `.agents/thoughts/YYYY-MM-DD-<slug>.md` | Durable pre-resolution reasoning upstream of Tasks/ADRs/milestones. Read-only once promoted; feeds the canonical artifacts, never duplicates them. See `.agents/decisions/2026-07-07-thought-system.md`. |
+| **Product decisions** | `docs/PRODUCT_DECISIONS.md` | Concise, stable register of approved/proposed experience decisions, keyed by stable IDs (D-numbers). Reader-facing index of product-level decisions; references an ADR when a decision also carries a full ruling, never restating it. See `.agents/decisions/2026-07-21-product-decisions-log.md`. |
 
 The frozen-constraint documents (Constitution, Architecture Index, Knowledge Lifecycle,
 Production / Capability / Workflow Architecture, AI Operating System) are **not re-read or
