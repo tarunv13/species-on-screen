@@ -10,19 +10,22 @@ Architecture Decision Record under `.agents/decisions/` and the entry references
 at `PROJECT_OPERATING_MANUAL.md` §1.*
 
 ## D1 — Remove "Choice of One"
-Status: Approved
+Status: Implemented (2026-07-23)
 Scope: Launch
 Rationale: The threshold should invite entry rather than present a false choice.
+Implementation: threshold `.lenses` group aria-label "Choose a perspective" → "Enter through the place" (`places/sundarbans.html`).
 
 ## D2 — Continuous World
-Status: Approved
+Status: Implemented (2026-07-23)
 Scope: Launch
 Rationale: The Observatory should remain perceptually alive throughout commitment.
+Implementation: ambient breath continues while committed-but-not-yet-advancing, then blends out over the first movement; governor (WP8 Amendment 4) untouched (`src/places/sundarbans.js`).
 
 ## D3 — Truthful Scope
-Status: Approved
+Status: Implemented (2026-07-23)
 Scope: Launch
 Rationale: Public descriptions must accurately reflect the current experience.
+Implementation: meta/og/twitter description "one inhabited place" → "three inhabited places" (`index.html`).
 
 ## D4 — Wonder → Witness Crossing
 Status: Proposed
