@@ -122,9 +122,10 @@
     Scroll track (WP8 migration Step 1). Establishes real document
     scroll height so src/places/sundarbans.js can compute a normalized
     scroll-progress value. #stage above is position: fixed and renders
-    identically regardless of scroll position; nothing here is wired to
-    any visual output yet. Invisible, non-interactive, present only so
-    the page has scrollable extent to measure.
+    identically regardless of scroll position. Since WP8 Amendment 4 the
+    measured scroll position is the sole input that authorizes and (via
+    the governor) advances the descent. Invisible, non-interactive,
+    present only so the page has scrollable extent to measure.
   -->
   <div class="scroll-track" id="scrollTrack" aria-hidden="true"></div>
 
