@@ -4,6 +4,14 @@ Release Manager tracker. **Feature-frozen until public launch.** One task at a
 time. Scope: technical polish only — no architecture, no redesign, no new
 features. Derived from the pre-announcement technical backlog (2026-07-18).
 
+## V1.0 — LAUNCHED
+V1.0 launched 2026-07-23 — deploy 110306df, Editorial QA PASS (structural + felt).
+
+Launch product decisions (canonical record: `docs/PRODUCT_DECISIONS.md`):
+- [x] **D1 — Remove "Choice of One"** — threshold invites entry, not selection. Implemented, live, QA PASS.
+- [x] **D2 — Continuous World** — breath continues through commitment, blends out on first movement (no stall, no snap). Implemented, live; C1–C5 structural + human felt pass PASS.
+- [x] **D3 — Truthful Scope** — "three inhabited places" description. Implemented, live, QA PASS.
+
 ## MUST — gates the public announcement
 - [x] **T1a · Link-preview metadata + favicon** — OG + Twitter Card + canonical
   on `index.html`; `favicon.svg` linked across the homepage, both indexes, and
@@ -42,7 +50,7 @@ features. Derived from the pre-announcement technical backlog (2026-07-18).
   _Done 2026-07-19._
 
 ## VERIFY-ONLY — look, fix only if broken
-- [ ] **T6 · verify-only** (2 of 3 cleared; 1 blocked)
+- [x] **T6 · verify-only** (2 of 3 verified sound; T6c device/browser QA closed at V1.0 launch by the human live-browser Editorial QA pass, 2026-07-23)
   - (a) atlas "In season now" badge — **verified sound**: `describeSeason(45,
     null).label` = "Summer"; the "—" seen server-side is the pre-JS default,
     replaced on load. Not a bug.
