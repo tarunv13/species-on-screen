@@ -310,6 +310,19 @@ let scrollDrivesDescent = false;
 let descentIntent = 0;
 let descentP = 0;
 let descentTimeline = null;   // set once in init()
+
+/*
+  D2 — "Continuous World" (cinematic-principles.md L46, "Idle never pauses").
+  descentMoving is set true by the governor below on its first actual advance;
+  the ambient breath reads this boolean (never descentP, the timeline, or
+  descentIntent) to know when to hand off. breathContinuity is 1 while the
+  world is at rest or committed-but-not-moving, then ramps to 0 over
+  BREATH_HANDOFF_MS once the descent begins moving, so the breath blends out
+  with no snap and the timeline owns transforms exactly as before.
+*/
+let descentMoving = false;
+let breathContinuity = 1;
+const BREATH_HANDOFF_MS = 900;
 let prevRafT = 0;
 const DT_CLAMP_MS = 64;
 
@@ -366,6 +379,7 @@ function rafLoop(t) {
       const maxStep = dt / (descentTimeline.duration() * 1000);
       descentP += Math.min(delta, maxStep);
       descentTimeline.progress(descentP);
+      descentMoving = true;   // D2: signal the ambient gate to begin breath handoff
     }
   }
 
@@ -384,7 +398,22 @@ function rafLoop(t) {
     0.3 * Math.sin(t / 29000 + 0.9) +
     0.2 * Math.cos(t / 37000 + 0.2);
 
-  if (descentState === 'threshold' || descentState === 'inhabited') {
+  // D2 — the world keeps breathing through commitment. Active at the
+  // threshold and after arrival as before, and ALSO while committed but not
+  // yet advancing, so nothing freezes between the lens choice and the first
+  // governed scroll step. Once the descent begins moving, breathContinuity
+  // ramps to 0 over BREATH_HANDOFF_MS and the timeline owns transforms exactly
+  // as before — no snap. Magnitude, period, and character are unchanged
+  // (continuity only); the breath touches only x/y offsets, never descentP,
+  // descentIntent, or the descent timeline (WP8 Amendment 4 untouched).
+  const ambientResting = descentState === 'threshold' || descentState === 'inhabited';
+  const committed = descentState === 'descending';
+  if (ambientResting) {
+    breathContinuity = 1;
+  } else if (committed && descentMoving) {
+    breathContinuity = Math.max(0, breathContinuity - dt / BREATH_HANDOFF_MS);
+  }
+  if (ambientResting || (committed && breathContinuity > 0)) {
     const offX = cursorSmoothed.x + breathX * BREATH_GAIN;
     const offY = cursorSmoothed.y + breathY * BREATH_GAIN;
 
@@ -395,8 +424,8 @@ function rafLoop(t) {
       const rest = restPose[sel] || { x: 0, y: 0 };
       // Negative sign produces correct parallax: cursor right → near layers
       // shift left more than far layers, simulating a leftward perspective shift.
-      const dx = -coef * offX * AMP_X;
-      const dy = -coef * offY * AMP_Y;
+      const dx = -coef * offX * AMP_X * breathContinuity;
+      const dy = -coef * offY * AMP_Y * breathContinuity;
       gsap.set(el, { x: rest.x + dx, y: rest.y + dy });
     }
   }
