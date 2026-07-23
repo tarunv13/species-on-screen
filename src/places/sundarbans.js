@@ -619,17 +619,9 @@ function buildDescent() {
   */
 
   /* ----- Movement 1 — Acknowledgement (0.00 – 0.45s) ----- */
-  // Unchosen lenses recede (not fade — recede). The chosen lens settles:
-  // a small inward scale that reads as weight finding its center.
-  // The framing question quiets but is still visible.
-  tl.to('.lens--quiet', {
-      opacity: 0,
-      yPercent: 6,
-      filter: 'blur(2px)',
-      duration: 0.45 * k,
-      ease: 'power2.out'
-    }, 0)
-    .to('#lensHabitat', {
+  // The chosen lens settles: a small inward scale that reads as weight
+  // finding its center. The framing question quiets but is still visible.
+  tl.to('#lensHabitat', {
       scale: 0.97,
       duration: 0.18 * k,
       ease: 'power2.out',
