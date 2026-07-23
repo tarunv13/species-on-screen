@@ -31,13 +31,16 @@ Implementation: meta/og/twitter description "one inhabited place" → "three inh
 Status: Proposed
 Scope: Post-launch
 Blocked by: Validation of Q1 and Q3
+Gate: docs/VALIDATION_PROTOCOL.md — status may change only via a Q1–Q5 ratification ADR.
 
 ## D5 — One Unbroken Surrender
 Status: Proposed
 Scope: Post-launch
 Blocked by: Validation of Q2 and Q5
+Gate: docs/VALIDATION_PROTOCOL.md — status may change only via a Q1–Q5 ratification ADR.
 
 ## D6 — Lower Barriers to the Center
 Status: Proposed
 Scope: Post-launch
 Blocked by: Validation of Q4
+Gate: docs/VALIDATION_PROTOCOL.md — status may change only via a Q1–Q5 ratification ADR.
