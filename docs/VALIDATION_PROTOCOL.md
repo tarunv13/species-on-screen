@@ -76,6 +76,8 @@ no post-hoc reinterpretation.
 
 ## Output chain
 
+Q1–Q5 verdicts are issued via `docs/RATIFICATION_FRAMEWORK.md`.
+
 Strictly ordered; no stage may be skipped:
 
 1. **Per-session paper logs** (the moderator's instrument, one per session).
