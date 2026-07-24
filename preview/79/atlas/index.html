@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Living Atlas &middot; Eco-Cinema Observatory</title>
+  <meta name="description" content="A living atlas of documented habitats: a dreamy globe of entry points, each opening into a habitat's seasonal atmosphere and its attested species record." />
+  <link rel="icon" type="image/svg+xml" href="/species-on-screen/preview/79/favicon.svg" />
+  <!--
+    First-paint darkness. The module script is deferred and its CSS
+    arrives a moment later; this inline rule guarantees the first
+    paint is the same near-black the rest of the system holds, so the
+    held-darkness veil (#atlas-veil) never flashes unstyled white.
+
+    This is the research/atlas surface (platform-architecture §1
+    surface 2). It is additive and reversible: it does not touch the
+    cinematic homepage (../index.html) or the canonical Sundarbans
+    descent (../places/sundarbans.html).
+  -->
+  <style>html,body{margin:0;padding:0;background:#0a0f1c;}</style>
+  <script type="module" crossorigin src="/species-on-screen/preview/79/assets/atlas-index-ChGQcsR7.js"></script>
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/79/assets/narrative-registry-DHoSO95Q.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/79/assets/modulepreload-polyfill-Dezn_h7o.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/79/assets/place-manifest-b-sYIR9x.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/79/assets/gsap-D_956-p2.js">
+  <link rel="modulepreload" crossorigin href="/species-on-screen/preview/79/assets/subject-__X-91FE.js">
+  <link rel="stylesheet" crossorigin href="/species-on-screen/preview/79/assets/atlas-index-DK3urtid.css">
+</head>
+<body>
+  <div id="atlas">
+    <!-- Layer 0: fluid mesh-gradient liquid light -->
+    <div class="mesh" aria-hidden="true"><i></i></div>
+
+    <!-- Layer 1: the dreamy globe -->
+    <canvas id="atlas-globe-canvas" aria-hidden="true"></canvas>
+
+    <!-- Layer 3+: glass UI -->
+    <div class="atlas-stage">
+      <header class="atlas-masthead">
+        <div class="eyebrow">Living Atlas</div>
+        <h1>Follow a point of light into its habitat.</h1>
+        <p>Every documented place, drifting on the planet. Choose one to enter its season and meet the record kept there.</p>
+        <span class="season-badge glass glass--bar">
+          <span class="dot" aria-hidden="true"></span>
+          In season now: <span id="season-badge-label">&mdash;</span>
+        </span>
+      </header>
+
+      <!-- Habitat entry chips: positioned over globe points by JS,
+           or flowed into a calm cloud if WebGL is unavailable. -->
+      <div id="chip-layer" class="chip-layer"></div>
+
+      <!-- Coordinate-less records (a small static glass cluster). -->
+      <div id="chip-extra" class="chip-extra glass glass--bar" style="display:none;"></div>
+
+      <!-- Canonical field-record pages (atlas/sundarbans.html, atlas/amazon-varzea.html).
+           Populated from public/dwca/index.json by atlas.js. -->
+      <div id="field-records-panel" class="field-records-panel glass glass--bar" style="display:none;"></div>
+
+      <!-- Immersed habitat detail (a floating glass species card is
+           inserted here at selection time). -->
+      <section id="habitat-detail" class="habitat-detail" aria-live="polite"></section>
+
+      <button id="atlas-back" class="back glass glass--bar" type="button" style="display:none;">&larr; All habitats</button>
+    </div>
+  </div>
+
+  <!-- Held darkness until the scene is ready. -->
+  <div id="atlas-veil"></div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;background:#0a0f1c;color:#eef2fb;display:grid;place-items:center;font-family:Georgia,serif;padding:2rem;text-align:center;">
+      <div style="max-width:42ch;">
+        <p style="margin:0 0 1rem;font-style:italic;">A living atlas of documented habitats.</p>
+        <p style="margin:0;">The atlas needs JavaScript. The attested records read without it:
+          <a href="../notes/" style="color:#eef2fb;">the archive</a>.</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>
