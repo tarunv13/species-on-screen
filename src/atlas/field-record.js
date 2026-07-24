@@ -79,6 +79,7 @@ const ROLE = {
 let ACTORS = {};      // id -> actor
 let RELS = [];        // {from,to,type,roid,according,remarks,season}
 let actorList = [];
+let REFERENCES = null; // structured bibliography from references.json (or null)
 
 function relSeason(remarks) {
   if (/seasonal:wet/.test(remarks)) return 'wet';
@@ -87,10 +88,14 @@ function relSeason(remarks) {
 }
 
 async function loadDwc() {
-  const [occT, relT] = await Promise.all([
+  const [occT, relT, refsJson] = await Promise.all([
     fetch(DWCA + 'occurrence.txt').then((r) => r.text()),
     fetch(DWCA + 'resource-relationship.txt').then((r) => r.text()),
+    // Structured bibliography (APA + identifier state). Graceful if absent:
+    // the Sources block falls back to the bare citation strings.
+    fetch(DWCA + 'references.json').then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]);
+  REFERENCES = refsJson && Array.isArray(refsJson.references) ? refsJson.references : null;
   parseTSV(occT).forEach((row) => {
     let dyn = {};
     try { dyn = JSON.parse(row.dynamicProperties); } catch (e) { dyn = {}; }
@@ -607,15 +612,39 @@ function buildInteractionWeb() {
   }).join('');
 }
 
+// Render the Sources list from the structured bibliography (references.json):
+// each reference as APA text + an identifier badge — a resolving DOI link when
+// verified, "no DOI" for books/reports that legitimately have none, or
+// "identifier pending — curator backlog" for unresolved citations awaiting
+// human confirmation (L3 conformance model; scripts/curator-worksheet.mjs).
+// Falls back to the bare citation strings if references.json is absent.
+function renderSources() {
+  if (!REFERENCES) {
+    return `<ol>${citationsFrom().map((c) => `<li>${escapeHtml(c)}</li>`).join('')}</ol>`;
+  }
+  const items = REFERENCES.map((r) => {
+    const apa = escapeHtml(r.apa7);
+    let badge;
+    if (r.identifier && r.identifier.kind === 'doi') {
+      badge = `<a class="fr-cite-doi" href="https://doi.org/${r.identifier.value}">doi:${escapeHtml(r.identifier.value)}</a>`;
+    } else if (r.verified) {
+      badge = `<span class="fr-cite-none">no DOI</span>`;
+    } else {
+      badge = `<span class="fr-cite-pending">identifier pending — curator backlog</span>`;
+    }
+    return `<li>${apa} ${badge}</li>`;
+  }).join('');
+  return `<ol class="fr-refs">${items}</ol>`;
+}
+
 function buildSources() {
   const el = document.getElementById('fr-sources');
-  const cites = citationsFrom().map((c) => `<li>${c}</li>`).join('');
   el.innerHTML = `
     <h2>The interaction web</h2>
     <p class="fr-web-help">Each edge names its OBO Relations Ontology relation; <strong>follow</strong> an edge to move laterally to the actor it links — you stay in the atlas.</p>
     ${buildInteractionWeb()}
     <h2>Sources</h2>
-    <ol>${cites}</ol>
+    ${renderSources()}
     <h2>Darwin Core mapping</h2>
     <table class="dwc-table">
       <tr><th>What you saw</th><th>Darwin Core term</th></tr>

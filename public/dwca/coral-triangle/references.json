@@ -1,0 +1,156 @@
+{
+  "habitat": "coral-triangle",
+  "generated": "2026-07-24",
+  "source": "human-audit (verbatim from CREDITS.md)",
+  "note": "Option A: structure + render only. No automated DOI resolution. DOI confirmation is a human Research Curator task (L3 conformance model). Unresolved items are routed to curator-worksheet.",
+  "references": [
+    {
+      "apa7": "Meylan, A.B. (1988). Spongivory in hawksbill turtles. Science 239:393–395.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1126/science.239.4838.393"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Meylan, A.B. & Meylan, P.A. (2000). In Eckert et al. (eds) Research and Management Techniques. IUCN/SSC MTSG.",
+      "type": "book",
+      "identifier": null,
+      "verified": true
+    },
+    {
+      "apa7": "León, Y.M. & Bjorndal, K.A. (2002). Marine Ecology Progress Series 245:249–258.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.3354/meps245249"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Bjorndal, K.A. (1997). In Lutz & Musick (eds) The Biology of Sea Turtles. CRC Press.",
+      "type": "book",
+      "identifier": null,
+      "verified": true
+    },
+    {
+      "apa7": "Limpus, C.J. (2009). Hawksbill turtle biological review. Queensland EPA.",
+      "type": "report",
+      "identifier": null,
+      "verified": true
+    },
+    {
+      "apa7": "Mortimer, J.A. & Donnelly, M. (2008). IUCN Red List.",
+      "type": "report",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.2305/IUCN.UK.2008.RLTS.T8005A12881238.en"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Pratchett, M.S. (2001). PhD thesis, James Cook University.",
+      "type": "thesis",
+      "identifier": null,
+      "verified": true
+    },
+    {
+      "apa7": "Pratchett, M.S. et al. (2014). Oceanography and Marine Biology 52:133–200.",
+      "type": "journal",
+      "identifier": null,
+      "verified": true
+    },
+    {
+      "apa7": "Bellwood, D.R., Hughes, T.P. & Hoey, A.S. (2006). Current Biology 16:2434–2439.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/j.cub.2006.10.030"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Hoey, A.S. & Bellwood, D.R. (2008). MEPS 358:105–117.",
+      "type": "journal",
+      "identifier": null,
+      "verified": false,
+      "backlog": "curator-worksheet L2 — see .agents/curator-l2-l3-worksheet.md"
+    },
+    {
+      "apa7": "Bellwood, D.R., Hughes, T.P., Folke, C. & Nyström, M. (2004). Nature 429:827–833.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1038/nature02691"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Hughes, T.P. (1994). Science 265:1547–1551.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1126/science.265.5178.1547"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Hughes, T.P. et al. (2007). Phase shifts, herbivory, and the resilience of coral reefs to climate change. Current Biology 17(5):360–365.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/j.cub.2006.12.049"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "McClanahan, T.R. & Shafir, S.H. (1990). Oecologia 83(3):362–370.",
+      "type": "journal",
+      "identifier": null,
+      "verified": true
+    },
+    {
+      "apa7": "Rasher, D.B. & Hay, M.E. (2010). PNAS 107:9683–9688.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1073/pnas.0912095107"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Barott, K.L. et al. (2012). MEPS 460:1–12.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.3354/meps09874"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Gilman, E. et al. (2010). Fish and Fisheries 11:57–88.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1111/j.1467-2979.2009.00342.x"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "Hamann, M. et al. (2010). Endangered Species Research 11:245–269.",
+      "type": "journal",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.3354/esr00279"
+      },
+      "verified": true
+    },
+    {
+      "apa7": "TRAFFIC (2019). Shell Shocked: The Continuing Trade in Hawksbill Turtle Products. TRAFFIC, Cambridge.",
+      "type": "report",
+      "identifier": null,
+      "verified": true
+    }
+  ]
+}
