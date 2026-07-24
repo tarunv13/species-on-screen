@@ -209,6 +209,11 @@ a { color: var(--fr-accent); }
   text-decoration: none; transition: all 0.25s var(--fr-ease);
 }
 .fr-archive:hover { background: var(--fr-accent); color: #fff; }
+.fr-refs li { margin: 0.35rem 0; line-height: 1.5; }
+.fr-cite-doi { font-family: var(--fr-mono, ui-monospace, monospace); font-size: 0.78rem; color: var(--fr-accent); text-decoration: none; }
+.fr-cite-doi:hover { text-decoration: underline; }
+.fr-cite-none { font-family: var(--fr-sans); font-size: 0.74rem; color: var(--fr-ink-soft); }
+.fr-cite-pending { font-family: var(--fr-sans); font-size: 0.74rem; font-style: italic; color: var(--fr-ink-soft); }
 .fr-foot { margin-top: 3rem; font-family: var(--fr-sans); font-size: 0.82rem; line-height: 1.6; color: var(--fr-ink-soft); }
 .fr-foot code { font-family: var(--fr-mono, ui-monospace, monospace); font-size: 0.78rem; }
 
