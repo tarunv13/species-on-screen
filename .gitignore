@@ -8,3 +8,5 @@ dist/
 
 # Derived evidential-depth surface (regenerated every build by scripts/build-evidence.mjs)
 public/evidence/
+Claude design print.pdf
+.gstack/
