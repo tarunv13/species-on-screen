@@ -19,6 +19,7 @@
     "fetch-data": "node scripts/fetch-tmdb-data.js",
     "ingest": "node scripts/ingest/build-dwca.mjs",
     "ingest:news": "node scripts/ingest/build-news.mjs",
+    "build:references": "node scripts/ingest/build-references.mjs",
     "new-narrative": "node scripts/new-narrative.js",
     "check-narratives": "node scripts/check-narratives.js",
     "check-manifest": "node scripts/check-manifest.js",
