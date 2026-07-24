@@ -1,1 +1,0 @@
-var e=`subject`;function t(t){try{let n=new URLSearchParams(t||``).get(e);return n&&n.length?n:null}catch{return null}}function n(t,n){if(!t||!n)return t;let r=t.indexOf(`#`),i=r>=0?t.slice(0,r):t,a=r>=0?t.slice(r):``;return RegExp(`[?&]subject=`).test(i)?t:`${i}${i.includes(`?`)?`&`:`?`}${e}=${encodeURIComponent(n)}${a}`}export{n,t};
