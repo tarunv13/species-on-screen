@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1" packageId="species-on-screen/dwca/coral-triangle/v1" system="species-on-screen" scope="system" xml:lang="en">
+  <dataset>
+    <title xml:lang="en">Coral Triangle Field Record: a coral reef interaction web</title>
+    <creator><organizationName>Species on Screen — Eco-Cinema Observatory</organizationName></creator>
+    <pubDate>2026-06-27</pubDate>
+    <language>en</language>
+    <abstract><para>An attested, illustrative interaction dataset for the Coral Triangle (maritime Southeast Asia: Philippines, Indonesia, Malaysia, Papua New Guinea, Solomon Islands, Timor-Leste). Occurrences — nine species including the focal hawksbill sea turtle (Eretmochelys imbricata) and one human community (Homo sapiens) — are placed in the reef landscape and linked by resource relationships typed with OBO Relations Ontology terms. Taxonomy is the GBIF backbone; interactions are sourced from the cited literature. Coordinates are representative of the Coral Triangle geographic centre (Banda Sea, ~0.83°N 127.63°E). Ecological design produced under M9A Research Curator protocol (AI-OS v1.0); implemented under M9B Technical Lead protocol. Design specification: .agents/decisions/2026-06-27-coral-triangle-design-v2.md.</para></abstract>
+    <intellectualRights>
+      <para>This work is licensed under a <ulink url="https://creativecommons.org/licenses/by/4.0/legalcode"><citetitle>Creative Commons Attribution (CC BY) 4.0 License</citetitle></ulink>.</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Coral Triangle — maritime Southeast Asia</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>117.0</westBoundingCoordinate>
+          <eastBoundingCoordinate>153.0</eastBoundingCoordinate>
+          <northBoundingCoordinate>12.0</northBoundingCoordinate>
+          <southBoundingCoordinate>-11.0</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+    </coverage>
+  </dataset>
+</eml:eml>
