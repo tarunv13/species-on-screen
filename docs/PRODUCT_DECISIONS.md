@@ -44,3 +44,7 @@ Status: Proposed
 Scope: Post-launch
 Blocked by: Validation of Q4
 Gate: docs/VALIDATION_PROTOCOL.md — status may change only via a Q1–Q5 ratification ADR.
+
+## Rulings
+
+Ruling 2026-07-24: the one-fragment allowance attaches to inhabitation only; journeys carry no inscription.
