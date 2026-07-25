@@ -61,6 +61,27 @@
                       "then": { "required": ["hotspotId"] }
                     }
                   ]
+                },
+                "scene": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["layers"],
+                  "description": "Declared-depth scene layers (Sprint V1.2; .agents/decisions/2026-07-25-visual-layer-recovery.md). Forward-compatible depth declaration a future spatial/WebXR renderer extrudes into a scene graph. z is notional metres from the viewer; layers are ordered far->near (strictly decreasing z). M23 Phase 0 describe-don't-consume: the runtime parallax keeps its existing per-layer coefficients, which vary inversely with these z by construction; nothing reads this at runtime yet.",
+                  "properties": {
+                    "layers": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["id", "z"],
+                        "properties": {
+                          "id": { "$ref": "#/$defs/slug", "description": "layer id; unique within the place; maps to the scene's parallax layer element (data-layer)" },
+                          "z": { "type": "number", "exclusiveMinimum": 0, "description": "declared depth in notional metres from the viewer; larger = farther" }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             },

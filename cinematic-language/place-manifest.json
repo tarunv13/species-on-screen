@@ -12,7 +12,15 @@
         "cinematic": {
           "slug": "sundarbans",
           "enterLabel": "Enter the living place →",
-          "arrival": { "kind": "globe-hotspot", "hotspotId": "tiger" }
+          "arrival": { "kind": "globe-hotspot", "hotspotId": "tiger" },
+          "scene": {
+            "layers": [
+              { "id": "canopy-far", "z": 120 },
+              { "id": "canopy-mid", "z": 60 },
+              { "id": "roots-mid", "z": 24 },
+              { "id": "roots-fore", "z": 8 }
+            ]
+          }
         },
         "atlas": [{ "slug": "sundarbans", "kind": "field-record" }],
         "dwca": { "slug": "sundarbans", "actors": 9, "interactions": 10 }

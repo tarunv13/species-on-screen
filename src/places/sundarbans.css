@@ -549,3 +549,34 @@ button {
   .roots-mid    { transform: translate3d(0, 13.5%, 0); } /* base 30% * 0.45 */
   .roots-fore   { transform: translate3d(0, 18%, 0) scale(1.018); } /* base 40%/1.04 * 0.45 */
 }
+
+/* ---------- Scene plate slot (Sprint V1.2) ----------
+   Governed by .agents/decisions/2026-07-25-visual-layer-recovery.md.
+
+   An authored place plate, mounted by src/places/scene-plate.js INSIDE a
+   parallax layer element in place of that layer's hidden procedural <svg>.
+   Because it is a child of the layer <div>, it inherits the layer's descent
+   transform, its parallax x/y, and its atmospheric opacity/blur/filter with
+   no wiring of its own. Held in darkness (Article VI); no caption, no UI.
+
+   Only ever present when an asset is authored; with an empty public/art/
+   no such element exists and this rule matches nothing (byte-equivalent
+   baseline). The 110%/-5% box mirrors .canopy-svg / .roots-svg so a parallax
+   shift never reveals a plate edge. No transform here — the plate takes the
+   layer's transform, including its reduced-motion treatment above. */
+.scene-plate {
+  position: absolute;
+  top: 0;
+  left: -5%;
+  width: 110%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.scene-plate--flat {
+  object-position: 50% 50%;
+}
