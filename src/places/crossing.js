@@ -32,6 +32,7 @@
 import { getNarrativeById } from '../../cinematic-language/narrative-registry.ts';
 import { gsap } from 'gsap';
 import './crossing.css';
+import { loadFlatPlate } from './scene-plate.js';
 
 /* ---------- Narrative registry (3 extractable fields only) ---------- */
 
@@ -246,7 +247,32 @@ window.addEventListener('scroll', readScroll, { passive: true });
 let t0 = performance.now();
 let amb = 0;
 
-function paintBase(progress, beachP) {
+/* ---------- Scene plate: flat backdrop tier (Sprint V1.2b) ----------
+   A single STATIC backdrop for this canvas surface. If an asset exists at
+   public/art/scene/crossing.{webp,png,jpg,svg} it is drawn ONCE per frame as
+   the first draw call, cover-fitted, then held in the scene's OWN darkness
+   (paintBase is drawn over it as a veil — the existing treatment, reused, not
+   a new one). No parallax, no idle motion, no beat retiming, no new easing;
+   every existing beat draws over it unchanged. Absent -> byte-identical to
+   today. Depth is declared in place-manifest.json (cinematic.scene.layers
+   [{id:'backdrop', z:60}]) for a future spatial renderer; nothing here reads
+   the manifest. Article III's luminance-dip cut is untouched. */
+let backdropImg = null;
+const BACKDROP_VEIL = 0.45;   // paintBase alpha when veiling a plate
+
+function paintBackdrop() {
+  if (!backdropImg) return false;
+  const iw = backdropImg.naturalWidth, ih = backdropImg.naturalHeight;
+  if (!iw || !ih) return false;
+  const s = Math.max(W / iw, H / ih);          // cover-fit
+  const dw = iw * s, dh = ih * s;
+  ctx.drawImage(backdropImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
+  return true;
+}
+
+function paintBase(progress, beachP, veil = 1) {
+  ctx.save();
+  ctx.globalAlpha = veil;   // veil === 1 (default) is byte-identical to before
   const top = lerpC(PAL.deepWater, PAL.preDawn, beachP * 0.5);
   const bot = lerpC(PAL.abyss, PAL.abyss, 0);
   const g = ctx.createLinearGradient(0, 0, 0, H);
@@ -263,6 +289,7 @@ function paintBase(progress, beachP) {
   rg.addColorStop(1, rgb(PAL.midWater, 0));
   ctx.fillStyle = rg;
   ctx.fillRect(0, 0, W, H);
+  ctx.restore();
 }
 
 function paintShore(cam, beachP) {
@@ -396,7 +423,8 @@ function render() {
   lastP = p;
 
   ctx.clearRect(0, 0, W, H);
-  paintBase(p, beachP);
+  const plated = paintBackdrop();                       // first draw, beneath everything
+  paintBase(p, beachP, plated ? BACKDROP_VEIL : 1);     // veils the plate, or the today's base
   paintShore(cam, beachP);
   paintRoute(cam, p);
   paintMotes();
@@ -451,6 +479,10 @@ document.addEventListener('visibilitychange', () => {
 function init() {
   resize();
   readScroll();
+
+  // Scene plate flat backdrop (Sprint V1.2b) — fire-and-forget; the render
+  // loop stays byte-identical until (and unless) an asset actually loads.
+  loadFlatPlate('crossing').then((img) => { if (img) backdropImg = img; });
 
   // Wire narrative metadata to the page.
   document.title = `${PLACE_NAME} · Crossing`;

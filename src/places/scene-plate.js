@@ -119,3 +119,17 @@ export async function mountScenePlates(sceneSlug, layers, opts = {}) {
   // Tier: PROCEDURAL. Nothing authored — byte-identical to baseline.
   return { tier: 'procedural', mounted: [] };
 }
+
+/**
+ * Load a single flat scene plate for a place, for CANVAS surfaces that draw
+ * the backdrop themselves (Sprint V1.2b — crossing / epr-vents). Uses the
+ * SAME probe (BASE, EXTS) as the DOM slot above.
+ *   public/art/scene/<sceneSlug>.{webp,png,jpg,svg}
+ *
+ * @param {string} sceneSlug  cinematic slug, e.g. 'crossing'
+ * @returns {Promise<HTMLImageElement|null>}  the loaded image, or null if
+ *          none is authored (caller then renders byte-identical to today).
+ */
+export async function loadFlatPlate(sceneSlug) {
+  return firstThatLoads(`art/scene/${sceneSlug}`);
+}

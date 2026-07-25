@@ -48,7 +48,12 @@
         "cinematic": {
           "slug": "crossing",
           "enterLabel": "Enter the crossing →",
-          "arrival": { "kind": "dip" }
+          "arrival": { "kind": "dip" },
+          "scene": {
+            "layers": [
+              { "id": "backdrop", "z": 60 }
+            ]
+          }
         },
         "atlas": [
           { "slug": "coral-triangle", "kind": "field-record" },
@@ -68,7 +73,12 @@
         "cinematic": {
           "slug": "epr-vents",
           "enterLabel": "Enter the vent field →",
-          "arrival": { "kind": "dip" }
+          "arrival": { "kind": "dip" },
+          "scene": {
+            "layers": [
+              { "id": "backdrop", "z": 60 }
+            ]
+          }
         },
         "atlas": [{ "slug": "epr-vents", "kind": "field-record" }],
         "dwca": { "slug": "epr-vents", "actors": 9, "interactions": 10 }
