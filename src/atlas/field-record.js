@@ -80,6 +80,16 @@ let ACTORS = {};      // id -> actor
 let RELS = [];        // {from,to,type,roid,according,remarks,season}
 let actorList = [];
 let REFERENCES = null; // structured bibliography from references.json (or null)
+let ONSCREEN = null;   // tmdb_media from the species dossier (or null)
+
+/* Which species dossier carries this place's screen record. Local map in the
+   PLACE_META idiom rather than a Place Manifest field: the manifest is
+   governed by ADR-001 and a new first-class term there is an architecture
+   decision, not an implementation detail. A place absent here renders no
+   "On screen" section at all (citation-or-skip). */
+const SPECIES_DOSSIER = {
+  'sundarbans': 'tiger',
+};
 
 function relSeason(remarks) {
   if (/seasonal:wet/.test(remarks)) return 'wet';
@@ -88,14 +98,23 @@ function relSeason(remarks) {
 }
 
 async function loadDwc() {
-  const [occT, relT, refsJson] = await Promise.all([
+  const _dossier = SPECIES_DOSSIER[PLACE];
+  const [occT, relT, refsJson, dossier] = await Promise.all([
     fetch(DWCA + 'occurrence.txt').then((r) => r.text()),
     fetch(DWCA + 'resource-relationship.txt').then((r) => r.text()),
     // Structured bibliography (APA + identifier state). Graceful if absent:
     // the Sources block falls back to the bare citation strings.
     fetch(DWCA + 'references.json').then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    // Species dossier, for the screen record. Graceful if absent or unmapped:
+    // the "On screen" section is simply not rendered.
+    _dossier
+      ? fetch(BASE + 'data/' + _dossier + '.json').then((r) => (r.ok ? r.json() : null)).catch(() => null)
+      : Promise.resolve(null),
   ]);
   REFERENCES = refsJson && Array.isArray(refsJson.references) ? refsJson.references : null;
+  ONSCREEN = dossier && Array.isArray(dossier.tmdb_media) && dossier.tmdb_media.length
+    ? dossier.tmdb_media
+    : null;
   parseTSV(occT).forEach((row) => {
     let dyn = {};
     try { dyn = JSON.parse(row.dynamicProperties); } catch (e) { dyn = {}; }
@@ -637,12 +656,36 @@ function renderSources() {
   return `<ol class="fr-refs">${items}</ol>`;
 }
 
+/* The screen record. Ten species dossiers in public/data/ carry a real
+   tmdb_media array; until now the only consumer counted it and discarded the
+   count. This renders it in the RESEARCH register: plain rows, no posters, no
+   cards, no ratings, no marketing copy.
+   Citation-or-skip: a place with no dossier, or a dossier with no tmdb_media,
+   renders nothing at all — no "no films found" placeholder. */
+function renderOnScreen() {
+  if (!ONSCREEN) return '';
+  const rows = ONSCREEN
+    .slice()
+    .sort((a, b) => (a.year || 0) - (b.year || 0))
+    .map((m) => `<tr>
+        <td class="fr-screen-year">${escapeHtml(String(m.year || ''))}</td>
+        <td class="fr-screen-title">${escapeHtml(m.title || '')}</td>
+        <td class="fr-screen-kind">${escapeHtml(m.classification || '')}</td>
+      </tr>`).join('');
+  return `
+    <h2>On screen</h2>
+    <p class="fr-screen-note">Titles in which this species appears, ordered by year. These are <em>depictions</em> — a record of how the animal has been filmed. They are not evidence about the animal, and nothing here sources the interaction web above.</p>
+    <table class="fr-screen">${rows}</table>
+    <p class="fr-screen-attr">Film metadata from <a href="https://www.themoviedb.org/">TMDB</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>`;
+}
+
 function buildSources() {
   const el = document.getElementById('fr-sources');
   el.innerHTML = `
     <h2>The interaction web</h2>
     <p class="fr-web-help">Each edge names its OBO Relations Ontology relation; <strong>follow</strong> an edge to move laterally to the actor it links — you stay in the atlas.</p>
     ${buildInteractionWeb()}
+    ${renderOnScreen()}
     <h2>Sources</h2>
     ${renderSources()}
     <h2>Darwin Core mapping</h2>

@@ -10,3 +10,11 @@ dist/
 public/evidence/
 Claude design print.pdf
 .gstack/
+
+# Third-party skill payload (V1.4 ruling). The .agents/ tree is the
+# institutional-memory record — decisions, sessions, thoughts. A vendored
+# 153-file dependency does not belong in it; a future session reading that
+# tree must find only our own record. The lockfile IS committed: it is a
+# provenance receipt naming which version of a third-party tool touched the
+# repo. Ignore the payload, keep the receipt.
+.agents/skills/

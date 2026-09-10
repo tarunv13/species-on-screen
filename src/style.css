@@ -30,6 +30,40 @@
   --font-stack: "Iowan Old Style", Georgia, "Times New Roman", serif;
   --font-caption: 0.78rem;          /* anchored species labels */
   --font-body: 1rem;
+
+  /* Composition scale (V1.4).
+   * The audit gave this file a palette and two type sizes. Two sizes
+   * cannot express hierarchy, so every screen rendered in one flat
+   * register. These tokens supply the missing half: a type scale, a
+   * spacing rhythm, and a measure.
+   *
+   * Hierarchy comes from SIZE and ALPHA. Never from weight — 300 stays
+   * the only weight on both surfaces. No colour token is added here;
+   * the palette above is unchanged and dawn-rim stays reserved to the
+   * atmosphere shader. */
+  --type-place: clamp(2.4rem, 4.6vw, 4rem);     /* place name; one per screen */
+  --type-line: clamp(1.3rem, 2.1vw, 1.9rem);    /* the editorial line */
+  --type-lead: clamp(1.06rem, 1.35vw, 1.25rem); /* standfirst, sub-line */
+
+  --lh-place: 1.08;
+  --lh-line: 1.32;
+  --lh-lead: 1.5;
+
+  --ls-place: -0.02em;
+  --ls-line: -0.005em;
+
+  --sp-1: 0.5rem;
+  --sp-2: 1rem;
+  --sp-3: 1.75rem;
+  --sp-4: 3rem;
+  --sp-5: 5rem;
+  --sp-6: 8rem;
+
+  /* Measure is the highest-impact value here. An unconstrained line
+   * width is the main reason a dark screen reads as unfinished. */
+  --measure: 34rem;                 /* cinematic text block */
+  --measure-body: 42rem;            /* research single column */
+
   --tracking-caption: 0.04em;
   --weight-light: 300;
 

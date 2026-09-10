@@ -275,3 +275,69 @@ a { color: var(--fr-accent); }
   .fr-card { transition: opacity 0.2s linear; transform: none; }
   .fr-speciescard { transition: opacity 0.15s linear; }
 }
+
+/* ===== ON SCREEN (V1.4 — the titular gap) =====
+ * The screen record for this place's species. Research register only; this
+ * block is never reachable from a cinematic surface.
+ *
+ * TOKEN SCOPE NOTE: the V1.4 composition tokens (--sp-*, --type-*,
+ * --measure-body) are declared in src/style.css, which the atlas pages do
+ * NOT load — this surface has its own --fr-* scope. The literal values
+ * below are the spec's values (5rem === --sp-5, 1rem === --sp-2); they are
+ * written literally rather than silently resolving to an undefined var().
+ * Unifying the two scopes is an architecture decision, not an
+ * implementation detail, so it is reported rather than taken here. */
+.fr-screen {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+}
+
+.fr-screen td {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--fr-line);
+  vertical-align: baseline;
+}
+
+.fr-screen tr:last-child td { border-bottom: none; }
+
+/* Year sets the reading order; it recedes so the title carries the row. */
+.fr-screen-year {
+  width: 4.5rem;
+  color: var(--fr-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.fr-screen-title {
+  color: var(--fr-ink);
+}
+
+/* Media type, not a rating or a genre badge. */
+.fr-screen-kind {
+  width: 8rem;
+  text-align: right;
+  color: var(--fr-ink-soft);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.fr-screen-note,
+.fr-screen-attr {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: 42rem;                  /* === --measure-body */
+}
+
+.fr-screen-attr {
+  font-size: 0.82rem;
+  margin-top: 1rem;                  /* === --sp-2 */
+  margin-bottom: 5rem;               /* === --sp-5, section separation */
+}
+
+@media (max-width: 620px) {
+  .fr-screen-kind { display: none; } /* title + year survive the narrow column */
+}

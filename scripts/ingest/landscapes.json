@@ -1,5 +1,6 @@
 {
   "_comment": "Global registry of priority landscapes the observatory intends to cover — spread across IUCN Global Ecosystem Typology realms (terrestrial, freshwater, marine, polar, transitional). Drives the news layer (GDELT per newsQuery) and, as field records are authored, the scrollytelling. hasFieldRecord=true means a Darwin Core Archive exists at public/dwca/<id>/. newsQuery is tuned for English-language environmental coverage.",
+  "_authority": "The Place Manifest (cinematic-language/place-manifest.ts, ADR-001) is authoritative for which places exist and which carry an archive. This file is a NEWS-layer registry, not a place registry: it is a superset (aspirational landscapes with no archive) and, deliberately, not a subset (a place may exist in the manifest and have no meaningful news feed). hasFieldRecord must be kept consistent with public/dwca/<id>/ by hand until it is derived. V1.4: coral-triangle corrected false->true, its archive having existed since M9b. KNOWN GAP: epr-vents (East Pacific Rise) is in the manifest with an archive but is absent here — adding it requires an authored newsQuery, and a deep-sea vent field has effectively no GDELT coverage, so whether it belongs in a news registry at all is an editorial decision, not a mechanical one. Left absent and reported rather than fabricated.",
   "landscapes": [
     {
       "id": "sundarbans",
@@ -199,7 +200,7 @@
       },
       "protectedArea": "Coral Triangle Initiative",
       "newsQuery": "\"Coral Triangle\" (reef OR fishing OR marine OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": true
     },
     {
       "id": "okavango",
