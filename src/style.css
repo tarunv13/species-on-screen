@@ -37,10 +37,34 @@
    * register. These tokens supply the missing half: a type scale, a
    * spacing rhythm, and a measure.
    *
-   * Hierarchy comes from SIZE and ALPHA. Never from weight — 300 stays
-   * the only weight on both surfaces. No colour token is added here;
-   * the palette above is unchanged and dawn-rim stays reserved to the
-   * atmosphere shader. */
+   * Hierarchy comes from SIZE and ALPHA, not from weight. No colour
+   * token is added here; the palette above is unchanged and dawn-rim
+   * stays reserved to the atmosphere shader.
+   *
+   * CORRECTION (2026-09-10). This block originally claimed "300 stays
+   * the only weight on both surfaces." That is false and is retracted.
+   * Measured: this file is the ONLY 300 in the tree. crossing.css,
+   * epr-vents.css and sundarbans.css all set the caption to 400;
+   * field-record.css runs 400/500/600. The claim described an intended
+   * system, not the incumbent one.
+   *
+   * SCOPE — READ BEFORE USING THESE. src/style.css is imported by
+   * src/main.js alone, so every token below resolves on the HOMEPAGE
+   * ONLY. The three place stylesheets and the atlas field record each
+   * import their own CSS and never load this file: a var(--type-line)
+   * written there resolves to nothing and the declaration is dropped.
+   * (field-record.css shows the workaround already taken — literal
+   * values hand-annotated with the token name they match.)
+   *
+   * These tokens therefore still have NO CONSUMERS, and the 2026-09-10
+   * session did not wire them. Wiring was attempted and stopped: the
+   * scale describes a screen composition this repository does not have
+   * (a bottom-left place-name + line + standfirst block), while the
+   * cinematic surfaces are centred, fixed, beat-stacked captions with
+   * no title element at all. See PROJECT_STATUS.md backlog item 10 and
+   * .agents/sessions/2026-09-10-v13-v14-arc.md for the full finding.
+   * Do not wire these piecemeal — the composition question comes
+   * first. */
   --type-place: clamp(2.4rem, 4.6vw, 4rem);     /* place name; one per screen */
   --type-line: clamp(1.3rem, 2.1vw, 1.9rem);    /* the editorial line */
   --type-lead: clamp(1.06rem, 1.35vw, 1.25rem); /* standfirst, sub-line */
