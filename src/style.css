@@ -31,11 +31,9 @@
   --font-caption: 0.78rem;          /* anchored species labels */
   --font-body: 1rem;
 
-  /* Composition scale (V1.4).
-   * The audit gave this file a palette and two type sizes. Two sizes
-   * cannot express hierarchy, so every screen rendered in one flat
-   * register. These tokens supply the missing half: a type scale, a
-   * spacing rhythm, and a measure.
+  /* Homepage composition tokens (V1.4; scoped by ruling 2026-09-10).
+   * A type scale and spacing rhythm for THIS surface — the planetary
+   * homepage — and nothing else. Not a global scale: see SCOPE below.
    *
    * Hierarchy comes from SIZE and ALPHA, not from weight. No colour
    * token is added here; the palette above is unchanged and dawn-rim
@@ -48,23 +46,36 @@
    * field-record.css runs 400/500/600. The claim described an intended
    * system, not the incumbent one.
    *
-   * SCOPE — READ BEFORE USING THESE. src/style.css is imported by
-   * src/main.js alone, so every token below resolves on the HOMEPAGE
-   * ONLY. The three place stylesheets and the atlas field record each
-   * import their own CSS and never load this file: a var(--type-line)
-   * written there resolves to nothing and the declaration is dropped.
-   * (field-record.css shows the workaround already taken — literal
-   * values hand-annotated with the token name they match.)
+   * SCOPE — RESOLVED 2026-09-10. These tokens are scoped to the
+   * homepage by ruling, and the cross-surface claim is WITHDRAWN.
+   * src/style.css is imported by src/main.js alone; the three place
+   * stylesheets and the atlas field record each import their own CSS
+   * and never load this file, so a var(--type-line) written there
+   * resolves to nothing and the declaration is dropped. That is now a
+   * boundary, not a defect: each surface names its own measures in its
+   * own sheet. Do not add an import of this file anywhere to bring
+   * these into scope — the bundle separation is real.
    *
-   * These tokens therefore still have NO CONSUMERS, and the 2026-09-10
-   * session did not wire them. Wiring was attempted and stopped: the
-   * scale describes a screen composition this repository does not have
-   * (a bottom-left place-name + line + standfirst block), while the
-   * cinematic surfaces are centred, fixed, beat-stacked captions with
-   * no title element at all. See PROJECT_STATUS.md backlog item 10 and
-   * .agents/sessions/2026-09-10-v13-v14-arc.md for the full finding.
-   * Do not wire these piecemeal — the composition question comes
-   * first. */
+   * The measure tokens that used to sit here are GONE. --measure
+   * (34rem) and --measure-body (42rem) were removed rather than
+   * rewritten: a rem measure on clamp-sized type yields MORE
+   * characters per line at the small end of the clamp and fewer at the
+   * large end, which is the opposite of what a measure is for. The
+   * cinematic sheets hold their measures in ch (30ch / 22ch / 36ch /
+   * 18ch / 16ch), where the character count stays constant as the type
+   * grows; field-record.css holds its own in rem, correctly, because
+   * its body type is fixed-size. Neither could live here anyway: the
+   * only text on this surface is three white-space:nowrap caption
+   * links, which never wrap and so cannot take a measure at all.
+   *
+   * The type tokens below have NO CONSUMERS on this surface and are
+   * kept as an honest unused scale rather than given a forced one. The
+   * homepage has no editorial line and no sub-line — #globe-ui-container
+   * holds three .page-caption links and nothing else — and those were
+   * already tokenized (--font-caption / --tracking-caption /
+   * --weight-light) before this block existed. See PROJECT_STATUS.md
+   * backlog item 10 (RESOLVED) and
+   * .agents/sessions/2026-09-10-v13-v14-arc.md. */
   --type-place: clamp(2.4rem, 4.6vw, 4rem);     /* place name; one per screen */
   --type-line: clamp(1.3rem, 2.1vw, 1.9rem);    /* the editorial line */
   --type-lead: clamp(1.06rem, 1.35vw, 1.25rem); /* standfirst, sub-line */
@@ -82,11 +93,6 @@
   --sp-4: 3rem;
   --sp-5: 5rem;
   --sp-6: 8rem;
-
-  /* Measure is the highest-impact value here. An unconstrained line
-   * width is the main reason a dark screen reads as unfinished. */
-  --measure: 34rem;                 /* cinematic text block */
-  --measure-body: 42rem;            /* research single column */
 
   --tracking-caption: 0.04em;
   --weight-light: 300;

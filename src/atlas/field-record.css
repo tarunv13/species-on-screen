@@ -33,6 +33,22 @@
   --fr-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --fr-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
   --fr-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Reading measures and section rhythm (named 2026-09-10; values
+     unchanged — this is naming, not re-typesetting). Held in rem, and
+     that is correct HERE: this surface's body type is fixed-size, so a
+     rem measure holds a stable column. The cinematic sheets hold theirs
+     in ch for the opposite reason — their type is clamp-sized. Local to
+     this sheet by ruling: src/style.css never loads on this surface, so
+     the V1.4 literals that were hand-annotated with a token name are now
+     actual declarations. No import may be added to bring that file into
+     scope; the bundle separation is load-bearing. */
+  --fr-measure-masthead: 48rem; /* title block column */
+  --fr-measure-sub: 36rem;      /* standfirst under the title */
+  --fr-measure-sources: 44rem;  /* sources / archive column */
+  --fr-measure-body: 42rem;     /* running prose column */
+  --fr-space-tight: 1rem;       /* label-to-subject */
+  --fr-space-section: 5rem;     /* section separation */
 }
 
 * { box-sizing: border-box; }
@@ -64,7 +80,7 @@ a { color: var(--fr-accent); }
 .fr-masthead {
   position: relative;
   z-index: 3;
-  max-width: 48rem;
+  max-width: var(--fr-measure-masthead);
   margin: 0 auto;
   padding: clamp(3.5rem, 13vh, 9rem) 1.5rem clamp(2.5rem, 9vh, 6rem);
   text-align: center;
@@ -83,7 +99,7 @@ a { color: var(--fr-accent); }
 }
 .fr-sub {
   font-size: 1.08rem; line-height: 1.6; color: var(--fr-ink-soft);
-  max-width: 36rem; margin: 1.1rem auto 0;
+  max-width: var(--fr-measure-sub); margin: 1.1rem auto 0;
 }
 .fr-sound {
   margin-top: 1.8rem; font-family: var(--fr-sans); font-size: 0.8rem;
@@ -185,7 +201,7 @@ a { color: var(--fr-accent); }
 /* ---------- sources / archive section ---------- */
 .fr-sources {
   position: relative; z-index: 3; background: var(--fr-paper);
-  max-width: 44rem; margin: 0 auto; padding: clamp(3.5rem, 11vh, 7.5rem) 1.5rem 9rem;
+  max-width: var(--fr-measure-sources); margin: 0 auto; padding: clamp(3.5rem, 11vh, 7.5rem) 1.5rem 9rem;
   font-family: var(--fr-serif);
 }
 .fr-sources h2 {
@@ -280,13 +296,14 @@ a { color: var(--fr-accent); }
  * The screen record for this place's species. Research register only; this
  * block is never reachable from a cinematic surface.
  *
- * TOKEN SCOPE NOTE: the V1.4 composition tokens (--sp-*, --type-*,
- * --measure-body) are declared in src/style.css, which the atlas pages do
- * NOT load — this surface has its own --fr-* scope. The literal values
- * below are the spec's values (5rem === --sp-5, 1rem === --sp-2); they are
- * written literally rather than silently resolving to an undefined var().
- * Unifying the two scopes is an architecture decision, not an
- * implementation detail, so it is reported rather than taken here. */
+ * TOKEN SCOPE — RESOLVED 2026-09-10. This note previously recorded that the
+ * V1.4 tokens live in src/style.css, which the atlas pages do NOT load, and
+ * that the values below were therefore written literally and annotated by
+ * hand. The ruling scoped that file to the homepage and withdrew its
+ * cross-surface claim, so the two scopes are NOT unified: each surface names
+ * its own measures in its own sheet. Those annotated literals are now real
+ * declarations in the --fr-* block at the top of this file. Do not add an
+ * import of src/style.css here — the bundle separation is load-bearing. */
 .fr-screen {
   width: 100%;
   border-collapse: collapse;
@@ -329,13 +346,13 @@ a { color: var(--fr-accent); }
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--fr-ink-soft);
-  max-width: 42rem;                  /* === --measure-body */
+  max-width: var(--fr-measure-body);
 }
 
 .fr-screen-attr {
   font-size: 0.82rem;
-  margin-top: 1rem;                  /* === --sp-2 */
-  margin-bottom: 5rem;               /* === --sp-5, section separation */
+  margin-top: var(--fr-space-tight);
+  margin-bottom: var(--fr-space-section);
 }
 
 @media (max-width: 620px) {
