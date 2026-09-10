@@ -39,7 +39,12 @@ export class Globe {
     this.renderer = renderer;
     this.group = new THREE.Group();
     this.scene.add(this.group);
-    this.mediaCounts = {};
+    /* mediaCounts removed (V1.4). It was written on every dossier load and
+       never read — film data fetched, counted, discarded. The screen record
+       now has a real consumer: the "On screen" section of the atlas field
+       record, which reads tmdb_media from the dossier directly. A count on
+       the cinematic surface would be a dashboard-register affordance of the
+       kind the 2026-05-24 audit removed, so it is not reinstated here. */
     this.columnMeshes = [];
     this.habitatMeshes = [];
     this.protectedAreaMeshes = [];
@@ -76,21 +81,81 @@ export class Globe {
   }
 
   _createGlobe() {
+    // V1.3 Part A — real NASA imagery on the three.js sphere. Day = Blue Marble
+    // Next Generation (August 2004, with topography & bathymetry); night = Black
+    // Marble city lights. A custom shader blends them across the terminator and
+    // adds a cool, water-only specular read from the ocean tones of the topo/
+    // bathy map. The planet is framed mostly NIGHT-SIDE (sunDir below) — held in
+    // darkness is now free and better; the texture is not brightened to show off.
+    // Textures are local + public domain (STYLE-GUIDE.md); the unpkg CDN map is
+    // retired. Behaviour (hotspots, hit targets, drift, arrival) is unchanged.
+    const BASE = import.meta.env.BASE_URL || '/';
+    const loader = new THREE.TextureLoader();
+    const dayMap = loader.load(`${BASE}textures/blue-marble-august.webp`);
+    const nightMap = loader.load(`${BASE}textures/black-marble.webp`);
+    dayMap.colorSpace = THREE.SRGBColorSpace;
+    nightMap.colorSpace = THREE.SRGBColorSpace;
+    const aniso = this.renderer.capabilities.getMaxAnisotropy();
+    dayMap.anisotropy = aniso; nightMap.anisotropy = aniso;
+
     const geometry = new THREE.SphereGeometry(1.5, 128, 128);
-    const textureLoader = new THREE.TextureLoader();
-    const material = new THREE.MeshStandardMaterial({ roughness: 0.8, metalness: 0.1 });
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        dayMap: { value: dayMap },
+        nightMap: { value: nightMap },
+        // Sun fixed in WORLD space; the globe rotates under it so the terminator
+        // sweeps the surface. Placed far/upper-left so the camera-facing
+        // hemisphere reads mostly night with a thin day crescent.
+        sunDir: { value: new THREE.Vector3(-0.6, 0.28, -0.75).normalize() },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vNormalW;
+        varying vec3 vPosW;
+        void main() {
+          vUv = uv;
+          vNormalW = normalize(mat3(modelMatrix) * normal);
+          vec4 wp = modelMatrix * vec4(position, 1.0);
+          vPosW = wp.xyz;
+          gl_Position = projectionMatrix * viewMatrix * wp;
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D dayMap;
+        uniform sampler2D nightMap;
+        uniform vec3 sunDir;
+        varying vec2 vUv;
+        varying vec3 vNormalW;
+        varying vec3 vPosW;
+        void main() {
+          vec3 N = normalize(vNormalW);
+          vec3 S = normalize(sunDir);
+          vec3 day = texture2D(dayMap, vUv).rgb;
+          vec3 night = texture2D(nightMap, vUv).rgb;
+          float dayAmt = smoothstep(-0.08, 0.14, dot(N, S));     // terminator blend
+          vec3 nightCol = night * 2.4 + day * 0.03;              // city lights + faint earthshine
+          vec3 col = mix(nightCol, day, dayAmt);
+          // water-only specular (day side): ocean = low-red, blue-dominant in
+          // the BMNG topo/bathy map — that is the bathymetry mask, read here.
+          float ocean = (1.0 - smoothstep(0.05, 0.20, day.r)) * smoothstep(0.0, 0.05, day.b - day.r);
+          vec3 V = normalize(cameraPosition - vPosW);
+          vec3 H = normalize(S + V);
+          float spec = pow(max(dot(N, H), 0.0), 60.0) * dayAmt * ocean;
+          col += spec * vec3(0.5, 0.65, 0.82) * 0.7;
+          gl_FragColor = vec4(col, 1.0);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }
+      `,
+    });
     this.sphere = new THREE.Mesh(geometry, material);
     this.group.add(this.sphere);
-    textureLoader.load(
-      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
-      (texture) => { material.map = texture; material.needsUpdate = true; },
-      undefined,
-      () => { material.color = new THREE.Color(0x4488aa); material.needsUpdate = true; }
-    );
+
+    // Thin atmospheric rim — cool, Rayleigh-ish, subtle (not a sci-fi glow).
     const atmosGeometry = new THREE.SphereGeometry(1.58, 64, 64);
     const atmosMaterial = new THREE.ShaderMaterial({
       vertexShader: `varying vec3 vNormal; void main() { vNormal = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-      fragmentShader: `varying vec3 vNormal; void main() { float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0); gl_FragColor = vec4(0.55, 0.50, 0.42, intensity * 0.35); }`,
+      fragmentShader: `varying vec3 vNormal; void main() { float intensity = pow(0.62 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 4.0); gl_FragColor = vec4(0.35, 0.55, 0.92, clamp(intensity, 0.0, 1.0) * 0.5); }`,
       blending: THREE.NormalBlending, side: THREE.BackSide, transparent: true, depthWrite: false,
     });
     this.atmosphere = new THREE.Mesh(atmosGeometry, atmosMaterial);
@@ -288,7 +353,6 @@ export class Globe {
       if (result.status === 'fulfilled') {
         const { data } = result.value;
         this.speciesDataCache[slug] = data;
-        this.mediaCounts[slug] = data.tmdb_media ? data.tmdb_media.length : 0;
         if (data.globe_layers && data.globe_layers.protected_areas) {
           data.globe_layers.protected_areas.forEach((area) => {
             allProtectedAreas.push({ ...area, species: slug });
@@ -296,7 +360,6 @@ export class Globe {
         }
         loaded.push(slug);
       } else {
-        this.mediaCounts[slug] = 0;
         const reason = result.reason && result.reason.message
           ? result.reason.message
           : String(result.reason);

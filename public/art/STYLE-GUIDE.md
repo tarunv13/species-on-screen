@@ -5,6 +5,11 @@ animated procedural illustration** (`src/prototypes/species-art.js`), whose
 *form* is chosen from the species' real GBIF taxonomy. That is the shipping
 baseline — license-clean, consistent, and animated.
 
+> **Asset licensing (repo-wide, non-negotiable).** NC (non-commercial) licences
+> are NOT acceptable for committed assets — this repository is open source and a
+> downstream fork must be able to honour every asset licence. CC0 / CC-BY /
+> CC-BY-SA / public domain only.
+
 ## The photoreal plate slot ("exact of a photograph, but not a photograph")
 
 To upgrade any species to a high-end plate, drop an image here:
@@ -130,9 +135,21 @@ forward-compatible with no re-authoring. The canvas places (`crossing`,
 
 Every scene plate must be license-clean and credited. One row per file:
 
-| File | Source | Author | License |
-|---|---|---|---|
-| _(none yet — procedural scenes in use)_ | | | |
+| File | Source | Author | License | Modification |
+|---|---|---|---|---|
+| `scene/epr-vents.webp` | USGS — East Pacific Rise, 9°39′N, 2550 m; DSV *Alvin*, 1991; "9N black smoker PICT0039" ([usgs.gov](https://www.usgs.gov/media/images/deep-ocean-hydrothermal-vent-system-east-pacific-rise)) | Pat Shanks, U.S. Geological Survey | Public Domain (USGS) | downscaled 4911→2000px, EXIF stripped, WebP q80 |
+| `scene/crossing.webp` | Wikimedia Commons — "Soft coral peach komodo.jpg"; *Dendronephthya* soft coral, **Komodo National Park, Indonesia (Coral Triangle)**; strobe-lit; acquired 2006-08-14 ([commons](https://commons.wikimedia.org/wiki/File:Soft_coral_peach_komodo.jpg)) | Nick Hobgood (Nhobgood) | **CC-BY-SA-3.0** — attribute "Nick Hobgood, CC BY-SA 3.0"; **ShareAlike**: derivatives carry the same licence | ⚠ **PLACEHOLDER** (vetoed — portrait + subject-not-place); downscaled→WebP |
+
+> ⚠ **`scene/crossing.webp` is a PLACEHOLDER, not the design.** Vetoed 2026-07-28:
+> it is PORTRAIT (1260×1680 — cover-fit into 16:9 discards ~58%) and a single
+> soft-coral *colony* (a subject, not a place). A compliant replacement must be
+> **landscape (3:2–2:1)**, read as a reef slope/wall/structure you are *inside*,
+> Coral-Triangle-proper with stated locality, ≥1400px, no diver, CC0/CC-BY/CC-BY-SA.
+> Sourcing attempt 2026-07-28 (NOAA Ocean Exploration + Photo Library + Coral Reef
+> Watch, then Wikimedia) found **no compliant landscape Coral-Triangle reef scene** —
+> NOAA reef imagery is Micronesia/Pacific-US, and Commons yields only divers,
+> single-species close-ups, aerial scenics, or unstated-locality generics. Locality
+> honesty was **not** loosened to fill the slot.
 
 Acceptable sources are the same as the species plates (AI-generated
 illustration noted as such, public-domain natural-history art, or CC-BY
@@ -140,3 +157,32 @@ scientific illustration); **do not use copyrighted photographs.**
 
 **An empty provenance table means the design is not installed — the procedural
 output is a placeholder, not the design.**
+
+## Sourced but not installed (deferred scenes)
+
+License-clean and fully identified, but **not downloaded or installed** — the
+scene that would host them does not exist yet. Recorded so the sourcing is not
+lost (per the V1.3 ruling).
+
+**amazon-varzea** — Amazon várzea, seasonally flooded forest / flood pulse.
+No cinematic scene file exists yet (`PROJECT_STATUS.md` backlog #1). Two NASA
+public-domain aerials, ready to use when the scene is built:
+
+| Candidate | Source (provider · collection · ID · date · author) | License | Dims |
+|---|---|---|---|
+| Juruá meanders (Landsat, top-down) | NASA Earth Observatory · Landsat 8 OLI · image 145819 · acquired 2019-05-27 · Lauren Dauphin / NASA EO | Public Domain (NASA/USGS) | 8383×3913 |
+| Muddy Water floodplain (ISS, oblique) | NASA Earth Observatory · ISS Crew Earth Observations · ISS064-E-14990 · 2020-12-23 · JSC ESRS / NASA | Public Domain (NASA) | 4928×2768 |
+
+## Homepage globe textures (V1.3 Part A)
+
+The planetary view (`src/globe.js`) is a three.js sphere textured with local
+public-domain NASA imagery; a custom shader blends day/night across the
+terminator. All public domain; **708 KB combined** (≤4 MB budget).
+
+| File | Dataset · Collection · Resolution · Date | Author | License |
+|---|---|---|---|
+| `textures/blue-marble-august.webp` (day, 4096×2048) | **Blue Marble: Next Generation w/ Topography & Bathymetry** — **August 2004** monthly composite; NASA Visible Earth / Earth Observatory (record **73776**, `world.topo.bathy.200408.3x5400x2700`) | NASA Earth Observatory (Reto Stöckli) | Public Domain (NASA) |
+| `textures/black-marble.webp` (night, 2048×1024) | **Earth at Night 2012 ("Black Marble")** — VIIRS day/night-band city lights; NASA Earth Observatory (record **79765**, `dnb_land_ocean_ice.2012.3600x1800`) | NASA Earth Observatory (NASA / NOAA) | Public Domain (NASA) |
+
+**August** chosen for seasonality (V1.3 ruling): cloud-free by construction,
+maximal northern vegetation, minimal Arctic ice, monsoon-green Sundarbans.
