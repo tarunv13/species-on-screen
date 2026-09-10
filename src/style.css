@@ -31,13 +31,17 @@
   --font-caption: 0.78rem;          /* anchored species labels */
   --font-body: 1rem;
 
-  /* Homepage composition tokens (V1.4; scoped by ruling 2026-09-10).
-   * A type scale and spacing rhythm for THIS surface — the planetary
-   * homepage — and nothing else. Not a global scale: see SCOPE below.
-   *
-   * Hierarchy comes from SIZE and ALPHA, not from weight. No colour
-   * token is added here; the palette above is unchanged and dawn-rim
-   * stays reserved to the atmosphere shader.
+  /* The V1.4 composition scale was DELETED here on 2026-09-10, not
+   * merely scoped. Scoping it to this file was the right first move;
+   * the homepage then failed the same test that the other surfaces
+   * failed. It had zero consumers on its one resolving surface — no
+   * editorial line and no sub-line to take --type-line/--type-lead,
+   * three white-space:nowrap caption links that can never take a
+   * measure, and insets (2rem / 3.6rem / 5.2rem; 1rem / 3.3rem /
+   * 5.6rem under 768px) of which exactly one touches the spacing
+   * scale. A declared, unconsumed token block is a standing invitation
+   * to wire it, and it encoded a composition this repository does not
+   * have. Speculative artifacts do not ship here.
    *
    * CORRECTION (2026-09-10). This block originally claimed "300 stays
    * the only weight on both surfaces." That is false and is retracted.
@@ -46,53 +50,16 @@
    * field-record.css runs 400/500/600. The claim described an intended
    * system, not the incumbent one.
    *
-   * SCOPE — RESOLVED 2026-09-10. These tokens are scoped to the
-   * homepage by ruling, and the cross-surface claim is WITHDRAWN.
-   * src/style.css is imported by src/main.js alone; the three place
-   * stylesheets and the atlas field record each import their own CSS
-   * and never load this file, so a var(--type-line) written there
-   * resolves to nothing and the declaration is dropped. That is now a
-   * boundary, not a defect: each surface names its own measures in its
-   * own sheet. Do not add an import of this file anywhere to bring
-   * these into scope — the bundle separation is real.
+   * SCOPE BOUNDARY — STANDING. No stylesheet may import src/style.css
+   * to widen token scope. This file is imported by src/main.js alone;
+   * the three place sheets and the atlas field record each load only
+   * their own CSS, and each names its own measures there — in ch on
+   * the cinematic surfaces, whose type is clamp-sized, and in rem on
+   * the research surface, whose type is fixed-size. The bundle
+   * separation is load-bearing.
    *
-   * The measure tokens that used to sit here are GONE. --measure
-   * (34rem) and --measure-body (42rem) were removed rather than
-   * rewritten: a rem measure on clamp-sized type yields MORE
-   * characters per line at the small end of the clamp and fewer at the
-   * large end, which is the opposite of what a measure is for. The
-   * cinematic sheets hold their measures in ch (30ch / 22ch / 36ch /
-   * 18ch / 16ch), where the character count stays constant as the type
-   * grows; field-record.css holds its own in rem, correctly, because
-   * its body type is fixed-size. Neither could live here anyway: the
-   * only text on this surface is three white-space:nowrap caption
-   * links, which never wrap and so cannot take a measure at all.
-   *
-   * The type tokens below have NO CONSUMERS on this surface and are
-   * kept as an honest unused scale rather than given a forced one. The
-   * homepage has no editorial line and no sub-line — #globe-ui-container
-   * holds three .page-caption links and nothing else — and those were
-   * already tokenized (--font-caption / --tracking-caption /
-   * --weight-light) before this block existed. See PROJECT_STATUS.md
-   * backlog item 10 (RESOLVED) and
+   * Full finding: PROJECT_STATUS.md backlog item 10 (CLOSED) and
    * .agents/sessions/2026-09-10-v13-v14-arc.md. */
-  --type-place: clamp(2.4rem, 4.6vw, 4rem);     /* place name; one per screen */
-  --type-line: clamp(1.3rem, 2.1vw, 1.9rem);    /* the editorial line */
-  --type-lead: clamp(1.06rem, 1.35vw, 1.25rem); /* standfirst, sub-line */
-
-  --lh-place: 1.08;
-  --lh-line: 1.32;
-  --lh-lead: 1.5;
-
-  --ls-place: -0.02em;
-  --ls-line: -0.005em;
-
-  --sp-1: 0.5rem;
-  --sp-2: 1rem;
-  --sp-3: 1.75rem;
-  --sp-4: 3rem;
-  --sp-5: 5rem;
-  --sp-6: 8rem;
 
   --tracking-caption: 0.04em;
   --weight-light: 300;
