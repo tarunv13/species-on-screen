@@ -33,6 +33,7 @@ import { getNarrativeById } from '../../cinematic-language/narrative-registry.ts
 import { gsap } from 'gsap';
 import './epr-vents.css';
 import { loadFlatPlate } from './scene-plate.js';
+import { applyLampPool } from './lamp-pool.js';
 
 /* ---------- Narrative registry (3 extractable fields only) ---------- */
 
@@ -252,18 +253,17 @@ let amb = 0;
 /* Depth gradient. The scene opens on dim surface-blue and descends to
    absolute abyss. As the vent field approaches (ventA), the bottom of
    the frame warms with vent heat before the glows themselves appear. */
-/* ---------- Scene plate: flat backdrop tier (Sprint V1.2b) ----------
-   A single STATIC backdrop for this canvas surface. If an asset exists at
-   public/art/scene/epr-vents.{webp,png,jpg,svg} it is drawn ONCE per frame as
-   the first draw call, cover-fitted, then held in the scene's OWN darkness
-   (paintBase is drawn over it as a veil — the existing treatment, reused, not
-   a new one). No parallax, no idle motion, no beat retiming, no new easing;
-   every existing beat draws over it unchanged. Absent -> byte-identical to
-   today. Depth is declared in place-manifest.json (cinematic.scene.layers
-   [{id:'backdrop', z:60}]) for a future spatial renderer; nothing here reads
-   the manifest. Article III's p≈0.40 luminance-dip cut is untouched. */
+/* ---------- Scene plate + lamp-pool light (V1.2b plate, V1.3 light) ----------
+   A single STATIC backdrop, cover-fit as the first draw. When present, the V1.3
+   lamp pool (src/places/lamp-pool.js) lights it with the DEEP-VENT recipe: a
+   hard narrow Alvin lamp (lampFactor 0.30), a neutral desaturation grade (no
+   cool cast — at 2550 m there is no water column shifting colour, the lamp is
+   broadband and close), heavy marine snow (240), and NO caustics (no surface
+   light at depth). The vent glow stays warm — it is thermal/mineral, drawn OVER
+   the pool. That snow supersedes paintMotes while plated. Absent -> the
+   procedural scene renders unchanged. Article III's p≈0.40 luminance-dip cut is
+   drawn last and is untouched; depth is declared in place-manifest.json. */
 let backdropImg = null;
-const BACKDROP_VEIL = 0.45;   // paintBase alpha when veiling a plate
 
 function paintBackdrop() {
   if (!backdropImg) return false;
@@ -451,14 +451,22 @@ function render() {
   const wormA = smoothstep(0.70, 0.90, p);   // inhabitants arrive last
 
   ctx.clearRect(0, 0, W, H);
-  const plated = paintBackdrop();                     // first draw, beneath everything
-  paintBase(p, ventA, plated ? BACKDROP_VEIL : 1);    // veils the plate, or today's base
+  const plated = paintBackdrop();                     // 1 — plate, cover-fit
+  if (plated) {
+    // V1.3 Part B — deep-vent lamp pool: hard narrow Alvin lamp (0.30), neutral
+    // desaturation grade (no blue cast at depth), heavy snow, NO caustics. t in
+    // seconds (amb ms); frozen under reduced motion. Its in-beam snow stands in
+    // for paintMotes; the vent glow below stays warm, drawn over the pool.
+    applyLampPool(ctx, { w: W, h: H, t: amb / 1000, water: false, snow: 240, grade: 'rgba(200,205,210,1)', lampFactor: 0.30 });
+  } else {
+    paintBase(p, ventA);                              // procedural scene, unchanged
+  }
   paintThermalGlow(cam, ventA);
-  paintMotes();
+  if (!plated) paintMotes();                          // lamp pool supplies snow when plated
   paintPlumes(cam, ventA, amb);
   paintVentParticles(cam, ventA);   // before worms: particles are atmosphere, not inhabitants
   paintWorms(cam, wormA);
-  paintLuminanceDip(p);
+  paintLuminanceDip(p);                               // Article III cut, drawn last, unchanged
 }
 
 /* ---------- Frame loop ---------- */
