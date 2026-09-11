@@ -18,3 +18,55 @@ Claude design print.pdf
 # provenance receipt naming which version of a third-party tool touched the
 # repo. Ignore the payload, keep the receipt.
 .agents/skills/
+
+# --- Secrets. Never commit a credential. ---------------------------------
+# The research pipeline names environment variables in
+# research/config/pipeline.config.json and reads their values from here.
+# .env.example is the committed template and carries no real values.
+.env
+.env.*
+!.env.example
+
+# Research pipeline working state: raw API payloads, run manifests, receipt
+# logs, the quota ledger and the artefact-id ledger. Reproducible from the
+# manifests; large; and the raw payloads are third-party content.
+research/var/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Third-party articles and media kept locally for reading. Copyrighted; this
+# repository is not a redistribution channel.
+Media and research articles/
+
+# A third-party document dropped into the working tree, not authored here and
+# not part of this project. Kept local, never committed.
+National_security_assessment_*.md
+
+# Third-party journal article, kept locally for reading. Copyrighted; this
+# repository is not a redistribution channel.
+Conservation Biology - 2026 - Giebink*.pdf
+*.pdf
+
+# --- Not for the public repository -----------------------------------------
+# Everything below stays on the researcher's disk and in the private mirror.
+# Nothing here is deleted; it is simply never committed to the public tree.
+
+# The book manuscript. Version it in a PRIVATE repository, not this one —
+# a public repo cannot hide a directory from readers.
+private-book/
+
+# Unpublished Paper 1 instrument: coding manuals, methodology audit, the IRR
+# subsample and the training-set answer key. A public answer key destroys
+# inter-coder reliability, and the method is unpublished. Opens up once the
+# papers land.
+paper1-*
+papers_with_link_*.csv
+.agents/tasks/task-research-matrix/
+.agents/tasks/task-pilot-execution/
+
+# Live corpus working data written by the research pipeline (candidate rows,
+# coder notes, weekly snapshots). Human-subject-adjacent and not reproducible
+# output — it is the corpus itself.
+.agents/tasks/task-pilot-execution/data/

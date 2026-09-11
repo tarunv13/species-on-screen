@@ -29,6 +29,27 @@ const CONFIG = JSON.parse(readFileSync(resolve(__dirname, 'places.config.json'),
 const clean = (v) => String(v == null ? '' : v).replace(/[\t\n\r]+/g, ' ').trim();
 const jitter = (base, i) => +(base + ((i * 37) % 17 - 8) * 0.004).toFixed(4); // tiny spread around center
 
+/*
+  SENSITIVE-DATA-POLICY.md — locality generalisation.
+
+  A GBIF occurrence is a *precise* record: six decimal places is roughly 10 cm.
+  Writing one through unchanged publishes an exact locality for whatever taxon
+  it belongs to, and rule 1 of the policy makes that a blocking condition for
+  any species vulnerable to collection or persecution — which, in these places,
+  is most of them (Panthera tigris, Panthera onca, Pteronura brasiliensis,
+  Arapaima gigas, Ara macao are CITES-listed or IUCN-threatened, or both).
+
+  So every coordinate is generalised before it is written, on both paths, and
+  `coordinateUncertaintyInMeters` is set to match rather than asserting a
+  precision the published value no longer has. The constants are the ones the
+  research pipeline already declares in research/config/pipeline.config.json
+  (ethics.coordinate_decimal_places, ethics.coordinate_uncertainty_m), so the
+  two surfaces generalise identically.
+*/
+const COORD_DECIMALS = 1;
+const COORD_UNCERTAINTY_M = 25000;
+const generalise = (v) => +Number(v).toFixed(COORD_DECIMALS);
+
 function meta(place) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Darwin Core Archive descriptor. Core: Occurrence; Extension:
@@ -103,9 +124,12 @@ async function buildPlace(id, place) {
     if (tax && tax.usageKey) {
       key = tax.usageKey;
       const occ = await gbifOccurrenceInBbox(tax.usageKey, place.bbox);
-      if (occ) { occCount = occ.count || 0; if (occ.lat != null) { lat = occ.lat; lng = occ.lng; uncertainty = 5000; } }
+      // Generalise the occurrence rather than passing it through: a real GBIF
+      // coordinate is a precise locality, and these taxa are exactly the ones
+      // the policy says may not have one published.
+      if (occ) { occCount = occ.count || 0; if (occ.lat != null) { lat = generalise(occ.lat); lng = generalise(occ.lng); uncertainty = COORD_UNCERTAINTY_M; } }
     }
-    if (uncertainty === 10000) { lat = jitter(place.center.lat, i); lng = jitter(place.center.lng, i); }
+    if (uncertainty === 10000) { lat = generalise(jitter(place.center.lat, i)); lng = generalise(jitter(place.center.lng, i)); uncertainty = COORD_UNCERTAINTY_M; }
 
     const dyn = {
       sceneX: a.sceneX, sceneY: a.sceneY, trophicRole: a.role, iucnCategory: a.iucn,
