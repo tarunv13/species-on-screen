@@ -60,6 +60,88 @@ an illustration, not a photograph), public-domain natural-history art
 (e.g. Biodiversity Heritage Library), or CC-BY scientific illustration.
 Do **not** use copyrighted photographs as plates.
 
+## Sourced, ready, uninstalled — species plate candidates (Sundarbans cast)
+
+**Research half only. Nothing here is installed, cut out, or downloaded into the
+repository.** The cut-out itself is blocked on tooling; this table is the
+licence-and-suitability record that must exist *before* any cut-out is
+attempted, so that the sourcing survives even though the plates do not.
+
+**Method.** Candidates were drawn from iNaturalist, filtered to
+`quality_grade=research` and `photo_license=cc0,cc-by,cc-by-sa` via the public
+API, and **every licence below was read from the observation record itself —
+the photo object's own `license_code` — never from a thumbnail, a search-page
+caption, or the observation's licence (which can differ from its photos').**
+Dimensions are the record's `original_dimensions`. Sourced 2026-09-11.
+
+**Two licence facts that matter downstream.** A photo's licence and its
+observation's licence are separate fields and do diverge, so the photo's is the
+one recorded here. And **CC0 is the only licence in this set with no
+attribution obligation** — which is the one open question the cinematic surface
+cannot currently answer (PROJECT_STATUS backlog item 8: CC-BY/CC-BY-SA require
+visible credit, D3 forbids chrome). A CC0 frame sidesteps that entirely; a
+CC-BY one does not.
+
+| Species | Source record | Observer | Date · Locality | Licence | Pixel dims | Pose note | Cut-out required |
+|---|---|---|---|---|---|---|---|
+| *Heritiera fomes* | [iNat obs 167960583](https://www.inaturalist.org/observations/167960583), photo 291013660 | WATANABE Hitoshi (`tbc_watanabe`) | 2023-06-15 · Khulna, **Bangladesh** — the Sundarbans region itself | **CC-BY** | 2048×1365 | **Strongest of the set.** Flowering branch, soft dappled canopy daylight, green bokeh — the light already *is* the Sundarbans vocabulary, no regrade needed. Facing-rule N/A (a tree). Reservation: it is a *branch detail*, so at scene scale it reads as foliage, not as a canopy tree. | Yes — and hard: fine inflorescence against busy foliage |
+| *Apis dorsata* | — | — | — | — | — | **No compliant frame found.** See failures below. | — |
+| *Axis axis* | [iNat obs 228543648](https://www.inaturalist.org/observations/228543648), photo 405568044 | Tom Field (`tomfeild`) | 2023-04-06 · Karnataka, India | **CC-BY** | 2048×1346 | Adult stag, full body, clean three-quarter — but **facing right**, so it needs a horizontal flip (a permitted CC-BY derivative, which must then be declared as a modification). **Light does not match:** warm, arid, dry-season deciduous woodland, not humid mangrove. Would need a regrade, and a regraded subject is the "sticker" failure the spec warns about. | Yes — feasible; legs are low-contrast against leaf litter |
+| *Scylla serrata* | — | — | — | — | — | **No compliant frame found.** See failures below. | — |
+| *Tenualosa ilisha* | [iNat obs 58127691](https://www.inaturalist.org/observations/58127691), photo 92777412 | Sabarni Sarker (`sabarnisarker`) | 2020-08-31 · Kazla, Rajshahi, **Bangladesh** (Padma hilsa) | **CC-BY** | 1872×1154 | Clean full lateral profile, **facing left** already, crisp edges, correct region for the fishery. **Reservation, and it is a real one:** the fish is dead in a steel sink beside a plastic bag, under flat indoor light. That fails "the animal on its own terms" — it is a post-catch record, not a portrait. Admissible only if the editorial intent is explicitly the *fishery*, not the fish. | Yes — easy; hard edges against flat steel |
+| *Todiramphus chloris* | [iNat obs 267793747](https://www.inaturalist.org/observations/267793747), photo 481287863 | Don Wellmann (`don54`) | 2025-03-08 · Phang Nga, Thailand | **CC0** | 2048×1354 | Perched, full body, dappled canopy light with bright green bokeh — **the light matches the vocabulary.** **Facing right**, so a flip is needed. Subject is contre-jour and underlit against the bright background; the perch branch crosses the feet. Locality is mangrove-register but not Sundarbans. **CC0, so no attribution obligation** — the only row here that raises no D3 credit problem. | Yes — feasible; silhouette separates cleanly from bokeh |
+| *Prionailurus viverrinus* | [iNat obs 378753221](https://www.inaturalist.org/observations/378753221), photo 692742749 | `twan3253` ("Tim") | 2026-01-06 · Hambantota, Sri Lanka | **CC-BY** | 1631×1409 | **Facing left**, which is right — and nothing else is. Hard frontal **flash at night** against a black field: the opposite of dappled daylight, and unregradeable. The lower body is **occluded by wet paddy grass**, so no cut-out is possible below the chest. Not admissible. | Yes — but impossible as framed |
+
+### Documented failures — collections searched, nothing compliant
+
+**No compliant frame found** for two species. Both searches covered the same
+ground: the **iNaturalist research-grade CC pool** (CC0 / CC-BY / CC-BY-SA,
+queried by taxon name via the public API), regional candidates first (India,
+Bangladesh, Nepal, West Bengal), then the pool at large.
+
+- ***Apis dorsata*** — 1,249 research-grade CC observations, 67 CC-licensed
+  photos. Three best regional candidates reviewed frame by frame:
+  obs 96316789 (Assam, CC-BY, 2048×1536) is a **dead bee on red concrete**;
+  obs 129000222 (Bengaluru, **CC0**, 2048×1646) is a bee **being eaten by a
+  lynx spider**; obs 37300463 (Nepal, CC-BY, 2048×1536) is a magnificent
+  **open-comb bee curtain** — genuinely the defining image of the species,
+  which builds a single exposed comb — but it is a *colony texture*, not an
+  individual animal, and the plate slot renders one species figure into a
+  scene. Kept on record because if the slot is ever widened from "a species"
+  to "a species' work", that frame is the one to revisit.
+- ***Scylla serrata*** — 113 research-grade CC observations, 67 CC-licensed
+  photos. Regional candidates reviewed: obs 36695304 (Kerala, **CC0**) shows
+  the crab **held in a man's hands**, with the person prominent in frame and
+  the crab far too small to survive a cut-out; obs 175177811 (Kerala, CC-BY)
+  is a **dead crab entangled in a discarded ghost net**, shot top-down in flat
+  grey light. The remaining regional option is Australian (CC-BY-SA), wrong
+  locality for this cast.
+
+The pool is small and the failure is structural, not bad luck: a licence-clean
+research-grade photograph is made to *document an occurrence*, and the frames
+that document best — top-down, in-hand, dead, on a neutral substrate — are
+exactly the frames a portrait plate cannot use. Two of the seven best
+candidates in this table are dead animals on man-made surfaces for the same
+reason. **Locality and dignity were not loosened to fill rows**, the same
+discipline that vetoed the coral scene plate.
+
+### Standing refusals — do not source these
+
+Two species in the Sundarbans cast are **not to be sourced**, and these
+refusals are not open to a better frame turning up.
+
+- ***Panthera tigris tigris*** — the species plate slot renders into the
+  cinematic surface, where **tiger-as-absence** holds. The tiger is present by
+  its absence; a plate would make it a portrait subject and undo the doctrine.
+  No licence makes this admissible.
+- ***Homo sapiens*** — people appear in the interaction web as
+  `HumanObservation` records, and that is where they belong. **A licence
+  covers the photographer's rights, not a depicted person's dignity.** A CC-BY
+  photograph of an identifiable person carries no consent to be rendered as a
+  figure in an editorial scene. (This is not hypothetical: the *Scylla
+  serrata* CC0 candidate above was rejected in part on exactly this ground.)
+
+
 ---
 
 # The scene plate slot (the PLACE held as a plate)
