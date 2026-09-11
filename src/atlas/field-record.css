@@ -192,11 +192,9 @@ a { color: var(--fr-accent); }
 .fr-card.warn .kicker { color: var(--fr-warn); }
 
 /* current-coverage (news) block inside a card */
-.fr-news { margin-top: 0.9rem; border-top: 1px solid var(--fr-line); padding-top: 0.7rem; }
-.fr-news .lbl { display: block; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fr-ink-soft); margin-bottom: 0.5rem; }
-.fr-news a { display: block; font-size: 0.84rem; line-height: 1.35; margin-bottom: 0.5rem; color: var(--fr-ink); text-decoration: none; }
-.fr-news a:hover { color: var(--fr-accent); }
-.fr-news .meta { display: block; font-size: 0.7rem; color: var(--fr-ink-soft); margin-top: 0.05rem; }
+/* The .fr-news rules are removed with the GDELT block they styled (retired
+   2026-09-11 on measurement — see the note in field-record.js). Dead CSS for a
+   removed feature is the same class of artifact as a dead token block. */
 
 /* ---------- sources / archive section ---------- */
 .fr-sources {
@@ -369,6 +367,29 @@ a { color: var(--fr-accent); }
   .fr-pr th, .fr-pr td { border-bottom: none; padding: 0.1rem 0; }
   .fr-pr-reach { padding-left: 0; margin-top: 0.4rem; }
 }
+
+/* The external-assessment line. Prose in the source voice — no chip, no badge,
+   no rule, nothing that would read as a rating. The frame note and the citation
+   recede to ink-soft; the claim itself sits at body ink. */
+.fr-assess {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink);
+  max-width: var(--fr-measure-body);
+  margin: 0 0 0.9rem;
+}
+.fr-assess-frame,
+.fr-assess-cite {
+  font-family: var(--fr-sans);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-body);
+  margin: 0 0 0.6rem;
+}
+.fr-assess-frame { font-style: italic; }
+.fr-assess-cite { margin-bottom: var(--fr-space-section); }
 
 /* ===== ON SCREEN (V1.4 — the titular gap) =====
  * The screen record for this place's species. Research register only; this

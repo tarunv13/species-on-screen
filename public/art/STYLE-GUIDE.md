@@ -92,7 +92,12 @@ CC-BY one does not.
 | *Todiramphus chloris* | [iNat obs 267793747](https://www.inaturalist.org/observations/267793747), photo 481287863 | Don Wellmann (`don54`) | 2025-03-08 · Phang Nga, Thailand | **CC0** | 2048×1354 | Perched, full body, dappled canopy light with bright green bokeh — **the light matches the vocabulary.** **Facing right**, so a flip is needed. Subject is contre-jour and underlit against the bright background; the perch branch crosses the feet. Locality is mangrove-register but not Sundarbans. **CC0, so no attribution obligation** — the only row here that raises no D3 credit problem. | Yes — feasible; silhouette separates cleanly from bokeh |
 | *Prionailurus viverrinus* | [iNat obs 378753221](https://www.inaturalist.org/observations/378753221), photo 692742749 | `twan3253` ("Tim") | 2026-01-06 · Hambantota, Sri Lanka | **CC-BY** | 1631×1409 | **Facing left**, which is right — and nothing else is. Hard frontal **flash at night** against a black field: the opposite of dappled daylight, and unregradeable. The lower body is **occluded by wet paddy grass**, so no cut-out is possible below the chest. Not admissible. | Yes — but impossible as framed |
 
-### Documented failures — collections searched, nothing compliant
+### Documented failures — PERMANENTLY CLOSED (ruling 2026-09-11)
+
+> **Do not re-search either species.** These two are closed the way the coral
+> scene plate is closed: not "none found yet", but *none findable by this
+> method*. The reason is structural and is stated below; a future session that
+> reopens them will rediscover the same result at the same cost.
 
 **No compliant frame found** for two species. Both searches covered the same
 ground: the **iNaturalist research-grade CC pool** (CC0 / CC-BY / CC-BY-SA,
@@ -117,13 +122,22 @@ Bangladesh, Nepal, West Bengal), then the pool at large.
   grey light. The remaining regional option is Australian (CC-BY-SA), wrong
   locality for this cast.
 
-The pool is small and the failure is structural, not bad luck: a licence-clean
-research-grade photograph is made to *document an occurrence*, and the frames
-that document best — top-down, in-hand, dead, on a neutral substrate — are
-exactly the frames a portrait plate cannot use. Two of the seven best
-candidates in this table are dead animals on man-made surfaces for the same
-reason. **Locality and dignity were not loosened to fill rows**, the same
-discipline that vetoed the coral scene plate.
+**Why this is closed and not merely unfinished.** The pool is small, but the
+size of the pool is not the problem. **Occurrence photography optimises for
+documentation, and its best frames are unusable as portraits.** A
+research-grade photograph exists to prove *that this organism was here, then*
+— so the frames that serve it best are exactly the ones a plate cannot use:
+top-down for diagnostic features, in-hand for scale, dead because a specimen
+holds still, on a neutral substrate because background is noise. Two of the
+five candidate rows in the table above are dead animals on man-made surfaces
+for precisely that reason, and they are the *best* available.
+
+Searching harder does not change an optimisation target. A compliant frame for
+these two would have to come from a different kind of source entirely —
+commissioned illustration, a natural-history archive, or a photographer working
+to a brief — which is a different decision, with a different budget, and not a
+continuation of this search. **Locality and dignity were not loosened to fill
+rows**, the same discipline that vetoed the coral scene plate.
 
 ### Standing refusals — do not source these
 

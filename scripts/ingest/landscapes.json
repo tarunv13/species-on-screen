@@ -1,6 +1,6 @@
 {
   "_comment": "Global registry of priority landscapes the observatory intends to cover — spread across IUCN Global Ecosystem Typology realms (terrestrial, freshwater, marine, polar, transitional). Drives the news layer (GDELT per newsQuery) and, as field records are authored, the scrollytelling. hasFieldRecord=true means a Darwin Core Archive exists at public/dwca/<id>/. newsQuery is tuned for English-language environmental coverage.",
-  "_authority": "The Place Manifest (cinematic-language/place-manifest.ts, ADR-001) is authoritative for which places exist and which carry an archive. This file is a NEWS-layer registry, not a place registry: it is a superset (aspirational landscapes with no archive) and, deliberately, not a subset (a place may exist in the manifest and have no meaningful news feed). hasFieldRecord must be kept consistent with public/dwca/<id>/ by hand until it is derived. V1.4: coral-triangle corrected false->true, its archive having existed since M9b. KNOWN GAP: epr-vents (East Pacific Rise) is in the manifest with an archive but is absent here — adding it requires an authored newsQuery, and a deep-sea vent field has effectively no GDELT coverage, so whether it belongs in a news registry at all is an editorial decision, not a mechanical one. Left absent and reported rather than fabricated.",
+  "_authority": "The Place Manifest (cinematic-language/place-manifest.ts, ADR-001) is authoritative for which places exist and which carry an archive. This file is a NEWS-layer registry, not a place registry: it is a superset (aspirational landscapes with no archive) and, deliberately, not a subset (a place may exist in the manifest and have no meaningful news feed). hasFieldRecord must be kept consistent with public/dwca/<id>/ by hand until it is derived. V1.4: coral-triangle corrected false->true, its archive having existed since M9b. KNOWN GAP: epr-vents (East Pacific Rise) is in the manifest with an archive but is absent here — adding it requires an authored newsQuery, and a deep-sea vent field has effectively no GDELT coverage, so whether it belongs in a news registry at all is an editorial decision, not a mechanical one. Left absent and reported rather than fabricated. 2026-09-11: BOREAL GAP CLOSED. The registry carried svalbard-barents (Arctic sea ice and tundra) and bialowieza (temperate lowland old-growth) but had no boreal forest entry at all — an omission at biome scale in a registry whose stated purpose is to be the aspirational superset. Added wood-buffalo-boreal. The entry is a NAMED PLACE with a protected-area anchor, matching this registry's register, rather than an entry called \"boreal forest\", which would be a biome abstraction. Wood Buffalo National Park is the largest boreal protected area in the world and sits in Canada, one of the two countries the source assessment names. LIMITATION, STATED: one entry cannot represent a biome that spans Russia and Canada, and the Siberian half is the larger one — a Siberian counterpart is a later editorial decision, not an oversight here. Registry only: no scene, no page, no archive. See .agents/decisions/2026-09-11-security-assessment-as-source.md.",
   "landscapes": [
     {
       "id": "sundarbans",
@@ -342,6 +342,23 @@
       },
       "protectedArea": "Svalbard protected areas",
       "newsQuery": "Svalbard OR Barents (sea ice OR polar bear OR Arctic OR warming)",
+      "hasFieldRecord": false
+    },
+    {
+      "id": "wood-buffalo-boreal",
+      "name": "Wood Buffalo & the Peace-Athabasca Delta",
+      "region": "North America",
+      "countries": [
+        "CA"
+      ],
+      "realm": "Terrestrial",
+      "biome": "Boreal forest and delta wetland",
+      "center": {
+        "lat": 59.4,
+        "lng": -112.3
+      },
+      "protectedArea": "Wood Buffalo National Park",
+      "newsQuery": "\"Wood Buffalo National Park\" OR \"Peace-Athabasca Delta\" (boreal OR bison OR delta OR conservation)",
       "hasFieldRecord": false
     },
     {

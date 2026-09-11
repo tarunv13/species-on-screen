@@ -260,32 +260,47 @@ let PLACE_META = null;
 let STEPS = STEPS_SUNDARBANS;
 let TARGET = Object.assign({}, STEPS[0].state);
 let activeIdx = 0;
-let NEWS = null;
 
 function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-/* The "current coverage" block: recent English news for this landscape
-   (GDELT), shown in the cascade beat as the media joint between the
-   attested record and the present. Degrades honestly when empty — never
-   fabricated.
+/* ---------- The GDELT "current coverage" block is RETIRED (2026-09-11) ----------
 
-   EMPTY RENDERS NOTHING (2026-09-11). This used to emit a labelled block
-   containing a build instruction — "Run npm run ingest:news <place> to
-   populate it" — to the visitor. Two faults in one string: it is a
-   placeholder, which citation-or-skip forbids (an empty section must not
-   announce itself), and it is developer-facing copy on a public research
-   surface, addressing a reader who cannot run npm. A landscape with no
-   recent coverage now renders no block at all, exactly as a place with no
-   dossier renders no "On screen" section. */
-function renderNews() {
-  if (!NEWS || !Array.isArray(NEWS.articles) || !NEWS.articles.length) return '';
-  const items = NEWS.articles.slice(0, 5).map((a) =>
-    `<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.title)}`
-    + `<span class="meta">${escapeHtml(a.date)} · ${escapeHtml(a.domain)}${a.country ? ' · ' + escapeHtml(a.country) : ''}</span></a>`).join('');
-  return `<div class="fr-news"><span class="lbl">Current coverage · GDELT (${NEWS.articles.length})</span>${items}</div>`;
-}
+   It is not commented out; it is gone, and this note is what replaces it.
+
+   The layer fetched public/news/<place>.json and rendered recent English
+   reporting in the cascade beat, as the joint between the attested record and
+   the present. It was retired on measurement, not on taste. Run across the
+   three landscapes that actually have a surface, over GDELT's full TWELVE-MONTH
+   window, it returned:
+
+       sundarbans      0 articles
+       coral-triangle  0 articles
+       amazon-varzea   1 article — and a FALSE POSITIVE: a crofelemer clinical
+                       trial press release, matched because the company is
+                       named Jaguar and the compound derives from an Amazonian
+                       tree, so the wire copy contains "Amazon rainforest".
+
+   Zero usable items and one misleading one, in a year. That is not a tuning
+   problem: GDELT's English-language index does not reach these places, and a
+   block captioned "Current coverage" that shows a pharmaceutical press release
+   for the Amazon varzea misstates the place — the fault the coral scene plate
+   was vetoed for.
+
+   scripts/ingest/build-news.mjs is KEPT, with this measurement recorded in its
+   header, so the decision is reproducible and reversible. Its output directory
+   is gone: with nothing rendering it, every file under public/news/ was
+   unreachable by construction, which is the same reason the three pre-staged
+   files were removed earlier the same day.
+
+   Before this was retired it was also fixed: the empty state used to render a
+   labelled block containing "Run npm run ingest:news <place> to populate it" —
+   a placeholder AND developer build copy addressed to a visitor who cannot run
+   npm. Both faults are gone with the block.
+
+   See PROJECT_STATUS.md backlog item 11 (CLOSED) and
+   .agents/sessions/2026-09-11-enrichment-pass.md. */
 
 function buildSteps() {
   const wrap = document.getElementById('fr-steps');
@@ -294,16 +309,12 @@ function buildSteps() {
     step.className = 'fr-step' + (i % 2 ? '' : '');
     const chips = (s.chips && s.chips.length) ? `<div class="fr-chips">${s.chips.map(chip).join('')}</div>` : '';
     const note = s.note ? `<div class="fr-chips"><span class="fr-chip">${s.note}</span></div>` : '';
-    // The cascade beat carries the "current coverage" news block — real,
-    // dated, sourced reporting as the joint between record and present.
-    const newsBlock = s.warn ? renderNews() : '';
     step.innerHTML = `<div class="fr-card${s.warn ? ' warn' : ''}">
       <div class="kicker">${s.kicker}</div>
       <h2>${s.title}</h2>
       <p>${s.body}</p>
       ${chips}${note}
       <div class="fr-src"><span class="lbl">source</span>${s.src}</div>
-      ${newsBlock}
     </div>`;
     step.dataset.idx = i;
     wrap.appendChild(step);
@@ -805,6 +816,64 @@ function renderOnScreen() {
     <p class="fr-screen-attr">Film metadata from <a href="https://www.themoviedb.org/">TMDB</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>`;
 }
 
+/* ---------- The external security assessment (research register ONLY) ----------
+
+   One attested line per place, recording that an outside national-security
+   assessment names this ecosystem type among six it treats as critical.
+
+   THE FRAME IS STATED, NOT ASSUMED. That assessment values an ecosystem partly
+   by what its collapse would mean for one nation's food and water security.
+   That is a legitimate frame and it is not this project's, so the line says so
+   in its own voice — the same discipline by which the evidence ledger states
+   REACH rather than truth. Nothing here is ranked, scored, or dated.
+
+   NO COLLAPSE-DATE LANGUAGE. The source does carry onset dates. They are not
+   rendered: a date on a visitor-facing surface reads as a countdown, and a
+   countdown is the urgency register this project does not use.
+
+   CITATION-OR-SKIP, AND IT BITES HERE. The assessment delimits its mangrove
+   and coral-reef regions to SOUTH EAST ASIA and never mentions the Sundarbans,
+   Bangladesh, or India. The Sundarbans is SOUTH Asia. Its line therefore
+   carries that limit in the sentence itself rather than quietly borrowing a
+   naming that does not reach it — the difference between what the source says
+   and what we would like it to say. A place the assessment does not reach at
+   all (East Pacific Rise) renders nothing.
+
+   CINEMATIC SURFACES NEVER SEE THIS. It lives in the atlas field record,
+   beneath the pressures block. */
+
+const ASSESSMENT_CITATION =
+  'Department for Environment, Food &amp; Rural Affairs (2026). '
+  + '<em>Nature security assessment on global biodiversity loss, ecosystem collapse and national security</em>. '
+  + 'HM Government, updated 2 February 2026. '
+  + '<a href="https://www.gov.uk/government/publications/nature-security-assessment-on-global-biodiversity-loss-ecosystem-collapse-and-national-security">gov.uk</a>';
+
+/* How far the assessment's naming reaches for each place. Absent = renders
+   nothing. Written out per place rather than derived, because the reach
+   differs per place and a rule that smoothed the difference would be the bug. */
+const ASSESSMENT_REACH = {
+  'sundarbans':
+    'An external national-security assessment names <strong>mangrove forest</strong> among six ecosystem regions it treats as critical. '
+    + 'It delimits that region to <strong>South East Asia</strong>, and it does not mention the Sundarbans, Bangladesh or India anywhere. '
+    + 'The Sundarbans is South Asia, so the naming reaches the ecosystem <em>type</em> here and no further — it is not a statement about this place.',
+  'coral-triangle':
+    'An external national-security assessment names <strong>South East Asia&rsquo;s coral reefs</strong> among six ecosystem regions it treats as critical. '
+    + 'The Coral Triangle lies inside that delimitation, so the naming reaches this place as well as the type.',
+  'amazon-varzea':
+    'An external national-security assessment names the <strong>Amazon rainforest</strong> among six ecosystem regions it treats as critical. '
+    + 'This seasonally flooded forest lies within it; the assessment does not treat the v&aacute;rzea separately, so the naming reaches the forest as a whole rather than this floodplain in particular.',
+};
+
+function renderAssessment() {
+  const line = ASSESSMENT_REACH[PLACE];
+  if (!line) return '';
+  return `
+    <h3 class="fr-pr-sub">Named in an external assessment</h3>
+    <p class="fr-assess">${line}</p>
+    <p class="fr-assess-frame">That assessment is one government&rsquo;s, and it values an ecosystem partly by what its collapse would mean for that nation&rsquo;s food and water security. That is a legitimate frame and it is not this one: nothing on this surface is ranked by consequence for anybody. It is recorded because an outside reading corroborates that this place is worth attending to, not because it measures how much.</p>
+    <p class="fr-assess-cite">${ASSESSMENT_CITATION}</p>`;
+}
+
 function buildSources() {
   const el = document.getElementById('fr-sources');
   el.innerHTML = `
@@ -812,6 +881,7 @@ function buildSources() {
     <p class="fr-web-help">Each edge names its OBO Relations Ontology relation; <strong>follow</strong> an edge to move laterally to the actor it links — you stay in the atlas.</p>
     ${buildInteractionWeb()}
     ${renderPressures()}
+    ${renderAssessment()}
     ${renderOnScreen()}
     <h2>Sources</h2>
     ${renderSources()}
@@ -917,8 +987,6 @@ async function init() {
     const subEl = document.getElementById('fr-sub');
     if (subEl && PLACE !== 'sundarbans') subEl.textContent = `A ${(PLACE_META.type || 'landscape').toLowerCase()}, read as a living interaction web — every actor placed, every relationship sourced.`;
   }
-  // Current-coverage news (optional; degrades gracefully if absent).
-  try { NEWS = await fetch(BASE + 'news/' + PLACE + '.json').then((r) => (r.ok ? r.json() : null)); } catch (e) { NEWS = null; }
   STEPS = (PLACE === 'sundarbans') ? STEPS_SUNDARBANS : buildGenericSteps();
   TARGET = Object.assign({}, STEPS[0].state);
   buildSteps();

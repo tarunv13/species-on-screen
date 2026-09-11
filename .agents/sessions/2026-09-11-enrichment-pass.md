@@ -174,6 +174,76 @@ not this project's. Using it as corroboration costs nothing; using it as
 doctrine would quietly re-found the project on instrumental grounds. It is
 recorded as a tie-break, visible as a tie-break.
 
+## Ruled the same day — the assessment lands, three prior findings close
+
+The pass above surfaced four open questions. All four were ruled within the
+session, which is why this diary has a second half.
+
+**The assessment enters as a cited source, not a directive**
+(`.agents/decisions/2026-09-11-security-assessment-as-source.md`). The clean
+publication was located and read in its accessible HTML edition — Defra,
+*Nature security assessment on global biodiversity loss, ecosystem collapse and
+national security*, HM Government, updated 2 February 2026 — so the citation of
+record is a real one and the corrupted extraction stays untracked and uncited.
+
+Reading the clean edition produced a correction the corrupted one had hidden:
+**the assessment delimits both its mangrove and coral-reef regions to *South
+East* Asia, and never mentions the Sundarbans, Bangladesh or India.** The
+Sundarbans is South Asia. The comfortable "three of six criticals are ours"
+framing is true of the ecosystem *types* and over-tight about the Sundarbans
+specifically — so the Sundarbans line on the research surface says the naming
+reaches the type and no further, and that it is not a statement about this
+place. The Coral Triangle sits inside the delimitation and its line says so;
+the Amazon várzea lies within a rainforest named as a whole; East Pacific Rise
+renders nothing. Three different reaches from one source, written out per place,
+because a rule that smoothed the difference would be the bug.
+
+Collapse-onset dates were verified in the clean edition and are **still not
+rendered**: a date on a visitor-facing surface reads as a countdown, and a
+countdown is the urgency register this project does not use. They live in the
+decision record instead.
+
+**Build order is unaffected, and that is a declination rather than a deferral.**
+A national-security frame values an ecosystem by what its collapse would mean
+for one country's food and water supply. Legitimate, and not this project's —
+adopting it as build order would quietly re-found the work on instrumental
+grounds. It is recorded as a tie-break, visible as a tie-break. The Thought
+stays at `Working` on that question alone.
+
+**The boreal gap closed as a registry correction.** `wood-buffalo-boreal` —
+Wood Buffalo & the Peace-Athabasca Delta — added to `landscapes.json`, taking
+it to 25. A named place with a protected-area anchor, matching the register
+every other entry uses, rather than an entry called "boreal forest" that would
+have been the biome abstraction. Its limitation is stated in the file: one
+entry cannot represent a biome spanning Russia and Canada, and the Siberian
+half is the larger one.
+
+**The GDELT news layer is retired** (backlog 11). Removed from the render path
+entirely — `renderNews()`, its call site, the `NEWS` state, the `.fr-news` CSS,
+and `public/news/`, which with nothing rendering it was unreachable by
+construction. `build-news.mjs` is kept with the measurement in its header, so
+the decision is reproducible rather than remembered, and a replacement note in
+`field-record.js` says what was there and why it went.
+
+**Plate attribution is settled** (backlog 8,
+`.agents/decisions/2026-09-11-plate-attribution-on-research-register.md`).
+Credit lives on the research register — the STYLE-GUIDE provenance table and
+the field record's sources block — and never on the cinematic frame. CC-BY
+4.0 §3(a)(2) permits satisfying attribution by a link to a resource carrying
+it, which is what a credits page has always been. **The limit is stated rather
+than glossed:** this resolves where credit lives, not ShareAlike — a cut-out is
+an adaptation, the composite question is unanswered, and **CC-BY-SA stays
+uncleared for cinematic use.** One earlier note is reordered by this: the
+sourcing table had called CC0 "the only row raising no D3 credit problem", and
+that is no longer the distinction — CC0's remaining advantage is narrower and
+still real, being the only tier with no ShareAlike question behind it.
+
+**The two plate searches are permanently closed.** *Apis dorsata* and *Scylla
+serrata*: closed the way the coral plate is closed — *none findable by this
+method*, with the method named — not *none found yet*. Occurrence photography
+optimises for documentation, and its best frames are unusable as portraits.
+Searching harder does not change an optimisation target.
+
 ## What did NOT change
 
 C1–C5 · the Article III dip · both grammar gates · tiger-as-absence · every beat

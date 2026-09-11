@@ -189,8 +189,35 @@ Three, none urgent, all downstream of the gate:
   queue while the Q1–Q5 gate stands, and the supplied source copy is too
   corrupted to cite.
 
+### 2026-09-11 (later the same day) — partially ruled; this Thought stays open
+
+- **Previous understanding:** three open questions — the boreal registry entry,
+  whether to record the corroboration where a reader sees it, and whether to
+  obtain a clean copy of the source.
+- **New evidence:** the clean publication was located and read (Defra, *Nature
+  security assessment…*, updated 2 February 2026), which settled the citation
+  and produced two verified quotes plus the collapse-onset dates. It also
+  produced a correction this Thought had not anticipated: the assessment
+  **delimits its mangrove region to South East Asia and never mentions the
+  Sundarbans, Bangladesh or India**. The Sundarbans is South Asia, so the
+  "three of six are ours" framing above is true of the *ecosystem types* and
+  over-tight about the Sundarbans specifically. That is recorded here rather
+  than edited away upstream, because the over-tight version is what the
+  corrupted extraction supported and the correction is the useful part.
+- **Repository artifact that changed it:**
+  `.agents/decisions/2026-09-11-security-assessment-as-source.md`
+- **Resulting conclusion:** Questions 1 and 3 are ruled — the boreal entry is
+  added as a registry correction (`wood-buffalo-boreal`), and the clean
+  publication is the citation of record. Question 2 is ruled narrowly: one
+  attested line per place on the research register, each stating how far the
+  naming actually reaches for that place. **The build-order question is not
+  ruled and is not deferred — it is declined.** The assessment is recorded as a
+  tie-break and nothing more, so this Thought stays `Working` on that question
+  alone rather than being promoted and frozen.
+
 ## Cross-references
 
-- Task:             PROJECT_STATUS.md backlog #1 (Amazon várzea cinematic surface)
+- ADR:              .agents/decisions/2026-09-11-security-assessment-as-source.md
+- Task:             PROJECT_STATUS.md backlog #1 (Amazon várzea cinematic surface)  ·  #12 (boreal gap, CLOSED)
 - Session diaries:  .agents/sessions/2026-09-11-enrichment-pass.md
 - Doctrine:         PRODUCT.md (users/jobs UNRESOLVED BY DESIGN; success unmeasured)
