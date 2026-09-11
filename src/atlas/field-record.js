@@ -269,12 +269,18 @@ function escapeHtml(s) {
 /* The "current coverage" block: recent English news for this landscape
    (GDELT), shown in the cascade beat as the media joint between the
    attested record and the present. Degrades honestly when empty — never
-   fabricated. */
+   fabricated.
+
+   EMPTY RENDERS NOTHING (2026-09-11). This used to emit a labelled block
+   containing a build instruction — "Run npm run ingest:news <place> to
+   populate it" — to the visitor. Two faults in one string: it is a
+   placeholder, which citation-or-skip forbids (an empty section must not
+   announce itself), and it is developer-facing copy on a public research
+   surface, addressing a reader who cannot run npm. A landscape with no
+   recent coverage now renders no block at all, exactly as a place with no
+   dossier renders no "On screen" section. */
 function renderNews() {
-  if (!NEWS || !NEWS.articles || !NEWS.articles.length) {
-    return `<div class="fr-news"><span class="lbl">Current coverage · GDELT</span>`
-      + `<p class="muted" style="margin:0;font-size:0.82rem">Recent English-language reporting for this landscape streams from the GDELT 2.0 news index. Run <code>npm run ingest:news ${escapeHtml(PLACE)}</code> to populate it.</p></div>`;
-  }
+  if (!NEWS || !Array.isArray(NEWS.articles) || !NEWS.articles.length) return '';
   const items = NEWS.articles.slice(0, 5).map((a) =>
     `<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.title)}`
     + `<span class="meta">${escapeHtml(a.date)} · ${escapeHtml(a.domain)}${a.country ? ' · ' + escapeHtml(a.country) : ''}</span></a>`).join('');

@@ -9,6 +9,22 @@
 
   Run: npm run ingest:news               (all landscapes — slow, ~5s each)
        npm run ingest:news sundarbans amazon-varzea   (subset)
+
+  NOT PRE-STAGED (ruling 2026-09-11). Generate news JSON only for landscapes
+  that HAVE a surface to render it. The field record fetches
+  public/news/<place>.json for the place it is displaying, so a file written
+  for a landscape with no atlas page is unreachable by construction — it is
+  fetched by nobody and goes stale unobserved. Three such files (congo-basin,
+  great-barrier-reef, serengeti-mara) were removed on 2026-09-11: each held
+  articles: [] from a 2026-06-21 fetch, none appeared in index.json, and none
+  was reachable. Empty files standing in for an intention are speculative
+  artifacts, which do not ship here — the same rule that deleted the V1.4
+  composition scale. Regenerating one is a single command once its page
+  exists, so nothing is lost by not pre-staging.
+
+  The registry (landscapes.json) remains deliberately aspirational — it is a
+  superset of the built places. That is the right place for an intention; an
+  empty data file is not.
 */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';

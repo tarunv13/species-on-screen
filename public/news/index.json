@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21T03:47:51.246Z",
+  "generated": "2026-09-11T03:14:30.601Z",
   "places": [
     {
       "id": "sundarbans",
@@ -11,6 +11,12 @@
       "id": "amazon-varzea",
       "name": "Amazon várzea",
       "region": "South America",
+      "count": 1
+    },
+    {
+      "id": "coral-triangle",
+      "name": "Coral Triangle",
+      "region": "Southeast Asia",
       "count": 0
     }
   ]
