@@ -17,6 +17,8 @@
 */
 
 import Lenis from 'lenis';
+import { ROLE_PALETTE } from './role-palette.js';
+import { ATTRIBUTION as OCCURRENCE_ATTRIBUTION, mountOccurrenceMap } from './occurrence-map.js';
 import './field-record.css';
 import { makeSpeciesArt } from '../prototypes/species-art.js';
 import { makeBackdrop } from '../prototypes/biome-backdrop.js';
@@ -64,18 +66,11 @@ function parseTSV(text) {
   });
 }
 
-/* ---------- role palette ---------- */
-const ROLE = {
-  primary_producer: [127, 214, 160],
-  pollinator: [255, 212, 128],
-  herbivore: [206, 196, 150],
-  detritivore: [184, 152, 120],
-  consumer: [120, 182, 212],
-  predator: [128, 205, 222],
-  mesopredator: [176, 200, 210],
-  apex_predator: [232, 150, 96],
-  human_community: [236, 170, 112],
-};
+/* ---------- role palette ----------
+   Moved to ./role-palette.js (V1.5) so the occurrence map reads the SAME nine
+   colours rather than a copy. Values unchanged; ROLE is kept as the local name
+   so every existing reference below still reads naturally. */
+const ROLE = ROLE_PALETTE;
 let ACTORS = {};      // id -> actor
 let RELS = [];        // {from,to,type,roid,according,remarks,season}
 let actorList = [];
@@ -132,6 +127,11 @@ async function loadDwc() {
       fail: dyn.cascadeFailOrder || 0,
       refs: row.associatedReferences || '',
       lat: row.decimalLatitude, lng: row.decimalLongitude,
+      // V1.5: the method and the declared uncertainty are part of the claim,
+      // not metadata about it — the occurrence map draws the second and the
+      // node card states the first.
+      basis: row.basisOfRecord || '',
+      uncertainty: row.coordinateUncertaintyInMeters || '',
       // Real GBIF taxonomy — species-art picks the illustrated form from it.
       kingdom: row.kingdom || '', class: row.class || '',
       order: row.order || '', family: row.family || '',
@@ -630,6 +630,26 @@ function citationsFrom() {
    to the evidence ledger or a step-back to the cinematic surface). The model is
    built by the pure, unit-tested interactionWebModel() from RELS + actorList;
    this function only renders it. Nothing hand-authored. */
+/* Legend for the occurrence map. Lists only the roles actually present in this
+   place's archive — an absent role is not shown greyed out, because a legend
+   entry for something the record does not contain is a claim about the place.
+   Colours come from the shared palette; no colour is defined here. */
+function renderMapLegend() {
+  const el = document.getElementById('fr-map-legend');
+  if (!el) return;
+  const present = [];
+  for (const a of actorList) {
+    const r = a.role || 'consumer';
+    if (Number.isFinite(Number(a.lat)) && Number(a.uncertainty) > 0 && !present.includes(r)) present.push(r);
+  }
+  if (!present.length) { el.remove(); return; }
+  const label = (r) => r.replace(/_/g, ' ');
+  el.innerHTML = present.map((r) => {
+    const c = ROLE[r] || ROLE.consumer;
+    return `<span class="fr-map-key"><i style="background:rgba(${c[0]},${c[1]},${c[2]},0.22);border-color:rgb(${c[0]},${c[1]},${c[2]})"></i>${escapeHtml(label(r))}</span>`;
+  }).join('');
+}
+
 function buildInteractionWeb() {
   return interactionWebModel(actorList, RELS).map((node) => {
     const edges = node.edges.map((e) => {
@@ -643,8 +663,18 @@ function buildInteractionWeb() {
       const src = e.according ? ` <span class="fr-edge-src">according to ${escapeHtml(e.according)}</span>` : '';
       return `<li class="fr-edge" data-rel-iri="${escapeHtml(e.iri || '')}">${rel} <span class="fr-dir" aria-hidden="true">${dir}</span> ${follow}${src}</li>`;
     }).join('');
+    // The method and the declared uncertainty sit with the actor, because a
+    // record made by a camera trap and one made by a person are different
+    // claims and the archive says which. Absent -> the line is omitted rather
+    // than filled with "unknown" (citation-or-skip).
+    const a = ACTORS[node.id] || {};
+    const bits = [];
+    if (a.basis) bits.push(`<span class="fr-basis">${escapeHtml(a.basis)}</span>`);
+    if (a.uncertainty) bits.push(`<span class="fr-unc">&plusmn;${Math.round(Number(a.uncertainty) / 1000)} km</span>`);
+    const method = bits.length ? `<p class="fr-node-method">${bits.join(' · ')}</p>` : '';
     return `<section class="fr-node" id="fr-node-${escapeHtml(node.id)}" tabindex="-1">
         <h3>${escapeHtml(node.vern)} <span class="sci">${escapeHtml(node.sci)}</span></h3>
+        ${method}
         <ul class="fr-web">${edges}</ul>
       </section>`;
   }).join('');
@@ -877,6 +907,11 @@ function renderAssessment() {
 function buildSources() {
   const el = document.getElementById('fr-sources');
   el.innerHTML = `
+    <h2 class="fr-map-h2">Where the records are</h2>
+    <p class="fr-map-note">Every occurrence in this place&rsquo;s archive, drawn at <strong>its own declared uncertainty</strong>. These are not pins. The archive records each coordinate to one decimal place with an uncertainty of tens of kilometres, so a pin would assert a precision the record does not have; the circle is the claim. Zooming in does not sharpen it &mdash; the circle simply fills the frame, which is the honest behaviour. Nothing is interpolated between records: there is no heat map and no density surface, because the archive says nothing about the ground in between. Colour is trophic role, the same palette as the web below; click a circle to read that actor&rsquo;s record.</p>
+    <div id="fr-map" class="fr-map" role="region" aria-label="Occurrence map"></div>
+    <div id="fr-map-legend" class="fr-map-legend"></div>
+    <p class="fr-map-attr">${OCCURRENCE_ATTRIBUTION}</p>
     <h2>The interaction web</h2>
     <p class="fr-web-help">Each edge names its OBO Relations Ontology relation; <strong>follow</strong> an edge to move laterally to the actor it links — you stay in the atlas.</p>
     ${buildInteractionWeb()}
@@ -1019,6 +1054,24 @@ async function init() {
   // actor, the same reveal a click gives; it scrolls because no anchor could.
   const restoreId = followDomIdFromHash(location.hash);
   if (restoreId) revealFollowNode(document.getElementById(restoreId), true);
+
+  /* V1.5 — the occurrence map. Clicking a circle does NOT open a second
+     species panel; it reveals the interaction-web node that already exists for
+     that occurrence, through the same fragment a followed edge uses, so a
+     clicked point yields a copyable URL exactly as a follow does. The map is
+     loaded dynamically, so a reader who never reaches this section never pays
+     for MapLibre. A place with no plottable record mounts nothing. */
+  const mapEl = document.getElementById('fr-map');
+  if (mapEl) {
+    mountOccurrenceMap(mapEl, actorList, (occId) => {
+      const domId = followDomId(occId);
+      if (location.hash !== '#' + domId) location.hash = '#' + domId;
+      revealFollowNode(document.getElementById(domId), true);
+    }).then((m) => {
+      if (!m) { mapEl.remove(); return; }   // citation-or-skip: no records, no section
+      renderMapLegend();
+    }).catch(() => { mapEl.remove(); });
+  }
   updateChrome(0);
   resize();
   const onLayout = () => { resize(); recomputeStepCenters(); };

@@ -290,6 +290,78 @@ a { color: var(--fr-accent); }
   .fr-speciescard { transition: opacity 0.15s linear; }
 }
 
+/* ===== THE OCCURRENCE MAP (V1.5) =====
+ * Research register: warm paper, the same --fr-* tokens as everything else on
+ * this surface. Never rendered on a cinematic surface. No pin, no cluster, no
+ * heat ramp — see the module docstring for why each is absent. */
+.fr-map-h2 { margin-top: var(--fr-space-section); }
+.fr-map-note {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-body);
+  margin: 0 0 1.1rem;
+}
+.fr-map {
+  width: 100%;
+  max-width: var(--fr-measure-sources);
+  height: clamp(20rem, 52vh, 32rem);
+  border: 1px solid var(--fr-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--fr-paper-2);
+}
+.fr-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  max-width: var(--fr-measure-sources);
+  margin: 0.7rem 0 0;
+  font-family: var(--fr-sans);
+  font-size: 0.78rem;
+  color: var(--fr-ink-soft);
+}
+.fr-map-key { display: inline-flex; align-items: center; gap: 0.4rem; }
+.fr-map-key i {
+  width: 0.85rem; height: 0.85rem; border-radius: 50%;
+  border: 1px solid currentColor; flex: none;
+}
+.fr-map-attr {
+  font-family: var(--fr-sans);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-sources);
+  margin: 0.8rem 0 var(--fr-space-section);
+}
+/* The method line on an interaction-web node — the claim's provenance, beside
+   the actor it belongs to rather than in a second panel. */
+.fr-node-method {
+  margin: 0 0 0.5rem;
+  font-family: var(--fr-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fr-ink-soft);
+}
+/* MapLibre popup, pulled into the research register. */
+.maplibregl-popup-content {
+  font-family: var(--fr-sans);
+  background: var(--fr-paper);
+  color: var(--fr-ink);
+  border: 1px solid var(--fr-line);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+.maplibregl-popup-tip { border-top-color: var(--fr-paper) !important; border-bottom-color: var(--fr-paper) !important; }
+.fr-map-pop strong { display: block; font-family: var(--fr-serif); font-size: 1rem; }
+.fr-map-pop .sci { display: block; font-style: italic; color: var(--fr-ink-soft); font-size: 0.82rem; margin-bottom: 0.5rem; }
+.fr-map-pop dl { display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 0.6rem; margin: 0 0 0.6rem; font-size: 0.8rem; }
+.fr-map-pop dt { color: var(--fr-ink-soft); letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.68rem; align-self: baseline; }
+.fr-map-pop dd { margin: 0; }
+.fr-map-pop a { font-size: 0.82rem; }
+
 /* ===== PRESSURES AND CONSERVATION STATUS =====
  * Carried from the species dossier. Research register, source-row voice.
  * Deliberately NOT a dashboard: no icon, no severity bar, no meter, no
