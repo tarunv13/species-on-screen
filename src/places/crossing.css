@@ -12,6 +12,15 @@
   /* Frame neutrals (the only stable colours; biome palette lives in JS). */
   --bone: #e9e4d9;
   --ink-deep: #05070d;
+
+  /* Reading measures (named 2026-09-10; values unchanged — this is
+     naming, not re-typesetting). Held in ch, deliberately: the captions
+     are clamp-sized, so a character-count measure stays constant as the
+     type grows, where a rem measure would give more characters per line
+     at the small end of the clamp and fewer at the large end. Local to
+     this sheet by ruling — src/style.css does not load here. */
+  --cap-measure: 30ch;          /* the beat caption */
+  --framing-measure: 22ch;      /* the held first beat */
 }
 
 * { box-sizing: border-box; }
@@ -70,7 +79,7 @@ body {
 .caption {
   grid-area: 1 / 1;            /* stack all beats; one is visible per beat */
   margin: 0;
-  max-width: 30ch;
+  max-width: var(--cap-measure);
   text-align: center;
   font-style: italic;
   font-weight: 400;
@@ -101,7 +110,7 @@ body {
   height: max-content;
   font-size: clamp(1.5rem, 4vw, 2.9rem);
   font-style: italic;
-  max-width: 22ch;
+  max-width: var(--framing-measure);
   line-height: 1.35;
 }
 

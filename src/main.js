@@ -219,6 +219,20 @@ function runLandingSequence() {
   const targetPos = new THREE.Vector3(1.0, 0.3, 5.5);
   const targetLookAt = new THREE.Vector3(0, 0, 0);
 
+  // Reduced motion (V1.3 Part A): no approach. The camera is placed at its
+  // final off-centre framing directly (a static night-side frame); captions
+  // settle in after a short beat. The globe also holds still under reduced
+  // motion (globe.update suppresses drift). The non-reduced choreography below
+  // is unchanged.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    engine.setCameraPosition(targetPos, targetLookAt);
+    gsap.delayedCall(0.6, () => {
+      if (globeUI) globeUI.classList.add('active');
+      wiredCaptions.forEach((el) => el.classList.add('is-visible'));
+    });
+    return;
+  }
+
   // Fly-in is 6.0s \u2014 a slow approach, not a swoop.
   const tl = engine.flyCamera(targetPos, targetLookAt, 6, 'power3.inOut');
 

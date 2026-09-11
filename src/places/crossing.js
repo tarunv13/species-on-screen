@@ -32,6 +32,8 @@
 import { getNarrativeById } from '../../cinematic-language/narrative-registry.ts';
 import { gsap } from 'gsap';
 import './crossing.css';
+import { loadFlatPlate } from './scene-plate.js';
+import { applyLampPool } from './lamp-pool.js';
 
 /* ---------- Narrative registry (3 extractable fields only) ---------- */
 
@@ -246,7 +248,30 @@ window.addEventListener('scroll', readScroll, { passive: true });
 let t0 = performance.now();
 let amb = 0;
 
-function paintBase(progress, beachP) {
+/* ---------- Scene plate + lamp-pool light (V1.2b plate, V1.3 light) ----------
+   A single STATIC backdrop, cover-fit as the first draw. When present, the
+   V1.3 lamp pool (src/places/lamp-pool.js — "The Light of the Observation")
+   lights it: darkness is the surround, the strobe-lit reef is the subject,
+   with caustics, beam scatter, and in-beam marine snow (that snow supersedes
+   paintMotes while plated). Absent -> the procedural scene renders unchanged.
+   Article III's luminance-dip cut is drawn last and is untouched; depth is
+   declared in place-manifest.json (cinematic.scene.layers) for a spatial
+   renderer; nothing here reads the manifest. */
+let backdropImg = null;
+
+function paintBackdrop() {
+  if (!backdropImg) return false;
+  const iw = backdropImg.naturalWidth, ih = backdropImg.naturalHeight;
+  if (!iw || !ih) return false;
+  const s = Math.max(W / iw, H / ih);          // cover-fit
+  const dw = iw * s, dh = ih * s;
+  ctx.drawImage(backdropImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
+  return true;
+}
+
+function paintBase(progress, beachP, veil = 1) {
+  ctx.save();
+  ctx.globalAlpha = veil;   // veil === 1 (default) is byte-identical to before
   const top = lerpC(PAL.deepWater, PAL.preDawn, beachP * 0.5);
   const bot = lerpC(PAL.abyss, PAL.abyss, 0);
   const g = ctx.createLinearGradient(0, 0, 0, H);
@@ -263,6 +288,7 @@ function paintBase(progress, beachP) {
   rg.addColorStop(1, rgb(PAL.midWater, 0));
   ctx.fillStyle = rg;
   ctx.fillRect(0, 0, W, H);
+  ctx.restore();
 }
 
 function paintShore(cam, beachP) {
@@ -396,11 +422,19 @@ function render() {
   lastP = p;
 
   ctx.clearRect(0, 0, W, H);
-  paintBase(p, beachP);
+  const plated = paintBackdrop();                       // 1 — plate, cover-fit
+  if (plated) {
+    // V1.3 Part B — lamp-pool light direction replaces the flat veil. t in
+    // seconds (amb is ms); under reduced motion amb is frozen at 0, so the
+    // lamp holds a static frame. Its in-beam snow stands in for paintMotes.
+    applyLampPool(ctx, { w: W, h: H, t: amb / 1000, water: true, snow: 110, grade: true });
+  } else {
+    paintBase(p, beachP);                               // procedural scene, unchanged
+  }
   paintShore(cam, beachP);
   paintRoute(cam, p);
-  paintMotes();
-  paintLuminanceDip(p);
+  if (!plated) paintMotes();                            // lamp pool supplies snow when plated
+  paintLuminanceDip(p);                                 // Article III cut, drawn last, unchanged
 }
 
 /* ---------- Frame loop ---------- */
@@ -451,6 +485,10 @@ document.addEventListener('visibilitychange', () => {
 function init() {
   resize();
   readScroll();
+
+  // Scene plate flat backdrop (Sprint V1.2b) — fire-and-forget; the render
+  // loop stays byte-identical until (and unless) an asset actually loads.
+  loadFlatPlate('crossing').then((img) => { if (img) backdropImg = img; });
 
   // Wire narrative metadata to the page.
   document.title = `${PLACE_NAME} · Crossing`;

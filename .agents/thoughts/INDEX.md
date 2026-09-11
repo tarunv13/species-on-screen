@@ -22,8 +22,12 @@ _None yet._
 
 ## editorial
 
-_None yet._
+| Status | Thought | Origin | Downstream |
+|---|---|---|---|
+| Working | [An external security assessment corroborates three of our four built places](2026-09-11-nature-security-landscape-priority.md) | Research report (UK Gov national security assessment) | — (open) |
 
 ## research
 
-_None yet._
+| Status | Thought | Origin | Downstream |
+|---|---|---|---|
+| Working | [An external security assessment corroborates three of our four built places](2026-09-11-nature-security-landscape-priority.md) | Research report (UK Gov national security assessment) | — (open) |

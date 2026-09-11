@@ -33,6 +33,22 @@
   --fr-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --fr-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
   --fr-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Reading measures and section rhythm (named 2026-09-10; values
+     unchanged — this is naming, not re-typesetting). Held in rem, and
+     that is correct HERE: this surface's body type is fixed-size, so a
+     rem measure holds a stable column. The cinematic sheets hold theirs
+     in ch for the opposite reason — their type is clamp-sized. Local to
+     this sheet by ruling: src/style.css never loads on this surface, so
+     the V1.4 literals that were hand-annotated with a token name are now
+     actual declarations. No import may be added to bring that file into
+     scope; the bundle separation is load-bearing. */
+  --fr-measure-masthead: 48rem; /* title block column */
+  --fr-measure-sub: 36rem;      /* standfirst under the title */
+  --fr-measure-sources: 44rem;  /* sources / archive column */
+  --fr-measure-body: 42rem;     /* running prose column */
+  --fr-space-tight: 1rem;       /* label-to-subject */
+  --fr-space-section: 5rem;     /* section separation */
 }
 
 * { box-sizing: border-box; }
@@ -64,7 +80,7 @@ a { color: var(--fr-accent); }
 .fr-masthead {
   position: relative;
   z-index: 3;
-  max-width: 48rem;
+  max-width: var(--fr-measure-masthead);
   margin: 0 auto;
   padding: clamp(3.5rem, 13vh, 9rem) 1.5rem clamp(2.5rem, 9vh, 6rem);
   text-align: center;
@@ -83,7 +99,7 @@ a { color: var(--fr-accent); }
 }
 .fr-sub {
   font-size: 1.08rem; line-height: 1.6; color: var(--fr-ink-soft);
-  max-width: 36rem; margin: 1.1rem auto 0;
+  max-width: var(--fr-measure-sub); margin: 1.1rem auto 0;
 }
 .fr-sound {
   margin-top: 1.8rem; font-family: var(--fr-sans); font-size: 0.8rem;
@@ -176,16 +192,14 @@ a { color: var(--fr-accent); }
 .fr-card.warn .kicker { color: var(--fr-warn); }
 
 /* current-coverage (news) block inside a card */
-.fr-news { margin-top: 0.9rem; border-top: 1px solid var(--fr-line); padding-top: 0.7rem; }
-.fr-news .lbl { display: block; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fr-ink-soft); margin-bottom: 0.5rem; }
-.fr-news a { display: block; font-size: 0.84rem; line-height: 1.35; margin-bottom: 0.5rem; color: var(--fr-ink); text-decoration: none; }
-.fr-news a:hover { color: var(--fr-accent); }
-.fr-news .meta { display: block; font-size: 0.7rem; color: var(--fr-ink-soft); margin-top: 0.05rem; }
+/* The .fr-news rules are removed with the GDELT block they styled (retired
+   2026-09-11 on measurement — see the note in field-record.js). Dead CSS for a
+   removed feature is the same class of artifact as a dead token block. */
 
 /* ---------- sources / archive section ---------- */
 .fr-sources {
   position: relative; z-index: 3; background: var(--fr-paper);
-  max-width: 44rem; margin: 0 auto; padding: clamp(3.5rem, 11vh, 7.5rem) 1.5rem 9rem;
+  max-width: var(--fr-measure-sources); margin: 0 auto; padding: clamp(3.5rem, 11vh, 7.5rem) 1.5rem 9rem;
   font-family: var(--fr-serif);
 }
 .fr-sources h2 {
@@ -274,4 +288,172 @@ a { color: var(--fr-accent); }
   .fr-scrollhint { animation: none; }
   .fr-card { transition: opacity 0.2s linear; transform: none; }
   .fr-speciescard { transition: opacity 0.15s linear; }
+}
+
+/* ===== PRESSURES AND CONSERVATION STATUS =====
+ * Carried from the species dossier. Research register, source-row voice.
+ * Deliberately NOT a dashboard: no icon, no severity bar, no meter, no
+ * colour-coded badge. Every reach chip is the same neutral ink at the same
+ * size whatever it says — D6's "identically shaped for every state" applied
+ * here, because a differently-coloured badge would re-introduce the pass/fail
+ * reading that reach-not-truth exists to refuse. A threat is not a score.
+ * Measure and rhythm come from the local --fr-* tokens; src/style.css is not
+ * in scope on this surface and must not be imported to make it so. */
+.fr-pr-h2 { margin-top: var(--fr-space-section); }
+.fr-pr-lede {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-body);
+}
+.fr-pr-sub {
+  margin: 2rem 0 0.6rem;
+  font-family: var(--fr-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--fr-ink-soft);
+}
+.fr-pr {
+  width: 100%;
+  max-width: var(--fr-measure-body);
+  border-collapse: collapse;
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+}
+.fr-pr th,
+.fr-pr td {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--fr-line);
+  vertical-align: baseline;
+  text-align: left;
+}
+.fr-pr tr:last-child th,
+.fr-pr tr:last-child td { border-bottom: none; }
+.fr-pr-label {
+  width: 30%;
+  font-family: var(--fr-serif);
+  font-weight: 400;
+  color: var(--fr-ink);
+  padding-right: 1.2rem;
+}
+.fr-pr-value { color: var(--fr-ink); line-height: 1.55; }
+.fr-pr-src { color: var(--fr-ink-soft); }
+.fr-pr-note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--fr-ink-soft);
+}
+.fr-pr-reach { width: 11rem; padding-left: 1.2rem; white-space: nowrap; }
+.fr-reach {
+  font-family: var(--fr-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--fr-ink-soft);
+  border: 1px solid var(--fr-line);
+  border-radius: 3px;
+  padding: 0.16rem 0.4rem;
+}
+
+@media (max-width: 620px) {
+  /* The reach chip drops below its row rather than squeezing the value. */
+  .fr-pr, .fr-pr tbody, .fr-pr tr, .fr-pr th, .fr-pr td { display: block; width: auto; }
+  .fr-pr tr { border-bottom: 1px solid var(--fr-line); padding: 0.7rem 0; }
+  .fr-pr tr:last-child { border-bottom: none; }
+  .fr-pr th, .fr-pr td { border-bottom: none; padding: 0.1rem 0; }
+  .fr-pr-reach { padding-left: 0; margin-top: 0.4rem; }
+}
+
+/* The external-assessment line. Prose in the source voice — no chip, no badge,
+   no rule, nothing that would read as a rating. The frame note and the citation
+   recede to ink-soft; the claim itself sits at body ink. */
+.fr-assess {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink);
+  max-width: var(--fr-measure-body);
+  margin: 0 0 0.9rem;
+}
+.fr-assess-frame,
+.fr-assess-cite {
+  font-family: var(--fr-sans);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-body);
+  margin: 0 0 0.6rem;
+}
+.fr-assess-frame { font-style: italic; }
+.fr-assess-cite { margin-bottom: var(--fr-space-section); }
+
+/* ===== ON SCREEN (V1.4 — the titular gap) =====
+ * The screen record for this place's species. Research register only; this
+ * block is never reachable from a cinematic surface.
+ *
+ * TOKEN SCOPE — RESOLVED 2026-09-10. This note previously recorded that the
+ * V1.4 tokens live in src/style.css, which the atlas pages do NOT load, and
+ * that the values below were therefore written literally and annotated by
+ * hand. The ruling scoped that file to the homepage and withdrew its
+ * cross-surface claim, so the two scopes are NOT unified: each surface names
+ * its own measures in its own sheet. Those annotated literals are now real
+ * declarations in the --fr-* block at the top of this file. Do not add an
+ * import of src/style.css here — the bundle separation is load-bearing. */
+.fr-screen {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+}
+
+.fr-screen td {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--fr-line);
+  vertical-align: baseline;
+}
+
+.fr-screen tr:last-child td { border-bottom: none; }
+
+/* Year sets the reading order; it recedes so the title carries the row. */
+.fr-screen-year {
+  width: 4.5rem;
+  color: var(--fr-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.fr-screen-title {
+  color: var(--fr-ink);
+}
+
+/* Media type, not a rating or a genre badge. */
+.fr-screen-kind {
+  width: 8rem;
+  text-align: right;
+  color: var(--fr-ink-soft);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.fr-screen-note,
+.fr-screen-attr {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-body);
+}
+
+.fr-screen-attr {
+  font-size: 0.82rem;
+  margin-top: var(--fr-space-tight);
+  margin-bottom: var(--fr-space-section);
+}
+
+@media (max-width: 620px) {
+  .fr-screen-kind { display: none; } /* title + year survive the narrow column */
 }

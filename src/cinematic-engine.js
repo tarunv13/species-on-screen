@@ -5,7 +5,14 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { gsap } from 'gsap';
 
 /**
- * Ambient particle system - soft motes floating in space
+ * Ambient starfield - the first thing the visitor sees.
+ *
+ * Rendered as points, not bokeh: sub-pixel-to-~2px pinpricks with a crisp
+ * (minimally-blurred) edge and a steeply skewed size/brightness distribution
+ * — a few bright stars, most near the threshold of visibility — so the field
+ * reads as distant stars rather than soft dust / lens dirt. Parameter-only
+ * tuning of the existing point system (Sprint V1.2, Task 3); no new system,
+ * and the approach timing and homepage captions are untouched.
  */
 function createParticleSystem() {
   const count = 1000;
@@ -17,8 +24,10 @@ function createParticleSystem() {
     positions[i * 3] = (Math.random() - 0.5) * 20;
     positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
     positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
-    sizes[i] = Math.random() * 3.0 + 1.0;
-    opacities[i] = Math.random() * 0.3 + 0.1;
+    // Steeply skewed: pow(r, 4|3) keeps most stars small and dim (near
+    // threshold), with a sparse tail of a few larger/brighter ones.
+    sizes[i] = 0.3 + Math.pow(Math.random(), 4) * 2.0;
+    opacities[i] = 0.05 + Math.pow(Math.random(), 3) * 0.95;
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -46,7 +55,9 @@ function createParticleSystem() {
         pos.z += sin(time * 0.12 + position.y) * 0.03;
 
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-        gl_PointSize = aSize * pixelRatio * (80.0 / -mvPosition.z);
+        // Smaller constant than before (was 80.0): points resolve to
+        // sub-pixel-to-~2px, not soft discs. Distance attenuation unchanged.
+        gl_PointSize = aSize * pixelRatio * (9.0 / -mvPosition.z);
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -56,8 +67,12 @@ function createParticleSystem() {
       void main() {
         float dist = length(gl_PointCoord - vec2(0.5));
         if (dist > 0.5) discard;
-        float alpha = smoothstep(0.5, 0.0, dist) * vOpacity;
-        gl_FragColor = vec4(0.4, 0.6, 0.9, alpha * 0.4);
+        // Crisp point with a minimal anti-aliased edge (not a soft bokeh
+        // gradient): solid to ~0.35, fading out by 0.5. Brightness lives in
+        // the per-star vOpacity, now steeply skewed. Near-white, faintly cool
+        // starlight; the brightest few just catch the bloom threshold (0.85).
+        float core = 1.0 - smoothstep(0.35, 0.5, dist);
+        gl_FragColor = vec4(0.86, 0.90, 1.0, core * vOpacity);
       }
     `,
     transparent: true,

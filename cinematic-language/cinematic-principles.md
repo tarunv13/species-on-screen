@@ -136,7 +136,7 @@ These mechanics are forbidden anywhere in the project.
 - Audio is always optional. Meaning must survive muted playback.
 - No flash, no sudden brightness, no sharp impact, no jump-cut audio.
 - No saturation-up for prettiness. Color fidelity to the place is a discipline.
-- No image assets for ecological scenes. Procedural, painted, or composed. Photography turns ecology into postcard.
+- ~~No image assets for ecological scenes. Procedural, painted, or composed. Photography turns ecology into postcard.~~ **[SUPERSEDED 2026-07-25 — see `.agents/decisions/2026-07-25-visual-layer-recovery.md`.]** This clause is superseded by the canonical Constitution: `cinematic-vocabulary.md` Article IX (photographs are permitted subjects) and Article VI (held darkness around photographs). Photographs are permitted; on the cinematic surface they are held in darkness, uncaptioned, and given no UI. Original text retained for historical continuity per the archival-preservation discipline.
 - The system must be inhabitable for minutes without aesthetic fatigue. No looping spectacle.
 - Reduced motion, reduced transparency, focus visibility, captions where applicable: must be honored without breaking the grammar.
 

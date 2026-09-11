@@ -26,6 +26,7 @@
 
 import { gsap } from 'gsap';
 import './sundarbans.css';
+import { mountScenePlates } from './scene-plate.js';
 
 /* ---------- Canonical narrative extraction ---------- */
 
@@ -771,6 +772,24 @@ function buildDescent() {
 function init() {
   paintCanopies();
   paintRoots();
+
+  // Scene plate slot (Sprint V1.2; .agents/decisions/2026-07-25-visual-layer-recovery.md).
+  // STRICTLY ADDITIVE: with an empty public/art/ this mounts nothing, hides
+  // nothing, and the procedural horizon above renders byte-identical to
+  // baseline. Any authored plate mounts INSIDE its parallax layer element and
+  // inherits that layer's descent + breath/cursor parallax transforms — no new
+  // motion system, the descent timeline and its C1-C5 governor untouched. The
+  // layer ids and far->near order below mirror the canonical depth declaration
+  // in cinematic-language/place-manifest.json (sundarbans -> cinematic.scene.
+  // layers); the runtime does not read the manifest (M23 Phase 0). The flat
+  // fallback mounts into canopy-mid (visible at the threshold, opacity-stable
+  // through the descent). Fire-and-forget — the descent never awaits it.
+  mountScenePlates('sundarbans', [
+    { id: 'canopy-far', selector: '[data-layer="canopy-far"]' },
+    { id: 'canopy-mid', selector: '[data-layer="canopy-mid"]' },
+    { id: 'roots-mid',  selector: '[data-layer="roots-mid"]'  },
+    { id: 'roots-fore', selector: '[data-layer="roots-fore"]' }
+  ], { flatSelector: '[data-layer="canopy-mid"]' });
 
   // Apply the three cinematic-extracted fields from the canonical narrative.
   // No species name, no observation, no sources are rendered on this surface.

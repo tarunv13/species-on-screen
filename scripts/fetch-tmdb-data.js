@@ -5,7 +5,21 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const TMDB_API_KEY = 'REDACTED-ROTATE-AT-themoviedb-settings-api';
+// Credentials come from the environment, never from source. Load a local .env
+// if one exists (Node >= 20.12); a real shell variable always wins.
+try { process.loadEnvFile?.(resolve(__dirname, '..', '.env')); } catch { /* no .env; fall through */ }
+
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+if (!TMDB_API_KEY) {
+  console.error(
+    'TMDB_API_KEY is not set.\n' +
+    '  Copy .env.example to .env and add your key, or export TMDB_API_KEY in your shell.\n' +
+    '  Note: the key previously hardcoded here is present in this repository\'s git\n' +
+    '  history and should be treated as public. Rotate it at\n' +
+    '  https://www.themoviedb.org/settings/api before reuse.'
+  );
+  process.exit(1);
+}
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/original';
 const OUTPUT_DIR = resolve(__dirname, '..', 'public', 'data');

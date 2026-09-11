@@ -109,6 +109,44 @@ async function checkPlace(place, i, errors, seenIds, seenOrders) {
         err('surfaces.cinematic.arrival.hotspotId required when kind = globe-hotspot');
       }
     }
+
+    // scene (optional) — declared-depth layers (Sprint V1.2; the
+    // visual-layer-recovery ADR). Validates the DECLARATION only: layer ids
+    // are kebab + unique within the place, z is a positive number, and the
+    // layers are ordered far->near (strictly decreasing z). Plate assets are
+    // optional drop-ins, so their presence is deliberately NOT required here.
+    if (c.scene !== undefined) {
+      if (typeof c.scene !== 'object' || Array.isArray(c.scene) || c.scene === null) {
+        err('surfaces.cinematic.scene must be an object');
+      } else {
+        for (const k of Object.keys(c.scene)) {
+          if (k !== 'layers') err(`surfaces.cinematic.scene unknown key "${k}"`);
+        }
+        if (!Array.isArray(c.scene.layers) || c.scene.layers.length < 1) {
+          err('surfaces.cinematic.scene.layers must be a non-empty array');
+        } else {
+          const seenLayerIds = new Set();
+          let prevZ = Infinity;
+          c.scene.layers.forEach((ly, j) => {
+            if (!ly || typeof ly !== 'object' || Array.isArray(ly)) {
+              err(`surfaces.cinematic.scene.layers[${j}] must be an object`); return;
+            }
+            for (const k of Object.keys(ly)) {
+              if (k !== 'id' && k !== 'z') err(`surfaces.cinematic.scene.layers[${j}] unknown key "${k}"`);
+            }
+            if (!isStr(ly.id) || !SLUG.test(ly.id)) err(`surfaces.cinematic.scene.layers[${j}].id missing or not kebab-case`);
+            else if (seenLayerIds.has(ly.id)) err(`surfaces.cinematic.scene.layers[${j}].id "${ly.id}" duplicated`);
+            else seenLayerIds.add(ly.id);
+            if (typeof ly.z !== 'number' || !Number.isFinite(ly.z) || ly.z <= 0) {
+              err(`surfaces.cinematic.scene.layers[${j}].z must be a positive number`);
+            } else {
+              if (ly.z >= prevZ) err(`surfaces.cinematic.scene.layers[${j}].z (${ly.z}) must be < the previous layer's z (far->near ordering)`);
+              prevZ = ly.z;
+            }
+          });
+        }
+      }
+    }
   }
 
   // atlas (optional array).

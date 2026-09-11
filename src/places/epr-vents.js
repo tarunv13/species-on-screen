@@ -32,6 +32,8 @@
 import { getNarrativeById } from '../../cinematic-language/narrative-registry.ts';
 import { gsap } from 'gsap';
 import './epr-vents.css';
+import { loadFlatPlate } from './scene-plate.js';
+import { applyLampPool } from './lamp-pool.js';
 
 /* ---------- Narrative registry (3 extractable fields only) ---------- */
 
@@ -251,7 +253,31 @@ let amb = 0;
 /* Depth gradient. The scene opens on dim surface-blue and descends to
    absolute abyss. As the vent field approaches (ventA), the bottom of
    the frame warms with vent heat before the glows themselves appear. */
-function paintBase(progress, ventA) {
+/* ---------- Scene plate + lamp-pool light (V1.2b plate, V1.3 light) ----------
+   A single STATIC backdrop, cover-fit as the first draw. When present, the V1.3
+   lamp pool (src/places/lamp-pool.js) lights it with the DEEP-VENT recipe: a
+   hard narrow Alvin lamp (lampFactor 0.30), a neutral desaturation grade (no
+   cool cast — at 2550 m there is no water column shifting colour, the lamp is
+   broadband and close), heavy marine snow (240), and NO caustics (no surface
+   light at depth). The vent glow stays warm — it is thermal/mineral, drawn OVER
+   the pool. That snow supersedes paintMotes while plated. Absent -> the
+   procedural scene renders unchanged. Article III's p≈0.40 luminance-dip cut is
+   drawn last and is untouched; depth is declared in place-manifest.json. */
+let backdropImg = null;
+
+function paintBackdrop() {
+  if (!backdropImg) return false;
+  const iw = backdropImg.naturalWidth, ih = backdropImg.naturalHeight;
+  if (!iw || !ih) return false;
+  const s = Math.max(W / iw, H / ih);          // cover-fit
+  const dw = iw * s, dh = ih * s;
+  ctx.drawImage(backdropImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
+  return true;
+}
+
+function paintBase(progress, ventA, veil = 1) {
+  ctx.save();
+  ctx.globalAlpha = veil;   // veil === 1 (default) is byte-identical to before
   const depth    = smoothstep(0.05, 0.60, progress);
   const topCol   = lerpC(PAL.midWater, PAL.abyss,     depth);
   const midCol   = lerpC(PAL.deepOcean, PAL.abyss,    depth);
@@ -264,6 +290,7 @@ function paintBase(progress, ventA) {
   g.addColorStop(1,    rgb(botCol,        1));
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
+  ctx.restore();
 }
 
 /* Soft orange radial glow at each vent opening. Light arrives before
@@ -424,13 +451,22 @@ function render() {
   const wormA = smoothstep(0.70, 0.90, p);   // inhabitants arrive last
 
   ctx.clearRect(0, 0, W, H);
-  paintBase(p, ventA);
+  const plated = paintBackdrop();                     // 1 — plate, cover-fit
+  if (plated) {
+    // V1.3 Part B — deep-vent lamp pool: hard narrow Alvin lamp (0.30), neutral
+    // desaturation grade (no blue cast at depth), heavy snow, NO caustics. t in
+    // seconds (amb ms); frozen under reduced motion. Its in-beam snow stands in
+    // for paintMotes; the vent glow below stays warm, drawn over the pool.
+    applyLampPool(ctx, { w: W, h: H, t: amb / 1000, water: false, snow: 240, grade: 'rgba(200,205,210,1)', lampFactor: 0.30 });
+  } else {
+    paintBase(p, ventA);                              // procedural scene, unchanged
+  }
   paintThermalGlow(cam, ventA);
-  paintMotes();
+  if (!plated) paintMotes();                          // lamp pool supplies snow when plated
   paintPlumes(cam, ventA, amb);
   paintVentParticles(cam, ventA);   // before worms: particles are atmosphere, not inhabitants
   paintWorms(cam, wormA);
-  paintLuminanceDip(p);
+  paintLuminanceDip(p);                               // Article III cut, drawn last, unchanged
 }
 
 /* ---------- Frame loop ---------- */
@@ -481,6 +517,10 @@ document.addEventListener('visibilitychange', () => {
 function init() {
   resize();
   readScroll();
+
+  // Scene plate flat backdrop (Sprint V1.2b) — fire-and-forget; the render
+  // loop stays byte-identical until (and unless) an asset actually loads.
+  loadFlatPlate('epr-vents').then((img) => { if (img) backdropImg = img; });
 
   document.title = `${PLACE_NAME} · Vent Field`;
   const desc = document.getElementById('docDesc');
