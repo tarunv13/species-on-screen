@@ -1,0 +1,173 @@
+{
+  "_comment": "Species on Screen — media/biodiversity collection pipeline. Editorial + operational configuration for scripts under research/sos_pipeline/. The harvester fills ONLY the core-metadata columns of the corpus schema (.agents/tasks/task-research-matrix/corpus-seed-framework.md §1.1) and the per-taxon identifier columns (§1.2). Every interpretive field (§1.5–§1.12) is left empty for a human coder, per .agents/tasks/task-pilot-execution/coding-workspace-spec.md §17. Paths are relative to research/.",
+  "_authority": "corpus-seed-framework.md is authoritative for the schema; coding-workspace-spec.md is authoritative for the flattened columns, artefact-id format, coding states and the manual boundary; SENSITIVE-DATA-POLICY.md is authoritative for locality generalisation. This file configures; it does not legislate. Where this file and one of those disagree, the source wins.",
+
+  "corpus": {
+    "corpus_version": "pilot",
+    "schema_version": "v0.1",
+    "vocab_version": "v0.1",
+    "coder_id": "TV",
+    "workspace_root": "../../species-on-screen-research/task-pilot-execution",
+    "_workspace_root_note": "The corpus and the Paper 1 instrument live in the private repository tarunv13/species-on-screen-research; this repository is public and holds only the code. The path here assumes that repo is checked out beside this one. It is machine-specific, so set SOS_WORKSPACE_ROOT in .env to override it — the environment variable wins. Without either, the read-only commands (doctor, plan, registry --print-postgres-ddl) still work; anything that writes a corpus row will tell you the workspace is missing.",
+    "var_root": "var"
+  },
+
+  "seed": {
+    "landscapes_file": "../scripts/ingest/landscapes.json",
+    "places_file": "../scripts/ingest/places.config.json",
+    "landscape_ids": [],
+    "_landscape_ids_note": "Empty list = all 24 landscapes in the registry. Name ids to narrow a run.",
+    "query_templates": [
+      "{landscape} wildlife documentary",
+      "{landscape} conservation",
+      "{landscape} {biome}",
+      "{taxon_common} {landscape}"
+    ],
+    "taxon_query_templates": [
+      "{taxon_common} documentary",
+      "{taxon_scientific}"
+    ]
+  },
+
+  "ethics": {
+    "_source": "corpus-seed-framework.md §8",
+    "min_creator_audience": 10000,
+    "_min_creator_audience_note": "§8.3 — creators below this follower/subscriber count are excluded by default (consent-or-opt-out territory). Raise or lower deliberately; every exclusion is counted in the run's sampling-frame report.",
+    "collect_comments": false,
+    "_collect_comments_note": "§8.4 / §8.8 — audience comments are human-subject data. Off unless a study needs them and ethics review covers them.",
+    "collect_content_files": false,
+    "_collect_content_files_note": "§8.1 — metadata is universally collectable; content files are not collected by this pipeline under any flag.",
+    "algorithmic_sampling": false,
+    "_algorithmic_sampling_note": "§8.5 — no personalised/recommendation-mediated sampling. Queries are explicit and logged.",
+    "coordinate_decimal_places": 1,
+    "coordinate_uncertainty_m": 25000,
+    "_coordinate_note": "SENSITIVE-DATA-POLICY.md — coordinates are generalised before they are written and never committed at source precision.",
+    "locality_blocked_iucn_categories": ["CR", "EN", "VU"],
+    "locality_blocked_taxa": []
+  },
+
+  "sources": {
+    "youtube": {
+      "enabled": true,
+      "api_key_env": "YOUTUBE_API_KEY",
+      "base_url": "https://www.googleapis.com/youtube/v3",
+      "quota": {
+        "search_calls_per_day": 100,
+        "units_per_day": 10000,
+        "reset_timezone": "America/Los_Angeles"
+      },
+      "_quota_note": "search.list has its own bucket: 100 calls/day, 1 unit each. Every other list method costs 1 unit against the 10,000/day pool. Enumerating a channel's uploads playlist (playlistItems.list) is therefore ~100x cheaper than searching; prefer seed channels over discovery.",
+      "requests_per_second": 5,
+      "seed_channel_ids": [],
+      "_seed_channel_ids_note": "Channel ids (UC...) enumerated via their uploads playlist. Cheap, reproducible, and not algorithmically mediated — the preferred sampling frame.",
+      "discovery": {
+        "enabled": false,
+        "max_search_calls": 20,
+        "results_per_call": 50,
+        "published_after": "2015-01-01T00:00:00Z",
+        "relevance_language": "en",
+        "region_codes": []
+      }
+    },
+
+    "meta_content_library": {
+      "enabled": true,
+      "mode": "import",
+      "_mode_note": "'import' (default, outside the enclave): read a vetted export the researcher carried out of the secure environment. 'enclave': run inside Meta's Secure Research Environment or ICPSR's SOMAR Virtual Data Enclave, where metacontentlibraryapi is importable. There is no third mode; the API cannot be reached from a personal machine.",
+      "dataset_id": "1119037145491882",
+      "api_version": "v6.0",
+      "import_dir": "var/mcl-imports",
+      "limits": {
+        "sync_results_max": 1000,
+        "sync_page_size": 10,
+        "sync_searches_per_minute": 60,
+        "async_jobs_per_minute": 1,
+        "async_results_max": 100000,
+        "retrieval_cap_per_rolling_7_days": 500000
+      },
+      "export_vetting_required": true
+    },
+
+    "tmdb": {
+      "enabled": true,
+      "api_key_env": "TMDB_API_KEY",
+      "base_url": "https://api.themoviedb.org/3",
+      "requests_per_second": 20,
+      "language": "en-US",
+      "include_adult": false
+    },
+
+    "omdb": {
+      "enabled": false,
+      "api_key_env": "OMDB_API_KEY",
+      "base_url": "https://www.omdbapi.com/",
+      "requests_per_second": 2,
+      "calls_per_day": 1000
+    },
+
+    "igdb": {
+      "enabled": false,
+      "client_id_env": "IGDB_CLIENT_ID",
+      "client_secret_env": "IGDB_CLIENT_SECRET",
+      "token_url": "https://id.twitch.tv/oauth2/token",
+      "base_url": "https://api.igdb.com/v4",
+      "requests_per_second": 4
+    },
+
+    "gbif": {
+      "enabled": true,
+      "base_url": "https://api.gbif.org/v1",
+      "requests_per_second": 5
+    },
+
+    "iucn_redlist": {
+      "enabled": true,
+      "api_key_env": "IUCN_REDLIST_TOKEN",
+      "base_url": "https://api.iucnredlist.org/api/v4",
+      "requests_per_second": 2
+    },
+
+    "iucn_get": {
+      "enabled": true,
+      "typology_file": "config/iucn-get-typology.csv",
+      "_typology_note": "Download the Ecosystem Functional Group table from https://global-ecosystems.org/explore (typology v2.1; Keith et al. 2022, doi:10.1038/s41586-022-05318-4) and save it here with columns realm_code, realm_name, biome_code, biome_name, efg_code, efg_name. If the file is absent, ecosystem bindings stay UNRESOLVED — they are never guessed."
+    },
+
+    "globi": {
+      "enabled": true,
+      "base_url": "https://api.globalbioticinteractions.org",
+      "requests_per_second": 2
+    },
+
+    "gdelt": {
+      "enabled": true,
+      "base_url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "requests_per_second": 0.2,
+      "timespan": "12months",
+      "max_records": 40
+    },
+
+    "wikipedia": {
+      "enabled": true,
+      "base_url": "https://wikimedia.org/api/rest_v1",
+      "projects": ["en.wikipedia"],
+      "requests_per_second": 5,
+      "days": 365
+    },
+
+    "wayback": {
+      "enabled": true,
+      "availability_url": "https://archive.org/wayback/available",
+      "requests_per_second": 1,
+      "allow_save_page_now": false,
+      "_save_note": "coding-workspace-spec.md §17 lists Save Page Now clicks as manual. This pipeline checks availability only and emits a capture worklist; it never submits a save."
+    }
+  },
+
+  "http": {
+    "user_agent": "species-on-screen/research-pipeline (academic, non-commercial; contact via repository)",
+    "timeout_seconds": 30,
+    "max_retries": 4,
+    "backoff_base_seconds": 0.75
+  }
+}

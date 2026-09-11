@@ -1,0 +1,50 @@
+{
+  "_comment": "Proposed additions to the controlled vocabularies of corpus-seed-framework.md §1. §12.2 requires three things of a new term: a definition, an example artefact, and a rationale for not folding it into an existing term. Each entry below carries all three. Nothing here is in force until its status reads 'accepted' and accepted_by/accepted_date are filled in — that is a research decision, not a configuration change, and the pipeline refuses a row carrying a merely proposed term.",
+  "_authority": "corpus-seed-framework.md §12.2 (vocabulary maintenance). Deprecating a term later requires re-coding the affected artefacts in the next corpus version (§12.3).",
+  "_how_to_accept": "Set status to 'accepted', fill accepted_by with your coder id and accepted_date with an ISO date, and record the decision in .agents/tasks/task-pilot-execution/amendments-log.md as the canonical entry. The file here is the machine-readable mirror, not the record.",
+
+  "vocab_version": "v0.1",
+
+  "amendments": [
+    {
+      "vocabulary": "platform",
+      "term": "facebook",
+      "definition": "A public Facebook profile or surface that is not a Page, Group or Event, observed through the Meta Content Library.",
+      "example": "A verified public profile of a field biologist posting Sundarbans fieldwork.",
+      "rationale": "The §1.1 seed platform list was written before Content Library access existed and names no Meta surface at all. Folding Facebook into 'mixed-platform' would erase the distinction between an artefact native to Facebook and one circulating across several platforms, which is precisely what platform_primary exists to record.",
+      "status": "proposed",
+      "accepted_by": "",
+      "accepted_date": ""
+    },
+    {
+      "vocabulary": "platform",
+      "term": "facebook-page",
+      "definition": "A Facebook Page: an institutional or public-figure surface with followers, distinct from a personal profile.",
+      "example": "A conservation NGO Page posting mangrove restoration updates.",
+      "rationale": "A Page and a Group produce structurally different artefacts — one broadcasts to followers, the other hosts member discussion — and §1.8 audience_relationship_type will code them differently. The framework's own instruction is never to collapse distinct platforms, and the same reasoning applies within one platform's surface types.",
+      "status": "proposed",
+      "accepted_by": "",
+      "accepted_date": ""
+    },
+    {
+      "vocabulary": "platform",
+      "term": "facebook-group",
+      "definition": "A public Facebook Group: a member-posting surface with a moderated membership.",
+      "example": "A regional birdwatching group sharing sightings and photographs.",
+      "rationale": "Group content is member-generated under moderation, which puts it in a different position on §1.8 spectator_position and §1.10 social_dimension than Page broadcast. Coding both as 'facebook' would make that difference invisible at the point where it matters most.",
+      "status": "proposed",
+      "accepted_by": "",
+      "accepted_date": ""
+    },
+    {
+      "vocabulary": "platform",
+      "term": "threads",
+      "definition": "Meta's Threads, where the Content Library exposes it.",
+      "example": "A short-form conservation account cross-posting from Instagram.",
+      "rationale": "Listed for completeness because the Content Library covers it. Threads data is browsable in the UI but not currently exportable as CSV, so no artefact can reach the corpus through this pipeline yet; the term is proposed so that the vocabulary does not have to change mid-study if that access changes.",
+      "status": "proposed",
+      "accepted_by": "",
+      "accepted_date": ""
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+# Species on Screen — research collection pipeline.
+#
+# One runtime dependency. Everything else is the standard library: csv, json,
+# sqlite3, argparse, unittest, hashlib, dataclasses. A research instrument that
+# needs a large dependency tree to start is one that stops working the first
+# time an environment is rebuilt, and this corpus has to be reproducible years
+# from now, not just this week.
+#
+# Tests need nothing beyond this file:
+#     python -m unittest discover -s sos_pipeline/tests -t .
+
+requests>=2.31,<3
+
+# NOT required, and deliberately not used:
+#
+#   google-api-python-client  The YouTube adapter calls the REST endpoints
+#                             through the shared HTTP client so that every call
+#                             leaves a receipt and is counted against the quota
+#                             ledger. A second client library would bypass both.
+#
+#   pandas                    The corpus is a few hundred rows of CSV. The csv
+#                             module writes it deterministically, which matters
+#                             more here than dataframe ergonomics: a stable diff
+#                             is what makes git the corpus revision log
+#                             (coding-workspace-spec §12).
+#
+#   python-dotenv             sos_pipeline/config.py reads .env in about twenty
+#                             lines, and a shell variable always wins over the
+#                             file.
+#
+#   metacontentlibraryapi     Provided inside Meta's Secure Research Environment
+#                             or the ICPSR SOMAR Virtual Data Enclave. It cannot
+#                             be installed from PyPI and must not be listed as a
+#                             dependency; see research/enclave/README.md.
