@@ -81,6 +81,7 @@ let RELS = [];        // {from,to,type,roid,according,remarks,season}
 let actorList = [];
 let REFERENCES = null; // structured bibliography from references.json (or null)
 let ONSCREEN = null;   // tmdb_media from the species dossier (or null)
+let PRESSURES = null;  // {conservation, threats, assessmentSource} from the dossier (or null)
 
 /* Which species dossier carries this place's screen record. Local map in the
    PLACE_META idiom rather than a Place Manifest field: the manifest is
@@ -115,6 +116,7 @@ async function loadDwc() {
   ONSCREEN = dossier && Array.isArray(dossier.tmdb_media) && dossier.tmdb_media.length
     ? dossier.tmdb_media
     : null;
+  PRESSURES = readPressures(dossier);
   parseTSV(occT).forEach((row) => {
     let dyn = {};
     try { dyn = JSON.parse(row.dynamicProperties); } catch (e) { dyn = {}; }
@@ -656,6 +658,124 @@ function renderSources() {
   return `<ol class="fr-refs">${items}</ol>`;
 }
 
+/* ---------- Pressures and conservation status (from the species dossier) ----------
+
+   The dossiers in public/data/ carry authored `threats[]` and `conservation{}`
+   that no surface has ever shown. This renders them in the RESEARCH register.
+   Nothing new is fetched; nothing is inferred.
+
+   REACH, NOT TRUTH. These fields are of markedly different evidentiary
+   quality, and the difference is shown rather than smoothed over. The reach
+   vocabulary is the evidence ledger's own (scripts/evidence-reach.mjs, M33/M34)
+   used verbatim — REACHES A SOURCE / REACH INCOMPLETE — because inventing a
+   second, softer vocabulary for the same idea is how a surface starts
+   over-claiming. It is rendered as plain text at one weight, identical for
+   every state: no colour coding, no icon, no severity bar, no meter. A threat
+   is not a score.
+
+   What the data actually supports, checked against public/data/tiger.json:
+     - conservation.iucn_status has a document-level data_sources entry typed
+       "assessment" (the IUCN Red List page for this taxon). That is a NAMED
+       SOURCE, so the row reaches one — and no more than one.
+     - NO dossier records an assessment year. The row therefore states the year
+       is unrecorded, rather than letting a bare "Endangered" imply currency.
+     - population_estimate / population_trend / key_programs carry no binding at
+       all. REACH INCOMPLETE.
+     - threats[] are {name, description} ONLY — zero attribution per item.
+       REACH INCOMPLETE, every one.
+
+   PLACE HONESTY. A species dossier is range-wide. The tiger dossier's threats
+   name palm-oil plantations, which are not a Sundarbans pressure. Rendering
+   them here without saying so would misstate the place, which is the same
+   error the coral scene plate was vetoed for. The note says it plainly.
+
+   Citation-or-skip: an absent or empty field renders NOTHING. There is no
+   "data not available" placeholder anywhere in this section. */
+
+function readPressures(dossier) {
+  if (!dossier) return null;
+  const c = dossier.conservation && typeof dossier.conservation === 'object'
+    ? dossier.conservation : null;
+  const threats = Array.isArray(dossier.threats)
+    ? dossier.threats.filter((t) => t && (t.name || t.description))
+    : [];
+  if (!c && !threats.length) return null;
+  // The dossier's own typing supplies the binding; no mapping is invented here.
+  const assessmentSource = Array.isArray(dossier.data_sources)
+    ? dossier.data_sources.find((d) => d && d.type === 'assessment' && d.name) || null
+    : null;
+  return { conservation: c, threats, assessmentSource };
+}
+
+/* Reach badge — the ledger's vocabulary, verbatim, in one neutral style. */
+function reachChip(state) {
+  const badge = state === 'open' ? 'REACHES A SOURCE' : 'REACH INCOMPLETE';
+  return `<span class="fr-reach">${badge}</span>`;
+}
+
+function pressureRow(label, value, state, note) {
+  return `<tr>
+        <th scope="row" class="fr-pr-label">${escapeHtml(label)}</th>
+        <td class="fr-pr-value">${value}${note ? `<span class="fr-pr-note">${note}</span>` : ''}</td>
+        <td class="fr-pr-reach">${reachChip(state)}</td>
+      </tr>`;
+}
+
+function renderPressures() {
+  if (!PRESSURES) return '';
+  const { conservation: c, threats, assessmentSource } = PRESSURES;
+  const rows = [];
+
+  if (c && c.iucn_status) {
+    const src = assessmentSource
+      ? ` <span class="fr-pr-src">per ${assessmentSource.url
+          ? `<a href="${escapeHtml(assessmentSource.url)}">${escapeHtml(assessmentSource.name)}</a>`
+          : escapeHtml(assessmentSource.name)}</span>`
+      : '';
+    rows.push(pressureRow(
+      'IUCN Red List category',
+      escapeHtml(c.iucn_status) + src,
+      assessmentSource ? 'open' : 'gap',
+      'Assessment year unrecorded in this dossier — this category should not be read as current.',
+    ));
+  }
+  if (c && c.population_estimate) {
+    rows.push(pressureRow('Population estimate', escapeHtml(String(c.population_estimate)), 'gap',
+      'No source and no date recorded for this figure.'));
+  }
+  if (c && c.population_trend) {
+    rows.push(pressureRow('Population trend', escapeHtml(String(c.population_trend)), 'gap',
+      'No source and no date recorded for this trend.'));
+  }
+  if (c && Array.isArray(c.key_programs) && c.key_programs.length) {
+    rows.push(pressureRow('Conservation programmes',
+      c.key_programs.map((k) => escapeHtml(String(k))).join('; '), 'gap',
+      'Named in the dossier; no programme is bound to a source here.'));
+  }
+
+  const threatRows = threats.map((t) => `<tr>
+        <th scope="row" class="fr-pr-label">${escapeHtml(t.name || '')}</th>
+        <td class="fr-pr-value">${escapeHtml(t.description || '')}</td>
+        <td class="fr-pr-reach">${reachChip('gap')}</td>
+      </tr>`).join('');
+
+  if (!rows.length && !threatRows) return '';
+
+  const statusBlock = rows.length ? `
+    <h3 class="fr-pr-sub">Conservation status</h3>
+    <table class="fr-pr">${rows.join('')}</table>` : '';
+
+  const threatBlock = threatRows ? `
+    <h3 class="fr-pr-sub">Recorded pressures</h3>
+    <table class="fr-pr">${threatRows}</table>` : '';
+
+  return `
+    <h2 class="fr-pr-h2">Pressures and conservation status</h2>
+    <p class="fr-pr-lede">Carried from the species dossier for this place's subject. These are <em>range-wide</em> for the species — not observations made here, and not sourced from the archive above; a pressure listed may act elsewhere in the range and not in this place. Each row names how far its warrant <em>reaches</em>, in the same vocabulary the evidence ledger uses. Nothing here is ranked, scored, or weighted.</p>
+    ${statusBlock}
+    ${threatBlock}`;
+}
+
 /* The screen record. Ten species dossiers in public/data/ carry a real
    tmdb_media array; until now the only consumer counted it and discarded the
    count. This renders it in the RESEARCH register: plain rows, no posters, no
@@ -685,6 +805,7 @@ function buildSources() {
     <h2>The interaction web</h2>
     <p class="fr-web-help">Each edge names its OBO Relations Ontology relation; <strong>follow</strong> an edge to move laterally to the actor it links — you stay in the atlas.</p>
     ${buildInteractionWeb()}
+    ${renderPressures()}
     ${renderOnScreen()}
     <h2>Sources</h2>
     ${renderSources()}

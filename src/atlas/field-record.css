@@ -292,6 +292,84 @@ a { color: var(--fr-accent); }
   .fr-speciescard { transition: opacity 0.15s linear; }
 }
 
+/* ===== PRESSURES AND CONSERVATION STATUS =====
+ * Carried from the species dossier. Research register, source-row voice.
+ * Deliberately NOT a dashboard: no icon, no severity bar, no meter, no
+ * colour-coded badge. Every reach chip is the same neutral ink at the same
+ * size whatever it says — D6's "identically shaped for every state" applied
+ * here, because a differently-coloured badge would re-introduce the pass/fail
+ * reading that reach-not-truth exists to refuse. A threat is not a score.
+ * Measure and rhythm come from the local --fr-* tokens; src/style.css is not
+ * in scope on this surface and must not be imported to make it so. */
+.fr-pr-h2 { margin-top: var(--fr-space-section); }
+.fr-pr-lede {
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-body);
+}
+.fr-pr-sub {
+  margin: 2rem 0 0.6rem;
+  font-family: var(--fr-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--fr-ink-soft);
+}
+.fr-pr {
+  width: 100%;
+  max-width: var(--fr-measure-body);
+  border-collapse: collapse;
+  font-family: var(--fr-sans);
+  font-size: 0.92rem;
+}
+.fr-pr th,
+.fr-pr td {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--fr-line);
+  vertical-align: baseline;
+  text-align: left;
+}
+.fr-pr tr:last-child th,
+.fr-pr tr:last-child td { border-bottom: none; }
+.fr-pr-label {
+  width: 30%;
+  font-family: var(--fr-serif);
+  font-weight: 400;
+  color: var(--fr-ink);
+  padding-right: 1.2rem;
+}
+.fr-pr-value { color: var(--fr-ink); line-height: 1.55; }
+.fr-pr-src { color: var(--fr-ink-soft); }
+.fr-pr-note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--fr-ink-soft);
+}
+.fr-pr-reach { width: 11rem; padding-left: 1.2rem; white-space: nowrap; }
+.fr-reach {
+  font-family: var(--fr-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--fr-ink-soft);
+  border: 1px solid var(--fr-line);
+  border-radius: 3px;
+  padding: 0.16rem 0.4rem;
+}
+
+@media (max-width: 620px) {
+  /* The reach chip drops below its row rather than squeezing the value. */
+  .fr-pr, .fr-pr tbody, .fr-pr tr, .fr-pr th, .fr-pr td { display: block; width: auto; }
+  .fr-pr tr { border-bottom: 1px solid var(--fr-line); padding: 0.7rem 0; }
+  .fr-pr tr:last-child { border-bottom: none; }
+  .fr-pr th, .fr-pr td { border-bottom: none; padding: 0.1rem 0; }
+  .fr-pr-reach { padding-left: 0; margin-top: 0.4rem; }
+}
+
 /* ===== ON SCREEN (V1.4 — the titular gap) =====
  * The screen record for this place's species. Research register only; this
  * block is never reachable from a cinematic surface.
