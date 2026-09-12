@@ -17,9 +17,11 @@ the table is absent, every ecosystem binding resolves to unresolved and the
 run says so. That is the same discipline the archive applies to an
 unverifiable citation.
 
-Matching is lexical and conservative: a landscape binds to an EFG only on an
-unambiguous name match, and an ambiguous match is reported rather than
-arbitrated.
+There is NO MATCHING. A landscape binds to an EFG only through the
+hand-authored crosswalk in scripts/ingest/landscapes.json, where every bound
+row cites the GET profile that justifies it. The lexical matcher that used to
+live here was deleted on 2026-09-12; bind() records why no tuned version of it
+is admissible.
 """
 
 from __future__ import annotations
@@ -44,16 +46,11 @@ TYPOLOGY_SOURCE_URL = "https://global-ecosystems.org/explore"
 STOPWORDS = {"and", "or", "the", "of", "a", "an", "in", "on", "with", "systems", "system", "biome"}
 
 
-def _tokens(text: str) -> set[str]:
-    words = re.split(r"[^a-z]+", (text or "").lower())
-    return {w for w in words if w and w not in STOPWORDS and len(w) > 2}
-
-
 class IucnGetSource(Source):
     name = "iucn_get"
     tos_posture = "metadata-only-public-api"
     produces_corpus_rows = False
-    field_allowlist = REQUIRED_COLUMNS + ("match_score", "match_basis")
+    field_allowlist = REQUIRED_COLUMNS + ("source", "assigned_by", "match_basis")
 
     # --- typology table -------------------------------------------------
 
@@ -117,92 +114,73 @@ class IucnGetSource(Source):
             yield self.bind(landscape, table)
 
     def bind(self, landscape: dict, table: list[dict] | None = None) -> EnrichmentRecord:
-        """Bind one landscape to an EFG. Unambiguous matches only."""
-        rows = self._load() if table is None else table
+        """Read the hand-authored crosswalk. No matching of any kind happens here.
+
+        Ruling 2026-09-12. The former implementation scored lexical overlap
+        between a landscape's free-text description and each EFG name, took the
+        best score above a threshold, and reported near-ties as ambiguous. It is
+        DELETED, not disabled, and no tuned version of it is admissible.
+
+        Two controlled vocabularies that share no terminology cannot be bridged
+        by string similarity. "Mangrove tidal forest" and "Intertidal forests
+        and shrublands" are the same ecosystem and share no content word;
+        "Tropical savanna grassland" and "Tropical flooded forests" are
+        different ecosystems and share two. The score is therefore uncorrelated
+        with correctness, and the failure mode is silent: a near miss yields a
+        wrong EFG code that misdescribes a biome while carrying the full
+        authority of a controlled identifier. Lowering the threshold admits more
+        wrong codes; raising it just returns fewer. No setting recovers a signal
+        that was never present.
+
+        The binding now lives in scripts/ingest/landscapes.json as an explicit
+        `iucn_get` object per landscape, each citing the GET profile that
+        justifies it. A landscape that cannot be bound with a citation carries
+        `iucn_get: null` and a one-word reason in `iucn_get_unbound` — that is
+        citation-or-skip applied to taxonomy, and an honest null is the correct
+        output for a registry-only placeholder with no scene and no archive.
+
+        The typology table remains the authority for EFG code -> name. This
+        method does not consult it: the crosswalk already carries the name that
+        was read from it when the row was authored.
+        """
         subject = landscape.get("id", "") or landscape.get("name", "")
+        binding = landscape.get("iucn_get")
 
-        if not rows:
+        if not binding:
+            reason = landscape.get("iucn_get_unbound") or "not-in-crosswalk"
             return EnrichmentRecord(
                 source=self.name,
                 subject=subject,
                 kind="ecosystem-binding",
                 payload={},
-                unresolved=[
-                    Unresolved(
-                        field="biome_primary",
-                        reason="typology-table-not-provided",
-                        attempted=str(self.typology_path()),
-                    )
-                ],
+                unresolved=[Unresolved("biome_primary", reason, subject)],
             )
 
-        description = " ".join(
-            str(landscape.get(key, "")) for key in ("biome", "realm", "name", "type", "habitat")
-        )
-        wanted = _tokens(description)
-        if not wanted:
+        if not binding.get("source"):
+            # A binding without its citation is precisely what this ruling
+            # removed. Refused rather than trusted.
             return EnrichmentRecord(
                 source=self.name,
                 subject=subject,
                 kind="ecosystem-binding",
                 payload={},
-                unresolved=[Unresolved("biome_primary", "landscape-has-no-description", subject)],
+                unresolved=[Unresolved("biome_primary", "crosswalk-row-has-no-citation", subject)],
             )
 
-        scored: list[tuple[float, dict]] = []
-        for row in rows:
-            candidate = _tokens(f"{row.get('efg_name', '')} {row.get('biome_name', '')}")
-            if not candidate:
-                continue
-            overlap = wanted & candidate
-            if not overlap:
-                continue
-            score = len(overlap) / len(candidate | wanted)
-            scored.append((score, row))
-
-        if not scored:
-            return EnrichmentRecord(
-                source=self.name,
-                subject=subject,
-                kind="ecosystem-binding",
-                payload={},
-                unresolved=[Unresolved("biome_primary", "no-lexical-match-in-typology", description.strip())],
-            )
-
-        scored.sort(key=lambda pair: pair[0], reverse=True)
-        best_score, best_row = scored[0]
-        runner_up = scored[1][0] if len(scored) > 1 else 0.0
-
-        # An ambiguous match is reported, not arbitrated. Two EFGs within a
-        # hair of each other is exactly the case a human should settle.
-        if best_score < 0.34 or (runner_up and best_score - runner_up < 0.05):
-            return EnrichmentRecord(
-                source=self.name,
-                subject=subject,
-                kind="ecosystem-binding",
-                payload={
-                    "candidates": [
-                        {"efg_code": row.get("efg_code"), "efg_name": row.get("efg_name"), "score": round(score, 3)}
-                        for score, row in scored[:4]
-                    ]
-                },
-                unresolved=[
-                    Unresolved(
-                        field="biome_primary",
-                        reason="ambiguous-match-needs-human-decision",
-                        attempted=description.strip(),
-                    )
-                ],
-            )
-
-        payload = {column: best_row.get(column, "") for column in REQUIRED_COLUMNS}
-        payload["match_score"] = round(best_score, 3)
-        payload["match_basis"] = "lexical-overlap-on-efg-and-biome-name"
         self.manifest.count("iucn_get.bound")
-
         return EnrichmentRecord(
             source=self.name,
             subject=subject,
             kind="ecosystem-binding",
-            payload=payload,
+            payload={
+                "efg_code": binding.get("efg", ""),
+                "efg_name": binding.get("name", ""),
+                "realm_code": binding.get("realm_code", ""),
+                "realm_name": binding.get("realm") or "",
+                "biome_code": binding.get("biome_code", ""),
+                "biome_name": binding.get("biome") or "",
+                "source": binding.get("source", ""),
+                "assigned_by": binding.get("assigned_by", ""),
+                "match_basis": "hand-authored-crosswalk-cited-per-row",
+            },
         )

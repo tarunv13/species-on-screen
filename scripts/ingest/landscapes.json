@@ -1,6 +1,6 @@
 {
   "_comment": "Global registry of priority landscapes the observatory intends to cover — spread across IUCN Global Ecosystem Typology realms (terrestrial, freshwater, marine, polar, transitional). Drives the news layer (GDELT per newsQuery) and, as field records are authored, the scrollytelling. hasFieldRecord=true means a Darwin Core Archive exists at public/dwca/<id>/. newsQuery is tuned for English-language environmental coverage.",
-  "_authority": "The Place Manifest (cinematic-language/place-manifest.ts, ADR-001) is authoritative for which places exist and which carry an archive. This file is a NEWS-layer registry, not a place registry: it is a superset (aspirational landscapes with no archive) and, deliberately, not a subset (a place may exist in the manifest and have no meaningful news feed). hasFieldRecord must be kept consistent with public/dwca/<id>/ by hand until it is derived. V1.4: coral-triangle corrected false->true, its archive having existed since M9b. KNOWN GAP: epr-vents (East Pacific Rise) is in the manifest with an archive but is absent here — adding it requires an authored newsQuery, and a deep-sea vent field has effectively no GDELT coverage, so whether it belongs in a news registry at all is an editorial decision, not a mechanical one. Left absent and reported rather than fabricated. 2026-09-11: BOREAL GAP CLOSED. The registry carried svalbard-barents (Arctic sea ice and tundra) and bialowieza (temperate lowland old-growth) but had no boreal forest entry at all — an omission at biome scale in a registry whose stated purpose is to be the aspirational superset. Added wood-buffalo-boreal. The entry is a NAMED PLACE with a protected-area anchor, matching this registry's register, rather than an entry called \"boreal forest\", which would be a biome abstraction. Wood Buffalo National Park is the largest boreal protected area in the world and sits in Canada, one of the two countries the source assessment names. LIMITATION, STATED: one entry cannot represent a biome that spans Russia and Canada, and the Siberian half is the larger one — a Siberian counterpart is a later editorial decision, not an oversight here. Registry only: no scene, no page, no archive. See .agents/decisions/2026-09-11-security-assessment-as-source.md.",
+  "_authority": "The Place Manifest (cinematic-language/place-manifest.ts, ADR-001) is authoritative for which places exist and which carry an archive. This file is a NEWS-layer registry, not a place registry: it is a superset (aspirational landscapes with no archive) and, deliberately, not a subset (a place may exist in the manifest and have no meaningful news feed). hasFieldRecord must be kept consistent with public/dwca/<id>/ by hand until it is derived. V1.4: coral-triangle corrected false->true, its archive having existed since M9b. RESOLVED 2026-09-12 (was: KNOWN GAP): epr-vents was absent because adding it required an authored newsQuery and a deep-sea vent field has effectively no GDELT coverage. The news layer was RETIRED on 2026-09-11, so that objection no longer holds — this file no longer drives a news feed. epr-vents is now present with newsQuery: null and the reason recorded, carrying its archive and its cited IUCN GET binding (M3.7). 2026-09-11: BOREAL GAP CLOSED. The registry carried svalbard-barents (Arctic sea ice and tundra) and bialowieza (temperate lowland old-growth) but had no boreal forest entry at all — an omission at biome scale in a registry whose stated purpose is to be the aspirational superset. Added wood-buffalo-boreal. The entry is a NAMED PLACE with a protected-area anchor, matching this registry's register, rather than an entry called \"boreal forest\", which would be a biome abstraction. Wood Buffalo National Park is the largest boreal protected area in the world and sits in Canada, one of the two countries the source assessment names. LIMITATION, STATED: one entry cannot represent a biome that spans Russia and Canada, and the Siberian half is the larger one — a Siberian counterpart is a later editorial decision, not an oversight here. Registry only: no scene, no page, no archive. See .agents/decisions/2026-09-11-security-assessment-as-source.md.",
   "landscapes": [
     {
       "id": "sundarbans",
@@ -18,7 +18,20 @@
       },
       "protectedArea": "Sundarban Tiger Reserve",
       "newsQuery": "Sundarbans (mangrove OR tiger OR cyclone OR embankment)",
-      "hasFieldRecord": true
+      "hasFieldRecord": true,
+      "iucn_get": {
+        "efg": "MFT1.2",
+        "name": "Intertidal forests and shrublands",
+        "realm": null,
+        "biome": null,
+        "realm_code": "MFT",
+        "biome_code": "MFT1",
+        "source": "IUCN Global Ecosystem Typology v2.1, profile MFT1.2 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+        "justification": "Profile: \"Mangroves create structurally complex and productive ecosystems in the intertidal zone of depositional coasts, around tropical and warm temperate regions.\" Distribution: \"Tropical and warm temperate coastlines with good sediment supply.\" The Sundarbans is a tropical intertidal mangrove forest on a high-sediment delta coast.",
+        "assigned_by": "human",
+        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+        "assigned_on": "2026-09-12"
+      }
     },
     {
       "id": "amazon-varzea",
@@ -37,7 +50,20 @@
       },
       "protectedArea": "Mamirauá Reserve",
       "newsQuery": "\"Amazon rainforest\" (deforestation OR fire OR Indigenous)",
-      "hasFieldRecord": true
+      "hasFieldRecord": true,
+      "iucn_get": {
+        "efg": "TF1.1",
+        "name": "Tropical flooded forests and peat forests",
+        "realm": null,
+        "biome": null,
+        "realm_code": "TF",
+        "biome_code": "TF1",
+        "source": "IUCN Global Ecosystem Typology v2.1, profile TF1.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+        "justification": "Profile: \"These tropical swamps have closed forest canopies... others are highly productive white-water systems, with frequent refilling and turnover of nutrients.\" Distribution: \"Equatorial lowlands of Southeast Asia, South America and Central and West Africa.\" Varzea is specifically the WHITE-WATER seasonally flooded forest of the Amazon, which the profile names; blackwater igapo sits in the same group.",
+        "assigned_by": "human",
+        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+        "assigned_on": "2026-09-12"
+      }
     },
     {
       "id": "congo-basin",
@@ -57,7 +83,9 @@
       },
       "protectedArea": "Salonga National Park",
       "newsQuery": "\"Congo Basin\" (rainforest OR gorilla OR logging OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "serengeti-mara",
@@ -75,7 +103,9 @@
       },
       "protectedArea": "Serengeti National Park",
       "newsQuery": "Serengeti (wildebeest OR migration OR poaching OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "borneo-leuser",
@@ -93,7 +123,9 @@
       },
       "protectedArea": "Sebangau National Park",
       "newsQuery": "Borneo (orangutan OR rainforest OR palm oil OR deforestation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "great-barrier-reef",
@@ -110,7 +142,9 @@
       },
       "protectedArea": "Great Barrier Reef Marine Park",
       "newsQuery": "\"Great Barrier Reef\" (coral OR bleaching OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "galapagos",
@@ -127,7 +161,9 @@
       },
       "protectedArea": "Galápagos National Park",
       "newsQuery": "Galapagos (tortoise OR marine OR conservation OR fishing)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "madagascar-spiny",
@@ -144,7 +180,9 @@
       },
       "protectedArea": "Kirindy / Tsimanampetsotsa",
       "newsQuery": "Madagascar (lemur OR deforestation OR forest OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "greater-yellowstone",
@@ -161,7 +199,9 @@
       },
       "protectedArea": "Yellowstone National Park",
       "newsQuery": "Yellowstone (wolf OR bison OR grizzly OR ecosystem)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "eastern-himalaya",
@@ -180,7 +220,9 @@
       },
       "protectedArea": "Kanchenjunga Landscape",
       "newsQuery": "Himalaya (snow leopard OR glacier OR forest OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "coral-triangle",
@@ -200,7 +242,49 @@
       },
       "protectedArea": "Coral Triangle Initiative",
       "newsQuery": "\"Coral Triangle\" (reef OR fishing OR marine OR conservation)",
-      "hasFieldRecord": true
+      "hasFieldRecord": true,
+      "iucn_get": {
+        "efg": "M1.3",
+        "name": "Photic coral reefs",
+        "realm": null,
+        "biome": null,
+        "realm_code": "M",
+        "biome_code": "M1",
+        "source": "IUCN Global Ecosystem Typology v2.1, profile M1.3 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+        "justification": "Profile: \"biogenic structures... formed by the calcium carbonate skeletons of certain coral species that depend on symbiotic relationships with algae. They occur in warm, shallow, low-nutrient waters.\" Distribution: \"Warm tropical & subtropical coastal waters.\" The Coral Triangle is the global centre of photic reef diversity.",
+        "assigned_by": "human",
+        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+        "assigned_on": "2026-09-12"
+      }
+    },
+    {
+      "id": "epr-vents",
+      "name": "East Pacific Rise vent field",
+      "region": "North-east Pacific",
+      "countries": [],
+      "realm": "Marine",
+      "biome": "Hydrothermal vent field, mid-ocean spreading ridge",
+      "center": {
+        "lat": 9.83,
+        "lng": -104.29
+      },
+      "protectedArea": null,
+      "newsQuery": null,
+      "newsQueryAbsent": "news-layer-retired-2026-09-11",
+      "hasFieldRecord": true,
+      "iucn_get": {
+        "efg": "M3.7",
+        "name": "Chemosynthetic-based-ecosystems (CBE)",
+        "realm": null,
+        "biome": null,
+        "realm_code": "M",
+        "biome_code": "M3",
+        "source": "IUCN Global Ecosystem Typology v2.1, profile M3.7 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+        "justification": "The profile names this place's exact type: \"primary productivity is fuelled by chemical compounds as energy sources instead of light (chemoautotrophy)... 1) hydrothermal vents on mid-ocean ridges and volcanically active seamounts, where temperatures may reach 400 degrees C.\" Distribution: \"Hydrothermal vents, cold seeps, large organic falls on the deep seafloor.\" The archive records this place as a mid-ocean-ridge vent field at approx. 2500 m.",
+        "assigned_by": "human",
+        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+        "assigned_on": "2026-09-12"
+      }
     },
     {
       "id": "okavango",
@@ -217,7 +301,9 @@
       },
       "protectedArea": "Okavango Delta World Heritage Site",
       "newsQuery": "Okavango (delta OR elephant OR water OR oil OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "pantanal",
@@ -236,7 +322,9 @@
       },
       "protectedArea": "Pantanal Matogrossense",
       "newsQuery": "Pantanal (wetland OR fire OR jaguar OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "mekong-tonlesap",
@@ -255,7 +343,9 @@
       },
       "protectedArea": "Tonlé Sap Biosphere Reserve",
       "newsQuery": "Mekong (dam OR fishery OR river OR dolphin OR drought)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "western-ghats",
@@ -272,7 +362,9 @@
       },
       "protectedArea": "Nilgiri Biosphere Reserve",
       "newsQuery": "\"Western Ghats\" (forest OR elephant OR rain OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "cerrado",
@@ -289,7 +381,9 @@
       },
       "protectedArea": "Chapada dos Veadeiros",
       "newsQuery": "Cerrado (savanna OR deforestation OR soy OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "sumatra-leuser",
@@ -306,7 +400,9 @@
       },
       "protectedArea": "Leuser Ecosystem",
       "newsQuery": "Leuser OR Sumatra (orangutan OR rhino OR rainforest OR deforestation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "virunga",
@@ -325,7 +421,9 @@
       },
       "protectedArea": "Virunga National Park",
       "newsQuery": "Virunga (gorilla OR park OR ranger OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "svalbard-barents",
@@ -342,7 +440,9 @@
       },
       "protectedArea": "Svalbard protected areas",
       "newsQuery": "Svalbard OR Barents (sea ice OR polar bear OR Arctic OR warming)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "wood-buffalo-boreal",
@@ -359,7 +459,21 @@
       },
       "protectedArea": "Wood Buffalo National Park",
       "newsQuery": "\"Wood Buffalo National Park\" OR \"Peace-Athabasca Delta\" (boreal OR bison OR delta OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": {
+        "efg": "T2.1",
+        "name": "Boreal and temperate high montane forests and woodlands",
+        "realm": null,
+        "biome": null,
+        "realm_code": "T",
+        "biome_code": "T2",
+        "source": "IUCN Global Ecosystem Typology v2.1, profile T2.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+        "justification": "The EFG NAME says 'high montane' but the PROFILE is broader and is the authority: \"In boreal and mountainous cold, seasonally snow-prone climates, acid soils support structurally simple forests made up of needle-leaf conifer trees.\" Distribution: \"Cool regions (boreal zone or mountains...) of the Northern Hemisphere.\" T2.1 is therefore the boreal needle-leaf forest group, and Wood Buffalo's lowland taiga binds to it. PARTIAL BIND, stated: the Peace-Athabasca Delta component is a freshwater wetland complex that this single field does not capture and which is left unbound.",
+        "assigned_by": "human",
+        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+        "assigned_on": "2026-09-12",
+        "partial": "Boreal forest component only. The Peace-Athabasca Delta wetland component is unbound: a single efg field cannot express a two-ecosystem place, and inventing a second code here would be the defect this crosswalk exists to remove."
+      }
     },
     {
       "id": "patagonia-steppe",
@@ -377,7 +491,9 @@
       },
       "protectedArea": "Patagonia National Park",
       "newsQuery": "Patagonia (steppe OR guanaco OR puma OR rewilding)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "sonoran-desert",
@@ -395,7 +511,9 @@
       },
       "protectedArea": "Organ Pipe Cactus / El Pinacate",
       "newsQuery": "\"Sonoran Desert\" (cactus OR water OR border OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "danube-delta",
@@ -413,7 +531,9 @@
       },
       "protectedArea": "Danube Delta Biosphere Reserve",
       "newsQuery": "\"Danube Delta\" (wetland OR bird OR fishing OR conservation)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "bialowieza",
@@ -431,7 +551,9 @@
       },
       "protectedArea": "Białowieża National Park",
       "newsQuery": "Bialowieza (forest OR bison OR logging OR old-growth)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     },
     {
       "id": "antarctic-peninsula",
@@ -448,7 +570,10 @@
       },
       "protectedArea": "CCAMLR marine areas",
       "newsQuery": "Antarctic (krill OR penguin OR ice shelf OR warming)",
-      "hasFieldRecord": false
+      "hasFieldRecord": false,
+      "iucn_get": null,
+      "iucn_get_unbound": "unbuilt"
     }
-  ]
+  ],
+  "_iucn_get_note": "IUCN GET binding is a HAND-AUTHORED CROSSWALK, cited per row (ruling 2026-09-12). The former string-overlap matcher in research/sos_pipeline/sources/iucn_get.py is DELETED, not disabled: two controlled vocabularies that share no terminology cannot be bridged by lexical similarity, and a near-miss is worse than no match because a wrong efg code misdescribes a biome while looking authoritative. A landscape is bound only where a GET profile can be cited that justifies it; every other landscape carries iucn_get: null and a one-word reason in iucn_get_unbound. 'unbuilt' means a registry-only placeholder with no scene, no archive and no visitor-facing surface: binding it is post-gate work and pretending to bind it is the actual defect. realm and biome NAMES are null because they are absent from the source workbook; the realm_code and biome_code are authoritative."
 }
