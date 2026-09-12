@@ -19,8 +19,9 @@ changes.
 
 An earlier framing of this ruling said the globe was retired for being
 "procedurally rendered". **That was wrong and is retracted.** Since V1.3 Part A
-(`848b5e4`) the globe has been NASA Blue Marble Next Generation and Black
-Marble photographic imagery on a custom day/night shader — and
+(**`51c0475`** — pre-rebuild identity `848b5e4`) the globe has been NASA Blue
+Marble Next Generation and Black Marble photographic imagery on a custom
+day/night shader — and
 `.kiro/steering/cinematic-vocabulary.md` line 38 states as doctrine that *"The
 globe is photographed, not rendered."* The shipped globe **satisfied** that
 line. Retiring it for being rendered would have been retiring it for a property
@@ -134,6 +135,25 @@ rows migrated and `hotspotId` **still required**. `dip` is unchanged.
 A retired-but-valid enum value would rot: a later session reading the schema
 would find `globe-hotspot` admissible and bind to a globe that no longer
 exists. The check is renamed, never weakened.
+
+## A note on the SHA cited above
+
+This record originally cited `848b5e4` alone. **That SHA is dead in a fresh
+clone.** The repository's history was rebuilt on 2026-09-11 to remove a leaked
+credential and precise species localities, and every commit was rewritten; the
+live identity of the same commit ("feat(visual): real NASA imagery on the
+globe, night-side framed") is **`51c0475`**.
+
+Both are kept deliberately. The live SHA is what a reader can check out; the
+pre-rebuild SHA is what every record written before 2026-09-11 refers to, and
+an amendment record is the wrong place to lose the thread between them.
+
+**How the error was made, so it is not repeated:** the SHA was read out of
+`PROJECT_STATUS.md`, which is still seeded with pre-rebuild identities. Local
+`git cat-file` does not catch this — lingering unreferenced objects in a
+working clone resolve dead SHAs and report them as live. **Verify against a
+fresh clone.** Confirmed here by cloning the repository afresh (337 commits):
+`848b5e4` fails `cat-file`, `51c0475` resolves to the expected commit.
 
 ## Coordinates
 
