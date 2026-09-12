@@ -19,19 +19,34 @@
       "protectedArea": "Sundarban Tiger Reserve",
       "newsQuery": "Sundarbans (mangrove OR tiger OR cyclone OR embankment)",
       "hasFieldRecord": true,
-      "iucn_get": {
-        "efg": "MFT1.2",
-        "name": "Intertidal forests and shrublands",
-        "realm": null,
-        "biome": null,
-        "realm_code": "MFT",
-        "biome_code": "MFT1",
-        "source": "IUCN Global Ecosystem Typology v2.1, profile MFT1.2 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
-        "justification": "Profile: \"Mangroves create structurally complex and productive ecosystems in the intertidal zone of depositional coasts, around tropical and warm temperate regions.\" Distribution: \"Tropical and warm temperate coastlines with good sediment supply.\" The Sundarbans is a tropical intertidal mangrove forest on a high-sediment delta coast.",
-        "assigned_by": "human",
-        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-        "assigned_on": "2026-09-12"
-      }
+      "iucn_get": [
+        {
+          "efg": "MFT1.2",
+          "name": "Intertidal forests and shrublands",
+          "realm": null,
+          "biome": null,
+          "realm_code": "MFT",
+          "biome_code": "MFT1",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile MFT1.2 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "Profile: \"Mangroves create structurally complex and productive ecosystems in the intertidal zone of depositional coasts, around tropical and warm temperate regions.\" Distribution: \"Tropical and warm temperate coastlines with good sediment supply.\" The Sundarbans is a tropical intertidal mangrove forest on a high-sediment delta coast.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12"
+        },
+        {
+          "efg": "MFT1.1",
+          "name": "Coastal river deltas",
+          "realm": null,
+          "biome": null,
+          "realm_code": "MFT",
+          "biome_code": "MFT1",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile MFT1.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "Profile: \"At the convergence of terrestrial, freshwater and marine realms, coastal river deltas are shaped by river inflows that deposit sediment and ocean tides and currents that disperse it. Gradients of salinity and submergence and dynamic substrates create shifting mosaics of CHANNELS, islands, floodplains, intertidal and subtidal mud plains and sand beds THAT MAY BE REGARDED AS EMBEDDED PATCHES OF OTHER FUNCTIONAL GROUPS.\" Distribution: \"Continental margins of high rainfall catchments globally.\" The Sundarbans is the seaward Ganges-Brahmaputra delta and its tidal channel network is that mosaic. The profile's own closing clause is why this place needs two elements rather than one: MFT1.2 is the mangrove forest embedded in the MFT1.1 delta, and neither describes the place alone.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12"
+        }
+      ]
     },
     {
       "id": "amazon-varzea",
@@ -51,19 +66,21 @@
       "protectedArea": "Mamirauá Reserve",
       "newsQuery": "\"Amazon rainforest\" (deforestation OR fire OR Indigenous)",
       "hasFieldRecord": true,
-      "iucn_get": {
-        "efg": "TF1.1",
-        "name": "Tropical flooded forests and peat forests",
-        "realm": null,
-        "biome": null,
-        "realm_code": "TF",
-        "biome_code": "TF1",
-        "source": "IUCN Global Ecosystem Typology v2.1, profile TF1.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
-        "justification": "Profile: \"These tropical swamps have closed forest canopies... others are highly productive white-water systems, with frequent refilling and turnover of nutrients.\" Distribution: \"Equatorial lowlands of Southeast Asia, South America and Central and West Africa.\" Varzea is specifically the WHITE-WATER seasonally flooded forest of the Amazon, which the profile names; blackwater igapo sits in the same group.",
-        "assigned_by": "human",
-        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-        "assigned_on": "2026-09-12"
-      }
+      "iucn_get": [
+        {
+          "efg": "TF1.1",
+          "name": "Tropical flooded forests and peat forests",
+          "realm": null,
+          "biome": null,
+          "realm_code": "TF",
+          "biome_code": "TF1",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile TF1.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "Profile: \"These tropical swamps have closed forest canopies... others are highly productive white-water systems, with frequent refilling and turnover of nutrients.\" Distribution: \"Equatorial lowlands of Southeast Asia, South America and Central and West Africa.\" Varzea is specifically the WHITE-WATER seasonally flooded forest of the Amazon, which the profile names; blackwater igapo sits in the same group.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12"
+        }
+      ]
     },
     {
       "id": "congo-basin",
@@ -243,19 +260,21 @@
       "protectedArea": "Coral Triangle Initiative",
       "newsQuery": "\"Coral Triangle\" (reef OR fishing OR marine OR conservation)",
       "hasFieldRecord": true,
-      "iucn_get": {
-        "efg": "M1.3",
-        "name": "Photic coral reefs",
-        "realm": null,
-        "biome": null,
-        "realm_code": "M",
-        "biome_code": "M1",
-        "source": "IUCN Global Ecosystem Typology v2.1, profile M1.3 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
-        "justification": "Profile: \"biogenic structures... formed by the calcium carbonate skeletons of certain coral species that depend on symbiotic relationships with algae. They occur in warm, shallow, low-nutrient waters.\" Distribution: \"Warm tropical & subtropical coastal waters.\" The Coral Triangle is the global centre of photic reef diversity.",
-        "assigned_by": "human",
-        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-        "assigned_on": "2026-09-12"
-      }
+      "iucn_get": [
+        {
+          "efg": "M1.3",
+          "name": "Photic coral reefs",
+          "realm": null,
+          "biome": null,
+          "realm_code": "M",
+          "biome_code": "M1",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile M1.3 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "Profile: \"biogenic structures... formed by the calcium carbonate skeletons of certain coral species that depend on symbiotic relationships with algae. They occur in warm, shallow, low-nutrient waters.\" Distribution: \"Warm tropical & subtropical coastal waters.\" The Coral Triangle is the global centre of photic reef diversity.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12"
+        }
+      ]
     },
     {
       "id": "epr-vents",
@@ -272,19 +291,21 @@
       "newsQuery": null,
       "newsQueryAbsent": "news-layer-retired-2026-09-11",
       "hasFieldRecord": true,
-      "iucn_get": {
-        "efg": "M3.7",
-        "name": "Chemosynthetic-based-ecosystems (CBE)",
-        "realm": null,
-        "biome": null,
-        "realm_code": "M",
-        "biome_code": "M3",
-        "source": "IUCN Global Ecosystem Typology v2.1, profile M3.7 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
-        "justification": "The profile names this place's exact type: \"primary productivity is fuelled by chemical compounds as energy sources instead of light (chemoautotrophy)... 1) hydrothermal vents on mid-ocean ridges and volcanically active seamounts, where temperatures may reach 400 degrees C.\" Distribution: \"Hydrothermal vents, cold seeps, large organic falls on the deep seafloor.\" The archive records this place as a mid-ocean-ridge vent field at approx. 2500 m.",
-        "assigned_by": "human",
-        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-        "assigned_on": "2026-09-12"
-      }
+      "iucn_get": [
+        {
+          "efg": "M3.7",
+          "name": "Chemosynthetic-based-ecosystems (CBE)",
+          "realm": null,
+          "biome": null,
+          "realm_code": "M",
+          "biome_code": "M3",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile M3.7 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "The profile names this place's exact type: \"primary productivity is fuelled by chemical compounds as energy sources instead of light (chemoautotrophy)... 1) hydrothermal vents on mid-ocean ridges and volcanically active seamounts, where temperatures may reach 400 degrees C.\" Distribution: \"Hydrothermal vents, cold seeps, large organic falls on the deep seafloor.\" The archive records this place as a mid-ocean-ridge vent field at approx. 2500 m.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12"
+        }
+      ]
     },
     {
       "id": "okavango",
@@ -460,20 +481,22 @@
       "protectedArea": "Wood Buffalo National Park",
       "newsQuery": "\"Wood Buffalo National Park\" OR \"Peace-Athabasca Delta\" (boreal OR bison OR delta OR conservation)",
       "hasFieldRecord": false,
-      "iucn_get": {
-        "efg": "T2.1",
-        "name": "Boreal and temperate high montane forests and woodlands",
-        "realm": null,
-        "biome": null,
-        "realm_code": "T",
-        "biome_code": "T2",
-        "source": "IUCN Global Ecosystem Typology v2.1, profile T2.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
-        "justification": "The EFG NAME says 'high montane' but the PROFILE is broader and is the authority: \"In boreal and mountainous cold, seasonally snow-prone climates, acid soils support structurally simple forests made up of needle-leaf conifer trees.\" Distribution: \"Cool regions (boreal zone or mountains...) of the Northern Hemisphere.\" T2.1 is therefore the boreal needle-leaf forest group, and Wood Buffalo's lowland taiga binds to it. PARTIAL BIND, stated: the Peace-Athabasca Delta component is a freshwater wetland complex that this single field does not capture and which is left unbound.",
-        "assigned_by": "human",
-        "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-        "assigned_on": "2026-09-12",
-        "partial": "Boreal forest component only. The Peace-Athabasca Delta wetland component is unbound: a single efg field cannot express a two-ecosystem place, and inventing a second code here would be the defect this crosswalk exists to remove."
-      }
+      "iucn_get": [
+        {
+          "efg": "T2.1",
+          "name": "Boreal and temperate high montane forests and woodlands",
+          "realm": null,
+          "biome": null,
+          "realm_code": "T",
+          "biome_code": "T2",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile T2.1 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "The EFG NAME says 'high montane' but the PROFILE is broader and is the authority: \"In boreal and mountainous cold, seasonally snow-prone climates, acid soils support structurally simple forests made up of needle-leaf conifer trees.\" Distribution: \"Cool regions (boreal zone or mountains...) of the Northern Hemisphere.\" T2.1 is therefore the boreal needle-leaf forest group, and Wood Buffalo's lowland taiga binds to it. PARTIAL BIND, stated: the Peace-Athabasca Delta component is a freshwater wetland complex that this single field does not capture and which is left unbound.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12"
+        }
+      ],
+      "iucn_get_partial": "EXAMINED, NOT BOUND (2026-09-12). The Peace-Athabasca Delta is one of the world's largest inland freshwater deltas and is a real second ecosystem here, but no GET profile sentence justifies a code for it. TF1.4 Seasonal floodplain marshes fits the PROCESS — \"Seasonal flooding and drying regimes characterise high productivity floodplain marshes\" — but its only distribution sentence reads \"Seasonal tropics and subhumid temperate regions\", which excludes a delta at 59 degrees N. MFT1.1 Coastal river deltas is explicitly COASTAL and the PAD lies far inland. TF1.6 peat bogs and TF1.7 fens are boreal but are peatlands, not a delta. The typology carries no inland-delta group. An honest gap beats a plausible code, so this stays a one-element array."
     },
     {
       "id": "patagonia-steppe",
@@ -575,5 +598,5 @@
       "iucn_get_unbound": "unbuilt"
     }
   ],
-  "_iucn_get_note": "IUCN GET binding is a HAND-AUTHORED CROSSWALK, cited per row (ruling 2026-09-12). The former string-overlap matcher in research/sos_pipeline/sources/iucn_get.py is DELETED, not disabled: two controlled vocabularies that share no terminology cannot be bridged by lexical similarity, and a near-miss is worse than no match because a wrong efg code misdescribes a biome while looking authoritative. A landscape is bound only where a GET profile can be cited that justifies it; every other landscape carries iucn_get: null and a one-word reason in iucn_get_unbound. 'unbuilt' means a registry-only placeholder with no scene, no archive and no visitor-facing surface: binding it is post-gate work and pretending to bind it is the actual defect. realm and biome NAMES are null because they are absent from the source workbook; the realm_code and biome_code are authoritative."
+  "_iucn_get_note": "IUCN GET binding is a HAND-AUTHORED CROSSWALK, cited per element (rulings 2026-09-12). `iucn_get` is an ARRAY: a place can genuinely be more than one Ecosystem Functional Group, and a single field silently drops the second one. EVERY element carries its own full citation and its own quoted profile justification — the array must never become a place to park a guess. The former string-overlap matcher in research/sos_pipeline/sources/iucn_get.py is DELETED, not disabled: two controlled vocabularies that share no terminology cannot be bridged by lexical similarity, and a near miss is worse than no match because a wrong efg code misdescribes a biome while looking authoritative. NULL IS NOT AN EMPTY ARRAY. `iucn_get: null` with a one-word `iucn_get_unbound` reason means NOT EXAMINED — 'unbuilt' is a registry-only placeholder with no scene, no archive and no visitor-facing surface, and binding it is post-gate work. An empty array would claim the place was examined and nothing fitted, which is a different and stronger claim. Where a place WAS examined and a second element was rejected, that is recorded in `iucn_get_partial` with the reasoning. realm and biome NAMES are null because they are absent from the source workbook; realm_code and biome_code are authoritative."
 }

@@ -50,7 +50,7 @@ class IucnGetSource(Source):
     name = "iucn_get"
     tos_posture = "metadata-only-public-api"
     produces_corpus_rows = False
-    field_allowlist = REQUIRED_COLUMNS + ("source", "assigned_by", "match_basis")
+    field_allowlist = REQUIRED_COLUMNS + ("bindings", "binding_count", "source", "assigned_by", "match_basis", "partial")
 
     # --- typology table -------------------------------------------------
 
@@ -123,30 +123,37 @@ class IucnGetSource(Source):
 
         Two controlled vocabularies that share no terminology cannot be bridged
         by string similarity. "Mangrove tidal forest" and "Intertidal forests
-        and shrublands" are the same ecosystem and share no content word;
+        and shrublands" are the SAME ecosystem and share no content word;
         "Tropical savanna grassland" and "Tropical flooded forests" are
-        different ecosystems and share two. The score is therefore uncorrelated
-        with correctness, and the failure mode is silent: a near miss yields a
-        wrong EFG code that misdescribes a biome while carrying the full
-        authority of a controlled identifier. Lowering the threshold admits more
-        wrong codes; raising it just returns fewer. No setting recovers a signal
-        that was never present.
+        DIFFERENT ecosystems and share two. The score is uncorrelated with
+        correctness, and the failure is silent: a near miss yields a wrong EFG
+        code that misdescribes a biome while carrying the full authority of a
+        controlled identifier. Lowering the threshold admits more wrong codes;
+        raising it merely returns fewer.
 
-        The binding now lives in scripts/ingest/landscapes.json as an explicit
-        `iucn_get` object per landscape, each citing the GET profile that
-        justifies it. A landscape that cannot be bound with a citation carries
-        `iucn_get: null` and a one-word reason in `iucn_get_unbound` — that is
-        citation-or-skip applied to taxonomy, and an honest null is the correct
-        output for a registry-only placeholder with no scene and no archive.
+        `iucn_get` IS AN ARRAY, because a place can genuinely be more than one
+        Ecosystem Functional Group and a single field silently drops the second.
+        The Sundarbans is both MFT1.2 (the mangrove forest) and MFT1.1 (the
+        delta mosaic it is embedded in), and the MFT1.1 profile says so itself.
+
+        EVERY ELEMENT IS VALIDATED SEPARATELY and must carry its own citation.
+        An uncited element is refused while its cited siblings are kept, and the
+        refusal is reported — the array must never become a place to park a
+        guess beside a good row and inherit its credibility.
+
+        NULL IS NOT AN EMPTY ARRAY. `iucn_get: null` means NOT EXAMINED, and
+        carries a one-word reason in `iucn_get_unbound`. An empty array would
+        assert that the place was examined and nothing fitted, which is a
+        stronger claim than the registry can support for an unbuilt placeholder.
 
         The typology table remains the authority for EFG code -> name. This
-        method does not consult it: the crosswalk already carries the name that
+        method does not consult it: each element already carries the name that
         was read from it when the row was authored.
         """
         subject = landscape.get("id", "") or landscape.get("name", "")
-        binding = landscape.get("iucn_get")
+        crosswalk = landscape.get("iucn_get")
 
-        if not binding:
+        if crosswalk is None:
             reason = landscape.get("iucn_get_unbound") or "not-in-crosswalk"
             return EnrichmentRecord(
                 source=self.name,
@@ -156,31 +163,75 @@ class IucnGetSource(Source):
                 unresolved=[Unresolved("biome_primary", reason, subject)],
             )
 
-        if not binding.get("source"):
-            # A binding without its citation is precisely what this ruling
-            # removed. Refused rather than trusted.
+        if not isinstance(crosswalk, list):
             return EnrichmentRecord(
                 source=self.name,
                 subject=subject,
                 kind="ecosystem-binding",
                 payload={},
-                unresolved=[Unresolved("biome_primary", "crosswalk-row-has-no-citation", subject)],
+                unresolved=[Unresolved("biome_primary", "crosswalk-not-an-array", subject)],
             )
 
-        self.manifest.count("iucn_get.bound")
+        if not crosswalk:
+            # An empty array is a schema error, not a finding: a place examined
+            # and found to fit nothing would be null with a recorded reason.
+            return EnrichmentRecord(
+                source=self.name,
+                subject=subject,
+                kind="ecosystem-binding",
+                payload={},
+                unresolved=[Unresolved("biome_primary", "crosswalk-array-is-empty", subject)],
+            )
+
+        bindings: list[dict] = []
+        unresolved: list[Unresolved] = []
+        for index, element in enumerate(crosswalk):
+            if not isinstance(element, dict):
+                unresolved.append(Unresolved("biome_primary", "crosswalk-element-not-an-object", f"{subject}[{index}]"))
+                continue
+            code = element.get("efg", "")
+            if not code:
+                unresolved.append(Unresolved("biome_primary", "crosswalk-element-has-no-efg", f"{subject}[{index}]"))
+                continue
+            # Per-element citation gate. An element without its source, or
+            # without the quoted profile text that justifies it, is exactly what
+            # this ruling removed and is refused on its own terms.
+            if not element.get("source"):
+                unresolved.append(Unresolved("biome_primary", "crosswalk-element-has-no-citation", f"{subject}[{index}] {code}"))
+                continue
+            if not element.get("justification"):
+                unresolved.append(Unresolved("biome_primary", "crosswalk-element-has-no-justification", f"{subject}[{index}] {code}"))
+                continue
+            bindings.append({
+                "efg_code": code,
+                "efg_name": element.get("name", ""),
+                "realm_code": element.get("realm_code", ""),
+                "realm_name": element.get("realm") or "",
+                "biome_code": element.get("biome_code", ""),
+                "biome_name": element.get("biome") or "",
+                "source": element.get("source", ""),
+                "assigned_by": element.get("assigned_by", ""),
+            })
+            self.manifest.count("iucn_get.bound")
+
+        # A place whose examined-and-rejected second ecosystem was recorded says
+        # so, so a later reader does not repeat the search.
+        partial = landscape.get("iucn_get_partial")
+
+        payload: dict = {}
+        if bindings:
+            payload = {
+                "bindings": bindings,
+                "binding_count": len(bindings),
+                "match_basis": "hand-authored-crosswalk-cited-per-element",
+            }
+            if partial:
+                payload["partial"] = partial
+
         return EnrichmentRecord(
             source=self.name,
             subject=subject,
             kind="ecosystem-binding",
-            payload={
-                "efg_code": binding.get("efg", ""),
-                "efg_name": binding.get("name", ""),
-                "realm_code": binding.get("realm_code", ""),
-                "realm_name": binding.get("realm") or "",
-                "biome_code": binding.get("biome_code", ""),
-                "biome_name": binding.get("biome") or "",
-                "source": binding.get("source", ""),
-                "assigned_by": binding.get("assigned_by", ""),
-                "match_basis": "hand-authored-crosswalk-cited-per-row",
-            },
+            payload=payload,
+            unresolved=unresolved,
         )
