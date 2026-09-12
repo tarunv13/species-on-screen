@@ -63,7 +63,7 @@ The Atlas is purely additive. To remove it entirely:
 3. delete this steering file
 
 Nothing else imports the Atlas. The cinematic homepage (`index.html`,
-`src/main.js`, `src/globe.js`), the canonical descent
+`src/main.js`, `src/entrance-map.js`), the canonical descent
 (`places/sundarbans.html`, `src/places/`), the research notes
 (`notes/`, `src/notes/`), and the narrative registry are unchanged by
 its presence.

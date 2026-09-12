@@ -95,9 +95,19 @@ A Descent has four obligatory phases:
 
 1. **Departure** — globe UI recedes; floating cards dissolve; the camera
    begins to lean toward the chosen point.
-2. **Approach** — the camera arcs in along the surface normal of the
-   selected hotspot; the globe occupies more of the frame; rotation
-   slows; world inertia is zeroed.
+2. **Approach** — the arc approaches the hotspot along the axis from the
+   held view to the place, never cutting; the entrance occupies more of
+   the frame; motion slows; world inertia is zeroed.
+   [Amended 2026-09-12. "Along the surface normal" was sphere geometry and
+   a map has no surface normal, so the mechanism is rebound to the view
+   axis. The principle is unchanged: the approach is CONTINUOUS, DIRECTED
+   AT THE PLACE, and never a jump cut. What the surface normal additionally
+   guaranteed — that the camera arrives perpendicular to the ground, so the
+   place is faced rather than swung past — is preserved on the entrance map
+   BY PITCH REMAINING 0 (`dragRotate` and `pitchWithRotate` are both false
+   and pitch is never set). If pitch is ever introduced to the entrance,
+   this provision must be revisited, because that guarantee would then stop
+   being structural and become a setting. See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md]
 3. **Crossing** — the planetary frame fades. The local frame fades in
    underneath. The horizon line of the safari scene becomes the new
    ground plane. This is the only sanctioned cut in the experience and

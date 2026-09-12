@@ -8,8 +8,8 @@
 ## Decision
 
 **The globe is retired from the entrance. First contact becomes a real map of
-the five built and registered places, at their real coordinates, held in
-darkness.**
+the places that can be entered, at their real coordinates, held in darkness.**
+(Three at the time of writing; see the section on why that number is correct.)
 
 This is an **amendment, not a deletion**. Article VI (held darkness) and the
 approach beat are preserved unchanged. Only the *subject* of first contact
@@ -66,6 +66,37 @@ That arc is preserved at exactly 2.0s. MapLibre expresses it natively with
 `flyTo` at matched duration and easing. **What changed is only what the camera
 arcs toward:** a hotspot on a map rather than a hotspot on a sphere. Sundarbans
 does **not** become a `dip`, and no beat is retimed.
+
+## The entrance plots places that can be ENTERED, not places that are registered
+
+**Ratified 2026-09-12. Three places is the correct number, not a shortfall.**
+
+This record's own Decision line says "the five built and registered places".
+That was the instruction; the implementation found it could not be satisfied,
+and the finding is ratified rather than worked around.
+
+- `sundarbans`, `coral-triangle`, `epr-vents` — plotted. Each has a place page
+  to enter.
+- `amazon-varzea` — has an archive and an atlas record but **no cinematic
+  surface**. `check-grammar` refused the attempt to reach it: *"[cross-depth
+  navigation string] src/main.js"*. Reaching it from the entrance means a
+  cinematic surface carrying an `atlas/` or `notes/` link, which is the
+  affordance sink D3 forbids. The curated captions in `index.html` carry such
+  hrefs only because that file is deliberately exempt — its anchors are no-JS
+  fallbacks the runtime intercepts. Generated pins have no such exemption and
+  must not acquire one. **The gate was not weakened to pass.**
+- `wood-buffalo-boreal` — registry-only: no archive, no atlas, no page, no
+  note. A pin for it would lead nowhere.
+
+**The rule, stated so it generalises:** the entrance plots places that can be
+entered, not places that are registered. A pin to a destination that does not
+exist is the same defect as an `iucn_get: []` on an unexamined landscape — a
+promise the project cannot keep — only smaller and more visible. Both places
+appear here the moment they have a surface, and not before.
+
+This also means the entrance's count is a *consequence* of what is built, never
+a target. If a later session finds the entrance showing fewer places than the
+registry holds, that is the mechanism working.
 
 ## Four doctrine provisions rebound
 
