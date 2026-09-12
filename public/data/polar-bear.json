@@ -266,7 +266,10 @@
   ],
   "safari_scene": {
     "biome_type": "Arctic",
-    "sky_gradient": ["#1a2a3a", "#4a6a8a"],
+    "sky_gradient": [
+      "#1a2a3a",
+      "#4a6a8a"
+    ],
     "silhouette_color": "#2a3a4a",
     "mid_color": "#5a7a9a",
     "foreground_color": "#3a5a7a",
@@ -338,7 +341,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 10
+      "vote_average": 10,
+      "tmdb_kind": "movie",
+      "tmdb_id": "820650"
     },
     {
       "title": "Polar Bear Country",
@@ -355,7 +360,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1432881"
     },
     {
       "title": "Polar Bear",
@@ -373,7 +380,9 @@
         99,
         10751
       ],
-      "vote_average": 7.211
+      "vote_average": 7.211,
+      "tmdb_kind": "movie",
+      "tmdb_id": "927070"
     },
     {
       "title": "Polar Bear Summer",
@@ -391,7 +400,9 @@
         99,
         10770
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "944819"
     },
     {
       "title": "Polar Bears: Ice Bear",
@@ -408,7 +419,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 6.5
+      "vote_average": 6.5,
+      "tmdb_kind": "movie",
+      "tmdb_id": "252638"
     },
     {
       "title": "Polar Bear",
@@ -425,7 +438,9 @@
       "genre_ids": [
         18
       ],
-      "vote_average": 9
+      "vote_average": 9,
+      "tmdb_kind": "movie",
+      "tmdb_id": "454000"
     },
     {
       "title": "Alaska Polar Bear",
@@ -442,7 +457,9 @@
       "genre_ids": [
         18
       ],
-      "vote_average": 5
+      "vote_average": 5,
+      "tmdb_kind": "movie",
+      "tmdb_id": "773559"
     },
     {
       "title": "Polar Bear",
@@ -459,7 +476,9 @@
       "genre_ids": [
         16
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1217515"
     },
     {
       "title": "The Little Polar Bear",
@@ -478,7 +497,9 @@
         10751,
         14
       ],
-      "vote_average": 6.194
+      "vote_average": 6.194,
+      "tmdb_kind": "movie",
+      "tmdb_id": "9084"
     },
     {
       "title": "Little Polar Bear",
@@ -496,7 +517,9 @@
         16,
         10751
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1157977"
     },
     {
       "title": "The Polar Bear",
@@ -511,7 +534,9 @@
       "relevance_score": 40,
       "query_source": "Polar Bear",
       "genre_ids": [],
-      "vote_average": 9
+      "vote_average": 9,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1471509"
     }
   ]
 }

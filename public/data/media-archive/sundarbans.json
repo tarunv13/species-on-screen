@@ -1,7 +1,7 @@
 {
   "_comment": "Media archive for the Sundarbans taxa. Every record passed scripts/media-citation-bar.mjs. Relevance is a NAME MATCH on the item title (see matched_on), not editorial curation — these are candidate depictions, and the rendered surface says so.",
   "place": "sundarbans",
-  "generated": "2026-09-12T05:57:58.895Z",
+  "generated": "2026-09-12T06:15:18.348Z",
   "sources_skipped": [
     "games — IGDB needs Twitch OAuth (IGDB_CLIENT_ID/SECRET unset); Steam has no topical search",
     "illegal wildlife trade — CITES Species+ returns 401 without a token (none held). Appendix listings are NOT written from memory: a guessed appendix is the Bates et al. 2005 error with higher stakes.",
@@ -112,120 +112,220 @@
       "class": "film",
       "title": "Mud Crab",
       "taxon": "Scylla serrata",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "990762"
+      },
+      "year": 2022,
       "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
     },
     {
       "class": "film",
       "title": "Bengal Tiger",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "371921"
+      },
+      "year": 1936,
       "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
     },
     {
       "class": "film",
       "title": "Bengal Tiger",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "363152"
+      },
+      "year": 2015,
       "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
     },
     {
       "class": "film",
       "title": "Bengal tiger",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "571294"
+      },
+      "year": 2001,
       "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
     },
     {
       "class": "film",
       "title": "The Royal Bengal Tiger",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "262918"
+      },
+      "year": 2014,
       "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
     },
     {
       "class": "film",
       "title": "Discovery :A Bengal Tiger's Motherly Love",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "1564047"
+      },
+      "year": 2008,
       "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
     },
     {
       "class": "zoonosis",
       "title": "Predicting multi-enzyme inhibition in the arachidonic acid metabolic network by Heritiera fomes extracts",
       "taxon": "Heritiera fomes",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "33283657"
+      },
+      "year": 2022,
       "reason": "RELEVANCE_NOT_ESTABLISHED:no_disease_term_in_title"
     },
     {
       "class": "zoonosis",
       "title": "Hepatitis E Virus Exposure Across Multiple Host Species in a Shared Ecosystem in Argentina",
       "taxon": "Axis axis",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "41745973"
+      },
+      "year": 2026,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "zoonosis",
       "title": "Tuberculosis caused by Mycobacterium orygis in wild ungulates in Chennai, South India",
       "taxon": "Axis axis",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "35678472"
+      },
+      "year": 2022,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "zoonosis",
       "title": "High Seroprevalence of SARS-CoV-2 in White-Tailed Deer (Odocoileus virginianus) at One of Three Captive Cervid Facilities in Texas",
       "taxon": "Axis axis",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "35319276"
+      },
+      "year": 2022,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "zoonosis",
       "title": "Zoonotic diseases appeared to be a major hurdle to successful deer farming in Bangladesh",
       "taxon": "Axis axis",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "34840467"
+      },
+      "year": 2021,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "zoonosis",
       "title": "Evaluation of haemoparasite and Sarcocystis infections in Australian wild deer",
       "taxon": "Axis axis",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "34277336"
+      },
+      "year": 2021,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "zoonosis",
       "title": "Development of a management program for a mixed species wildlife park following an occurrence of malignant catarrhal fever",
       "taxon": "Axis axis",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "18817000"
+      },
+      "year": 2008,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "zoonosis",
       "title": "First draft genome assembly and identification of SNPs from hilsa shad ( Tenualosa ilisha) of the Bay of Bengal",
       "taxon": "Tenualosa ilisha",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "31602298"
+      },
+      "year": 2019,
       "reason": "RELEVANCE_NOT_ESTABLISHED:no_disease_term_in_title"
     },
     {
       "class": "zoonosis",
       "title": "The first molecular identification and phylogenetic analysis of tick-borne pathogens in captive wild animals from Lohi Bher zoo, Pakistan",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "36114837"
+      },
+      "year": 2022,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "film",
       "title": "The Conservation Game",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "833064"
+      },
+      "year": 2021,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "film",
       "title": "Tiger",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "1259918"
+      },
+      "year": 2024,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "film",
       "title": "Tiger Cruise",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "51909"
+      },
+      "year": 2004,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "film",
       "title": "The Tiger Rising",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "793269"
+      },
+      "year": 2022,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     },
     {
       "class": "film",
       "title": "Tiger",
       "taxon": "Panthera tigris tigris",
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "1463564"
+      },
+      "year": 2025,
       "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
     }
   ]

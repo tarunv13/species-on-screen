@@ -124,6 +124,7 @@ async function tmdbFor(t, names, refusedSink) {
     const overview = String(r.overview || '');
     if (!matchedOn(overview, [on])) {
       refusedSink.push({ class: r.media_type === 'tv' ? 'series' : 'film', title, taxon: t.sci,
+        identifier: { scheme: 'tmdb', value: String(r.id) }, year: date ? Number(date.slice(0, 4)) : null,
         reason: 'RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis' });
       continue;
     }
@@ -241,14 +242,18 @@ function dossierFor(t, names) {
       REL_REFUSED.push({ class: 'film', title, taxon: t.sci, reason: 'REFUSED_BARE_URL' });
       continue;
     }
+    // A refusal carries the identifier it WOULD have used. The curator needs it
+    // to admit the record by hand, and a worklist that says "go find the id
+    // again" wastes the scarcest resource in this project.
+    const ident = { scheme: 'tmdb', value: String(id) };
     const on = matchedOn(title, names);
     if (!on) {
-      REL_REFUSED.push({ class: 'film', title, taxon: t.sci,
+      REL_REFUSED.push({ class: 'film', title, taxon: t.sci, identifier: ident, year: m.year || null,
         reason: 'RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title' });
       continue;
     }
     if (!matchedOn(String(m.overview || ''), [on])) {
-      REL_REFUSED.push({ class: 'film', title, taxon: t.sci,
+      REL_REFUSED.push({ class: 'film', title, taxon: t.sci, identifier: ident, year: m.year || null,
         reason: 'RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis' });
       continue;
     }
@@ -316,11 +321,13 @@ async function pubmedFor(t) {
     const title = String(a.title).replace(/\.$/, '');
     if (!matchedOn(title, [t.sci])) {
       REL_REFUSED.push({ class: 'zoonosis', title, taxon: t.sci,
+        identifier: { scheme: 'pmid', value: String(id) }, year: a.pubdate ? Number(String(a.pubdate).slice(0, 4)) : null,
         reason: 'RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title' });
       continue;
     }
     if (!DISEASE_TERM.test(title)) {
       REL_REFUSED.push({ class: 'zoonosis', title, taxon: t.sci,
+        identifier: { scheme: 'pmid', value: String(id) }, year: a.pubdate ? Number(String(a.pubdate).slice(0, 4)) : null,
         reason: 'RELEVANCE_NOT_ESTABLISHED:no_disease_term_in_title' });
       continue;
     }

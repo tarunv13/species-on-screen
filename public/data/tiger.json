@@ -280,7 +280,10 @@
   ],
   "safari_scene": {
     "biome_type": "Tropical Forest",
-    "sky_gradient": ["#0a1e0a", "#1a4a2e"],
+    "sky_gradient": [
+      "#0a1e0a",
+      "#1a4a2e"
+    ],
     "silhouette_color": "#0d2b0d",
     "mid_color": "#1a5c2e",
     "foreground_color": "#0f3a14",
@@ -352,7 +355,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 5.667
+      "vote_average": 5.667,
+      "tmdb_kind": "movie",
+      "tmdb_id": "833064"
     },
     {
       "title": "Tiger",
@@ -370,7 +375,9 @@
         99,
         10751
       ],
-      "vote_average": 8
+      "vote_average": 8,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1259918"
     },
     {
       "title": "Tiger Cruise",
@@ -389,7 +396,9 @@
         10751,
         18
       ],
-      "vote_average": 6
+      "vote_average": 6,
+      "tmdb_kind": "movie",
+      "tmdb_id": "51909"
     },
     {
       "title": "The Tiger Rising",
@@ -408,7 +417,9 @@
         10751,
         18
       ],
-      "vote_average": 5.5
+      "vote_average": 5.5,
+      "tmdb_kind": "movie",
+      "tmdb_id": "793269"
     },
     {
       "title": "Tiger",
@@ -425,7 +436,9 @@
       "genre_ids": [
         18
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1463564"
     }
   ]
 }

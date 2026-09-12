@@ -272,7 +272,10 @@
   ],
   "safari_scene": {
     "biome_type": "Savanna",
-    "sky_gradient": ["#1a1008", "#4a3a1a"],
+    "sky_gradient": [
+      "#1a1008",
+      "#4a3a1a"
+    ],
     "silhouette_color": "#2a1a08",
     "mid_color": "#5c4a1a",
     "foreground_color": "#3a2a0a",
@@ -344,7 +347,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 9
+      "vote_average": 9,
+      "tmdb_kind": "movie",
+      "tmdb_id": "277360"
     }
   ]
 }

@@ -131,7 +131,7 @@ export function screen(records) {
   for (const r of records || []) {
     const v = admit(r);
     if (v.ok) admitted.push(r);
-    else refused.push({ reason: v.reason, title: (r && r.title) || '(untitled)', taxon: (r && r.taxon) || '', class: (r && r.class) || '' });
+    else refused.push({ reason: v.reason, title: (r && r.title) || '(untitled)', taxon: (r && r.taxon) || '', class: (r && r.class) || '', identifier: (r && r.identifier) || null, year: (r && r.year) || null });
   }
   return { admitted, refused };
 }

@@ -262,7 +262,10 @@
   ],
   "safari_scene": {
     "biome_type": "Temperate Forest",
-    "sky_gradient": ["#0a1a0a", "#2a5a3a"],
+    "sky_gradient": [
+      "#0a1a0a",
+      "#2a5a3a"
+    ],
     "silhouette_color": "#0d280d",
     "mid_color": "#2a6a3a",
     "foreground_color": "#1a4a2a",
@@ -334,7 +337,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 8
+      "vote_average": 8,
+      "tmdb_kind": "movie",
+      "tmdb_id": "724373"
     },
     {
       "title": "The Giant Panda",
@@ -351,7 +356,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "603631"
     },
     {
       "title": "Four Seasons in the giant Panda’s kingdom",
@@ -368,7 +375,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 10
+      "vote_average": 10,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1391107"
     },
     {
       "title": "Giant Pandas: The Last Refuge",
@@ -385,7 +394,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "395022"
     }
   ]
 }

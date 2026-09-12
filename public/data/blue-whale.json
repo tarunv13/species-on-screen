@@ -269,7 +269,10 @@
   ],
   "safari_scene": {
     "biome_type": "Ocean",
-    "sky_gradient": ["#0a1628", "#1a3a5c"],
+    "sky_gradient": [
+      "#0a1628",
+      "#1a3a5c"
+    ],
     "silhouette_color": "#0a2040",
     "mid_color": "#1a4a6e",
     "foreground_color": "#0a3050",
@@ -341,7 +344,9 @@
       "genre_ids": [
         99
       ],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "1147747"
     },
     {
       "title": "Kingdom of the Blue Whale",
@@ -359,7 +364,9 @@
         99,
         10770
       ],
-      "vote_average": 6.6
+      "vote_average": 6.6,
+      "tmdb_kind": "movie",
+      "tmdb_id": "22109"
     },
     {
       "title": "ASHA DE VOS ON STUDYING BLUE WHALES",
@@ -374,7 +381,9 @@
       "relevance_score": 45,
       "query_source": "Blue Whale",
       "genre_ids": [],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "787676"
     },
     {
       "title": "National Geographic Blue Whale Odyssey",
@@ -389,7 +398,9 @@
       "relevance_score": 40,
       "query_source": "Blue Whale",
       "genre_ids": [],
-      "vote_average": 0
+      "vote_average": 0,
+      "tmdb_kind": "movie",
+      "tmdb_id": "978312"
     }
   ]
 }
