@@ -75,8 +75,8 @@ let ACTORS = {};      // id -> actor
 let RELS = [];        // {from,to,type,roid,according,remarks,season}
 let actorList = [];
 let REFERENCES = null; // structured bibliography from references.json (or null)
-let ONSCREEN = null;   // tmdb_media from the species dossier (or null)
 let PRESSURES = null;  // {conservation, threats, assessmentSource} from the dossier (or null)
+let MEDIA = null;      // the V1.6 media archive for this place (or null)
 
 /* Which species dossier carries this place's screen record. Local map in the
    PLACE_META idiom rather than a Place Manifest field: the manifest is
@@ -108,10 +108,12 @@ async function loadDwc() {
       : Promise.resolve(null),
   ]);
   REFERENCES = refsJson && Array.isArray(refsJson.references) ? refsJson.references : null;
-  ONSCREEN = dossier && Array.isArray(dossier.tmdb_media) && dossier.tmdb_media.length
-    ? dossier.tmdb_media
-    : null;
   PRESSURES = readPressures(dossier);
+  // V1.6 media archive for this place. Absent -> the section renders nothing.
+  try {
+    const ma = await fetch(BASE + 'data/media-archive/' + PLACE + '.json').then((r) => (r.ok ? r.json() : null));
+    MEDIA = ma && Array.isArray(ma.records) && ma.records.length ? ma : null;
+  } catch (e) { MEDIA = null; }
   parseTSV(occT).forEach((row) => {
     let dyn = {};
     try { dyn = JSON.parse(row.dynamicProperties); } catch (e) { dyn = {}; }
@@ -823,85 +825,105 @@ function renderPressures() {
     ${threatBlock}`;
 }
 
-/* The screen record. Ten species dossiers in public/data/ carry a real
-   tmdb_media array; until now the only consumer counted it and discarded the
-   count. This renders it in the RESEARCH register: plain rows, no posters, no
-   cards, no ratings, no marketing copy.
-   Citation-or-skip: a place with no dossier, or a dossier with no tmdb_media,
-   renders nothing at all — no "no films found" placeholder. */
-function renderOnScreen() {
-  if (!ONSCREEN) return '';
-  const rows = ONSCREEN
-    .slice()
-    .sort((a, b) => (a.year || 0) - (b.year || 0))
-    .map((m) => `<tr>
-        <td class="fr-screen-year">${escapeHtml(String(m.year || ''))}</td>
-        <td class="fr-screen-title">${escapeHtml(m.title || '')}</td>
-        <td class="fr-screen-kind">${escapeHtml(m.classification || '')}</td>
-      </tr>`).join('');
-  return `
-    <h2>On screen</h2>
-    <p class="fr-screen-note">Titles in which this species appears, ordered by year. These are <em>depictions</em> — a record of how the animal has been filmed. They are not evidence about the animal, and nothing here sources the interaction web above.</p>
-    <table class="fr-screen">${rows}</table>
-    <p class="fr-screen-attr">Film metadata from <a href="https://www.themoviedb.org/">TMDB</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>`;
+/* ---------- The media archive (V1.6) ----------
+
+   How these taxa appear in human visual culture, and in the literature that
+   records them. This supersedes the earlier "On screen" section, which listed
+   the species dossier's tmdb_media unfiltered — those records carried a bare
+   tmdb_url and no identifier, and every one of them is refused by the citation
+   bar that now governs this section. Previously-shipped content is not
+   grandfathered; a bar that cannot reject what is already on the site is not a
+   bar.
+
+   THE BAR: a record enters only with a stable, re-pullable identifier
+   (scripts/media-citation-bar.mjs, unit-tested). No identifier, no row. A URL
+   is a location, not an identifier: it rots, and an accession number does not.
+
+   THE REGISTER, STATED ON THE PAGE: these are depictions and records ABOUT the
+   species. They are not evidence about the animal's biology and they do not
+   source the interaction web above.
+
+   NO ENGAGEMENT SURFACE. No posters, no thumbnails, no cards, no ratings, no
+   vote counts, no view counts, no ranking. TMDB hands us poster_path,
+   vote_average and relevance_score on every record and none of them is
+   rendered — a rating is an engagement signal, and this archive has no opinion
+   about whether a depiction is good. Canon XIV: no scoring, no progress state.
+
+   Empty class renders nothing — no "none found" placeholder. */
+
+const MEDIA_CLASS_LABEL = {
+  film: 'Film', series: 'Series', documentary: 'Documentary',
+  video: 'Video', game: 'Game', artwork: 'Artwork',
+  illustration: 'Scientific illustration',
+  trade_listing: 'Trade listing',
+  zoonosis: 'Disease literature',
+};
+const MEDIA_CLASS_ORDER = ['film', 'series', 'documentary', 'video', 'game', 'artwork', 'illustration', 'trade_listing', 'zoonosis'];
+
+/* An identifier renders as a link only where a canonical resolver exists.
+   Where none does — a museum accession number, a CITES appendix — the
+   identifier is shown as text, because inventing a lookup URL would be the
+   bare-URL failure in reverse. */
+function mediaIdentifier(rec) {
+  const scheme = (rec.identifier || {}).scheme || '';
+  const value = (rec.identifier || {}).value || '';
+  const v = escapeHtml(String(value));
+  const chip = (href) => (href
+    ? `<a class="fr-ma-id" href="${href}" target="_blank" rel="noopener noreferrer"><code>${escapeHtml(scheme)}:${v}</code></a>`
+    : `<span class="fr-ma-id"><code>${escapeHtml(scheme)}:${v}</code></span>`);
+  if (scheme === 'tmdb') return chip(`https://www.themoviedb.org/movie/${v}`);
+  if (scheme === 'imdb') return chip(`https://www.imdb.com/title/${v}/`);
+  if (scheme === 'pmid') return chip(`https://pubmed.ncbi.nlm.nih.gov/${v}/`);
+  if (scheme === 'doi') return chip(`https://doi.org/${v}`);
+  if (scheme === 'steam_appid') return chip(`https://store.steampowered.com/app/${v}/`);
+  if (scheme === 'platform_id' && rec.platform === 'YouTube') return chip(`https://www.youtube.com/watch?v=${v}`);
+  return chip(null);
 }
 
-/* ---------- The external security assessment (research register ONLY) ----------
+function mediaContext(rec) {
+  const bits = [];
+  if (rec.director) bits.push(escapeHtml(rec.director));
+  if (rec.creator) bits.push(escapeHtml(rec.creator));
+  if (rec.institution) bits.push(escapeHtml(rec.institution));
+  if (rec.journal) bits.push(`<em>${escapeHtml(rec.journal)}</em>`);
+  if (rec.channel) bits.push(escapeHtml(rec.channel));
+  if (rec.platform && rec.class === 'video') bits.push(escapeHtml(rec.platform));
+  return bits.join(' &middot; ');
+}
 
-   One attested line per place, recording that an outside national-security
-   assessment names this ecosystem type among six it treats as critical.
+function renderMediaArchive() {
+  if (!MEDIA) return '';
+  const byClass = {};
+  for (const r of MEDIA.records) (byClass[r.class] = byClass[r.class] || []).push(r);
 
-   THE FRAME IS STATED, NOT ASSUMED. That assessment values an ecosystem partly
-   by what its collapse would mean for one nation's food and water security.
-   That is a legitimate frame and it is not this project's, so the line says so
-   in its own voice — the same discipline by which the evidence ledger states
-   REACH rather than truth. Nothing here is ranked, scored, or dated.
+  const blocks = MEDIA_CLASS_ORDER.filter((c) => byClass[c] && byClass[c].length).map((c) => {
+    const rows = byClass[c]
+      .slice()
+      .sort((a, b) => (a.year || 0) - (b.year || 0) || String(a.title).localeCompare(String(b.title)))
+      .map((r) => `<tr>
+          <td class="fr-ma-year">${escapeHtml(String(r.year || ''))}</td>
+          <td class="fr-ma-title">${escapeHtml(r.title || '')}
+            <span class="fr-ma-ctx">${mediaContext(r)}</span></td>
+          <td class="fr-ma-taxon"><em>${escapeHtml(r.taxon || '')}</em></td>
+          <td class="fr-ma-ident">${mediaIdentifier(r)}</td>
+        </tr>`).join('');
+    return `<h3 class="fr-pr-sub">${escapeHtml(MEDIA_CLASS_LABEL[c] || c)}</h3>
+      <table class="fr-ma">${rows}</table>`;
+  }).join('');
 
-   NO COLLAPSE-DATE LANGUAGE. The source does carry onset dates. They are not
-   rendered: a date on a visitor-facing surface reads as a countdown, and a
-   countdown is the urgency register this project does not use.
+  if (!blocks) return '';
 
-   CITATION-OR-SKIP, AND IT BITES HERE. The assessment delimits its mangrove
-   and coral-reef regions to SOUTH EAST ASIA and never mentions the Sundarbans,
-   Bangladesh, or India. The Sundarbans is SOUTH Asia. Its line therefore
-   carries that limit in the sentence itself rather than quietly borrowing a
-   naming that does not reach it — the difference between what the source says
-   and what we would like it to say. A place the assessment does not reach at
-   all (East Pacific Rise) renders nothing.
+  const sources = [...new Set(MEDIA.records.map((r) => r.source).filter(Boolean))]
+    .map((x) => escapeHtml(x)).join('; ');
+  const refused = Array.isArray(MEDIA.refused) ? MEDIA.refused.length : 0;
+  const skipped = Array.isArray(MEDIA.sources_skipped) ? MEDIA.sources_skipped.length : 0;
 
-   CINEMATIC SURFACES NEVER SEE THIS. It lives in the atlas field record,
-   beneath the pressures block. */
-
-const ASSESSMENT_CITATION =
-  'Department for Environment, Food &amp; Rural Affairs (2026). '
-  + '<em>Nature security assessment on global biodiversity loss, ecosystem collapse and national security</em>. '
-  + 'HM Government, updated 2 February 2026. '
-  + '<a href="https://www.gov.uk/government/publications/nature-security-assessment-on-global-biodiversity-loss-ecosystem-collapse-and-national-security">gov.uk</a>';
-
-/* How far the assessment's naming reaches for each place. Absent = renders
-   nothing. Written out per place rather than derived, because the reach
-   differs per place and a rule that smoothed the difference would be the bug. */
-const ASSESSMENT_REACH = {
-  'sundarbans':
-    'An external national-security assessment names <strong>mangrove forest</strong> among six ecosystem regions it treats as critical. '
-    + 'It delimits that region to <strong>South East Asia</strong>, and it does not mention the Sundarbans, Bangladesh or India anywhere. '
-    + 'The Sundarbans is South Asia, so the naming reaches the ecosystem <em>type</em> here and no further — it is not a statement about this place.',
-  'coral-triangle':
-    'An external national-security assessment names <strong>South East Asia&rsquo;s coral reefs</strong> among six ecosystem regions it treats as critical. '
-    + 'The Coral Triangle lies inside that delimitation, so the naming reaches this place as well as the type.',
-  'amazon-varzea':
-    'An external national-security assessment names the <strong>Amazon rainforest</strong> among six ecosystem regions it treats as critical. '
-    + 'This seasonally flooded forest lies within it; the assessment does not treat the v&aacute;rzea separately, so the naming reaches the forest as a whole rather than this floodplain in particular.',
-};
-
-function renderAssessment() {
-  const line = ASSESSMENT_REACH[PLACE];
-  if (!line) return '';
   return `
-    <h3 class="fr-pr-sub">Named in an external assessment</h3>
-    <p class="fr-assess">${line}</p>
-    <p class="fr-assess-frame">That assessment is one government&rsquo;s, and it values an ecosystem partly by what its collapse would mean for that nation&rsquo;s food and water security. That is a legitimate frame and it is not this one: nothing on this surface is ranked by consequence for anybody. It is recorded because an outside reading corroborates that this place is worth attending to, not because it measures how much.</p>
-    <p class="fr-assess-cite">${ASSESSMENT_CITATION}</p>`;
+    <h2 class="fr-ma-h2">The media archive</h2>
+    <p class="fr-ma-note">How these species appear in human visual culture, and in the literature that records them. These are <em>depictions and records about the species</em> &mdash; they are not evidence about the animal&rsquo;s biology, and nothing here sources the interaction web above.</p>
+    <p class="fr-ma-note">Every row carries a <strong>stable, re-pullable identifier</strong>. A record without one does not enter the archive, and a bare link does not count as one: a URL names a location and rots, where an accession number names the thing. Relevance is a stated mechanical rule &mdash; the taxon&rsquo;s name must appear in the item&rsquo;s own title, and for a film in its synopsis as well &mdash; rather than editorial curation, so this list is deliberately narrow and certainly incomplete. <strong>${refused} candidate${refused === 1 ? '' : 's'} ${refused === 1 ? 'was' : 'were'} refused</strong> on those grounds in the last build, including every film this section previously listed. ${skipped} source${skipped === 1 ? '' : 's'} could not be queried at all; the classes they would fill are absent rather than empty.</p>
+    ${blocks}
+    <p class="fr-ma-attr">Sources: ${sources}. Film and series metadata from <a href="https://www.themoviedb.org/">TMDB</a>; this product uses the TMDB API but is not endorsed or certified by TMDB. Collection records from <a href="https://www.metmuseum.org/">The Metropolitan Museum of Art</a>. Literature via <a href="https://pubmed.ncbi.nlm.nih.gov/">PubMed</a>, NCBI E-utilities.</p>`;
 }
 
 function buildSources() {
@@ -917,7 +939,7 @@ function buildSources() {
     ${buildInteractionWeb()}
     ${renderPressures()}
     ${renderAssessment()}
-    ${renderOnScreen()}
+    ${renderMediaArchive()}
     <h2>Sources</h2>
     ${renderSources()}
     <h2>Darwin Core mapping</h2>

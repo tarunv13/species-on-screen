@@ -463,69 +463,57 @@ a { color: var(--fr-accent); }
 .fr-assess-frame { font-style: italic; }
 .fr-assess-cite { margin-bottom: var(--fr-space-section); }
 
-/* ===== ON SCREEN (V1.4 — the titular gap) =====
- * The screen record for this place's species. Research register only; this
- * block is never reachable from a cinematic surface.
- *
- * TOKEN SCOPE — RESOLVED 2026-09-10. This note previously recorded that the
- * V1.4 tokens live in src/style.css, which the atlas pages do NOT load, and
- * that the values below were therefore written literally and annotated by
- * hand. The ruling scoped that file to the homepage and withdrew its
- * cross-surface claim, so the two scopes are NOT unified: each surface names
- * its own measures in its own sheet. Those annotated literals are now real
- * declarations in the --fr-* block at the top of this file. Do not add an
- * import of src/style.css here — the bundle separation is load-bearing. */
-.fr-screen {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 0 1rem;
-  font-family: var(--fr-sans);
-  font-size: 0.92rem;
-}
-
-.fr-screen td {
-  padding: 0.55rem 0;
-  border-bottom: 1px solid var(--fr-line);
-  vertical-align: baseline;
-}
-
-.fr-screen tr:last-child td { border-bottom: none; }
-
-/* Year sets the reading order; it recedes so the title carries the row. */
-.fr-screen-year {
-  width: 4.5rem;
-  color: var(--fr-ink-soft);
-  font-variant-numeric: tabular-nums;
-}
-
-.fr-screen-title {
-  color: var(--fr-ink);
-}
-
-/* Media type, not a rating or a genre badge. */
-.fr-screen-kind {
-  width: 8rem;
-  text-align: right;
-  color: var(--fr-ink-soft);
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-}
-
-.fr-screen-note,
-.fr-screen-attr {
+/* ===== THE MEDIA ARCHIVE (V1.6) =====
+ * Supersedes the V1.4 "On screen" block. Research register, plain rows.
+ * NO posters, NO thumbnails, NO cards, NO ratings, NO vote or view counts, NO
+ * ranking: TMDB supplies poster_path, vote_average and relevance_score on
+ * every record and none of them is rendered. A rating is an engagement signal,
+ * and Canon XIV forbids scoring and progress state on any surface here. */
+.fr-ma-h2 { margin-top: var(--fr-space-section); }
+.fr-ma-note {
   font-family: var(--fr-sans);
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--fr-ink-soft);
   max-width: var(--fr-measure-body);
+  margin: 0 0 0.9rem;
 }
-
-.fr-screen-attr {
-  font-size: 0.82rem;
-  margin-top: var(--fr-space-tight);
-  margin-bottom: var(--fr-space-section);
+.fr-ma {
+  width: 100%;
+  max-width: var(--fr-measure-sources);
+  border-collapse: collapse;
+  font-family: var(--fr-sans);
+  font-size: 0.9rem;
+}
+.fr-ma td {
+  padding: 0.6rem 0.7rem 0.6rem 0;
+  border-bottom: 1px solid var(--fr-line);
+  vertical-align: baseline;
+}
+.fr-ma tr:last-child td { border-bottom: none; }
+.fr-ma-year { width: 4.2rem; color: var(--fr-ink-soft); font-variant-numeric: tabular-nums; }
+.fr-ma-title { color: var(--fr-ink); line-height: 1.45; }
+.fr-ma-ctx { display: block; font-size: 0.8rem; color: var(--fr-ink-soft); margin-top: 0.15rem; }
+.fr-ma-taxon { width: 11rem; font-size: 0.82rem; color: var(--fr-ink-soft); }
+.fr-ma-ident { width: 10rem; text-align: right; }
+.fr-ma-id code { font-family: var(--fr-mono, ui-monospace, monospace); font-size: 0.72rem; }
+.fr-ma-id { color: var(--fr-accent); text-decoration: none; }
+a.fr-ma-id:hover { text-decoration: underline; }
+.fr-ma-id span, span.fr-ma-id { color: var(--fr-ink-soft); }
+.fr-ma-attr {
+  font-family: var(--fr-sans);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--fr-ink-soft);
+  max-width: var(--fr-measure-sources);
+  margin: 1rem 0 var(--fr-space-section);
 }
 
 @media (max-width: 620px) {
-  .fr-screen-kind { display: none; } /* title + year survive the narrow column */
+  /* The taxon and identifier drop below the title rather than crushing it. */
+  .fr-ma, .fr-ma tbody, .fr-ma tr, .fr-ma td { display: block; width: auto; }
+  .fr-ma tr { border-bottom: 1px solid var(--fr-line); padding: 0.6rem 0; }
+  .fr-ma tr:last-child { border-bottom: none; }
+  .fr-ma td { border-bottom: none; padding: 0.1rem 0; }
+  .fr-ma-ident { text-align: left; margin-top: 0.3rem; }
 }

@@ -1,0 +1,232 @@
+{
+  "_comment": "Media archive for the Sundarbans taxa. Every record passed scripts/media-citation-bar.mjs. Relevance is a NAME MATCH on the item title (see matched_on), not editorial curation — these are candidate depictions, and the rendered surface says so.",
+  "place": "sundarbans",
+  "generated": "2026-09-12T05:57:58.895Z",
+  "sources_skipped": [
+    "games — IGDB needs Twitch OAuth (IGDB_CLIENT_ID/SECRET unset); Steam has no topical search",
+    "illegal wildlife trade — CITES Species+ returns 401 without a token (none held). Appendix listings are NOT written from memory: a guessed appendix is the Bates et al. 2005 error with higher stakes.",
+    "scientific illustration — BHL API returns 401 without a key (BHL_API_KEY unset)",
+    "artworks beyond the Met — Smithsonian returns 403 without an api.data.gov key",
+    "YouTube — credential failed: API key expired. Please renew the API key.. The video class is empty for a CREDENTIAL reason, not an evidential one."
+  ],
+  "records": [
+    {
+      "taxon": "Apis dorsata",
+      "vernacular": "Giant honey bee",
+      "class": "zoonosis",
+      "title": "Chito-Oligosaccharide and Propolis Extract of Stingless Bees Reduce the Infection Load of Nosema ceranae in Apis dorsata (Hymenoptera: Apidae)",
+      "year": 2022,
+      "journal": "Journal of fungi (Basel, Switzerland)",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "36675841"
+      },
+      "source": "PubMed (NCBI E-utilities)",
+      "matched_on": "Apis dorsata"
+    },
+    {
+      "taxon": "Axis axis",
+      "vernacular": "Chital (spotted deer)",
+      "class": "zoonosis",
+      "title": "Co-circulation of Hepatitis E Virus (HEV) Genotype 3 and Moose-HEV-Like Strains in Free-Ranging-Spotted Deer (Axis axis) in Uruguay",
+      "year": 2023,
+      "journal": "Food and environmental virology",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "37642917"
+      },
+      "source": "PubMed (NCBI E-utilities)",
+      "matched_on": "Axis axis"
+    },
+    {
+      "taxon": "Panthera tigris tigris",
+      "vernacular": "Bengal tiger",
+      "class": "artwork",
+      "title": "Bengal Tiger, collector card from the Animals series (D10), issued by Sunshine Biscuits, Inc. to promote their product, Animal Crackers",
+      "year": "early 20th century",
+      "creator": "Sunshine Biscuits, Inc.",
+      "institution": "The Metropolitan Museum of Art",
+      "identifier": {
+        "scheme": "accession",
+        "value": "63.350.307.10.1"
+      },
+      "source": "The Metropolitan Museum of Art Collection API",
+      "matched_on": "Bengal tiger"
+    },
+    {
+      "taxon": "Panthera tigris tigris",
+      "vernacular": "Bengal tiger",
+      "class": "film",
+      "title": "The Bengal Tiger",
+      "year": 1973,
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "402727"
+      },
+      "source": "TMDB",
+      "matched_on": "Bengal tiger"
+    },
+    {
+      "taxon": "Panthera tigris tigris",
+      "vernacular": "Bengal tiger",
+      "class": "film",
+      "title": "Hidden World of the Bengal Tiger",
+      "year": 1999,
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "1189005"
+      },
+      "source": "TMDB",
+      "matched_on": "Bengal tiger"
+    },
+    {
+      "taxon": "Panthera tigris tigris",
+      "vernacular": "Bengal tiger",
+      "class": "film",
+      "title": "The Wonder Pets - Save The Bengal Tiger",
+      "year": 2008,
+      "identifier": {
+        "scheme": "tmdb",
+        "value": "36538"
+      },
+      "source": "TMDB",
+      "matched_on": "Bengal tiger"
+    },
+    {
+      "taxon": "Prionailurus viverrinus",
+      "vernacular": "Fishing cat",
+      "class": "zoonosis",
+      "title": "Molecular study of feline hemoplasmas in free- ranging fishing cats (Prionailurus viverrinus) in Thailand",
+      "year": 2016,
+      "journal": "The Japanese journal of veterinary research",
+      "identifier": {
+        "scheme": "pmid",
+        "value": "29786992"
+      },
+      "source": "PubMed (NCBI E-utilities)",
+      "matched_on": "Prionailurus viverrinus"
+    }
+  ],
+  "refused": [
+    {
+      "class": "film",
+      "title": "Mud Crab",
+      "taxon": "Scylla serrata",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
+    },
+    {
+      "class": "film",
+      "title": "Bengal Tiger",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
+    },
+    {
+      "class": "film",
+      "title": "Bengal Tiger",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
+    },
+    {
+      "class": "film",
+      "title": "Bengal tiger",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
+    },
+    {
+      "class": "film",
+      "title": "The Royal Bengal Tiger",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
+    },
+    {
+      "class": "film",
+      "title": "Discovery :A Bengal Tiger's Motherly Love",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:name_absent_from_synopsis"
+    },
+    {
+      "class": "zoonosis",
+      "title": "Predicting multi-enzyme inhibition in the arachidonic acid metabolic network by Heritiera fomes extracts",
+      "taxon": "Heritiera fomes",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:no_disease_term_in_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "Hepatitis E Virus Exposure Across Multiple Host Species in a Shared Ecosystem in Argentina",
+      "taxon": "Axis axis",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "Tuberculosis caused by Mycobacterium orygis in wild ungulates in Chennai, South India",
+      "taxon": "Axis axis",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "High Seroprevalence of SARS-CoV-2 in White-Tailed Deer (Odocoileus virginianus) at One of Three Captive Cervid Facilities in Texas",
+      "taxon": "Axis axis",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "Zoonotic diseases appeared to be a major hurdle to successful deer farming in Bangladesh",
+      "taxon": "Axis axis",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "Evaluation of haemoparasite and Sarcocystis infections in Australian wild deer",
+      "taxon": "Axis axis",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "Development of a management program for a mixed species wildlife park following an occurrence of malignant catarrhal fever",
+      "taxon": "Axis axis",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "First draft genome assembly and identification of SNPs from hilsa shad ( Tenualosa ilisha) of the Bay of Bengal",
+      "taxon": "Tenualosa ilisha",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:no_disease_term_in_title"
+    },
+    {
+      "class": "zoonosis",
+      "title": "The first molecular identification and phylogenetic analysis of tick-borne pathogens in captive wild animals from Lohi Bher zoo, Pakistan",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "film",
+      "title": "The Conservation Game",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "film",
+      "title": "Tiger",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "film",
+      "title": "Tiger Cruise",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "film",
+      "title": "The Tiger Rising",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    },
+    {
+      "class": "film",
+      "title": "Tiger",
+      "taxon": "Panthera tigris tigris",
+      "reason": "RELEVANCE_NOT_ESTABLISHED:taxon_absent_from_title"
+    }
+  ]
+}
