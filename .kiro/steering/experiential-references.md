@@ -55,7 +55,7 @@ testable in a review walk-through, not abstract.
 | **Emotional gravity** | Affect produced by composition and duration, not by adjectives, music swells, or interface celebration. | Removing all copy from a beat leaves the emotional intent legible. The frame carries it. |
 | **Spatial humility** | The viewer is small in the frame; the interface does not centre them. | The species and the place occupy the largest area of every composition. Cards never overlap a silhouette. |
 | **Cinematic pacing** | A rhythm of beats and holds, not transitions and jumps. | Two adjacent beats are separated by a moment in which nothing changes on screen. |
-| **Embodied exploration** | Movement *through* space (drag, descent, arrival), not navigation through a list of links. | The primary way to reach a species is to touch the globe, not to read its name from a menu. |
+| **Embodied exploration** | Movement *through* space (drag, descent, arrival), not navigation through a list of links. | The primary way to reach a species is to touch the place, not to read its name from a menu. *(Amended 2026-09-12: noun rebound from the globe to the entrance map. PRESERVED AND STRENGTHENED — touching a place at its real coordinate is a more literal instance of this principle than touching a sphere was. The prohibition on menus stands, and is why the no-WebGL fallback is positioned links at real coordinates rather than a list. See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md)* |
 | **Ecological memory** | Traces of where the viewer has been accumulate as quiet marks, not as scoreboards. | A visited hotspot carries a held luminance; nothing tallies, nothing congratulates. |
 | **Non-extractive interaction** | Species, places, and viewer attention are not converted into resources, leaderboards, recommendations, or engagement metrics. | No "you might also like." No "popular this week." No completion bar. |
 | **Contemplative interaction** | The interface protects pauses the viewer did not ask for. | First arrival into a safari scene holds on the place before any text. The hold is non-skippable. |
@@ -159,8 +159,8 @@ Each reference is given in four lines:
 
 **Olafur Eliasson — *The Weather Project* (Tate Modern Turbine Hall, 2003)**
 - *Relevant*: A single luminous body fills a vast room. Visitors lie on the floor and watch. The work makes no demand and is in no hurry.
-- *Adapt*: The globe is the largest body in the experience and is composed to be looked at, not interacted with first (Article XI). The landing frame holds the body before any affordance is offered.
-- *Do not copy*: The single-spectacle Instagrammability. Our globe is not a photo opportunity; it is a working subject.
+- *Adapt*: The entrance map at world view is the largest body in the experience and is composed to be looked at, not interacted with first (Article XI). The landing frame holds the body before any affordance is offered. *(Amended 2026-09-12: noun rebound from the globe; the composition rule is unchanged. See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md)*
+- *Do not copy*: The single-spectacle Instagrammability. Our entrance is not a photo opportunity; it is a working subject.
 - *Quality*: spatial humility, contemplative interaction, emotional gravity.
 
 **James Turrell — Skyspaces / *Aten Reign* (Guggenheim, 2013)**

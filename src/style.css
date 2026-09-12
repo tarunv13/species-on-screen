@@ -87,14 +87,130 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== CANVAS ===== */
-#cinematic-canvas {
+/* ===== THE ENTRANCE (V1.7) =====
+ * A dark world map of the places this project holds, at their real
+ * coordinates. It replaces the photographed globe.
+ *
+ * ARTICLE VI STILL GOVERNS HERE. The basemap is not accepted as it arrives:
+ * it is desaturated, dimmed and veiled to the night ground before anything is
+ * drawn on top. A bright product map at first contact would be a louder claim
+ * than the archives support. The filter is the veil — it is not a style
+ * preference, it is the held darkness rule applied to someone else's tiles. */
+#entrance {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 1;
+  background: var(--colour-night);
+  /* The veil. Saturation down so the world reads as ground rather than as
+   * cartography; brightness well down so ink-low labels sit above it. */
+  filter: saturate(0.22) brightness(0.4) contrast(1.06);
+}
+
+/* A second, flat veil over the tiles, so the darkness is a colour and not only
+ * a filter — the night ground is the page's own, not the basemap's idea of
+ * dark. pointer-events:none so it never eats a pin. */
+#entrance::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--colour-night);
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.entrance-attr {
+  position: fixed;
+  left: 1.25rem;
+  bottom: 1rem;
+  z-index: 12;
+  margin: 0;
+  max-width: 32rem;
+  font-family: var(--font-stack);
+  font-size: 0.66rem;
+  line-height: 1.5;
+  color: var(--colour-ink-low);
+  pointer-events: auto;
+}
+.entrance-attr a { color: inherit; }
+
+/* ---- the place pins ----
+ * Hit target is >= 44px BY PADDING, never by drawing something 44px wide: the
+ * visible mark stays a small dot and the touch area is invisible around it. */
+.entrance-pin {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* The dot is 8px and the label line is ~13px at --font-caption, so padding
+   * alone would give ~41px. min-height/min-width guarantee the 44px target
+   * regardless of how the label wraps or how the caption size is later tuned —
+   * a hit target that depends on arithmetic staying true is a hit target that
+   * quietly shrinks. */
+  padding: 14px;
+  min-height: 44px;
+  min-width: 44px;
+  box-sizing: border-box;
+  margin: -14px;            /* padding must not displace the marker anchor */
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--colour-ink-low);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity var(--duration-fade) var(--ease-editorial),
+              color 0.3s var(--ease-editorial);
+  z-index: 11;
+}
+.entrance-pin.is-visible { opacity: 1; }
+.entrance-pin:hover,
+.entrance-pin:focus-visible { color: var(--colour-ink-high); outline: none; }
+
+.entrance-pin__dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.08);
+}
+.entrance-pin__label {
+  font-family: var(--font-stack);
+  font-size: var(--font-caption);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-caption);
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ---- the no-WebGL entrance ----
+ * Positioned links at real coordinates over a dark field, NOT a list: a menu
+ * is precisely what experiential-references.md forbids as a way to reach a
+ * species. The field is a plain ground because the repository holds no
+ * licence-clean dark world plate; a plate can replace it later without moving
+ * a single link. */
+#entrance.entrance-fallback {
+  filter: none;
+  background: var(--colour-night);
+}
+#entrance.entrance-fallback::after { display: none; }
+.entrance-pin--static { position: absolute; transform: translate(-50%, -50%); opacity: 1; }
+.entrance-fallback__note {
+  position: absolute;
+  left: 1.25rem;
+  top: 1rem;
+  margin: 0;
+  max-width: 26rem;
+  font-family: var(--font-stack);
+  font-size: var(--font-caption);
+  color: var(--colour-ink-low);
+}
+
+@media (max-width: 768px) {
+  .entrance-attr { font-size: 0.6rem; left: 1rem; bottom: 0.75rem; max-width: 72vw; }
 }
 
 /* ===== LOADING SCREEN ===== */

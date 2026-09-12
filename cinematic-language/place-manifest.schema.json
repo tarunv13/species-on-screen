@@ -52,12 +52,12 @@
                   "required": ["kind"],
                   "additionalProperties": false,
                   "properties": {
-                    "kind": { "enum": ["globe-hotspot", "dip"] },
-                    "hotspotId": { "type": "string", "minLength": 1, "description": "required when kind = globe-hotspot" }
+                    "kind": { "enum": ["entrance-hotspot", "dip"] },
+                    "hotspotId": { "type": "string", "minLength": 1, "description": "required when kind = entrance-hotspot" }
                   },
                   "allOf": [
                     {
-                      "if": { "properties": { "kind": { "const": "globe-hotspot" } } },
+                      "if": { "properties": { "kind": { "const": "entrance-hotspot" } } },
                       "then": { "required": ["hotspotId"] }
                     }
                   ]

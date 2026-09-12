@@ -20,7 +20,7 @@
     4. DwC-A bindings   — declared actors/interactions equal the archive's
                          actual row counts.
     5. Navigation bindings — a cinematic surface has an arrival (hotspotId when
-                         globe-hotspot); a homepage entry requires a cinematic
+                         entrance-hotspot); a homepage entry requires a cinematic
                          surface; a companion atlas requires a field-record atlas.
 
   M23 Phase 0 is "describe, don't consume": no runtime consumes the manifest,
@@ -40,7 +40,11 @@ const REPO_ROOT = path.resolve(SCRIPT_DIR, '..');
 const MANIFEST = path.join(REPO_ROOT, 'cinematic-language', 'place-manifest.json');
 
 const SLUG = /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/;
-const ARRIVAL_KINDS = new Set(['globe-hotspot', 'dip']);
+// Renamed from 'globe-hotspot' on 2026-09-12 when the entrance became a map.
+// RENAMED, NOT WIDENED: a retired-but-valid value would rot, and a later
+// session reading this set would bind to a globe that no longer exists.
+// hotspotId stays required. See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md
+const ARRIVAL_KINDS = new Set(['entrance-hotspot', 'dip']);
 const ATLAS_KINDS = new Set(['field-record', 'companion']);
 
 const PLACE_KEYS = new Set(['placeId', 'displayName', 'type', 'narrativeId', 'surfaces', 'homepage']);
@@ -104,9 +108,9 @@ async function checkPlace(place, i, errors, seenIds, seenOrders) {
     if (!isStr(c.enterLabel)) err('surfaces.cinematic.enterLabel missing');
     if (!c.arrival || typeof c.arrival !== 'object') err('surfaces.cinematic.arrival missing');
     else {
-      if (!ARRIVAL_KINDS.has(c.arrival.kind)) err(`surfaces.cinematic.arrival.kind "${c.arrival.kind}" invalid (globe-hotspot|dip)`);
-      if (c.arrival.kind === 'globe-hotspot' && !isStr(c.arrival.hotspotId)) {
-        err('surfaces.cinematic.arrival.hotspotId required when kind = globe-hotspot');
+      if (!ARRIVAL_KINDS.has(c.arrival.kind)) err(`surfaces.cinematic.arrival.kind "${c.arrival.kind}" invalid (entrance-hotspot|dip)`);
+      if (c.arrival.kind === 'entrance-hotspot' && !isStr(c.arrival.hotspotId)) {
+        err('surfaces.cinematic.arrival.hotspotId required when kind = entrance-hotspot');
       }
     }
 

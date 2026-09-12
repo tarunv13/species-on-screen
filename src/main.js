@@ -1,159 +1,247 @@
 import './style.css';
 import { gsap } from 'gsap';
-import * as THREE from 'three';
-import { CinematicEngine } from './cinematic-engine.js';
-import { Globe } from './globe.js';
 import { getPlaceByNarrativeId } from '../cinematic-language/place-manifest.ts';
+import {
+  mountEntranceMap, mountFallbackEntrance, hasWebGL, ENTRANCE_ATTRIBUTION,
+} from './entrance-map.js';
 
 /*
-  Homepage entry. Wires the planet, the editorial caption, and the
-  canonical arrival path into the published Sundarbans place.
+  Homepage entry. Wires the entrance map, the editorial captions, and the
+  canonical arrival path into each published cinematic place.
 
-  Arrival is governed by Article III of the cinematic vocabulary
-  (Departure -> Approach -> Crossing -> Settle). The previous
-  `safari-scene` arrival is retired here; nothing on the homepage
-  references SafariScene any longer.
+  V1.7 — FIRST CONTACT IS A MAP, NOT A PLANET. The photographed globe
+  (src/globe.js, NASA Blue Marble NG + Black Marble) is retired from the
+  entrance. Not for being rendered — it was not rendered, and doctrine asks for
+  photography — but because an establishing shot of Earth carries no record. It
+  shows the planet; it does not show the observations. The entrance now shows
+  the places, at their real coordinates, from the registry.
+  See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md.
+
+  PRESERVED EXACTLY: held darkness (Article VI), the 1.5s hold + 1.4s fade
+  through, the ~6s approach, the 0.9s post-arrival beat, and Article III's
+  Departure -> Approach -> Crossing -> Cut. Sundarbans keeps its 2.0s camera
+  arc; only what the camera arcs toward has changed.
 */
 
-let engine = null;
-let globe = null;
+let entrance = null;          // { map, approach, jumpSettled, flyToPlace }
 let wiredCaptions = [];
 let isTransitioning = false;
-// Single authoritative reference to the currently-playing transition
-// timeline. Any new transition kills the previous one before
-// constructing its own, so two timelines never tween the same DOM
-// property simultaneously.
 let activeTransition = null;
 
+/*
+  The places the entrance plots.
+
+  COORDINATES ARE READ, NEVER RECALLED. Every lat/lng below was read from
+  scripts/ingest/landscapes.json -> landscapes[].center on 2026-09-12. That
+  file is the registry and remains authoritative; if a centre changes there,
+  re-read it rather than editing these by hand. They are literals here only
+  because landscapes.json lives under scripts/ and is not served to the browser.
+
+  WHY THREE AND NOT FIVE. The V1.7 brief named five. What each one has:
+
+    sundarbans           archive + atlas + cinematic (places/sundarbans.html)
+    coral-triangle       archive + atlas + cinematic (places/crossing.html)
+    epr-vents            archive + atlas + cinematic (places/epr-vents.html)
+    amazon-varzea        archive + atlas, NO cinematic surface (backlog item 1)
+    wood-buffalo-boreal  nothing: no archive, no atlas, no page, no note
+
+  wood-buffalo-boreal is a registry-only entry, so a pin for it would lead
+  nowhere — the "coming soon" promise the same ruling forbids two lines
+  earlier. amazon-varzea is excluded by D3; see the note below. Both are
+  omitted and reported rather than drawn, and either can be added here the
+  moment it has a cinematic surface.
+*/
+const ENTRANCE_PLACES = [
+  { id: 'sundarbans',     lat: 21.95, lng: 89.18,   label: 'Sundarbans' },
+  { id: 'coral-triangle', lat: 0,     lng: 123,     label: 'Coral Triangle' },
+  { id: 'epr-vents',      lat: 9.83,  lng: -104.29, label: 'East Pacific Rise' },
+];
+
+/*
+  AMAZON VARZEA IS NOT PLOTTED, AND D3 IS WHY.
+
+  It has an archive and an atlas record but no cinematic surface (backlog
+  item 1). Reaching it from here would mean the entrance — a cinematic surface —
+  carrying a link to atlas/ or notes/. That is exactly the affordance sink D3
+  forbids, and check-grammar caught the attempt: "[cross-depth navigation
+  string] src/main.js". The gate is the authority and the gate said no.
+
+  The curated captions in index.html get away with cross-depth hrefs because
+  index.html is deliberately exempt — its anchors are no-JS fallbacks the
+  runtime intercepts. Generated pins have no such exemption and should not
+  acquire one.
+
+  So the entrance plots the places it can actually ENTER: the three with a
+  cinematic surface. That is the same three the captions have always named.
+  When the Amazon varzea cinematic surface is built, add it here and it will
+  pass the gate unchanged.
+*/
+
+/* Registry id -> the manifest's research slug, which is how a place is looked
+   up (the manifest keys arrivals by narrative id). */
+const RESEARCH_SLUG = {
+  'sundarbans': 'sundarbans-bengal-tiger-saline-swimmer',
+  'coral-triangle': 'coral-triangle-hawksbill-natal-homing',
+  'epr-vents': 'east-pacific-rise-tubeworm-chemosynthesis',
+  'amazon-varzea': 'amazon-varzea-arapaima-flood-pulse',
+};
+
+const BASE = import.meta.env.BASE_URL || '/';
+const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function placeFor(id) {
+  const slug = RESEARCH_SLUG[id];
+  return slug ? getPlaceByNarrativeId(slug) : null;
+}
+
 function init() {
-  const canvas = document.getElementById('cinematic-canvas');
-  if (!canvas) return;
+  const host = document.getElementById('entrance');
+  if (!host) return;
 
   const loadingScreen = document.getElementById('loading-screen');
+  const attr = document.getElementById('entrance-attribution');
+  if (attr) attr.innerHTML = ENTRANCE_ATTRIBUTION;
 
-  // The planetary view requires a WebGL context. If the renderer cannot be
-  // created (WebGL disabled, blocked, or unavailable), fall back to the
-  // static entrance rather than leaving the visitor on held darkness forever.
-  try {
-    engine = new CinematicEngine(canvas);
-    globe = new Globe(engine.getScene(), engine.getCamera(), engine.renderer);
-  } catch (err) {
-    console.error('Cinematic engine unavailable (WebGL); showing the static entrance.', err);
-    showStaticFallback();
+  // Every plotted place has a cinematic surface, so every pin is intercepted
+  // by arrive(). No cross-depth destination is constructed here — see the note
+  // on ENTRANCE_PLACES.
+  const places = ENTRANCE_PLACES;
+
+  setupCaptions();
+
+  if (!hasWebGL()) {
+    // No WebGL: positioned links at real coordinates over a dark field. NOT a
+    // list — a menu is what experiential-references.md forbids.
+    mountFallbackEntrance(host, places, null);
+    revealChrome(loadingScreen, 0);
     return;
   }
 
-  // Keep the species marker layer active.
-  globe.setLayer('species');
-
-  window.addEventListener('resize', onResize);
-
-  // Register globe update in the engine render loop.
-  engine.onUpdate((delta) => {
-    if (globe) globe.update(delta);
-  });
-
-  // Audit \u00a79.3: extended landing pacing. The page holds darkness
-  // for 1.5s, takes 1.4s to fade through, and lets the camera
-  // approach take 6s. The visitor sees darkness, then a planet, then
-  // captions \u2014 never all three at once.
-  if (loadingScreen) {
-    gsap.to(loadingScreen, {
-      opacity: 0,
-      duration: 1.4,
-      delay: 1.5,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        loadingScreen.style.display = 'none';
-        runLandingSequence();
-      },
+  mountEntranceMap(host, places, onPinSelect)
+    .then((e) => {
+      entrance = e;
+      // Audit §9.3 pacing, unchanged: darkness holds 1.5s, fades through over
+      // 1.4s, then the approach runs. The visitor sees darkness, then the
+      // world, then the captions — never all three at once.
+      if (!loadingScreen) return runLandingSequence();
+      gsap.to(loadingScreen, {
+        opacity: 0,
+        duration: 1.4,
+        delay: 1.5,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          loadingScreen.style.display = 'none';
+          runLandingSequence();
+        },
+      });
+    })
+    .catch((err) => {
+      console.error('Entrance map unavailable; showing the static entrance.', err);
+      host.innerHTML = '';
+      mountFallbackEntrance(host, places, null);
+      revealChrome(loadingScreen, 0);
     });
-  } else {
-    runLandingSequence();
-  }
+}
 
-  // Wire the curated homepage captions to their manifest-driven arrivals.
-  // Captions are human-authored anchors in index.html (curated, never
-  // generated); the manifest supplies each caption's arrival kind/target
-  // (ADR-002). The href remains the JS-disabled fallback to the research note.
-  setupCaptions();
+function revealChrome(loadingScreen, delay) {
+  if (loadingScreen) { loadingScreen.style.display = 'none'; }
+  gsap.delayedCall(delay, () => {
+    const ui = document.getElementById('globe-ui-container');
+    if (ui) ui.classList.add('active');
+    wiredCaptions.forEach((el) => el.classList.add('is-visible'));
+    document.querySelectorAll('.entrance-pin').forEach((el) => el.classList.add('is-visible'));
+  });
 }
 
 /*
-  Wire the curated homepage captions to their cinematic arrivals. The captions
-  are human-authored static anchors in index.html (curated composition, never
-  generated -- ADR-002). A caption is matched to its place by the research-note
-  slug in its href; its arrival kind/target/hotspot are DATA from the Place
-  Manifest. This replaced the three bespoke arrival functions and per-id wiring
-  (M26 Phase 1C). A caption with no manifest place (or no cinematic surface) is
-  left as a plain link; a new place never appears here unless a human authors
-  its caption anchor.
+  The approach. A CAMERA MOVE, not a fade: arriving at the world is a gesture a
+  map can make honestly. 6.0s, GSAP's power3.inOut curve expressed as MapLibre
+  easing — the same curve the globe fly-in used.
+
+  Under reduced motion the settled view is taken directly and the chrome
+  settles after 0.6s, exactly as the globe entrance did.
 */
-function placeForCaption(el) {
-  const href = el.getAttribute('href') || '';
-  const slug = href.split('/').pop().replace(/\.html$/, '');
-  return getPlaceByNarrativeId(slug);
+function runLandingSequence() {
+  const loadingScreen = document.getElementById('loading-screen');
+  if (!entrance) return;
+
+  if (reduced()) {
+    entrance.jumpSettled();
+    revealChrome(loadingScreen, 0.6);
+    return;
+  }
+
+  entrance.approach(6).then(() => {
+    // Audit §9.3: the post-arrival hold. The world sits in silence for 0.9s
+    // after the camera stops — the "this place exists" beat — before the
+    // captions fade in. The fade itself keeps --duration-fade and
+    // --ease-editorial; the two curves are deliberately not unified.
+    revealChrome(loadingScreen, 0.9);
+  });
+}
+
+function onPinSelect(placeId, el) {
+  const place = placeFor(placeId);
+  if (place && place.surfaces && place.surfaces.cinematic) {
+    arrive(place, el, placeId);
+    return;
+  }
+  // Unreachable by construction: every plotted place has a cinematic surface.
+  // Kept as a guard rather than a fallback, because the alternative would be a
+  // cross-depth affordance on a cinematic surface (D3).
 }
 
 function setupCaptions() {
   const caps = document.querySelectorAll('#globe-ui-container a.page-caption');
   caps.forEach((el) => {
-    const place = placeForCaption(el);
+    const href = el.getAttribute('href') || '';
+    const slug = href.split('/').pop().replace(/\.html$/, '');
+    const place = getPlaceByNarrativeId(slug);
     if (!place || !place.surfaces.cinematic) return;
     wiredCaptions.push(el);
     el.addEventListener('click', (e) => {
       e.preventDefault();
-      arrive(place, el);
+      const id = Object.keys(RESEARCH_SLUG).find((k) => RESEARCH_SLUG[k] === slug);
+      arrive(place, el, id);
     });
   });
 }
 
 /**
  * Canonical Article III arrival into a curated cinematic place, dispatched by
- * the manifest's cinematic.arrival.kind. Timings, easings, camera fly, and the
- * luminance dip are unchanged from the pre-M26 bespoke functions; only the data
- * source (which place, which kind, which target, which hotspot) is the manifest.
+ * the manifest's cinematic.arrival.kind. Timings, easings and the luminance dip
+ * are UNCHANGED from the globe entrance; only the camera's subject moved.
  *
- *   globe-hotspot (Sundarbans): departure fades the arriving caption + chrome;
- *     the camera arcs to the hotspot (Approach); luminance dip; cut to
- *     places/<slug>.html at peak black (3.0s * k).
- *   dip (The Crossing, East Pacific Rise): no globe fly -- a journey/descent,
- *     not a point on the planet; departure fades chrome; dip; cut at 1.5s * k.
+ *   entrance-hotspot (Sundarbans): departure fades the arriving caption +
+ *     chrome; the camera arcs to the place over 2.0s * k (Approach); luminance
+ *     dip; cut to places/<slug>.html at peak black (3.0s * k).
+ *   dip (The Crossing, East Pacific Rise): no camera fly -- a journey/descent,
+ *     not a point on the map; departure fades chrome; dip; cut at 1.5s * k.
  *
  * k compresses the envelope for reduced motion (0.5) without losing grammar.
  */
-function arrive(place, captionEl) {
+function arrive(place, captionEl, placeId) {
   if (isTransitioning) return;
   isTransitioning = true;
-
   killActiveTransition();
 
-  // Zero cursor-bias drift so the planet does not slide during the transition.
-  globe.isHovered = false;
-
   const cine = place.surfaces.cinematic;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const k = reduce ? 0.5 : 1.0;
-  const base = import.meta.env.BASE_URL || '/';
-  const dest = `${base}places/${cine.slug}.html`;
+  const k = reduced() ? 0.5 : 1.0;
+  const dest = `${BASE}places/${cine.slug}.html`;
 
   const tl = gsap.timeline();
   activeTransition = tl;
 
-  if (cine.arrival.kind === 'globe-hotspot') {
-    globe.group.updateMatrixWorld();
-    const speciesPos = globe.getSpeciesPosition(cine.arrival.hotspotId);
-    const worldPos = speciesPos.clone().applyMatrix4(globe.group.matrixWorld);
-    const normal = worldPos.clone().normalize();
-    const cameraTo = worldPos.clone().add(normal.clone().multiplyScalar(3.0));
-    const targetTo = worldPos.clone();
-
+  if (cine.arrival.kind === 'entrance-hotspot') {
     /* ----- Departure (0 - 0.7s * k) ----- */
-    tl.to(captionEl, { opacity: 0, duration: 0.7 * k, ease: 'sine.inOut' }, 0);
+    if (captionEl) tl.to(captionEl, { opacity: 0, duration: 0.7 * k, ease: 'sine.inOut' }, 0);
     tl.to('#globe-ui-container', { opacity: 0, duration: 0.7 * k, ease: 'sine.inOut' }, 0);
 
-    /* ----- Approach (0.4 - 2.4s * k) ----- */
-    tl.add(engine.flyCamera(cameraTo, targetTo, 2.0 * k, 'power3.inOut'), 0.4 * k);
+    /* ----- Approach (0.4 - 2.4s * k) — the arc, preserved at 2.0s * k ----- */
+    const target = ENTRANCE_PLACES.find((p) => p.id === placeId);
+    if (entrance && target) {
+      tl.add(() => { entrance.flyToPlace(target, 2.0 * k); }, 0.4 * k);
+    }
 
     /* ----- Crossing (1.9 - 3.0s * k) -- luminance dip ----- */
     tl.add(() => {
@@ -161,7 +249,7 @@ function arrive(place, captionEl) {
       if (ls) { ls.style.display = 'block'; ls.style.opacity = '0'; }
     }, 1.9 * k);
     tl.to('#loading-screen', { opacity: 1, duration: 1.0 * k, ease: 'power2.inOut' }, 1.9 * k);
-    tl.to('#cinematic-canvas', { opacity: 0, duration: 0.9 * k, ease: 'power2.inOut' }, 2.0 * k);
+    tl.to('#entrance', { opacity: 0, duration: 0.9 * k, ease: 'power2.inOut' }, 2.0 * k);
 
     /* ----- Cut at peak black (3.0s * k) ----- */
     tl.add(() => { window.location.assign(dest); }, 3.0 * k);
@@ -175,7 +263,7 @@ function arrive(place, captionEl) {
       if (ls) { ls.style.display = 'block'; ls.style.opacity = '0'; }
     }, 0.5 * k);
     tl.to('#loading-screen', { opacity: 1, duration: 0.9 * k, ease: 'power2.inOut' }, 0.5 * k);
-    tl.to('#cinematic-canvas', { opacity: 0, duration: 0.8 * k, ease: 'power2.inOut' }, 0.6 * k);
+    tl.to('#entrance', { opacity: 0, duration: 0.8 * k, ease: 'power2.inOut' }, 0.6 * k);
 
     /* ----- Cut at peak black (1.5s * k) ----- */
     tl.add(() => { window.location.assign(dest); }, 1.5 * k);
@@ -187,68 +275,6 @@ function killActiveTransition() {
     activeTransition.kill();
     activeTransition = null;
   }
-}
-
-/*
-  Static entrance fallback. Used only when the WebGL renderer cannot be
-  created. Hides the (empty) canvas and the held-darkness scrim, and reveals
-  the three curated captions as plain anchors — no cinematic arrival is wired,
-  so each caption's href fallback (its research note) stands, the same
-  destination the <noscript> block offers. The body background is already held
-  darkness (#0a0a1a), so the light captions remain legible with no globe behind.
-*/
-function showStaticFallback() {
-  const loadingScreen = document.getElementById('loading-screen');
-  const canvas = document.getElementById('cinematic-canvas');
-  const globeUI = document.getElementById('globe-ui-container');
-  if (loadingScreen) loadingScreen.style.display = 'none';
-  if (canvas) canvas.style.display = 'none';
-  if (globeUI) globeUI.classList.add('active');
-  document
-    .querySelectorAll('#globe-ui-container a.page-caption')
-    .forEach((el) => el.classList.add('is-visible'));
-}
-
-function runLandingSequence() {
-  const globeUI = document.getElementById('globe-ui-container');
-
-  // Audit \u00a79.3: off-centre composition target. The camera arrives
-  // shifted +1.0 unit on X relative to a centred framing, placing
-  // the planet slightly LEFT of frame centre. Editorial documentary
-  // framing, not centred product-shot framing.
-  const targetPos = new THREE.Vector3(1.0, 0.3, 5.5);
-  const targetLookAt = new THREE.Vector3(0, 0, 0);
-
-  // Reduced motion (V1.3 Part A): no approach. The camera is placed at its
-  // final off-centre framing directly (a static night-side frame); captions
-  // settle in after a short beat. The globe also holds still under reduced
-  // motion (globe.update suppresses drift). The non-reduced choreography below
-  // is unchanged.
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    engine.setCameraPosition(targetPos, targetLookAt);
-    gsap.delayedCall(0.6, () => {
-      if (globeUI) globeUI.classList.add('active');
-      wiredCaptions.forEach((el) => el.classList.add('is-visible'));
-    });
-    return;
-  }
-
-  // Fly-in is 6.0s \u2014 a slow approach, not a swoop.
-  const tl = engine.flyCamera(targetPos, targetLookAt, 6, 'power3.inOut');
-
-  tl.eventCallback('onComplete', () => {
-    // Audit \u00a79.3: post-arrival hold. The planet sits in silence
-    // for 0.9s after the camera stops \u2014 the 'this place exists'
-    // beat \u2014 before the caption fades in.
-    gsap.delayedCall(0.9, () => {
-      if (globeUI) globeUI.classList.add('active');
-      wiredCaptions.forEach((el) => el.classList.add('is-visible'));
-    });
-  });
-}
-
-function onResize() {
-  if (engine) engine.resize();
 }
 
 document.addEventListener('DOMContentLoaded', init);

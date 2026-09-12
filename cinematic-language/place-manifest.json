@@ -12,7 +12,7 @@
         "cinematic": {
           "slug": "sundarbans",
           "enterLabel": "Enter the living place →",
-          "arrival": { "kind": "globe-hotspot", "hotspotId": "tiger" },
+          "arrival": { "kind": "entrance-hotspot", "hotspotId": "tiger" },
           "scene": {
             "layers": [
               { "id": "canopy-far", "z": 120 },

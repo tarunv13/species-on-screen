@@ -282,3 +282,28 @@ terminator. All public domain; **708 KB combined** (≤4 MB budget).
 
 **August** chosen for seasonality (V1.3 ruling): cloud-free by construction,
 maximal northern vegetation, minimal Arctic ice, monsoon-green Sundarbans.
+
+### RETIRED FROM THE ENTRANCE (2026-09-12)
+
+**Both plates above are retired from the homepage.** `src/globe.js` and
+`public/textures/` are deleted from the build path; the entrance is now a dark
+world map of the places, at their real coordinates.
+
+**They were not retired for being wrong.** They are correct, licence-clean,
+well-chosen imagery, and `cinematic-vocabulary.md` asks for exactly this — "the
+globe is photographed, not rendered." An earlier draft of the ruling said the
+globe was retired for being *procedurally rendered*; that was false and is
+retracted here as well as in the decision record.
+
+They are retired because **correct imagery was serving a decorative purpose**.
+However well photographed, a globe at first contact is an establishing shot
+that carries no record: it shows the planet, it does not show the observations.
+The entrance now shows the five places the archives actually hold. The register
+is unchanged — held darkness, photographed rather than drawn, planetary scale.
+Only the subject of first contact moved, from the planet to the places on it.
+
+The provenance rows above are kept rather than deleted: the sourcing was sound,
+and a future surface that needs a licence-clean planetary plate should find this
+work rather than repeat it. See
+`.agents/decisions/2026-09-12-entrance-amended-globe-to-map.md`.
+

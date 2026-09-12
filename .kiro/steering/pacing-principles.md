@@ -67,9 +67,13 @@ deliberate is not pacing; it is friction.
 
 The experience has three temporal registers, in increasing intimacy:
 
-1. **Planetary time** — the time of the globe view. Slow drift,
+1. **Planetary time** — the time of the entrance view. Slow drift,
    ambient inertia, no urgent durations. Tempo: minutes of dwell are
    normal; nothing on screen demands a response within seconds.
+   [Amended 2026-09-12 — the term is unchanged and is rebound from the
+   globe object to the entrance view, which is now a dark world map of
+   attested places. A map at world view keeps planetary time as well as
+   a sphere did. See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md]
 2. **Transitional time** — the time of the Descent and the Return.
    Bounded, composed, on the order of a few seconds, with internal
    beats that are themselves composed.
@@ -123,16 +127,23 @@ Forbidden:
 
 ### Principle IV — Inertia is bounded, not absolute
 
-When the Descent begins (Article III, Departure), globe rotational
-velocity must be zeroed in the same frame as the timeline starts. The
-globe must not continue rotating behind the safari overlay. (This was
+When the Descent begins (Article III, Departure), the entrance view's
+residual motion must be zeroed in the same frame as the timeline starts.
+The entrance must not continue moving behind the safari overlay. (This was
 the substance of an earlier review issue and is now codified.)
 
-When the Return completes, the globe is delivered to the viewer at
-**the rotation it held at the moment of the Descent's Departure**,
-not at a default pose and not at the rotation it would have reached
-under continued inertia. The Descent suspends planetary time; the
-Return resumes it.
+When the Return completes, the entrance is delivered to the viewer at
+**the camera state it held at the moment of the Descent's Departure** —
+its centre, zoom and bearing — not at a default pose and not at the state
+it would have reached under continued inertia. The Descent suspends
+planetary time; the Return resumes it.
+
+[Amended 2026-09-12. Rotation continuity becomes CAMERA continuity: a map
+has no rotational inertia to zero, so the quantity preserved across a
+departure is the camera state rather than a rotation angle. The principle
+is untouched — the world persists across a departure, and the viewer is
+returned to the world they left rather than to a reset one. Only the noun
+moves. See .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md]
 
 ## 3. The Hold
 

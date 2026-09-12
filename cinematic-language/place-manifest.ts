@@ -16,7 +16,7 @@
 
 import manifest from './place-manifest.json';
 
-export type ArrivalKind = 'globe-hotspot' | 'dip';
+export type ArrivalKind = 'entrance-hotspot' | 'dip';
 export type AtlasKind = 'field-record' | 'companion';
 
 export interface ResearchSurface {
@@ -26,7 +26,7 @@ export interface ResearchSurface {
 
 export interface CinematicArrival {
   kind: ArrivalKind;
-  /** Present when kind === 'globe-hotspot'. */
+  /** Present when kind === 'entrance-hotspot'. */
   hotspotId?: string;
 }
 
