@@ -133,8 +133,15 @@ class IucnGetSource(Source):
 
         `iucn_get` IS AN ARRAY, because a place can genuinely be more than one
         Ecosystem Functional Group and a single field silently drops the second.
-        The Sundarbans is both MFT1.2 (the mangrove forest) and MFT1.1 (the
-        delta mosaic it is embedded in), and the MFT1.1 profile says so itself.
+        The Sundarbans is both MFT1.1 (the delta mosaic) and MFT1.2 (the
+        mangrove forest embedded in it), and the MFT1.1 profile says so itself.
+
+        ELEMENT ORDER IS MEANINGFUL AND IS PRESERVED. The primary, CONTAINING
+        group is listed first; an EMBEDDED group follows it. A two-element array
+        is not two equal claims, and a consumer that treats `bindings[0]` as the
+        place's principal group is reading it correctly. The relationship is
+        also written onto the elements themselves (`contains` / `embedded_in`)
+        so it survives an element being read in isolation.
 
         EVERY ELEMENT IS VALIDATED SEPARATELY and must carry its own citation.
         An uncited element is refused while its cited siblings are kept, and the
@@ -211,6 +218,8 @@ class IucnGetSource(Source):
                 "biome_name": element.get("biome") or "",
                 "source": element.get("source", ""),
                 "assigned_by": element.get("assigned_by", ""),
+                "contains": element.get("contains", ""),
+                "embedded_in": element.get("embedded_in", ""),
             })
             self.manifest.count("iucn_get.bound")
 

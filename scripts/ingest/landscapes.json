@@ -21,19 +21,6 @@
       "hasFieldRecord": true,
       "iucn_get": [
         {
-          "efg": "MFT1.2",
-          "name": "Intertidal forests and shrublands",
-          "realm": null,
-          "biome": null,
-          "realm_code": "MFT",
-          "biome_code": "MFT1",
-          "source": "IUCN Global Ecosystem Typology v2.1, profile MFT1.2 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
-          "justification": "Profile: \"Mangroves create structurally complex and productive ecosystems in the intertidal zone of depositional coasts, around tropical and warm temperate regions.\" Distribution: \"Tropical and warm temperate coastlines with good sediment supply.\" The Sundarbans is a tropical intertidal mangrove forest on a high-sediment delta coast.",
-          "assigned_by": "human",
-          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-          "assigned_on": "2026-09-12"
-        },
-        {
           "efg": "MFT1.1",
           "name": "Coastal river deltas",
           "realm": null,
@@ -44,7 +31,22 @@
           "justification": "Profile: \"At the convergence of terrestrial, freshwater and marine realms, coastal river deltas are shaped by river inflows that deposit sediment and ocean tides and currents that disperse it. Gradients of salinity and submergence and dynamic substrates create shifting mosaics of CHANNELS, islands, floodplains, intertidal and subtidal mud plains and sand beds THAT MAY BE REGARDED AS EMBEDDED PATCHES OF OTHER FUNCTIONAL GROUPS.\" Distribution: \"Continental margins of high rainfall catchments globally.\" The Sundarbans is the seaward Ganges-Brahmaputra delta and its tidal channel network is that mosaic. The profile's own closing clause is why this place needs two elements rather than one: MFT1.2 is the mangrove forest embedded in the MFT1.1 delta, and neither describes the place alone.",
           "assigned_by": "human",
           "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
-          "assigned_on": "2026-09-12"
+          "assigned_on": "2026-09-12",
+          "contains": "MFT1.2, the intertidal mangrove forest listed after it. MFT1.1 is the containing delta mosaic and is therefore the primary element."
+        },
+        {
+          "efg": "MFT1.2",
+          "name": "Intertidal forests and shrublands",
+          "realm": null,
+          "biome": null,
+          "realm_code": "MFT",
+          "biome_code": "MFT1",
+          "source": "IUCN Global Ecosystem Typology v2.1, profile MFT1.2 — Keith, D.A., Ferrer-Paris, J.R., Nicholson, E. et al. (2022), Nature 610, 513-518, doi:10.1038/s41586-022-05318-4. Profile text: https://osf.io/4dcea/download sheet 'Short description', sha256 d8f19b91cac3bc974c94026a1f9805e6201afde41559e648f36c16419331e092",
+          "justification": "Profile: \"Mangroves create structurally complex and productive ecosystems in the intertidal zone of depositional coasts, around tropical and warm temperate regions.\" Distribution: \"Tropical and warm temperate coastlines with good sediment supply.\" The Sundarbans is a tropical intertidal mangrove forest on a high-sediment delta coast.",
+          "assigned_by": "human",
+          "assigned_from": "GET profile text, quoted in justification (not a lexical match)",
+          "assigned_on": "2026-09-12",
+          "embedded_in": "MFT1.1. This is not a peer of the element above it: the MFT1.1 profile states that a delta's mosaic of channels, islands and flats 'may be regarded as embedded patches of other functional groups', and this mangrove forest is one of those patches. The containing group is listed first."
         }
       ]
     },
@@ -598,5 +600,5 @@
       "iucn_get_unbound": "unbuilt"
     }
   ],
-  "_iucn_get_note": "IUCN GET binding is a HAND-AUTHORED CROSSWALK, cited per element (rulings 2026-09-12). `iucn_get` is an ARRAY: a place can genuinely be more than one Ecosystem Functional Group, and a single field silently drops the second one. EVERY element carries its own full citation and its own quoted profile justification — the array must never become a place to park a guess. The former string-overlap matcher in research/sos_pipeline/sources/iucn_get.py is DELETED, not disabled: two controlled vocabularies that share no terminology cannot be bridged by lexical similarity, and a near miss is worse than no match because a wrong efg code misdescribes a biome while looking authoritative. NULL IS NOT AN EMPTY ARRAY. `iucn_get: null` with a one-word `iucn_get_unbound` reason means NOT EXAMINED — 'unbuilt' is a registry-only placeholder with no scene, no archive and no visitor-facing surface, and binding it is post-gate work. An empty array would claim the place was examined and nothing fitted, which is a different and stronger claim. Where a place WAS examined and a second element was rejected, that is recorded in `iucn_get_partial` with the reasoning. realm and biome NAMES are null because they are absent from the source workbook; realm_code and biome_code are authoritative."
+  "_iucn_get_note": "IUCN GET binding is a HAND-AUTHORED CROSSWALK, cited per element (rulings 2026-09-12). `iucn_get` is an ARRAY: a place can genuinely be more than one Ecosystem Functional Group, and a single field silently drops the second one. EVERY element carries its own full citation and its own quoted profile justification — the array must never become a place to park a guess. ELEMENT ORDER IS MEANINGFUL AND IS NOT ALPHABETICAL OR CHRONOLOGICAL: the primary, CONTAINING group is listed FIRST and an EMBEDDED group second. A two-element array is not two equal claims. Sundarbans is [MFT1.1 Coastal river deltas, MFT1.2 Intertidal forests and shrublands] because the mangrove forest sits as a patch inside the delta mosaic, which the MFT1.1 profile says of itself. Where the relationship is recorded it is also written onto the elements, as `contains` and `embedded_in`, so it survives an element being read alone. The former string-overlap matcher in research/sos_pipeline/sources/iucn_get.py is DELETED, not disabled: two controlled vocabularies that share no terminology cannot be bridged by lexical similarity, and a near miss is worse than no match because a wrong efg code misdescribes a biome while looking authoritative. NULL IS NOT AN EMPTY ARRAY. `iucn_get: null` with a one-word `iucn_get_unbound` reason means NOT EXAMINED — 'unbuilt' is a registry-only placeholder with no scene, no archive and no visitor-facing surface, and binding it is post-gate work. An empty array would claim the place was examined and nothing fitted, which is a different and stronger claim. Where a place WAS examined and a second element was rejected, that is recorded in `iucn_get_partial` with the reasoning. realm and biome NAMES are null because they are absent from the source workbook; realm_code and biome_code are authoritative."
 }
