@@ -28,7 +28,7 @@ Two strata of the project's writing disagree about whether ecological scenes may
 
 ## 3. Why a dead clause still did harm (the rationale)
 
-Archival is not inert. The asset slots — `public/art/STYLE-GUIDE.md`, `public/art/3d/README.md`, and the renderer `src/prototypes/species-art.js` — were introduced on 2026-06-22 (commit `c222ce7`). Each ships a procedural **fallback** that renders when no plate/model is present, and each carries a provenance table that reads "*(none yet — procedural illustrations in use)*."
+Archival is not inert. The asset slots — `public/art/STYLE-GUIDE.md`, `public/art/3d/README.md`, and the renderer `src/prototypes/species-art.js` — were introduced on 2026-06-22 (commit `0cc22ba`; pre-rebuild `c222ce7`, dead in a fresh clone — see the crosswalk at the top of `PROJECT_STATUS.md`). Each ships a procedural **fallback** that renders when no plate/model is present, and each carries a provenance table that reads "*(none yet — procedural illustrations in use)*."
 
 An empty slot whose provenance says "none yet" is indistinguishable from an editorial decision to *withhold* images. The design was never installed; only the fallback ever shipped. And §9's surviving no-image clause — even inside an archival file — supplied false doctrinal cover for reading the procedural fallback *as the intended design* rather than as a placeholder awaiting its plate. The visible symptom is that the cinematic place is still drawn as the procedural horizon (the sine-wave hills and the field of black vertical lines) with no authored plate behind it, and nothing in the writing flagged that as a gap rather than a decision.
 

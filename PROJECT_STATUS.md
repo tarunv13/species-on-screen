@@ -1,5 +1,48 @@
 # Eco-Cinema Observatory — Project Status
 
+## Read first — the commit SHAs below pre-date the 2026-09 rebuild and are DEAD
+
+**Every short SHA in the prose below was written before this repository was rebuilt
+on 2026-09-11, and none of them resolve in a fresh clone.** The public repository
+was rebuilt rather than force-pushed (the original is the private
+`species-on-screen-legacy`; a new repository took the name and received a purged
+history), so every commit has a new identity.
+
+This is a trap rather than a nuisance, because the dead SHAs *appear* to resolve on
+a long-lived build machine: the pre-rebuild objects linger in the local object store
+unreferenced, so `git cat-file -e d6b7cbb` succeeds and reads as confirmation, while
+`git merge-base --is-ancestor d6b7cbb <any ref>` matches nothing. **A short SHA in
+the prose below is not evidence that the work it names exists.** Confirm by
+behaviour — grep the source, find the call site, look at the deployed bundle. A
+brief was once issued to build a section that was already built and already live,
+because its SHA looked resolvable.
+
+| dead (pre-rebuild) | live | date | commit subject |
+|---|---|---|---|
+| `110306df` | `05c8df5` | 2026-07-23 | Merge pull request #74 from tarunv13/feat/exploration-prototypes-and-data-pipelines |
+| `cfe1beae` | `589592a` | 2026-07-24 | Merge pull request #77 from tarunv13/feat/exploration-prototypes-and-data-pipelines |
+| `e87300cd` | `85a030a` | 2026-07-24 | Merge pull request #78 from tarunv13/feat/exploration-prototypes-and-data-pipelines |
+| `cdf7db70` | `00e46d2` | 2026-07-24 | Merge pull request #79 from tarunv13/feat/exploration-prototypes-and-data-pipelines |
+| `c222ce7` | `0cc22ba` | 2026-06-22 | feat: research-exploration prototypes, real-data ingestion, and shared engines |
+| `848b5e4` | `51c0475` | 2026-09-10 | feat(visual): real NASA imagery on the globe, night-side framed (V1.3 Part A) |
+| `eda6869` | `e5554c7` | 2026-09-10 | feat(visual): lamp-pool light direction replaces the flat plate veil (V1.3 Part B) |
+| `e5af453` | `6908e27` | 2026-09-10 | feat(atlas): the screen record gets a real consumer; composition tokens declared (V1.4) |
+| `3407f10` | `19f39f8` | 2026-09-10 | refactor(css): scope the composition scale to the homepage; name the incumbent measures per sheet |
+| `d6b7cbb` | `793d551` | 2026-09-11 | feat(atlas): surface the dossiers' threats and conservation status, with honest reach |
+| `bf7509b` | `34956da` | 2026-09-11 | fix(atlas): empty coverage renders nothing; refresh news; stop pre-staging unreachable files |
+| `7cf2b36` | `9b28bf0` | 2026-09-11 | docs(art): species plate sourcing — licences verified on the record, two failures documented |
+
+**Citing provenance:** use the **live** SHA. If the history matters, cite the pair —
+`0cc22ba` (pre-rebuild `c222ce7`) — which keeps the old identity readable without
+handing the next session a reference that resolves nowhere. The pre-rebuild SHAs in
+the prose below are deliberately **not** rewritten: they are the historical record,
+they still resolve in `species-on-screen-legacy` and in the archive mirrors, and
+this table is what makes them resolvable from here. Verified 2026-09-12 against a
+fresh clone: all twelve live SHAs resolve in it, and all twelve dead SHAs are absent
+from it. See `.agents/decisions/2026-09-12-pressures-reach-honesty.md`.
+
+---
+
 **V1 SHIPPED AND AT REST (2026-07-24):** production live at `cdf7db70`; tag `v1.0.0` → `110306df`. The V1 arc: **V1.0 launched** (`110306df`) — Launch product decisions D1–D3 `Implemented`, Editorial QA both tracks PASS (structural: live-site + `__descent` C1–C5; and the human live-browser felt pass for D2); **V1.1 writing pass** (`cfe1beae`) — W1 record end-line, W3 ruling, W4 sound design note; **Delegated Ratification Framework** (`e87300cd`, `docs/RATIFICATION_FRAMEWORK.md`) — the ratification mechanism for the Q1–Q5 gate, landed but dormant; **citation pipeline, Option A** (`cdf7db70`) — interaction bibliographies structured into `references.json` and rendered (APA + identifier), EPR/Coral preserved verbatim, Sundarbans/Amazon routed to the existing `curator-worksheet` backlog, no automated DOI resolution, human audits intact. See `.agents/sessions/2026-07-24-v1-consolidation.md`.
 
 **THE VISUAL LAYER IS INSTALLED (2026-09-10, on the working branch — not merged, not deployed).** The V1.2b → V1.3 → V1.4 arc, authored 2026-07-25 → 2026-08-12 and landed 2026-09-10 after four weeks uncommitted in the working tree. **V1.3 Part A** (`848b5e4`) retires the unpkg CDN globe texture for local public-domain NASA imagery — Blue Marble NG w/ Topography & Bathymetry (August 2004, record 73776) and Earth at Night 2012 "Black Marble" (record 79765), blended across the terminator by a custom shader with a water-only specular read off the bathymetry, framed mostly night-side; plus a real `prefers-reduced-motion` path through the landing sequence and the deletion of the never-read `mediaCounts`. **V1.3 Part B** (`eda6869`) transcribes "The Light of the Observation" into `src/places/lamp-pool.js`: darkness is the surround, the subject is lit with the light the record was made under, with per-place recipes (surface-water `crossing`; deep-vent `epr-vents` — neutral grade, narrow Alvin lamp, no caustics). **The 0.62 equal-mean-alpha constraint is retired** in favour of two at-rest bounds (corner α ≥ 0.94, centre α ≤ 0.10; verified corner ≥ 0.95, centre 0.05 at both lamp widths) — a constraint replaced by a better-specified one, not abandoned. **V1.4** (`e5af453`) gives the screen record its first consumer (the atlas field record's "On screen" section, research register, citation-or-skip, no cinematic count), adds the `_authority` note to the news registry (`coral-triangle` corrected; `epr-vents` named as a known gap rather than fabricated), rules third-party edit hooks **off by default** (`.agents/decisions/2026-08-12-third-party-edit-hooks.md` — notable for retracting its own first argument), gitignores the vendored skill payload while committing `skills-lock.json` as the provenance receipt, and lands `DESIGN.md` + `PRODUCT.md` (extracted, not authored; users/jobs left UNRESOLVED BY DESIGN). The composition scale was NOT wired: the attempt was made and stopped, because the scale describes a screen composition this repository does not have (backlog item 10). **The `crossing` scene plate is CLOSED as a documented sourcing failure** — both routes exhausted (NOAA Ocean Exploration / Photo Library / Coral Reef Watch; Wikimedia Commons), the one candidate vetoed 2026-07-28 as portrait-and-subject-not-place, locality honesty not loosened to fill the slot; the vetoed placeholder is deliberately **not committed**, so the surface-water lamp recipe is dormant in production. **Do not reopen it.** Cinematic purity, C1–C5, the Article III dip, both grammar gates and the eight-session gate are untouched. See `.agents/sessions/2026-09-10-v13-v14-arc.md`. **No felt pass has been run** — the gates cannot see light.
