@@ -3,9 +3,9 @@
   ----------------------------
   A self-contained Three.js widget: a slowly drifting blue-marble
   planet that serves as the entry surface for the Atlas. Unlike the
-  cinematic homepage globe (src/globe.js), this one is NOT reduced to
-  a single anchor — the Atlas is a research-surface experience and is
-  allowed to present every documented habitat as an entry point.
+  cinematic homepage entrance (src/entrance-map.js), this one is NOT
+  reduced to a single anchor — the Atlas is a research-surface experience
+  and is allowed to present every documented habitat as an entry point.
 
   Responsibilities are deliberately narrow:
     - render the planet + atmosphere + soft points at each habitat
@@ -15,8 +15,13 @@
       can place real, clickable glass DOM chips over the points.
 
   Patterns (camera/renderer/lights/texture/fallback/latLngToVector3)
-  mirror src/globe.js and src/cinematic-engine.js, which are the
-  proven, shipping implementations in this repo.
+  were taken from src/cinematic-engine.js — still shipping — and from the
+  homepage globe at src/globe.js, which was DELETED on 2026-09-12 when the
+  entrance became a map. The patterns are sound and are now proven here
+  rather than there; the dead path is named rather than erased so a reader
+  knows where they came from and that following it leads nowhere. See
+  .agents/decisions/2026-09-12-entrance-amended-globe-to-map.md and
+  PROJECT_OPERATING_MANUAL.md §7.
 */
 
 import * as THREE from 'three';
@@ -112,7 +117,9 @@ export class AtlasGlobe {
       () => { /* keep the solid-colour fallback */ }
     );
 
-    // Soft dawn-rim atmosphere (same shader idea as src/globe.js).
+    // Soft dawn-rim atmosphere. The shader idea came from the homepage
+    // globe (src/globe.js, deleted 2026-09-12); this is now its only
+    // surviving implementation.
     const atmosGeometry = new THREE.SphereGeometry(GLOBE_RADIUS * 1.06, 64, 64);
     const atmosMaterial = new THREE.ShaderMaterial({
       vertexShader:
@@ -155,9 +162,10 @@ export class AtlasGlobe {
   }
 
   /**
-   * Project every registered point to screen space. Mirrors
-   * src/globe.js#getScreenPositions: a point is `visible` when it is
-   * on the camera-facing hemisphere.
+   * Project every registered point to screen space. The contract was
+   * inherited from src/globe.js#getScreenPositions (deleted 2026-09-12);
+   * this is now the canonical statement of it: a point is `visible` when
+   * it is on the camera-facing hemisphere.
    * @returns {Array<{id:string, x:number, y:number, visible:boolean}>}
    */
   getScreenPositions() {

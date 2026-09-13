@@ -269,11 +269,16 @@ public-domain aerials, ready to use when the scene is built:
 | Juruá meanders (Landsat, top-down) | NASA Earth Observatory · Landsat 8 OLI · image 145819 · acquired 2019-05-27 · Lauren Dauphin / NASA EO | Public Domain (NASA/USGS) | 8383×3913 |
 | Muddy Water floodplain (ISS, oblique) | NASA Earth Observatory · ISS Crew Earth Observations · ISS064-E-14990 · 2020-12-23 · JSC ESRS / NASA | Public Domain (NASA) | 4928×2768 |
 
-## Homepage globe textures (V1.3 Part A)
+## Homepage globe textures (V1.3 Part A) — RETIRED, see below
 
-The planetary view (`src/globe.js`) is a three.js sphere textured with local
-public-domain NASA imagery; a custom shader blends day/night across the
-terminator. All public domain; **708 KB combined** (≤4 MB budget).
+> Written in the present tense in July and left that way. **It is history now,
+> not description.** The retirement notice follows this section; the tense is
+> corrected here so the two do not contradict each other inside one file.
+
+The planetary view **was** a three.js sphere (`src/globe.js`, deleted
+2026-09-12) textured with local public-domain NASA imagery, with a custom
+shader blending day/night across the terminator. All public domain; **708 KB
+combined** (≤4 MB budget).
 
 | File | Dataset · Collection · Resolution · Date | Author | License |
 |---|---|---|---|

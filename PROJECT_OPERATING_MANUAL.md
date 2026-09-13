@@ -139,3 +139,67 @@ that rejected a four-document parallel governance layer built without it.
    `.agents/decisions/`. A reusable procedure is absorbed as a section of this manual. No
    standing tracker, roadmap, or ownership file is created outside §1's map without its own
    decision record amending §1 first.
+
+---
+
+## 7. The dangling-reference defect class
+
+**A reference that reads as authoritative and resolves to nothing.**
+
+This is recorded as one named class rather than three lessons, because in a
+single week it hit this repository from three different directions and each
+time was mistaken for an isolated slip:
+
+| instance | the reference | how it failed | how it was fixed |
+|---|---|---|---|
+| **A SHA in a status file** | `848b5e4`, `d6b7cbb` and ten others in `PROJECT_STATUS.md` | the 2026-09-11 history rebuild rewrote every commit; the cited SHAs no longer exist on any branch | the pre-rebuild → live crosswalk table at the top of `PROJECT_STATUS.md` |
+| **A path in a steering doc** | `src/globe.js` in `.kiro/steering/atlas-living-glass.md`, and four comments in `src/atlas/atlas-globe.js` | the file was deleted when the entrance became a map; the prose kept naming it | repointed to `src/entrance-map.js` |
+| **An enum value nobody migrated** | `arrival.kind: "globe-hotspot"` | would have stayed valid in the schema and the checker after the globe it named was gone | renamed to `entrance-hotspot` across schema, TS type, manifest row and `check-manifest.js` — renamed, never merely deprecated |
+
+### The shared tell — this is the whole value of naming it
+
+**It resolves locally, or it reads plausibly, so it passes review.**
+
+That is the entire mechanism. None of these three announced itself:
+
+- The dead SHA *resolved* on the machine that wrote it. Pre-rebuild objects
+  linger unreferenced in a long-lived clone's object store, so
+  `git cat-file -e d6b7cbb` succeeds and reads as confirmation — while
+  `git merge-base --is-ancestor d6b7cbb <any ref>` matches nothing. A brief was
+  once issued to build a section that was already built and already live,
+  because its SHA looked resolvable. **That is the worked instance; treat it as
+  the canonical example of this class.**
+- The dead path *read plausibly*. It was a comment, nothing imported it,
+  nothing broke — which is precisely why it survived. A later session reading
+  that file would conclude it was authoritative about a file that no longer
+  exists.
+- The dead enum *would have validated*. A retired-but-valid value rots
+  silently: the next session finds it admissible in the schema and binds to it.
+
+A reference that fails loudly is not this class. A reference that fails loudly
+gets fixed the same afternoon. This class is defined by passing.
+
+### The check
+
+**Verify against a fresh clone, never local `cat-file`.** Lingering
+unreferenced objects give false positives, and a false positive here is worse
+than no check at all, because it converts a doubt into a confirmation.
+
+More generally: **confirm by behaviour, not by resolution.** Grep the source.
+Find the call site. Look at the deployed bundle. A short SHA in prose is not
+evidence that the work it names exists; a path in a comment is not evidence
+that the file does; an enum value in a schema is not evidence that anything
+implements it.
+
+### When this applies
+
+Any time a record is written that names something by identifier rather than by
+behaviour — a commit, a file path, a schema value, a DOI, an accession number,
+an EFG code. The archive's citation discipline (citation-or-skip, and the
+standing refusal to guess an identifier) is the same rule applied to evidence;
+this section is that rule applied to the repository's own prose.
+
+The remedy is always the same shape, and it is never deletion: **keep the dead
+reference beside the live one** where the history matters, and make the
+mapping explicit. A pointer that is known-stale and labelled is useful. A
+pointer that is stale and silent is the defect.
